@@ -1,0 +1,8 @@
+[28-Jan-2020 06:25:41 UTC] PHP Notice:  Undefined variable: visit2 in /home/r8wqkoc8ay18/public_html/il-team/professionista.php on line 108
+[28-Jan-2020 06:25:41 UTC] PHP Warning:  array_unique() expects parameter 1 to be array, null given in /home/r8wqkoc8ay18/public_html/il-team/professionista.php on line 108
+[28-Jan-2020 06:25:41 UTC] PHP Notice:  Undefined variable: visit2 in /home/r8wqkoc8ay18/public_html/il-team/professionista.php on line 119
+[28-Jan-2020 06:25:41 UTC] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/r8wqkoc8ay18/public_html/il-team/professionista.php on line 119
+[28-Jan-2020 06:27:48 UTC] PHP Notice:  Undefined variable: visit2 in /home/r8wqkoc8ay18/public_html/il-team/professionista.php on line 108
+[28-Jan-2020 06:27:48 UTC] PHP Warning:  array_unique() expects parameter 1 to be array, null given in /home/r8wqkoc8ay18/public_html/il-team/professionista.php on line 108
+[28-Jan-2020 06:27:48 UTC] PHP Notice:  Undefined variable: visit2 in /home/r8wqkoc8ay18/public_html/il-team/professionista.php on line 119
+[28-Jan-2020 06:27:48 UTC] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/r8wqkoc8ay18/public_html/il-team/professionista.php on line 119
