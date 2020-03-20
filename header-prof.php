@@ -14,6 +14,9 @@
 	}
 	else { 
 	$photo = "https://d3e54v103j8qbb.cloudfront.net/plugins/Image/assets/placeholder.60f9b1840c.svg";
+	$fname = "";
+	$lname = "";
+	$title = "";
 	}
 ?>
 

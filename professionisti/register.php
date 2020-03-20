@@ -133,7 +133,7 @@ if(isset($_GET['admin'])){
                     move_uploaded_file($_FILES["cv"]["tmp_name"], $cv);
                     }
                     
-                    $result = mysqli_query($conn, $sql);
+                    $result = mysqli_query($conn, $sql); // or die(mysqli_error($conn));
                     mysqli_close($conn);
                     if($result==1)
                     {
