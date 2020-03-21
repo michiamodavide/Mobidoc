@@ -43,7 +43,7 @@
     <div class="custom_container">
       <div class="content_grid">
         <h2 class="heading-2">Copertura Servizi Mobidoc</h2>
-        <p class="paragraph-14">I professionisti di mobidoc sono entrati a fare parte del team grazie alla Loro esperienza e competenza e perchè sin da subito hanno creduto che la Loro professionalità potesse essere messa a disposizione di chi soffre non solo nel proprio ambulatorio o in ospedale ma anche a casa del paziente realizzando in questo modo una vera rete assistenziale coordinata dove il paziente è sempre al centro dell’attenzione.</p>
+        <p class="paragraph-14">I professionisti di Mobidoc sono entrati a fare parte del team grazie alla Loro esperienza e competenza e perchè sin da subito hanno creduto che la Loro professionalità potesse essere messa a disposizione di chi soffre non solo nel proprio ambulatorio o in ospedale ma anche a casa del paziente realizzando in questo modo una vera rete assistenziale coordinata dove il paziente è sempre al centro dell’attenzione.</p>
       </div>
       <div class="w-embed">
         <style>
@@ -61,11 +61,11 @@
     $doctor_result = mysqli_query($conn, $doctor);
     $doctor_count = mysqli_num_rows($doctor_result);
 
-    $visit = "select * from doctor_visit";
+    $visit = "select DISTINCT visit_name from doctor_visit";
     $visit_result = mysqli_query($conn, $visit);
     $visit_count = mysqli_num_rows($visit_result);
 
-    $comune = "select * from doctor_cap";
+    $comune = "select DISTINCT cap from doctor_cap";
     $comune_result = mysqli_query($conn, $comune);
     $comune_count = mysqli_num_rows($comune_result);
     ?>
@@ -94,6 +94,7 @@
     }
 </style>
     </div>
+
     <div data-w-id="e2f55d1b-28d2-fdb6-c786-61284e9e5134" class="div-block-14">
       <div class="professionist_header comm_seriti">
         <h2 class="heading-2">Lista Comuni Serviti</h2>
@@ -113,7 +114,7 @@
     <?php 
     include 'connect.php'; 
 
-    $sql = "select * from doctor_cap GROUP BY comune";
+    $sql = "select DISTINCT comune, cap, province from doctor_cap";
     $result = mysqli_query($conn, $sql);
     
     while($row = mysqli_fetch_array($result)){

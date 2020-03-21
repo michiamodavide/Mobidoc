@@ -41,7 +41,7 @@
 		date_default_timezone_set("Europe/Rome");
 		$dor = date("Y/m/d");
 	
-		$sql = "insert into doctor_profile (fname, lname, password, dob, photo, fiscale, vat_number, title, description, education, experience, email, phone, street_name, street_no, comune, province, cap, dor) values('".$fname."', '".$lname."', '".$password."', '".$dob."', '".$photo."', '".$fiscal."', '".$vat."', '".$title."', '".$description."', '".$education."', '".$experience."', '".$email."', '".$tel."', '".$street_name."', '".$street_no."', '".$comune."', '".$province."', '".$cap."', '".$dor."')";
+		$sql = "insert into doctor_profile (fname, lname, password, dob, photo, fiscale, vat_number, title, description, education, experience, email, phone, street_name, street_no, comune, province, cap, dor) values('".$fname."', '".$lname."', '".$password."', '".$dob."', '".$photo."', '".strtoupper($fiscal)."', '".$vat."', '".$title."', '".$description."', '".$education."', '".$experience."', '".$email."', '".$tel."', '".$street_name."', '".$street_no."', '".$comune."', '".$province."', '".$cap."', '".$dor."')";
 		
 		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
 	
