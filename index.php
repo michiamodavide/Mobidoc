@@ -296,11 +296,11 @@
                  $doctor_result = mysqli_query($conn, $doctor);
                  $doctor_count = mysqli_num_rows($doctor_result);
                
-                 $visit = "select * from doctor_visit";
+                 $visit = "select DISTINCT visit_name from doctor_visit";
                  $visit_result = mysqli_query($conn, $visit);
                  $visit_count = mysqli_num_rows($visit_result);
                
-                 $comune = "select * from doctor_cap";
+                 $comune = "select DISTINCT cap from doctor_cap";
                  $comune_result = mysqli_query($conn, $comune);
                  $comune_count = mysqli_num_rows($comune_result);
                ?>

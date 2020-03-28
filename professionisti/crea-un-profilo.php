@@ -115,6 +115,7 @@ else{
 					            <option value="Infermiere">Infermiere</option>
 					            <option value="Tecnico di Radiologia">Tecnico di Radiologia</option>
 					            <option value="Fisioterapista">Fisioterapista</option>
+						    <option value="Medico Psichiatra">Medico Psichiatra</option>
                     </select>
                     <script>
                     $('#select-titilo').selectize();
