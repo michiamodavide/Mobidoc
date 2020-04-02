@@ -1,3 +1,7 @@
 professionisti/cv/
 professionisti/photo
 paziente/photo
+*.idea
+.idea/*
+.DS_Store
+*.DS_Store
