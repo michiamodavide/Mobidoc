@@ -47,7 +47,7 @@
 
         <div class="errors">
             <?PHP
-                  if(isset($_POST['submit']))
+                  if(isset($_POST['submit']) && $_POST['Email-register'] == $_POST['confirm-email-register'] && $_POST['pwrd'] == $_POST['cnfirm_pwrd'])
                   {
                     $_SESSION['paziente_email']=$_POST['Email-register'];
                     include '../connect.php';
@@ -91,7 +91,9 @@
             <div class="error password_dont_match">
               <div>Le password non combaciano!</div>
             </div>
-
+         <div class="error email_dont_match">
+          <div>Le email non combaciano!</div>
+         </div>
           </div>
 
 
@@ -102,6 +104,7 @@
               <input type="text" class="text-field-3 name w-input" maxlength="256" name="Last_Name" data-name="Last_Name" placeholder="Cognome" id="Last_Name-2">
             </div>
             <input type="email" class="text-field-3 w-input" maxlength="256" name="Email-register" data-name="Email-register" placeholder="Email" id="Email-register-5" required="">
+            <input type="email" class="text-field-3 w-input" maxlength="256" name="confirm-email-register" data-name="Confirm-Email-register" placeholder="Conferma Email" id="confirm-email-register" required="">
             <div class="dual_container">
               <input type="password" class="text-field-3 name w-input" maxlength="256" name="pwrd" data-name="pwrd" placeholder="Password" id="pwrd" required="">
               <input type="password" class="text-field-3 name w-input" maxlength="256" name="cnfirm_pwrd" data-name="Email Register 3" placeholder="Conferma Password" required="" id="email-register-3">
@@ -130,7 +133,7 @@
             </label>-->
             <div class="text-block-32">In questo modulo puoi inserire e modificare i tuoi dati. Seleziona con cura il tuo comune di residenza ed il CAP, specie se il tuo comune ne prevede più di uno, perché è in base ad esso che cambierà la lista delle visite/esami disponibili</div>
             
-            <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button" style="margin-bottom:30px;">
+            <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn" style="margin-bottom:30px;">
           </form>
 
                  
@@ -148,7 +151,7 @@
   <div id="fb-root"></div>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
   <style>
-    .password_dont_match{
+    .password_dont_match, .email_dont_match{
       display:none;
     }
     .error_show{
@@ -156,19 +159,33 @@
     }
   </style>
   <script>
-    $('#submit_profile').click(function(){
+    $('.submit_profile_btn').click(function(){
       $('input[name=pwrd], input[name=cnfirm_pwrd]').keyup(function(){
         $('.password_dont_match').removeClass("error_show");
       });
+
       var password = $('input[name=pwrd]').val();
       var confirm_password = $('input[name=cnfirm_pwrd]').val();
       if(password==confirm_password){
-        return true;
-      } else {      
+
+      } else {
         $('.password_dont_match').addClass("error_show");
-        window.scrollTo(0, 0); 
-          return false;
-      }   
+        window.scrollTo(0, 0);
+
+      }
+
+      $('input[name=Email-register], input[name=confirm-email-register]').keyup(function(){
+        $('.email_dont_match').removeClass("error_show");
+      });
+      var eamil = $('input[name=Email-register]').val();
+      var confirm_eamil = $('input[name=confirm-email-register]').val();
+      if(eamil==confirm_eamil){
+
+      } else {
+        $('.email_dont_match').addClass("error_show");
+        window.scrollTo(0, 0);
+
+      }
     }); 
   </script>
 </body>

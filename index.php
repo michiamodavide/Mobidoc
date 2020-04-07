@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<?php session_start(); 
+<?php session_start();
+
+ $time_value = time() + (86400 * 30 * 365);
    if(!isset($_COOKIE['privacy_popop'])){
      $cookie_value = "0";
-     setcookie("privacy_popop", $cookie_value, time() + (86400 * 30 * 365), "/"); 
+     setcookie("privacy_popop", $cookie_value, intval($time_value), "/");
    }
    
    ?>

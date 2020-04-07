@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start(); 
 $visit_id = 9;
 
@@ -7,14 +7,13 @@ include '../connect.php';
 	if($conn === false){
 		die("ERROR database");
   }
-  
-$sql = "select * from visit where visit_id='".$visit_id."'";
+
+  $sql = "select * from visit where visit_id='".$visit_id."'";
 $result = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($result);
 $visit_name = $rows['visit_name'];
 $icon = "/".$rows['alt_image'];
 $body_copy = $rows['body_text'];
-
 ?>
 
 
@@ -150,14 +149,14 @@ $body_copy = $rows['body_text'];
       
 			while($rows2 = mysqli_fetch_array($result2)){
         $visit_type_name = trim($rows2['visit_name']," ");
-        $visit_name_2 = '"'.$visit_name.'", "'.$visit_type_name.'"'; 
+        $visit_name_2 = '"'.$visit_name.'", "'.$visit_type_name.'"';
         $sql3 = "select MIN(price) from doctor_visit where visit_name ='".$visit_type_name."'";
         $result3 = mysqli_query($conn, $sql3);
         $rows3 = mysqli_fetch_array($result3);
         $price = $rows3[0];
-        
+
       ?>
-        
+
         <div class="visite_type" onClick='getDoctor_details(<?php echo $visit_name_2;?>);'>
           <div class="text-block-21"><?php echo $visit_type_name;?></div>
           <div class="price">
@@ -182,14 +181,15 @@ $body_copy = $rows['body_text'];
         <div class="scroll right"><img src="../images/scroll_arrow.svg" width="13" alt="" class="scroll_image"></div>
         <div class="doctors_main_container">
           <div class="visit_doctor_container">
-            
-          <?php 
+
+          <?php
            include '../connect.php';
            $sql2 = "select DISTINCT doctor_visit.visit_name from visit_type INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name where visit_type.visit_name='".$visit_name."'";
            $result2 = mysqli_query($conn, $sql2);
+
            $unique_email = [];
 
-           while($rows2 = mysqli_fetch_array($result2)){            
+           while($rows2 = mysqli_fetch_array($result2)){
            $visit_type_name = trim($rows2['visit_name']," ");
 
            $sql4 = "select distinct doctor_email from doctor_visit where visit_name='".$visit_type_name."'";
@@ -197,21 +197,22 @@ $body_copy = $rows['body_text'];
            $rows4 = mysqli_fetch_array($result4);
            $rows7 = array_unique($rows4);
            $continuousemail = implode($rows7);
-           array_push($unique_email, $continuousemail);           
+           array_push($unique_email, $continuousemail);
            }
            $uniqu = array_unique($unique_email);
-           foreach ($uniqu as $value){ 
+
+           foreach ($uniqu as $value){
             $sql5 = "select * from doctor_profile where email='".$value."'";
-            $result5 = mysqli_query($conn, $sql5);    
+            $result5 = mysqli_query($conn, $sql5);
             $rows5 = mysqli_fetch_array($result5);
             $rows6 = array_unique($rows5);
             $doctor_image = "/professionisti/".$rows5['photo'];
             $doctor_name = $rows5['fname']." ".$rows5['lname'];
             $doctor_title = $rows5['title'];
             $doctor_id = $rows5['doctor_id'];
-           
+
            ?>
-           
+
             <div class="visite_doctor_card">
               <div class="doctor_data_container">
                 <div class="professionist_image_container">

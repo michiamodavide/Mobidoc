@@ -39,6 +39,12 @@ if(isset($_GET['admin'])){
     -webkit-transform: translateZ(0) scale(1.0, 1.0);
     transform: translateZ(0);
 }
+.email_dont_match{
+ display:none;
+}
+.error_show{
+ display:block;
+}
 </style>
 </head>
 <body>
@@ -59,15 +65,16 @@ if(isset($_GET['admin'])){
           <div data-w-id="0519d48f-fd8c-3004-c5b2-f235eaac07c1" class="forms_container proff w-clearfix">
             <div class="login_form w-clearfix w-form">
 
-              <form name="email-form" class="form-4" action="<?php if($admin == 1){echo 'register.php?admin';}else{echo 'register.php';}?>" method="post" enctype="multipart/form-data">
+              <form name="email-form" id="regist_form" class="form-4" action="<?php if($admin == 1){echo 'register.php?admin';}else{echo 'register.php';}?>" method="post" enctype="multipart/form-data">
                 
                 <div class="dual_container proff">
                   <input type="text" class="text-field-3 proff w-input" name="Name" data-name="First Name" placeholder="Nome di battesimo" id="Name" required=""  autocomplete="off" >
                   <input type="text" class="text-field-3 proff w-input" name="Cognome" data-name="Cognome" placeholder="Cognome" id="Cognome" required="" autocomplete="off">
                 </div>   
 
-                <input type="email" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="pwrd" data-name="pwrd" placeholder="Email" id="pwrd" required="">
-                
+                <input type="email" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="email" data-name="email" placeholder="Email" id="email" required="">
+                <input type="email" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="confirm-email" data-name="confirm-email" placeholder="Conferma Email" id="confirm-email" required="">
+
                 <?php if($admin == 0) {?>
                 <div class="upload_cv">
                   <div class="div-block-56"><img src="../images/upload.svg" width="24" alt=""><img src="../images/warning.svg" width="24" alt="" class="image-18"><img src="../images/file.svg" width="21" alt="" class="image-17">
@@ -104,13 +111,16 @@ if(isset($_GET['admin'])){
                   <div class="text-block-30">Si prega di allegare il CV</div>
                 </div>
 
+               <div class="error_message email_dont_match">
+                <div>Le email non combaciano!</div>
+               </div>
                 <?PHP
-                  if(isset($_POST['submit']))
+                  if(isset($_POST['submit']) && $_POST['email'] == $_POST['confirm-email'])
                   {
                     include '../connect.php';
                     $fname = mysqli_real_escape_string($conn, $_POST['Name']);
                     $lname = mysqli_real_escape_string($conn, $_POST['Cognome']);
-                    $email = mysqli_real_escape_string($conn, $_POST['pwrd']);
+                    $email = mysqli_real_escape_string($conn, $_POST['email']);
                     
                     if($admin == 1){
                       $cv = "cv/default_cv.pdf";                      
@@ -132,7 +142,7 @@ if(isset($_GET['admin'])){
                     if($admin == 0){
                     move_uploaded_file($_FILES["cv"]["tmp_name"], $cv);
                     }
-                    
+
                     $result = mysqli_query($conn, $sql); // or die(mysqli_error($conn));
                     mysqli_close($conn);
                     if($result==1)
@@ -145,20 +155,21 @@ if(isset($_GET['admin'])){
                       $to = 'info@mobidoc.it';
                       $subject = 'Nuova Candidatura';
                       $from = 'mobidoc_update@mobidoc.it';
-                                      
+                      $rply_email = 'noreplay@mobidoc.it';
+
                       // To send HTML mail, the Content-type header must be set
                       $headers  = 'MIME-Version: 1.0' . "\r\n";
                       $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                                      
+
                       // Create email headers
-                      $headers .= 'From: '.$from."\r\n". 'Reply-To: '.$from."\r\n" .   'X-Mailer: PHP/' . phpversion();
-                                      
+                      $headers .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
+
                       // Compose a simple HTML email message
                       $message = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Nuova Candidatura ricevuta!</h4><div class="text-block">Un nuovo Professionista ha inoltrato la sua candidatura. Effettua il login dal Pannello Amministratore per vedere ulteriori dettagli e scaricare il suo CV</div> <br> <br><a href="https://www.mobidoc.it/admin" class="button" style="margin-top:100px;">Pannello Amministratore</a></div></body></html>';
-              
-              
+
+
                       mail($to, $subject, $message, $headers);
-                      
+
                       echo "<script>window.location = 'application-sucessful.php'</script>";
                       }
                     }
@@ -170,7 +181,7 @@ if(isset($_GET['admin'])){
                     
                     <?php }} ?>
                 
-                <input type="submit" name="submit" value="Invia" id="submit_application" class="button gradient login_button proff w-button" >    
+                <input type="submit" name="submit" value="Invia" id="submit_application" class="button gradient login_button proff w-button" >
                 
               </form>
               
@@ -207,35 +218,49 @@ if(isset($_GET['admin'])){
     }
   </style>
   <?php if($admin == 0) {?>
-  <script>
-	$(document).ready(function(){
-		$('.upload_cv').click(function(){
-			$('.file_upload_input').trigger("click");
-			$('.file_upload_input').change(function() {				
-				var filename = $('.file_upload_input').val();
-				var pos = filename.lastIndexOf("\\");
-				filename = filename.substr(pos+1);
-				if(filename != ''){
-				$('.text-block-53').html(filename);
-        $('.file_not_available').removeClass("error_show");
-				} else {
-					$('.text-block-53').html("Allega CV (PDF o documento Word)");
-				}
-				
-			});
-		});
-    
-    $('#submit_application').click(function(){
-      var a = $('input[name=Name]').val();
-      if($('.file_upload_input').get(0).files.length === 0){
-        $('.file_not_available').addClass("error_show");
-      } else {
-        return true;
-      }
-    });
-    
-	});
-  </script>
+   <script>
+     $(document).ready(function(){
+       $('.upload_cv').click(function(){
+         $('.file_upload_input').trigger("click");
+         $('.file_upload_input').change(function() {
+           var filename = $('.file_upload_input').val();
+           var pos = filename.lastIndexOf("\\");
+           filename = filename.substr(pos+1);
+           if(filename != ''){
+             $('.text-block-53').html(filename);
+             $('.file_not_available').removeClass("error_show");
+           } else {
+             $('.text-block-53').html("Allega CV (PDF o documento Word)");
+           }
+
+         });
+       });
+
+       $('#submit_application').click(function(){
+         var a = $('input[name=Name]').val();
+
+
+         $('input[name=email], input[name=confirm-email]').keyup(function(){
+           $('.email_dont_match').removeClass("error_show");
+         });
+         var eamil = $('input[name=email]').val();
+         var confirm_eamil = $('input[name=confirm-email]').val();
+         if(eamil==confirm_eamil){
+           return true;
+         } else {
+           $('.email_dont_match').addClass("error_show");
+         }
+
+         if($('.file_upload_input').get(0).files.length === 0){
+           $('.file_not_available').addClass("error_show");
+         } else {
+           return true;
+         }
+
+       });
+
+     });
+   </script>
 <?php } ?>
 </body>
 </html>

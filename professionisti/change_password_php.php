@@ -3,7 +3,7 @@
   include '../connect.php';
 
   $pwrds = mysqli_real_escape_string($conn, $_POST['pwrd']);
-  $pwrd = password_hash($pwrds, PASSWORD_DEFAULT)
+  $pwrd = password_hash($pwrds, PASSWORD_DEFAULT);
   $email = mysqli_real_escape_string($conn, $_POST['email']);
   $reset_code = mysqli_real_escape_string($conn, $_POST['reset_code']);
  
