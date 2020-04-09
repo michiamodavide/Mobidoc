@@ -143,7 +143,7 @@ function readURL(input) {
             <div class="div-block-34">
               <div class="div-block-35">
                 <div class="profile_image_container proff">
-                <div id="dp" style="width:100%; height:100%; background: url('<?PHP echo $photo;?>'); background-position:center; background-size:cover;"></div>
+                <div id="dp" style="width:100%; height:100%; background: url('<?PHP echo $photo;?>'); background-position:center; background-size:cover;cursor: pointer"></div>
                 </div>
                 <div class="text-block-33" style="cursor:pointer;">Upload image</div> 
 				<br>
@@ -182,6 +182,7 @@ function readURL(input) {
                         include '../connect.php';
                         $sql = "select * from visit order by visit_id desc";
                         $result = mysqli_query($conn, $sql);
+
                         while($rows = mysqli_fetch_array($result)){
                         $visit_name = $rows['visit_name'];
                       ?>

@@ -96,8 +96,6 @@
 		mysqli_close($conn);
 	}
 
-
-
 	//header("location: application-sucessful.php");
 	$to = 'info@mobidoc.it';
 	$subject = 'Nuovo Professionista';

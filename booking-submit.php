@@ -18,7 +18,6 @@
 		$date_of_booking = date("d/m/Y H:i:s");
 		
 		if($payment_mode == 'Online'){
-			echo 'Online';
 			session_start();
 			$_SESSION['patient_id'] = $patient_id;
 			$_SESSION['doctor_id'] = $doctor_id;

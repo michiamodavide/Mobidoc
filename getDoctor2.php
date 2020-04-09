@@ -12,7 +12,6 @@ if($conn === false){
 $sql = "select * from doctor_visit where visit_name ='".$q."'";
 $result = mysqli_query($conn, $sql);
 
-
 while($rows = mysqli_fetch_array($result)){
     $doctor_email = $rows['doctor_email'];
     $sql2 = "select * from doctor_profile where email ='".$doctor_email."'";
@@ -23,6 +22,7 @@ while($rows = mysqli_fetch_array($result)){
     $titile = ucwords($rows2['title']);
     $link = "/il-team/professionista.php?".$rows2['doctor_id'];
     $id = $rows2['doctor_id'];
+
 ?>
     
     <div class="professionist_card-2 selecting">

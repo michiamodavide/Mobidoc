@@ -154,7 +154,6 @@ $body_copy = $rows['body_text'];
         $result3 = mysqli_query($conn, $sql3);
         $rows3 = mysqli_fetch_array($result3);
         $price = $rows3[0];
-
       ?>
 
         <div class="visite_type" onClick='getDoctor_details(<?php echo $visit_name_2;?>);'>

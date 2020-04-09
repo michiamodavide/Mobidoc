@@ -206,12 +206,16 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
                     <div style="width:450px; text-align:center; margin-top:5px;"> Per i pagamenti online non è necessario avere un conto paypal, basta la carta di credito.</div>
                     
                     <div class="pay_method_item_container">
+                     <?php
+                     /*
                       <div class="pay_method_item cash">
                         <img src="images/cash.svg" alt="" class="pay_icon">
                         <div class="pay_name">Contanti</div>
                       </div>
-                      <div class="pay_method_item online"><img src="images/online.svg" alt="" class="pay_icon">
-                        <div class="pay_name">Online</div>
+                     */
+                     ?>
+                      <div class="pay_method_item online"><img src="images/paypal_icon.svg?v=2" alt="" class="pay_icon">
+                        <div class="pay_name">PayPal o Carta di Credito</div>
                       </div>
                     </div>
                     <div class="div-block-25">
