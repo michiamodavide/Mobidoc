@@ -191,10 +191,14 @@ $body_copy = $rows['body_text'];
 
            $sql4 = "select distinct doctor_email from doctor_visit where visit_name='".$visit_type_name."'";
            $result4 = mysqli_query($conn, $sql4);
-           $rows4 = mysqli_fetch_array($result4);
-           $rows7 = array_unique($rows4);
-           $continuousemail = implode($rows7);
-           array_push($unique_email, $continuousemail);           
+//           $rows4 = mysqli_fetch_array($result4);
+//           $rows7 = array_unique($rows4);
+//           $continuousemail = implode($rows7);
+//           array_push($unique_email, $continuousemail);
+             while($doc_visit_data = mysqli_fetch_array($result4)){
+               $doctor_email = $doc_visit_data['doctor_email'];
+               array_push($unique_email, $doctor_email);
+             }
            }
            $uniqu = array_unique($unique_email);
            foreach ($uniqu as $value){ 

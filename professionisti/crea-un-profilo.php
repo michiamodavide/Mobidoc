@@ -135,7 +135,7 @@ else{
             <div class="div-block-34">
               <div class="div-block-35">
               <div class="profile_image_container proff">
-              <div id="dp" style="width:100%; height:100%; background: url('../images/Group-563.jpg'); background-position:center; background-size:cover;"></div> 
+              <div id="dp" style="width:100%; height:100%; background: url('../images/Group-563.jpg'); background-position:center; background-size:cover;cursor: pointer"></div>
 
 				        </div>
                 <div class="text-block-33" style="cursor:pointer;">Immagine del profilo</div>

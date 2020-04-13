@@ -13953,3 +13953,10 @@
   display: -ms-flexbox;
   display: flex;
 }
+
+.home-tel{
+  text-decoration: inherit;
+}
+.home-tel .image-2 {
+  margin-right: 8px;
+}

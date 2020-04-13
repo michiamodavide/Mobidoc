@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php session_start();
-
- $time_value = time() + (86400 * 30 * 365);
+    $time_value = time() + (86400 * 30 * 365);
    if(!isset($_COOKIE['privacy_popop'])){
      $cookie_value = "0";
      setcookie("privacy_popop", $cookie_value, intval($time_value), "/");
@@ -16,7 +15,7 @@
       <meta content="Webflow" name="generator">
       <link href="css/normalize.css" rel="stylesheet" type="text/css">
       <link href="css/webflow.css" rel="stylesheet" type="text/css">
-      <link href="css/mobidoc.webflow.css" rel="stylesheet" type="text/css">
+      <link href="css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
       <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
       <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
       <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -203,7 +202,7 @@
                     if($visits_count <= 9) {
                   ?>
                <div class="service_card">
-                  <img src="<?php echo $image;?>" width="36" alt="" class="image">
+                  <img src="<?php echo $image;?>?v=1" width="36" alt="" class="image">
                   <div>
                      <div class="text-block"><strong><?php echo $visit_name;?> a Domicilio</strong></div>
                      <style>
@@ -240,7 +239,7 @@
                <div class="text-block-2">Scopri tutte le visite</div>
             </a>
             <a href="tel:3357798844" class="w-inline-block">
-            <a href="tel:3357798844" class="button gradient large diff w-inline-block">
+            <a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel">
                <img src="images/phone.svg" width="11" alt="" class="image-2">
                <div class="text-block-2">Chiamaci</div>
             </a>

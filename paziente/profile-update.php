@@ -153,8 +153,8 @@
                 <div class="div-block-34">
                   <div class="div-block-35">
                     <div class="profile_image_container">
-                    <div id="dp_2" style="width:100%; height:100%; background: url('../images/Group-556.jpg'); background-position:center; background-size:cover;"></div>                    </div>
-                    <div class="text-block-33">Immagine del profilo</div>
+                    <div id="dp_2" style="width:100%; height:100%; background: url('../images/Group-556.jpg'); background-position:center; background-size:cover; cursor: pointer"></div>                    </div>
+                    <div class="text-block-33">Carica un’immagine profilo</div>
                     <br>
                     <input type="file" class="upload_image" style="display:none;" name="upload-image" accept="image/*" onchange="readURL(this);">                                       
                     <script>
