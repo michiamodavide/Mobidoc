@@ -16,8 +16,6 @@
 	
 	if($result==1 && $status)
 	{
-		
-	
 
 		$to = $email;
         $subject = 'Esito Candidatura Mobidoc';
