@@ -341,5 +341,6 @@
   font-size: 20px;
 }
 </style>
+  <?php include ("google_analytic.php")?>
 </body>
 </html>

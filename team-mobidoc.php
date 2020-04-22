@@ -259,5 +259,6 @@
       });      
     });
   </script>
+  <?php include ("google_analytic.php")?>
 </body>
 </html>

@@ -333,5 +333,6 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
    });
 });
 </script>
+<?php include ("google_analytic.php")?>
 </body>
 </html>
