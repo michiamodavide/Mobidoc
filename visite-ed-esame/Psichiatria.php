@@ -404,6 +404,6 @@ $(document).ready(function(){
     $('#book_doctor').val(id);
   }
 </script>
-
+  <?php include ("../google_analytic.php")?>
 </body>
 </html>

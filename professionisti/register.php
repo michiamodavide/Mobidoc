@@ -261,5 +261,6 @@ if(isset($_GET['admin'])){
      });
    </script>
 <?php } ?>
+  <?php include ("../google_analytic.php")?>
 </body>
 </html>

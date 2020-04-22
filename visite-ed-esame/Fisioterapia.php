@@ -406,6 +406,6 @@ $body_copy = $rows['body_text'];
     $('#book_doctor').val(id);
   }
 </script>
-
+<?php include ("../google_analytic.php")?>
 </body>
 </html>

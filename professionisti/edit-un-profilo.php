@@ -502,7 +502,7 @@ function readURL(input) {
       width:100% !important;
     }
   </style>
-   
+  <?php include ("../google_analytic.php")?>
 </body>
 </html>
 
