@@ -22,7 +22,7 @@
   <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="../images/webclip.png" rel="apple-touch-icon">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
   <style>
 ::-webkit-scrollbar {
