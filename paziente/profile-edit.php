@@ -45,7 +45,7 @@
   <link href="../images/webclip.png" rel="apple-touch-icon">
   <link href="dist/css/datepicker.css" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   <link href="../dist/css/selectize.default.css" rel="stylesheet"/>
   <script src="../dist/js/standalone/selectize.min.js"></script>
   <script src="dist/js/datepicker.js"></script>

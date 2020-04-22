@@ -1,11 +1,10 @@
-<?php session_start(); 
+<?php session_start();
 $search =  $_GET['search'];
 if($search == ""){
   header('Location: /');
 } else {
   $search = trim($search);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +25,7 @@ if($search == ""){
   <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/webclip.png" rel="apple-touch-icon">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
   <style>
 ::-webkit-scrollbar {
@@ -102,17 +101,18 @@ if($search == ""){
 		include 'connect.php';
 		$sql = "select * from doctor_visit group by visit_name";
 		$result = mysqli_query($conn, $sql);
-		while($rows = mysqli_fetch_array($result)){
-      $visit_name = $rows['visit_name'];
-      $sql2 = "select * from visit_type where visit_type_name = '".$visit_name."'";
-		  $result2 = mysqli_query($conn, $sql2);
-      $rows2 = mysqli_fetch_array($result2);
-      $visit_parent_name = $rows2['visit_name'];      
-      $sql3 = "select * from visit where visit_name = '".$visit_parent_name."'";
-		  $result3 = mysqli_query($conn, $sql3);
-      $rows3 = mysqli_fetch_array($result3);
-      $image = $rows3['image'];
-      $link = "/".$rows3['link'];
+		while($rows = mysqli_fetch_array($result)) {
+    $visit_name = $rows['visit_name'];
+    $sql2 = "select * from visit_type where visit_type_name = '" . $visit_name . "'";
+    $result2 = mysqli_query($conn, $sql2);
+    $rows2 = mysqli_fetch_array($result2);
+    $visit_parent_name = $rows2['visit_name'];
+    $sql3 = "select * from visit where visit_name = '" . $visit_parent_name . "'";
+    $result3 = mysqli_query($conn, $sql3);
+    $rows3 = mysqli_fetch_array($result3);
+    $image = $rows3['image'];
+    $link = "/" . $rows3['link'];
+
   ?>
   
         <div class="search_item">
@@ -180,17 +180,17 @@ if($search == ""){
         $('.selected_tick').removeClass("selected_true");
         $(this).parent().siblings(".professionist_image_container").find('.selected_tick').addClass("selected_true");
    });
-   
+
    var search_value = ($('.dynamic_text').html()).toLowerCase();
    var search_count = 0;
 
    $('.search_item').each(function(){
      var this_text = ($(this).children('.search_item_name').html()).toLowerCase();
      var this_parent_text = ($(this).children('.parent_type').children('a').children('.parent_type_text').html()).toLowerCase();
-     
-     if(this_text.search(search_value) == -1 && this_parent_text.search(search_value) == -1){      
+
+     if(this_text.search(search_value) == -1 && this_parent_text.search(search_value) == -1){
         $(this).css("display","none");
-     } else {        
+     } else {
       $(this).css("display","flex");
       search_count += 1;
      }
@@ -201,8 +201,8 @@ if($search == ""){
      $('.search_not_found').css('display','flex');
    }
 
-   var stringSimilarity = require('string-similarity'); 
-   var similarity = stringSimilarity.compareTwoStrings('healed', 'sealed'); 
+   var stringSimilarity = require('string-similarity');
+   var similarity = stringSimilarity.compareTwoStrings('healed', 'sealed');
    alert(similarity);
 
 });
