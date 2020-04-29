@@ -45,6 +45,8 @@
     $('#book_doctor').val(val);
   }
 </script>
+
+  <?php include ("cam_visit.php")?>
 </head>
 <body>
   <?php include 'header.php';?>
@@ -189,6 +191,9 @@
 				$visit_name_2 = '"'.$visit_name.'", "'.$visit_type_name.'"'; 
 				echo "<div class='sub_service' onClick='get_visit_Doctors(".$visit_name_2.");' >";
 				echo "<div class='sub_service_text'>";
+     if (in_array($visit_type_name, $cam_array)){
+      echo "<img src=\"assets/visit_icon/$cam_favicon\" style=\"width: 25px;margin-right: 10px;\" alt=\"\">";
+     }
 				echo $visit_type_name;
 				echo"</div>";
 				echo "<div class='price'>";
