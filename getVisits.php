@@ -16,15 +16,8 @@ while($rows = mysqli_fetch_array($result)){
 
     <div class="visite" id="<?php echo $visit_name;?>" data-name="<?php echo $visit_name;?>" onClick="getDoctors(this.getAttribute('data-name')); $('.visite').removeClass('visite_selected_true');$(this).toggleClass('visite_selected_true');">
        <div class="text-block-19">
-
-         <?php
-         $explod_visit = explode(" ",$visit_name);
-         if ($explod_visit[0] == "Teleconsulto" && $explod_visit[1] == "fisioterapico" || $explod_visit[0] == "Teleconsulto" && $explod_visit[1] == "psicologico"){
-
-           ?>
-        <img src="assets/visit_icon/<?php echo $cam_favicon?>" style="width: 25px;margin-right: 10px" alt="">
           <?php
-         }
+          checkVisitTypes($visit_name);
           echo $visit_name;
 
         ?>

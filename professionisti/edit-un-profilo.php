@@ -53,6 +53,7 @@ function readURL(input) {
 						}
 					}
 </script>
+ <?php include ("../cam_visit.php")?>
 </head>
 
 <body>
@@ -203,7 +204,10 @@ function readURL(input) {
                             $visit_type_name = $rows2['visit_type_name'];
                           ?>                  
                           <div class="visit_subitem">
-                              <div class="text-block-43"><?PHP echo $visit_type_name;?>
+                              <div class="text-block-43">
+                                <?php
+                                checkVisitTypes($visit_type_name);
+                                echo $visit_type_name;?>
                               </div>
                               <img src="../images/Path-175.svg" alt="" class="image-12">
                           </div>
