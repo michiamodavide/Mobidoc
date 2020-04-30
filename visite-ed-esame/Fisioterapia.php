@@ -163,7 +163,7 @@ $body_copy = $rows['body_text'];
            <?php
            if (in_array($visit_type_name, $cam_array)){
              ?>
-            <img src="../assets/visit_icon/<?php echo $cam_favicon?>" style="width: 25px;margin-right: 10px;" alt="">
+            <img src="/assets/visit_icon/<?php echo $cam_favicon?>" style="width: 25px;margin-right: 10px;" alt="">
            <?php } echo $visit_type_name;?>
          </div>
           <div class="price">

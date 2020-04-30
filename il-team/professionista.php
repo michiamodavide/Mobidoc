@@ -35,6 +35,7 @@ header("location: validate.php");
   	text-align-last: center !important;
   }
 </style>
+ <?php include ("../cam_visit.php")?>
 </head>
 <body>
   <?php include '../header.php';
@@ -90,7 +91,11 @@ header("location: validate.php");
 			$visit[$i++]=$visit_name;
 		  ?>	
 		  <div class="doctura_visite">
-            <div class="text-block-45"><?php echo $visit_name;?></div>
+            <div class="text-block-45">
+              <?php
+              checkVisitTypes($visit_name);
+              echo $visit_name;?>
+            </div>
           </div>
 		  <?php
 			}

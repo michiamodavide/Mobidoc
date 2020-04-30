@@ -4,6 +4,7 @@
 $q = $_REQUEST["q"];
 
 include '../connect.php';
+include '../cam_visit.php';
         
 if($conn === false){
     die("ERROR database");
@@ -50,7 +51,12 @@ while($rows2 = mysqli_fetch_array($result2)){
     $visite_nome = $rows2['visit_name'];
 ?>
               <div class="qprofile_visite">
-                <div class="text-block-23"><?php echo $visite_nome?></div>
+                <div class="text-block-23">
+
+                  <?php
+                  checkVisitTypes($visite_nome);
+                  echo $visite_nome?>
+                </div>
               </div>
 <?php } ?> 
 

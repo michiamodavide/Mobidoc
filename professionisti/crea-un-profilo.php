@@ -67,6 +67,7 @@ else{
   	text-align-last: center !important;
   }
 </style>
+  <?php include ("../cam_visit.php")?>
 </head>
 
 <body>
@@ -196,7 +197,12 @@ else{
 							$visit_type_name = $rows2['visit_type_name'];
 							?>
 							<div class="visit_subitem">
-                            <div class="text-block-43"><?PHP echo $visit_type_name;?></div><img src="../images/Path-175.svg" alt="" class="image-12"></div>
+                            <div class="text-block-43">
+                              <?php
+                              checkVisitTypes($visit_type_name);
+                              echo $visit_type_name;?>
+                            </div>
+        <img src="../images/Path-175.svg" alt="" class="image-12"></div>
 						<?php } ?>
                         </div>
                       </div>
