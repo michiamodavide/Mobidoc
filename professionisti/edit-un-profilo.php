@@ -203,7 +203,7 @@ function readURL(input) {
                           while($rows2 = mysqli_fetch_array($result2)){
                             $visit_type_name = $rows2['visit_type_name'];
                           ?>                  
-                          <div class="visit_subitem">
+                          <div class="visit_subitem" data-item="<?php echo $visit_type_name?>">
                               <div class="text-block-43">
                                 <?php
                                 checkVisitTypes($visit_type_name);
@@ -237,7 +237,9 @@ function readURL(input) {
 					<div class="visit_subitem selected">
                       <div style=' width:65%;'>
                         <input type='checkbox' style='display:none;' checked class='text-block-44' value='<?php echo $visit_name; ?>' name='<?php echo $service_name; ?>'>
-                       <?php echo $visit_name; ?>
+                       <?php
+                       checkVisitTypes($visit_name);
+                       echo $visit_name; ?>
                       </div>
                       <div class="price_n_remove">
                         <div class="price_input">
@@ -398,8 +400,11 @@ function readURL(input) {
   <script src="../js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
   <div id="fb-root"></div>
+  <script type="application/javascript">
+    var visit_type_array = <?php echo json_encode($cam_array); ?>;
+  </script>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
-  <script src="../js/crea_un_profilo.js" type="text/javascript"></script>
+  <script src="../js/crea_un_profilo.js?v=4" type="text/javascript"></script>
   <script src="../js/validations.js" type="text/javascript"></script>
 
   <style>

@@ -78,8 +78,17 @@
               
               $('.error_message.visit').removeClass("error_show");
               selected_visit_counter += 1;
-              var se_name = $(this).children('.text-block-43').text();    
-              var service_add = "<div class='visit_subitem selected'><div style=' width:65%;'><input type='checkbox' style='display:none;' checked class='text-block-44' value='" + se_name + "' name='service_name"+selected_visit_counter+"'>"+se_name+"</div><div class='price_n_remove'><div class='price_input'><div>€</div><input type='number' class='input_num w-input' maxlength='256' name='service_price"+selected_visit_counter+"'  min='1' data-name='Field' id='field' required=''></div><img src='../images/minus_1.svg' class='image-14' onClick='service_remove(this)'></div></div>";
+              var se_name = $(this).children('.text-block-43').text();
+
+             var current_visit_type = $(this).attr("data-item");
+
+             var image_code = "";
+            if( $.inArray(current_visit_type, visit_type_array) !== -1 ) {
+              var image_code = "<img src=\"/assets/visit_icon/webcam_icon.svg?v=3\" style=\"width: 25px;margin-right: 10px;\" alt=\"\">";
+            }
+
+            // console.log(visit_type_array[0]);
+        var service_add = "<div class='visit_subitem selected'><div style=' width:65%;'><input type='checkbox' style='display:none;' checked class='text-block-44' value='" + se_name + "' name='service_name"+selected_visit_counter+"'>"+image_code+se_name+"</div><div class='price_n_remove'><div class='price_input'><div>€</div><input type='number' class='input_num w-input' maxlength='256' name='service_price"+selected_visit_counter+"'  min='1' data-name='Field' id='field' required=''></div><img src='../images/minus_1.svg' class='image-14' onClick='service_remove(this)'></div></div>";
               $(".selecteds").append(service_add);
               $(this).hide();
   

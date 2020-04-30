@@ -196,7 +196,7 @@ else{
 						while($rows2 = mysqli_fetch_array($result2)){
 							$visit_type_name = $rows2['visit_type_name'];
 							?>
-							<div class="visit_subitem">
+							<div class="visit_subitem" data-item="<?php echo $visit_type_name?>">
                             <div class="text-block-43">
                               <?php
                               checkVisitTypes($visit_type_name);
@@ -333,10 +333,12 @@ else{
   <script src="../js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
   <div id="fb-root"></div>
+  <script type="application/javascript">
+   var visit_type_array = <?php echo json_encode($cam_array); ?>;
+  </script>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
-  <script src="../js/crea_un_profilo.js?v=2" type="text/javascript"></script>
+  <script src="../js/crea_un_profilo.js?v=28" type="text/javascript"></script>
   <script src="../js/validations.js" type="text/javascript"></script>
-
   <style>
     .search_help_open{
       display: block !important;
