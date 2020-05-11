@@ -2,7 +2,7 @@
 	if(isset($_POST['submit']))
 	{
 
-		include '../connect.php';
+	  include '../connect.php';
 		$email = $_SESSION['doctor_email'];
 		$fname = $_POST['nome'];
 		$lname = $_POST['cognome'];

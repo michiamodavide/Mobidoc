@@ -82,6 +82,7 @@ $body_copy = $rows['body_text'];
                         
         }
 </script>
+  <?php include '../cam_visit.php';?>
 </head>
 <body>
   <?php include '../header.php';?>
@@ -159,7 +160,14 @@ $body_copy = $rows['body_text'];
       ?>
         
         <div class="visite_type" onClick='getDoctor_details(<?php echo $visit_name_2;?>);'>
-          <div class="text-block-21"><?php echo $visit_type_name;?></div>
+
+         <div class="text-block-21">
+           <?php
+           if (in_array($visit_type_name, $cam_array)){
+             ?>
+            <img src="/assets/visit_icon/<?php echo $cam_favicon?>" style="width: 25px;margin-right: 10px;" alt="">
+           <?php } echo $visit_type_name;?>
+         </div>
           <div class="price">
             <div class="text-block-55">A Partire da</div>
             <div class="price_text">€<?php echo $price?></div>
@@ -208,6 +216,7 @@ $body_copy = $rows['body_text'];
             $sql5 = "select * from doctor_profile where email='".$value."'";
             $result5 = mysqli_query($conn, $sql5);    
             $rows5 = mysqli_fetch_array($result5);
+          if (!empty($rows5['fname']) && !empty($rows5['title'])){
             $rows6 = array_unique($rows5);
             $doctor_image = "/professionisti/".$rows5['photo'];
             $doctor_name = $rows5['fname']." ".$rows5['lname'];
@@ -226,7 +235,7 @@ $body_copy = $rows['body_text'];
                 <a href="#" class="button gradient view_profile_popup w-button"  data-name="<?php echo $doctor_id;?>" onClick="get_visit_Doctors(this.getAttribute('data-name'));">Vedi dettagli</a></div>
             </div>
 
-            <?php }?>
+            <?php }}?>
 
           </div>
         </div>

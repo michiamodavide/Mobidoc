@@ -173,7 +173,24 @@ $(document).ready(function(){
       return false;
     }   
     
-  }); 
+  });
+
+  //profile picture missing error
+  $('#submit_profile').click(function(){
+    var image_path = $('.upload_image').val();
+    if(image_path){
+      var img_size = $('.upload_image')[0].files[0].size;
+      if (img_size > 2000000) {
+        $('.profile_image_error').addClass("error_show");
+        return false;
+      }else {
+        return true;
+      }
+    } else {
+      $('.profile_image_error').addClass("error_show");
+      return false;
+    }
+  });
 
   //  Textareas Minimum length test
 

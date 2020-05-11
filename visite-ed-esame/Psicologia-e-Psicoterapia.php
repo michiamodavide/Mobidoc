@@ -215,6 +215,7 @@ $body_copy = $rows['body_text'];
             $sql5 = "select * from doctor_profile where email='".$value."'";
             $result5 = mysqli_query($conn, $sql5);    
             $rows5 = mysqli_fetch_array($result5);
+          if (!empty($rows5['fname']) && !empty($rows5['title'])){
             $rows6 = array_unique($rows5);
             $doctor_image = "/professionisti/".$rows5['photo'];
             $doctor_name = $rows5['fname']." ".$rows5['lname'];
@@ -233,7 +234,7 @@ $body_copy = $rows['body_text'];
                 <a href="#" class="button gradient view_profile_popup w-button"  data-name="<?php echo $doctor_id;?>" onClick="get_visit_Doctors(this.getAttribute('data-name'));">Vedi dettagli</a></div>
             </div>
 
-            <?php }?>
+            <?php }}?>
 
           </div>
         </div>
