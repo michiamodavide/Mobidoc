@@ -101,8 +101,8 @@ function readURL(input) {
               <div class="form_section">
                 <div class="form_section_heading">Dati Personali</div>
                 <div class="dual_container">
-                  <input type="text" class="inputs proff w-input" maxlength="100" name="nome" data-name="nome" value="<?PHP echo $fname;?>" id="nome" required="" >
-                  <input type="text" class="inputs proff w-input" maxlength="100" name="cognome" data-name="cognome" value="<?PHP echo $lname;?>" id="cognome" required="" >
+                  <input type="text" class="inputs proff w-input" maxlength="100" name="nome" data-name="nome" value="<?PHP echo $fname;?>" id="nome" pattern="[A-Z][a-z]*" title="Il nome deve essere in lettere e la prima lettera deve essere maiuscola" required="" >
+                  <input type="text" class="inputs proff w-input" maxlength="100" name="cognome" data-name="cognome" value="<?PHP echo $lname;?>" id="cognome" pattern="[A-Z][a-z]*" title="Il nome deve essere in lettere e la prima lettera deve essere maiuscola" required="" >
                   <input type="text" class="datepicker-here inputs proff w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256"  value="<?PHP echo $dob;?>" name="dob" placeholder="Data di Nascita" id="dob" required="">
                   <input type="text" class="inputs proff w-input"  name="fiscal_code" data-name="fiscal_code" value="<?PHP echo $fiscale;?>" id="fiscal_code" required="">
                   <input type="text" class="inputs proff w-input" name="vat_number" data-name="vat_number" value="<?PHP echo $vat_number;?>" id="vat_number" required="">
@@ -113,8 +113,8 @@ function readURL(input) {
                 
                 <div class="dual_container">
                   <div class="input_element">
-                    <select id="select-titilo" placeholder="<?PHP echo $title;?>" required="" >
-                      <option value=""><?PHP echo $title;?></option>                       
+                    <select id="select-titilo" placeholder="<?php echo $title;?>" required="" >
+                      <option value="<?php echo $title;?>"><?php echo $title;?></option>
 					            <option value="Medico Radiologo">Medico Radiologo</option>
 					            <option value="Medico Otorinolaringoiatra">Medico Otorinolaringoiatra</option>
 					            <option value="Medico Geriatra">Medico Geriatra</option>
@@ -146,28 +146,29 @@ function readURL(input) {
                 <div class="profile_image_container proff">
                 <div id="dp" style="width:100%; height:100%; background: url('<?PHP echo $photo;?>'); background-position:center; background-size:cover;cursor: pointer"></div>
                 </div>
-                <div class="text-block-33" style="cursor:pointer;">Upload image</div> 
+                <div class="text-block-33" style="cursor:pointer;">Immagine del profilo</div>
 				<br>
-				<input type="file" class="upload_image" name="upload-image" style="display:none;" accept="image/*" onchange="readURL(this);">
-                <script>
-                  $(document).ready(function(){
-                    $('.text-block-33, .profile_image_container').click(function(){
-                      $('.upload_image').trigger("click");
-                      $('.upload_image').change(function() {				
-                        var filename = $('.upload_image').val();
-                        var pos = filename.lastIndexOf("\\");
-                        filename = filename.substr(pos+1);
-                        if(filename != ''){
-                        $('.text-block-33').html(filename);
-                        } else {
-                          $('.text-block-33').html("Upload image");
-                        }
-                        
-                      });
-                    });
-                  });
-                  
-                </script>
+				<input type="file" class="upload_image" name="upload-image" style="display:none;" accept="image/*"  onchange="readURL(this);">
+               <script>
+                 $(document).ready(function(){
+                   $('.text-block-33, .profile_image_container').click(function(){
+                     $('.upload_image').trigger("click");
+                     $('.upload_image').change(function() {
+                       var filename = $('.upload_image').val();
+                       var pos = filename.lastIndexOf("\\");
+                       filename = filename.substr(pos+1);
+                       if(filename != ''){
+                         $('.text-block-33').html(filename);
+                         $('.profile_image_error').removeClass("error_show");
+
+                       } else {
+                         $('.text-block-33').html("Immagine del profilo");
+                       }
+
+                     });
+                   });
+                 });
+               </script>
               </div>
             </div>
 
@@ -204,8 +205,7 @@ function readURL(input) {
                             $visit_type_name = $rows2['visit_type_name'];
                           ?>                  
                           <div class="visit_subitem" data-item="<?php echo $visit_type_name?>">
-                              <div class="text-block-43">
-                                <?php
+                              <div class="text-block-43"><?php
                                 checkVisitTypes($visit_type_name);
                                 echo $visit_type_name;?>
                               </div>
@@ -386,6 +386,9 @@ function readURL(input) {
                 <div class="error_message fiscale" onClick="window.location='#fiscal_code';">
                   <div class="text-block-30">Il codice fiscale non è valido.</div>
                 </div>
+               <div class="error_message profile_image_error" onClick="window.location='#profile_image';">
+                <div class="text-block-30">Devi caricare la foto e l'immagine del tuo profilo non più di 2 MB</div>
+               </div>
               </div>
 
 			   <input type="submit" name="submit" value="Conferma  Dati" data-wait="Please wait..." class="button gradient submit proff w-button" id="submit_profile"></div>
@@ -404,8 +407,8 @@ function readURL(input) {
     var visit_type_array = <?php echo json_encode($cam_array); ?>;
   </script>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
-  <script src="../js/crea_un_profilo.js?v=4" type="text/javascript"></script>
-  <script src="../js/validations.js" type="text/javascript"></script>
+  <script src="../js/crea_un_profilo.js?v=9" type="text/javascript"></script>
+  <script src="../js/validations.js?v=4" type="text/javascript"></script>
 
   <style>
     .search_help_open{

@@ -1,6 +1,7 @@
 <?php session_start();	
 	if(isset($_POST['submit']))
-	{	
+	{
+
 		$_SESSION['doctor_email']=$_POST['email'];
 		include '../connect.php';
 		$email = $_SESSION['doctor_email'];

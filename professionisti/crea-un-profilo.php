@@ -84,7 +84,6 @@ else{
       <!-- <p class="paragraph-9">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
       </p> -->
-
       <div class="update_form_main_container">
         <div class="update_form_block w-form">
           <form id="email-form" name="email-form" data-name="Email Form" class="update_form" action="create.php" method="post" enctype="multipart/form-data">
@@ -135,9 +134,9 @@ else{
             </div>
             <div class="div-block-34">
               <div class="div-block-35">
-              <div class="profile_image_container proff">
-              <div id="dp" style="width:100%; height:100%; background: url('../images/Group-563.jpg'); background-position:center; background-size:cover;cursor: pointer"></div>
-
+              <div class="profile_image_container proff" id="profile_image">
+              <div id="dp" style="width:100%; height:100%; background-position:center; background-size:cover;cursor: pointer"></div>
+<!--               background: url('../images/Group-563.jpg')-->
 				        </div>
                 <div class="text-block-33" style="cursor:pointer;">Immagine del profilo</div>
                 <br>
@@ -146,15 +145,18 @@ else{
                   $(document).ready(function(){
                     $('.text-block-33, .profile_image_container').click(function(){
                       $('.upload_image').trigger("click");
-                      $('.upload_image').change(function() {				
+                      $('.upload_image').change(function() {
                         var filename = $('.upload_image').val();
                         var pos = filename.lastIndexOf("\\");
                         filename = filename.substr(pos+1);
-                        if(filename != ''){
-                        $('.text-block-33').html(filename);
-                        } else {
-                          $('.text-block-33').html("Upload image");
-                        }
+                          if(filename != ''){
+                            $('.text-block-33').html(filename);
+                            $('.profile_image_error').removeClass("error_show");
+
+                          } else {
+                            $('.text-block-33').html("Immagine del profilo");
+                          }
+
                       });
                     });
                   });
@@ -320,6 +322,9 @@ else{
                 <div class="error_message fiscale" onClick="window.location='#fiscal_code';">
                   <div class="text-block-30">Il codice fiscale non è valido.</div>
                 </div>
+               <div class="error_message profile_image_error" onClick="window.location='#profile_image';">
+                <div class="text-block-30">Devi caricare la foto e l'immagine del tuo profilo non più di 2 MB</div>
+               </div>
               </div>
               <input type="submit" id="submit_profile" name="submit" value="Conferma  Dati"  class="button gradient submit proff w-button">
             </div>
@@ -337,8 +342,8 @@ else{
    var visit_type_array = <?php echo json_encode($cam_array); ?>;
   </script>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
-  <script src="../js/crea_un_profilo.js?v=28" type="text/javascript"></script>
-  <script src="../js/validations.js" type="text/javascript"></script>
+  <script src="../js/crea_un_profilo.js?v=29" type="text/javascript"></script>
+  <script src="../js/validations.js?v=18" type="text/javascript"></script>
   <style>
     .search_help_open{
       display: block !important;
