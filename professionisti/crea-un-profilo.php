@@ -343,7 +343,7 @@ else{
   </script>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
   <script src="../js/crea_un_profilo.js?v=29" type="text/javascript"></script>
-  <script src="../js/validations.js?v=18" type="text/javascript"></script>
+  <script src="../js/validations.js?v=20" type="text/javascript"></script>
   <style>
     .search_help_open{
       display: block !important;

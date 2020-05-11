@@ -177,19 +177,24 @@ $(document).ready(function(){
 
   //profile picture missing error
   $('#submit_profile').click(function(){
-    var image_path = $('.upload_image').val();
-    if(image_path){
-      var img_size = $('.upload_image')[0].files[0].size;
-      if (img_size > 2000000) {
-        $('.profile_image_error').addClass("error_show");
-        return false;
-      }else {
-        return true;
-      }
-    } else {
-      $('.profile_image_error').addClass("error_show");
-      return false;
-    }
+   if ($('.edit_profile').length && $(".edit_profile .upload_image").attr("data-id")== '1'){
+     return true;
+   } else {
+     var image_path = $('.upload_image').val();
+     console.log(image_path);
+     if(image_path){
+       var img_size = $('.upload_image')[0].files[0].size;
+       if (img_size > 2000000) {
+         $('.profile_image_error').addClass("error_show");
+         return false;
+       }else {
+         return true;
+       }
+     } else {
+       $('.profile_image_error').addClass("error_show");
+       return false;
+     }
+   }
   });
 
   //  Textareas Minimum length test
