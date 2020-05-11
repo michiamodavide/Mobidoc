@@ -56,7 +56,7 @@ function readURL(input) {
  <?php include ("../cam_visit.php")?>
 </head>
 
-<body>
+<body class="edit_profile">
   <?php include '../header-prof.php';?>
   <div class="master_head detaild">
     <div class="custom_container detailed">
@@ -86,8 +86,8 @@ function readURL(input) {
 		$description = $rows['description'];
 		$education = $rows['education'];
 		$experience = $rows['experience'];
-    $photo = "/professionisti/".$rows['photo'];
-    $photo2 = $rows['photo'];
+		$photo = "/professionisti/".$rows['photo'];
+		$photo2 = $rows['photo'];
 		$phone = $rows['phone'];
 		$street_name = $rows['street_name'];
 		$street_no = $rows['street_no'];
@@ -148,12 +148,13 @@ function readURL(input) {
                 </div>
                 <div class="text-block-33" style="cursor:pointer;">Immagine del profilo</div>
 				<br>
-				<input type="file" class="upload_image" name="upload-image" style="display:none;" accept="image/*"  onchange="readURL(this);">
+				<input type="file" class="upload_image" data-id="1" name="upload-image" style="display:none;" accept="image/*"  onchange="readURL(this);">
                <script>
                  $(document).ready(function(){
                    $('.text-block-33, .profile_image_container').click(function(){
                      $('.upload_image').trigger("click");
                      $('.upload_image').change(function() {
+                       $(".edit_profile .upload_image").attr("data-id", "0");
                        var filename = $('.upload_image').val();
                        var pos = filename.lastIndexOf("\\");
                        filename = filename.substr(pos+1);
@@ -408,7 +409,7 @@ function readURL(input) {
   </script>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
   <script src="../js/crea_un_profilo.js?v=9" type="text/javascript"></script>
-  <script src="../js/validations.js?v=4" type="text/javascript"></script>
+  <script src="../js/validations.js?v=9" type="text/javascript"></script>
 
   <style>
     .search_help_open{
