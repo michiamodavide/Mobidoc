@@ -9940,7 +9940,7 @@ Webflow.require('ix2').init(
               "delay": 0,
               "easing": "",
               "duration": 0,
-              "value": "flex",
+              "value": "grid",
               "target": {"id": "5daa262de3e3f012851af311|9da09dce-74fd-48c2-3856-6fbbf1fa1101"}
             }
           }]
@@ -10236,7 +10236,7 @@ Webflow.require('ix2').init(
               "delay": 0,
               "easing": "",
               "duration": 0,
-              "value": "flex",
+              "value": "grid",
               "target": {"id": "5daa262de3e3f012851af311|9da09dce-74fd-48c2-3856-6fbbf1fa1101"}
             }
           }, {
