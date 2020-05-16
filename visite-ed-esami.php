@@ -243,7 +243,7 @@
 	<?php }} mysqli_close($conn);?>
 	<!--end-->
   </div>
-  <div data-w-id="9da09dce-74fd-48c2-3856-6fbbf1fa1101" style="display:none;opacity:0" class="select_visite">
+  <div data-w-id="9da09dce-74fd-48c2-3856-6fbbf1fa1101" style="display:none;opacity:0;overflow: auto" class="select_visite">
     <div data-w-id="cd023d65-eafd-6990-97f3-f7f1d70c1f35" class="closer"></div>
     <div data-w-id="74b504a4-434f-f3ca-0eff-3cc62dc83f42" style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="visite_select_container">
       <div class="close_btn" data-w-id="59f2a1ad-911e-85f4-e6eb-5c357ae648d4"><img src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5d9d869b12f8e2378f12b8e3_Path%20175.svg" alt="" class="image-27"/></div>
@@ -294,7 +294,7 @@
   <?php include 'footer.php';?>
 
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="js/webflow.js" type="text/javascript"></script>
+  <script src="js/webflow.js?v=3" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
   <div id="fb-root"></div>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
