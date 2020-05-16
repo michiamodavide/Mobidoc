@@ -201,10 +201,15 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
                 <div data-w-id="0b7e3b0c-13c6-61bf-4622-8858fe41e086" style="opacity:0;display:none;" class="select_payment_method">
                   <div data-w-id="815cc03f-3eba-e168-af08-dba23d269218" class="closer"><input type="email" class="w-input" maxlength="256" name="date_of_booking" data-name="date_of_booking" placeholder="Date of Booking" id="date_of_booking"></div>
                   <div data-w-id="f2fb9200-3f41-4cc9-a9ce-2395f5b0dabd" style="opacity:0;-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="slectpay_container">
-                    <div class="text-block-18">Seleziona il metodo di pagamento</div><br>
-                    <div style="width:450px; text-align:center;">Nessun pagamento anticipato, paghi solo a visita completata.</div>
-                    <div style="width:450px; text-align:center; margin-top:5px;"> Per i pagamenti online non è necessario avere un conto paypal, basta la carta di credito.</div>
-                    
+                    <div class="text-block-18 paypay_heading">
+                     <span class="heading1">AUTORIZZA IL PAGAMENTO</span> <br>
+                     <span class="heading2">
+                      Questa è solo una autorizzazione preventiva.<br>
+                     Pagherai solo a prestazione avvenuta.
+                     </span>
+                    </div><br>
+                    <div style="width:450px; text-align:center;">Continuando confermi la tua prenotazione e verrai contattato dal tuo professionista per programmare la tua visita o il tuo esame.</div>
+
                     <div class="pay_method_item_container">
                      <?php
                      /*
@@ -218,7 +223,8 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
                         <div class="pay_name">PayPal o Carta di Credito</div>
                       </div>
                     </div>
-                    <div class="div-block-25">
+                   <div style="width:450px; text-align:center;font-size: 12px"> Per le autorizzazioni di pagamento online non è necessario avere un conto paypal, basta la carta di credito.</div>
+                    <div class="div-block-25" style="margin-top: 20px">
                       <a data-w-id="214aa1f9-4e15-04df-fa79-87a2a27d2bca" href="#" class="button-3 next odd diff w-button">Annulla</a>
                       <input type="submit" value="Continua" name="submit" class="button-3 next diff difff w-button" id="booking_submit">
                     </div>
