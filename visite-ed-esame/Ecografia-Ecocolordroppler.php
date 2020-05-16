@@ -274,7 +274,7 @@ $body_copy = $rows['body_text'];
     </div>
   </div>
 
-  <div data-w-id="66c0daf9-02db-a5aa-e005-bf5a69c766b4" style="opacity:0;display:none" class="vselect_visite">
+  <div data-w-id="66c0daf9-02db-a5aa-e005-bf5a69c766b4" style="opacity:0;display:none;overflow: auto" class="vselect_visite">
     <div data-w-id="bd51dcae-105d-cd54-8ec7-3cbfe34cfd52" style="opacity:0;-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="vvisite_container">
       <div class="close_btn" data-w-id="19fb11a3-3d75-27c7-7e95-8027996dc7f3"><img src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5d9d869b12f8e2378f12b8e3_Path%20175.svg" alt="" class="image-27"/></div>
       <div class="text-block-18">SELEZIONA IL TIPO DI VISITA</div>
@@ -320,7 +320,7 @@ $body_copy = $rows['body_text'];
   <?php include '../cta_cards.php';?>
   <?php include '../footer.php';?>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="../js/webflow.js" type="text/javascript"></script>
+  <script src="../js/webflow.js?v=3" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
   <div id="fb-root"></div>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>

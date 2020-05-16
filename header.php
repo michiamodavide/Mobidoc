@@ -82,6 +82,16 @@
 		.blur_backdrop{
     	backdrop-filter: blur(4px);
     }
+  .paypay_heading span{
+   line-height: 27px;
+  }
+       .paypay_heading .heading2{
+        font-size: 17px;
+       }
+  .pay_method_item_container{
+   margin-bottom: 6px;
+   margin-top: 18px;
+  }
 </style>
     </div>
   </header>

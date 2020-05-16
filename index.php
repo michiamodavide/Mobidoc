@@ -15,7 +15,7 @@
       <meta content="Webflow" name="generator">
       <link href="css/normalize.css" rel="stylesheet" type="text/css">
       <link href="css/webflow.css" rel="stylesheet" type="text/css">
-      <link href="css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
+      <link href="css/mobidoc.webflow.css?v=7" rel="stylesheet" type="text/css">
       <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
       <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
       <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -246,33 +246,36 @@
             </a>
          </div>
       </section>
-      <section class="section-2">
+	   
+      <section class="section-2" style="padding-top: 90px;padding-bottom: 100px">
          <div class="custom_container">
-            <div class="content_grid">
-               <h2 class="heading-2">Perché Scegliere Mobidoc?</h2>
+            <div class="content_grid-2">
+               <h2 class="heading-2">COME FUNZIONA MOBIDOC?</h2>
                <p class="paragraph">Mobidoc è un punto di riferimento per chiunque abbia bisogno di assistenza sanitaria e voglia un servizio attento e dedicato, compatibile con i propri impegni, senza doversi sottoporre ad interminabili attese ed inutili spostamenti.</p>
             </div>
             <div class="feature_container">
                <div class="feature diff">
-                  <img src="images/Feature_1.svg" width="98" alt="" class="feature_image">
-                  <div class="feature_label">Serietà e Professionalità</div>
+                  <img src="images/icon-1.png?v=1" alt="" class="feature_image">
+                  <div class="feature_label">1. Scegli la visita o l' esame</div>
                </div>
                <div class="feature diff">
-                  <img src="images/Feature_2.svg" width="98" alt="" class="feature_image odd">
-                  <div class="feature_label">Personale Medico Selezionato</div>
+                  <img src="images/icon-2.png?v=1" alt="" class="feature_image odd">
+                  <div class="feature_label">2. Scegli il Professionista<span class="hide"><br></span>
+e accordati su data e orario</div>
                </div>
                <div class="feature diff">
-                  <img src="images/Feature_3.svg" width="83" alt="" class="feature_image">
-                  <div class="feature_label">Nessun Costo Aggiuntivo</div>
+                  <img src="images/icon-3.png?v=1" alt="" class="feature_image">
+                  <div class="feature_label">3. Paghi in tutta sicurezza<span class="hide"><br></span>
+a prestazione avvenuta</div>
                </div>
             </div>
             <a href="visite-ed-esami.php" class="button gradient w-inline-block">
-               <div class="text-block-2">Prenota Online</div>
+               <div class="text-block-2">Prenota Visita</div>
             </a>
             <a href="tel:3357798844" class="w-inline-block">
-            <a href="tel:3357798844" class="button w-inline-block">
+           <!-- <a href="tel:3357798844" class="button w-inline-block">
                <div class="text-block-2">Chiamaci</div>
-            </a>
+            </a>-->
             </a>
          </div>
       </section>
@@ -516,7 +519,7 @@
       <?php include 'cta_cards.php';?>
       <?php include 'footer.php';?>
       <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-      <script src="js/webflow.js" type="text/javascript"></script>
+      <script src="js/webflow.js?v=6" type="text/javascript"></script>
       <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
       <div id="fb-root"></div>
       <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
