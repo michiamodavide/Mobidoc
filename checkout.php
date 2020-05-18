@@ -78,7 +78,7 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
-  <link href="css/mobidoc.webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -202,13 +202,13 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
                   <div data-w-id="815cc03f-3eba-e168-af08-dba23d269218" class="closer"><input type="email" class="w-input" maxlength="256" name="date_of_booking" data-name="date_of_booking" placeholder="Date of Booking" id="date_of_booking"></div>
                   <div data-w-id="f2fb9200-3f41-4cc9-a9ce-2395f5b0dabd" style="opacity:0;-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="slectpay_container">
                     <div class="text-block-18 paypay_heading">
-                     <span class="heading1">AUTORIZZA IL PAGAMENTO</span> <br>
+                     <span class="heading1">AUTORIZZA IL PAGAMENTO</span>  <br><br>
                      <span class="heading2">
                       Questa è solo una autorizzazione preventiva.<br>
                      Pagherai solo a prestazione avvenuta.
                      </span>
                     </div><br>
-                    <div style="width:450px; text-align:center;">Continuando confermi la tua prenotazione e verrai contattato dal tuo professionista per programmare la tua visita o il tuo esame.</div>
+                    <div style="width:460px; text-align:center;">Continuando confermi la tua prenotazione e verrai contattato dal tuo professionista per programmare la tua visita o il tuo esame.</div>
 
                     <div class="pay_method_item_container">
                      <?php
