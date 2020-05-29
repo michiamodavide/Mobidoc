@@ -99,7 +99,8 @@ if($search == ""){
 
       <?php
 		include 'connect.php';
-		$sql = "select * from doctor_visit group by visit_name";
+		$sql = "select * from doctor_visit";
+		// $sql = "select * from doctor_visit group by visit_name";
 		$result = mysqli_query($conn, $sql);
 		while($rows = mysqli_fetch_array($result)) {
     $visit_name = $rows['visit_name'];
