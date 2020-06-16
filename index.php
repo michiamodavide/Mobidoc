@@ -80,8 +80,11 @@
          <div style="height:100%; width:100%; background:rgba(0,0,0,0.5); position:fixed; top:0px; left:0px; z-index:-1;"></div>
          <div class="gdpr_popup">
             <p class="paragraph-15">
-               Per poter gestire al meglio la tua navigazione su questo sito verranno temporaneamente memorizzate alcune informazioni in piccoli file di testo denominati cookie. È molto importante che tu sia informato e che accetti la politica sulla privacy e sui cookie di questo sito Web. Per ulteriori informazioni,<a href="https://www.iubenda.com/privacy-policy/72861989" class="link-2"> leggi la nostra politica sulla privacy e sui cookie.<br/></a>
-            </p>
+Mobidoc, per offrirti una migliore esperienza su questo sito utilizza cookies di sessione e di "terze parti", installati da un sito diverso tramite questo; 
+NON utilizza, invece, alcun cookie di profilazione. È molto importante che tu sia informato sul loro funzionamento e per questo ti invitiamo a consultare 
+la nostra <a href="/cookie-policy.html" target="_blank">informativa</a>, che ti illustrerà anche i tuoi diritti in relazione al trattamento dei tuoi dati personali. 
+La prosecuzione della navigazione, mediante consenso (pressione su "ACCETTA"), comporta l'accettazione all'uso dei cookies ed alla loro scrittura sul tuo dispositivo
+	    </p>
             <a class="button gradient w-button" onClick="cookie_value('ashsih')" id="popup_button">Accetto</a>
          </div>
       </div>
