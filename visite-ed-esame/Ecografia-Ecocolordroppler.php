@@ -46,6 +46,7 @@ $body_copy = $rows['body_text'];
 	.p{
   	text-align-last: center !important;
   }
+.masthead{background-image: linear-gradient(177deg, rgba(12, 217, 237, 0.7), rgba(0, 40, 92, 0.6)), url(images/Ecografia-Ecocolordroppler.jpg?v=1);}
 </style>
  <script>
   function getDoctors(value){
@@ -139,8 +140,7 @@ $body_copy = $rows['body_text'];
   </div>
   <div class="section-14" style="min-height:auto;">
     <div class="custom_container type_of-visit">
-      <div class="section_title"><span class="service_name"><?php echo  $visit_name;?></span> che offriamo a domicilio:</div>
-
+      <?php include ("visit_types_search.php")?>
       <div class="visite_type_container">
 
       <?php
