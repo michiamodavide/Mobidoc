@@ -28,7 +28,7 @@ $body_copy = $rows['body_text'];
   <meta content="Webflow" name="generator">
   <link href="../css/normalize.css" rel="stylesheet" type="text/css">
   <link href="../css/webflow.css" rel="stylesheet" type="text/css">
-  <link href="../css/mobidoc.webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/mobidoc.webflow.css?v=2" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -46,7 +46,8 @@ $body_copy = $rows['body_text'];
 	.p{
   	text-align-last: center !important;
   }
-</style>
+.masthead{background-image: linear-gradient(177deg, rgba(12, 217, 237, 0.7), rgba(0, 40, 92, 0.6)), url(images/Oncologia.jpg?v=2);}
+  </style>
  <script>
   function getDoctors(value){
     $('#book_visit').val($.trim(value));
@@ -139,8 +140,7 @@ $body_copy = $rows['body_text'];
   </div>
   <div class="section-14" style="min-height:auto;">
     <div class="custom_container type_of-visit">
-      <div class="section_title"><span class="service_name"><?php echo  $visit_name;?></span> che offriamo a domicilio:</div>
-
+      <?php include ("visit_types_search.php")?>
       <div class="visite_type_container">
 
       <?php
