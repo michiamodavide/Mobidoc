@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/visit_type_search.css?v=4">
+<link rel="stylesheet" href="/css/visit_type_search.css?v=8">
 <div class="visit_types_dv">
  <div class="section_title">
   <span class="service_name"><?php echo  $visit_name;?></span> che offriamo a domicilio:</div>
