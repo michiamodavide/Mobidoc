@@ -4,10 +4,13 @@
   border-color: #00285c;
   background-color: #00285c;
 }
-.visit_types_dv .section_title, .visit_types_dv #w-node-3edc56e7c1a4-fd1af309{
-  width: 50%;
+.visit_types_dv .section_title{
+  width: 54%;
   float:left;
 }
+  .visit_types_dv #w-node-3edc56e7c1a4-fd1af309{
+    width: 46%;
+  }
 .visit_types_dv #w-node-3edc56e7c1a4-fd1af309{
   float: right;
   margin-top: -13px;
@@ -17,8 +20,8 @@
   margin-bottom: 0px;
 }
 .visit_types_dv .text-field{
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-top: 6px;
+  padding-bottom: 9px;
 }
 .visit_types_dv .submit-button.homepage{
   height: 40px;
@@ -69,7 +72,7 @@
     padding: 0px 5px;
   }
   .visit_types_dv .text-field {
-    padding-top: 13px;
+    padding-top: 12px;
     padding-bottom: 10px;
   }
   .visit_types_dv .submit-button.homepage {
