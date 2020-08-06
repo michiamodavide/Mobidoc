@@ -10,6 +10,7 @@
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
   <link href="css/mobidoc.webflow.css?v=4" rel="stylesheet" type="text/css">
+	<link href="css/new-styles.css?v=3" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -55,6 +56,7 @@
   <?php include ("cam_visit.php")?>
 </head>
 <body>
+	<div id="n-section-2nd">
   <?php include 'header.php';?>
   <div class="masthead services">
     <div class="custom_container masthead_content_container service">
@@ -152,6 +154,46 @@
         }
       </script>
     </div>
+	  <div id="n-section4">
+			<section class="section-2 sec4-style">
+				<div class="custom_container">
+					<div class="content_grid-2">
+						<h2 class="heading-2">Come funziona Mobidoc?</h2>
+						<p class="paragraph">Mobidoc è un punto di riferimento per chiunque abbia bisogno di assistenza sanitaria e voglia un servizio attento e dedicato, compatibile con i propri impegni, senza doversi sottoporre ad interminabili attese ed inutili spostamenti.</p>
+					</div>
+					<div class="feature_container">
+						<div class="feature diff">
+							<div class="number">1</div>
+							<img src="images/icon-1.png" alt="">
+							<div class="feature_label">Seleziona la visita o l'esame</div>
+						</div>
+						<div class="dottedline"></div>
+						<div class="feature diff">
+							<div class="number">2</div>
+							<img src="images/icon-2.png" alt="">
+							<div class="feature_label">Scegli il Professionista<span class="hide"><br></span> e accordati su data e orario</div>
+						</div>
+						<div class="dottedline"></div>
+						<div class="feature diff">
+							<div class="number">3</div>
+							<img src="images/icon-3.png" alt="">
+							<div class="feature_label">Paghi in tutta sicurezza<span class="hide"><br></span> a prestazione avvenuta</div>
+						</div>
+					</div>
+					<a href="#" class="w-inline-block">
+           <a href="#" class="button w-inline-block m-r-20">
+               <div class="text-block-2">Prenota Online</div>
+            </a>
+     </a>
+					<a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel">
+               <img src="images/phone.svg" width="11" alt="" class="image-2">
+               <div class="text-block-2">Chiamaci</div>
+            </a>
+				</div>
+			</section>
+		</div>
+   <?php
+   /*
    <section class="section-2" style="padding-top: 70px;padding-bottom: 0px">
     <div class="custom_container">
      <div class="content_grid-2">
@@ -176,6 +218,8 @@
      </div>
     </div>
    </section>
+   */
+   ?>
 	<!--start-->
 	<?php
 	include 'connect.php';
@@ -195,16 +239,40 @@
   $result2 = mysqli_query($conn, $sql2);
   $row_count = mysqli_num_rows($result2);
   if($row_count){
+
+   $expl_visit_name = explode(" ", $visit_name);
+
+   $tm2_class = '';
+   if (strlen($visit_name) < 20)
+    $tm2_class = 'margin-top: 36%;';
+
   ?>
-  
+
+
     <div class="service_container">
-      <div id="w-node-9ebfabc602d8-851af311" class="service_maine_card"><img src="<?php echo $image;?>" alt="" class="service_main_icon">
-        <h3 class="service_main_name" style="width:90%; margin-left:3.5%;"><strong><?php echo $visit_name;?> a Domicilio</strong></h3>
+      <div id="w-node-9ebfabc602d8-851af311" class="service_maine_card">
+		  
+		  <!-- New HTML-Code --->
+		  <div class="feature diff">
+							<div class="feature_label" style="<?php echo $tm2_class?>"><a href="<?php echo $link;?>"><?php echo $visit_name;?>
+         <img src="images/arrow.png" alt="" ></a>
+       </div>
+							<img src="images/<?php echo strtolower($expl_visit_name[0])?>.png?v=2" alt="">
+						</div>
+		  <!-- New HTML-Code --->
+		  
+		 <?php
+   /*
+    <img src="<?php echo $image;?>" alt="" class="service_main_icon">
+     <h3 class="service_main_name" style="width:90%; margin-left:3.5%;"><strong><?php echo $visit_name;?> a Domicilio</strong></h3>
         <p class="service_main_description" style="height:200px; overflow:hidden;"><?php echo $body_text;?></p>
         <div class="div-block-9">
           <a href="#" class="button gradient service_main_book w-button" data-name="<?php echo $visit_name;?>" onClick="showHint(this.getAttribute('data-name'))">Prenota online</a>
           <a href="<?php echo $link;?>" class="button service_main_learn_more w-button">Scopri di più</a>
         </div>
+   */
+   ?>
+
       </div>
       <div class="service_type_card">
         <div class="text-block-7"><span class="service_text_underline"><?php echo $visit_name;?></span></div>
@@ -290,7 +358,7 @@
     <div class="div-block-22"><img src="images/upload_1.svg" width="38" alt="" class="image-19">
       <div class="text-block-15">Please Login to Continue</div><a href="#" class="button gradient redirect-to-login w-button">Click here to Login</a></div>
   </div>
-  <?php include 'cta_cards.php';?>
+  <?php include 'cta_cards2.php';?>
   <?php include 'footer.php';?>
 
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -376,5 +444,6 @@
 }
 </style>
   <?php include ("google_analytic.php")?>
+		</div>
 </body>
 </html>
