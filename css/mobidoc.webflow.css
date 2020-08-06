@@ -11565,6 +11565,16 @@
     margin-left: 13px;
     font-size: 12px;
   }
+  .footer .social_text {
+    margin-left: 13px;
+    font-size: 18px;
+    color: #fff;
+    margin-top: -1px;
+    text-decoration: none !important;
+  }
+  .footer .social_container a{
+    text-decoration: none !important;
+  }
   .div-block-7 {
     text-align: left;
   }
