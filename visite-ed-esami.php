@@ -248,7 +248,7 @@
 
    $opacity_style = '';
    $z_index_style =  '';
-    if ($visit_name == 'Psichiatria' || $visit_name == 'Urologia')
+    if (strtolower($visit_name) == 'psichiatria' || strtolower($visit_name) == 'urologia')
      $opacity_style = 'opacity: .3;';
     $z_index_style =  'z-index: 9999;';
 
