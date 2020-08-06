@@ -92,6 +92,12 @@
                 <div class="social_text">Facebook</div>
               </div>
             </a>
+
+			  <a href="https://web.whatsapp.com/send?phone=+39%20335%20779%2088%2044" target="_blank" class="w-inline-block">
+              <div class="social_icon"><img src="/images/what-app-icon.png" width="17" alt="" class="social_icon_image">
+                <div class="social_text">What's App</div>
+              </div>
+            </a>
           </div>
         </div>
       </div>
