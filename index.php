@@ -15,7 +15,7 @@
 	<meta content="Webflow" name="generator">
 	<link href="css/normalize.css" rel="stylesheet" type="text/css">
 	<link href="css/webflow.css" rel="stylesheet" type="text/css">
-	<link href="css/mobidoc.webflow.css" rel="stylesheet" type="text/css">
+	<link href="css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
 	<link href="css/new-styles.css?v=1" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -143,7 +143,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="div-block-13"><a href="#Section-1" class="button stroked m_b w-button">Scopri le visite</a><a href="tel:3357798844" class="button stroked m_b u w-button">Chiamaci</a>
+			<div class="div-block-13"><a href="#n-section2" class="button stroked m_b w-button">Scopri le visite</a><a href="tel:3357798844" class="button stroked m_b u w-button">Chiamaci</a>
 			</div>
 		</div>
 		<a href="professionisti-home.php" class="link-block-3 w-inline-block">
