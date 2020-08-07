@@ -246,24 +246,18 @@
    if (strlen($visit_name) < 20)
     $tm2_class = 'margin-top: 36%;';
 
-   $opacity_style = '';
-   $z_index_style =  '';
-    if (strtolower($visit_name) == 'psichiatria' || strtolower($visit_name) == 'urologia')
-     $opacity_style = 'opacity: .3;';
-    $z_index_style =  'z-index: 9999;';
-
   ?>
 
-
-    <div class="service_container">
+   <div class="service_container">
       <div id="w-node-9ebfabc602d8-851af311" class="service_maine_card">
 		  
 		  <!-- New HTML-Code --->
 		  <div class="feature diff">
-							<div class="feature_label" style="<?php echo $tm2_class.$z_index_style?>"><a href="<?php echo $link;?>"><?php echo $visit_name;?>
+							<div class="feature_label" style="<?php echo $tm2_class?>"><a href="<?php echo $link;?>"><?php echo $visit_name;?>
          <img src="images/arrow.png" alt="" ></a>
        </div>
-							<img src="images/<?php echo strtolower($expl_visit_name[0])?>.png?v=3" style="<?php echo $opacity_style?>" alt="">
+							<img src="images/<?php echo strtolower($expl_visit_name[0])?>.png?v=7" alt="">
+
 						</div>
 		  <!-- New HTML-Code --->
 		  
