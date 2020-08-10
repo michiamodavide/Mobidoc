@@ -58,6 +58,24 @@
 #n-section3 .cta_section {
 	padding-bottom: 40px;
 }
+#n-section3 .text-block-3 {
+	font-size: 34px;
+	margin-right: 250px;
+	color: #00285C;
+}
+#n-section3 .button.gradient.large.diff {
+	width: 250px;
+}
+#n-section3 .text-block-2, #n-section4 .text-block-2, #n-section5 .text-block-2, #n-section7 .text-block-2 {
+	font-size: 18px;
+	font-weight: 400;
+}
+#n-section-top .div-block-47 {
+	display: none !important;
+}
+#n-section-top .div-block-13 {
+	display: none !important;
+}
 #n-section4 .feature {
 	display: inline-block;
 	font-family: Poppins, sans-serif;
@@ -86,7 +104,7 @@
 	width: 250px;
 	height: 3px;
 }
-#n-section5 .map {
+/*#n-section5 .map {
 	position: relative;
 	overflow: hidden;
 	width: 100%;
@@ -95,7 +113,7 @@
 	margin: 0% auto 60px;
 	border-radius: 0px;
 	background-color: #d5fbff;
-}
+}*/
 #n-section6 .doctors_container {
 	width: 50%;
 }
@@ -151,33 +169,45 @@
 	font-weight: 600;
 }
 #n-section-2nd .service_maine_card {
-    border:none;
-    border-radius: none;
-    background-color: none !important;
+	border: none;
+	border-radius: none;
+	background-color: none !important;
 	padding: 0px 0px 0px;
 }
-
 #w-node-9ebfabc602d8-851af311 .feature_label {
-    display: block;
-    margin-top: 32%;
-    margin-left: 15px;
-    position: absolute;
-    text-align: left;
+	display: block;
+	margin-top: 32%;
+	margin-left: 15px;
+	position: absolute;
+	text-align: left;
 }
-
-
-
-
 #w-node-9ebfabc602d8-851af311 .feature_label a {
-    color: #00285C;
-    font-size: 26px;
-    font-family: "Poppins";
-    text-decoration: none;
-    font-weight: 600;
-    line-height: 32px;
+	color: #00285C;
+	font-size: 26px;
+	font-family: "Poppins";
+	text-decoration: none;
+	font-weight: 600;
+	line-height: 32px;
 }
-.t-m-2{
-margin-top: 36%;	
+.t-m-2 {
+	margin-top: 36%;
+}
+.button.gradient {
+	font-size: 18px !important;
+}
+.button {
+	font-size: 18px !important;
+}
+.scroll_anim_container p{
+	    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    clear: both;
+    position: absolute;
+    z-index: 999;
+    top: -55px;
+
 }
 /**********************************************************************/
 /******************* MEDIA QURIES START HERE **************************/
@@ -186,10 +216,8 @@ margin-top: 36%;
 @media only screen and (max-width: 1600px) {}
 @media only screen and (max-width: 1400px) {
 	#n-section4 .feature_container {
-  
-    width: 90%;
-
-}
+		width: 90%;
+	}
 }
 @media only screen and (max-width: 1366px) {}
 @media only screen and (max-width: 1300px) {}
@@ -243,7 +271,7 @@ margin-top: 36%;
 	}
 	#n-section3 .text-block-3 {
 		display: inline-block;
-		margin-right: 60px;
+		margin-right: 0px;
 		margin-left: auto;
 	}
 	#n-section4 .dottedline {
@@ -272,9 +300,9 @@ margin-top: 36%;
 	.section-3 {
 		min-height: 60vh;
 	}
-	#n-section5 .map {
+	/*#n-section5 .map {
 		height: 350px;
-	}
+	}*/
 	.section-29 .social_card_lonk {
 		height: 28vh;
 	}
@@ -283,6 +311,12 @@ margin-top: 36%;
 	}
 }
 @media only screen and (max-width: 767px) {
+	#n-section-top .scroll_anim_container {
+		display: flex;
+	}
+	#n-section-top .scroll_anim {
+		margin-top: -35px;
+	}
 	#n-section6 .doctors_container {
 		width: 100%;
 	}
@@ -292,7 +326,7 @@ margin-top: 36%;
 		transform: rotate(90deg);
 		position: relative;
 		top: -30px;
-		left: 136px;
+		left: 134px;
 	}
 	#n-section1 .img-left img {
 		max-width: 85%;
@@ -344,8 +378,13 @@ margin-top: 36%;
 		text-align: center;
 		margin-left: 0px;
 	}
+	#n-section3 .text-block-3 {
+		font-size: 16px;
+		margin-right: auto;
+		width: 100%;
+	}
 	#n-section4 .button {
-		width: 80%;
+		width: 250px;
 		padding: 15px 20px;
 		margin-bottom: 20px;
 	}
@@ -367,14 +406,14 @@ margin-top: 36%;
 		text-align: center;
 		margin-top: 15px;
 	}
-	#n-section5 .map {
+	/*#n-section5 .map {
 		height: 300px;
-	}
+	}*/
 	#n-section5 .button.gradient {
 		padding: 15px 20px;
 		font-size: 12px;
 		font-weight: 400;
-		width: 85%;
+		width: 250px;
 		margin-right: 0px;
 	}
 	#n-section5 .button._2nd {
@@ -383,7 +422,7 @@ margin-top: 36%;
 		padding: 13px 20px;
 		font-size: 12px;
 		clear: both;
-		width: 85%;
+		width: 250px;
 	}
 	#n-section5 .section-28 {
 		padding-bottom: 40px;
@@ -422,6 +461,9 @@ margin-top: 36%;
 	}
 	#n-section7 .cta_card._1 {
 		border: none;
+	}
+	#n-section7 .button.gradient.large {
+		width: 250px;
 	}
 	.section-29 {
 		padding-top: 0px;
@@ -495,24 +537,55 @@ margin-top: 36%;
 		line-height: 30px;
 		font-size: 22px;
 	}
-	
 	#n-section-2nd .service_maine_card {
-    
-    background-color: none !important;
-    
-}
+		background-color: none !important;
+	}
 	#n-section-2nd .service_container {
-    margin-top: 0px;
+		margin-top: 0px;
+	}
+	.feature {
+		margin-bottom: 57px;
+	}
 }
-	
-	 .feature{
-		 margin-bottom: 10px;	}
-}
-#n-section2 .feature_label a:hover, .service_container .feature_label a:hover{
+#n-section2 .feature_label a:hover, .service_container .feature_label a:hover {
 	opacity: .6;
 }
+@media screen and (max-width: 500px) {
+	.dottedline {
+		left: 155px;
+	}
+	#n-section-top .scroll_anim {
+    margin-top: -150px;
+}
+}
+@media only screen and (max-width: 375px) {
+	.dottedline {
+		left: 140px;
+	}
+	#n-section-top .scroll_anim {
+    margin-top: -64px;
+}
+}
+@media only screen and (max-width: 320px) {
+	.dottedline {
+		left: 134px;
+	}
+	#n-section1 .img-left img {
+    max-width: 70%;
+}
+	#n-section1 .img-left {
+    
+    height: 60px;
+    width: 60px;
+    margin-right: 22px;
+}
+	#n-section1 h2 {
+    font-size: 20px;
+   
+}
+	.dottedline {
+		left: 116px;
+	}
+}
 
-@media screen and (max-width: 500px) {}
-@media only screen and (max-width: 375px) {}
-@media only screen and (max-width: 320px) {}
 /****************** Ali Css new*********************/

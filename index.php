@@ -16,7 +16,7 @@
 	<link href="css/normalize.css" rel="stylesheet" type="text/css">
 	<link href="css/webflow.css" rel="stylesheet" type="text/css">
 	<link href="css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
-	<link href="css/new-styles.css?v=1" rel="stylesheet" type="text/css">
+	<link href="css/new-styles.css?v=2" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		WebFont.load( {
@@ -114,6 +114,7 @@
 		<div data-w-id="9f6a9011-662a-5c81-876b-ef83ac4f72aa" class="scroll_thumb"></div>
 	</div>
 	<?php include 'header.php';?>
+	<div id="n-section-top">
 	<div id="masthead" class="masthead">
 		<div class="masthead_content_container homepage">
 			<div>
@@ -155,11 +156,16 @@
 				<div class="scroll_anim">
 					<div class="scroller_thumb">
 						<div data-w-id="048a4362-089b-cc1c-e9b1-e48a3ac23d44" style="-webkit-transform:translate3d(0, -100%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, -100%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, -100%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, -100%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="scroller_thumb_animator"></div>
+						
 					</div>
+					
 				</div>
+				
 			</a>
+			<p>Scopri di più</p>
 		</div>
 	</div>
+		</div>
 	<!---------New Content Starts---------->
 	<div id="n-section1">
 		<section class="section-6">
@@ -264,7 +270,7 @@ Infermieristica <img src="images/arrow.png" alt="" ></a>
 
 				<a href="tel:3357798844" class="w-inline-block">
             <a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel">
-               <img src="images/phone.svg" width="11" alt="" class="image-2">
+               <img src="images/phone.svg" width="15" alt="" class="image-2">
                <div class="text-block-2">Chiamaci</div>
             </a>
 
@@ -280,19 +286,19 @@ Infermieristica <img src="images/arrow.png" alt="" ></a>
 					</div>
 					<div class="feature_container">
 						<div class="feature diff">
-							<div class="number">1</div>
+							<div class="number">01</div>
 							<img src="images/icon-1.png" alt="">
 							<div class="feature_label">Seleziona la visita o l'esame</div>
 						</div>
 						<div class="dottedline"></div>
 						<div class="feature diff">
-							<div class="number">2</div>
+							<div class="number">02</div>
 							<img src="images/icon-2.png" alt="">
 							<div class="feature_label">Scegli il Professionista<span class="hide"><br></span> e accordati su data e orario</div>
 						</div>
 						<div class="dottedline"></div>
 						<div class="feature diff">
-							<div class="number">3</div>
+							<div class="number">03</div>
 							<img src="images/icon-3.png" alt="">
 							<div class="feature_label">Paghi in tutta sicurezza<span class="hide"><br></span> a prestazione avvenuta</div>
 						</div>
@@ -304,7 +310,7 @@ Infermieristica <img src="images/arrow.png" alt="" ></a>
 
 					</a>
 					<a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel">
-               <img src="images/phone.svg" width="11" alt="" class="image-2">
+               <img src="images/phone.svg" width="15" alt="" class="image-2">
                <div class="text-block-2">Chiamaci</div>
             </a>
 				</div>
@@ -481,14 +487,22 @@ Infermieristica <img src="images/arrow.png" alt="" ></a>
 								<div class="text-block-4">Psicologa, Responsabile Qualità</div>
 							</div>
 						</div>
-						<!--<div class="doctor"><img src="images/5ccc4a394050836a6f2f7823_WhatsApp-Image-2019-04-12-at-9.32.30-AM-p-500.jpg" width="174" alt="" class="doctor_image">
+					<?php
+     /*
+     	<div class="doctor"><img src="images/5ccc4a394050836a6f2f7823_WhatsApp-Image-2019-04-12-at-9.32.30-AM-p-500.jpg" width="174" alt="" class="doctor_image">
                   <div class="doctor_data home">
                     <div class="doctor_name_container">Francesco Sisini</div>
                     <div class="text-block-4">Fisico, Responsabile Servizi Informatici</div>
                   </div>
-                  </div>-->
+                  </div>
+     */
+     ?>
 					</div>
-					<a href="team-mobidoc.php" class="button gradient w-button">Scopri I Professionisti</a>
+				<?php
+    /*
+    	<a href="team-mobidoc.php" class="button gradient w-button">Scopri I Professionisti</a>
+    */
+    ?>
 				</div>
 			</section>
 		</div>

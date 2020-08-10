@@ -8,6 +8,9 @@
   gtag('config', 'UA-163954246-1');
 </script>
 
+<?php
+if($_SERVER['SERVER_NAME'] == 'mobidoc.it'){
+?>
 <!-- Hotjar Tracking Code for https://www.mobidoc.it/ -->
 <script>
   (function(h,o,t,j,a,r){
@@ -19,7 +22,7 @@
     a.appendChild(r);
   })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
-
+<?php }?>
 
 <script src="//code.tidio.co/yhwa3pqifth1ce2vjwzfoo3uehy9udlf.js"></script>
 
