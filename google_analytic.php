@@ -8,6 +8,7 @@
   gtag('config', 'UA-163954246-1');
 </script>
 
+
 <?php
 if($_SERVER['SERVER_NAME'] == 'mobidoc.it'){
 ?>
@@ -25,7 +26,7 @@ if($_SERVER['SERVER_NAME'] == 'mobidoc.it'){
 <?php }?>
 
 <script src="//code.tidio.co/yhwa3pqifth1ce2vjwzfoo3uehy9udlf.js"></script>
-
+<style>#tidio-chat-iframe{right: auto !important;}</style>
 <?php
 /*
 <!--Floating WhatsApp css-->
