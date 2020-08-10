@@ -198,17 +198,25 @@
 .button {
 	font-size: 18px !important;
 }
-.scroll_anim_container p{
-	    text-align: center;
+
+#n-section-top .scroll_anim_container p{
+	    
     color: #fff;
     font-size: 16px;
     font-weight: 600;
-    clear: both;
+    
     position: absolute;
-    z-index: 999;
-    top: -55px;
+    
+    top: 78px;
 
 }
+
+#n-section-top .scroll_anim_container {
+
+    bottom: 3%;
+  
+}
+
 /**********************************************************************/
 /******************* MEDIA QURIES START HERE **************************/
 /**********************************************************************/
@@ -311,12 +319,11 @@
 	}
 }
 @media only screen and (max-width: 767px) {
+
 	#n-section-top .scroll_anim_container {
 		display: flex;
 	}
-	#n-section-top .scroll_anim {
-		margin-top: -35px;
-	}
+	
 	#n-section6 .doctors_container {
 		width: 100%;
 	}
@@ -546,27 +553,75 @@
 	.feature {
 		margin-bottom: 57px;
 	}
+	#n-section-top .scroll_anim_container {
+
+    bottom: 3%;
+
 }
+		#n-section-top .scroll_anim{
+	    margin-top: -140px;
+
+}
+#n-section-top .scroll_anim_container p{
+	    
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    
+    position: absolute;
+
+	top: -20px;
+
+}
+
 #n-section2 .feature_label a:hover, .service_container .feature_label a:hover {
 	opacity: .6;
+	}
 }
 @media screen and (max-width: 500px) {
 	.dottedline {
 		left: 155px;
 	}
-	#n-section-top .scroll_anim {
-    margin-top: -150px;
+	#n-section-top .scroll_anim_container {
+    bottom: 17%;
 }
+
+}
+
+
+@media only screen and (max-width: 400px) {
+
+	#n-section-top .scroll_anim {
+		margin-top: 21px;
+	}
+	#n-section-top .scroll_anim_container p {
+		top: 110px;
+	}
 }
 @media only screen and (max-width: 375px) {
 	.dottedline {
 		left: 140px;
 	}
+	#n-section-top .scroll_anim_container {
+		bottom: 25%;
+	}
+
 	#n-section-top .scroll_anim {
-    margin-top: -64px;
+		margin-top: -50px;
+	}
+	#n-section-top .scroll_anim_container p {
+		top: 55px;
+	}
 }
+@media only screen and (max-width: 365px) {
+	#n-section-top .scroll_anim {
+		margin-top: 60px;
+	}
+	#n-section-top .scroll_anim_container p{
+		top: 125px;
+	}
 }
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 340px) {
 	.dottedline {
 		left: 134px;
 	}
@@ -586,6 +641,16 @@
 	.dottedline {
 		left: 116px;
 	}
+	#n-section-top .scroll_anim_container {
+    bottom: -2%;
+}
+	#n-section-top .scroll_anim {
+		margin-top: -75px;
+	}
+	#n-section-top .scroll_anim_container p {
+		top: 40px;
+	}
+	
 }
 
-/****************** Ali Css new*********************/
+/****************** Ali Css new *********************/ 

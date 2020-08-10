@@ -16,7 +16,7 @@
 	<link href="css/normalize.css" rel="stylesheet" type="text/css">
 	<link href="css/webflow.css" rel="stylesheet" type="text/css">
 	<link href="css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
-	<link href="css/new-styles.css?v=2" rel="stylesheet" type="text/css">
+	<link href="css/new-styles.css?v=5" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		WebFont.load( {
@@ -466,13 +466,19 @@ Infermieristica <img src="images/arrow.png" alt="" ></a>
 							}
 
 						</style>
-						<!--<div class="doctor one" style="visibility:hidden;">
+
+					<?php
+     /*
+     	<div class="doctor one" style="visibility:hidden;">
 						<img src="images/5ccc4a39405083b13e2f7828_WhatsApp-Image-2019-04-12-at-10.43.19-AM-p-500.jpg" width="174" alt="" class="doctor_image">
 						<div class="doctor_data home">
 							<div class="doctor_name_container">Paolo Colamussi</div>
 							<div class="text-block-4">Medico, Coordinatore Sanitario</div>
 						</div>
-					</div>-->
+					</div>
+     */
+     ?>
+
 						<div class="doctor">
 							<img src="images/5ccc4a39405083b13e2f7828_WhatsApp-Image-2019-04-12-at-10.43.19-AM-p-500.jpg" width="174" alt="" class="doctor_image">
 							<div class="doctor_data home">
@@ -487,22 +493,22 @@ Infermieristica <img src="images/arrow.png" alt="" ></a>
 								<div class="text-block-4">Psicologa, Responsabile Qualità</div>
 							</div>
 						</div>
-					<?php
-     /*
-     	<div class="doctor"><img src="images/5ccc4a394050836a6f2f7823_WhatsApp-Image-2019-04-12-at-9.32.30-AM-p-500.jpg" width="174" alt="" class="doctor_image">
+				<?php
+    /*
+    	<div class="doctor"><img src="images/5ccc4a394050836a6f2f7823_WhatsApp-Image-2019-04-12-at-9.32.30-AM-p-500.jpg" width="174" alt="" class="doctor_image">
                   <div class="doctor_data home">
                     <div class="doctor_name_container">Francesco Sisini</div>
                     <div class="text-block-4">Fisico, Responsabile Servizi Informatici</div>
                   </div>
                   </div>
-     */
-     ?>
-					</div>
-				<?php
-    /*
-    	<a href="team-mobidoc.php" class="button gradient w-button">Scopri I Professionisti</a>
     */
     ?>
+					</div>
+					<?php
+     /*
+     <a href="team-mobidoc.php" class="button gradient w-button">Scopri I Professionisti</a>
+     */
+     ?>
 				</div>
 			</section>
 		</div>
