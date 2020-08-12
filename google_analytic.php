@@ -27,6 +27,7 @@ if($_SERVER['SERVER_NAME'] == 'mobidoc.it'){
 
 <script src="//code.tidio.co/yhwa3pqifth1ce2vjwzfoo3uehy9udlf.js"></script>
 <style>#tidio-chat-iframe{right: auto !important;}</style>
+
 <?php
 /*
 <!--Floating WhatsApp css-->

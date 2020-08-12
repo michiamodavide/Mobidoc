@@ -177,7 +177,7 @@
 }
 #w-node-9ebfabc602d8-851af311 .feature_label {
 	display: block;
-	margin-top: 32%;
+	margin-top: 30%;
 	margin-left: 15px;
 	position: absolute;
 	text-align: left;
@@ -216,7 +216,7 @@
 }
 
 #w-node-9ebfabc602d8-851af311 .feature_label.fet_tm2{
-	margin-top: 38%;
+	margin-top: 40%;
 }
 /**********************************************************************/
 /******************* MEDIA QURIES START HERE **************************/
@@ -224,7 +224,7 @@
 
 @media only screen and (max-width: 1400px) {
 	#n-section4 .feature_container {
-		width: 90%;
+		width: 95%;
 	}
 }
 @media (min-width: 768px) and (max-width: 992px) {
@@ -631,7 +631,7 @@
 }
 
 }
-@media (max-height: 650px) and (max-width: 360px) {
+@media (max-height: 639px) and (max-width: 360px) {
 	#n-section2 .feature_label {
 		margin-top: 14%;
 	}
@@ -674,6 +674,15 @@
 	}
 	#n-section2 .feature_label {
 		margin-top: 24%;
+	}
+	#n-section3 .text-block-3{
+		font-size: 26px;
+	}
+	#w-node-9ebfabc602d8-851af311 .feature_label{
+		margin-top: 25%;
+	}
+	#w-node-9ebfabc602d8-851af311 .feature_label.fet_tm2{
+		margin-top: 33%;
 	}
 }
 /****************** Ali Css new *********************/
