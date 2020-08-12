@@ -16,7 +16,7 @@
 	<link href="css/normalize.css" rel="stylesheet" type="text/css">
 	<link href="css/webflow.css" rel="stylesheet" type="text/css">
 	<link href="css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
-	<link href="css/new-styles.css?v=5" rel="stylesheet" type="text/css">
+	<link href="css/new-styles.css?v=7" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		WebFont.load( {
@@ -118,7 +118,7 @@
 	<div id="masthead" class="masthead">
 		<div class="masthead_content_container homepage">
 			<div>
-				<h1 class="heading">Diagnosi, Assistenza <br>e Cura a casa tua</h1>
+				<h1 class="heading">Visite mediche a casa tua.</h1>
 			</div>
 			<div class="w-embed">
 				<style>
