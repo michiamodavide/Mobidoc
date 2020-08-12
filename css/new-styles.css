@@ -579,10 +579,18 @@
 	#n-section2 .feature_label a:hover, .service_container .feature_label a:hover {
 		opacity: .6;
 	}
+
+	#n-section4 .button.m-r-20 {
+		width: 261px;
+	}
+	.index_p .section-3 .content_grid-2{
+		margin-bottom: 50px;
+	}
+
 }
 @media screen and (max-width: 500px) {
 	.dottedline {
-		left: 157px;
+		left: 167px;
 	}
 	#n-section-top .scroll_anim_container {
 		bottom: 16%;
@@ -598,14 +606,14 @@
 	#n-section-top .scroll_anim_container p {
 		top: 110px;
 	}
+	.dottedline {
+		left: 151px;
+	}
 }
 @media only screen and (max-width: 375px) {
 	#n-section-top .heading {
     width: 74%;
 }
-	.dottedline {
-		left: 134px;
-	}
 	#n-section-top .scroll_anim_container {
 		bottom: 24%;
 	}
@@ -615,6 +623,7 @@
 	#n-section-top .scroll_anim_container p {
 		top: 55px;
 	}
+
 }
 @media only screen and (max-width: 365px) {
 	#n-section-top .heading {
@@ -629,6 +638,9 @@
 	#n-section-top .scroll_anim_container {
     bottom: 15%;
 }
+	.dottedline {
+		left: 143px;
+	}
 
 }
 @media (max-height: 639px) and (max-width: 360px) {
@@ -646,9 +658,6 @@
 	#n-section-top .heading {
     width: 85%;
 }
-	.dottedline {
-		left: 134px;
-	}
 	#n-section1 .img-left img {
 		max-width: 70%;
 	}
@@ -661,7 +670,7 @@
 		font-size: 20px;
 	}
 	.dottedline {
-		left: 116px;
+		left: 124px;
 	}
 	#n-section-top .scroll_anim_container {
 		bottom: -6%;

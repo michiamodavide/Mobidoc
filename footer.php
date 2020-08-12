@@ -45,7 +45,7 @@
         if($row_count){
           if($visits_count <= 10) {
         ?>
-          <a href="<?php echo $link;?>" targe="_blank" style="color:#fff; text-decoration:none;">
+          <a href="/<?php echo $link;?>" target="_blank" style="color:#fff; text-decoration:none;">
           <div style="margin-bottom: 10px;">
 
             <?php 
