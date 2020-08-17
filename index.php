@@ -16,7 +16,7 @@
 	<link href="css/normalize.css" rel="stylesheet" type="text/css">
 	<link href="css/webflow.css" rel="stylesheet" type="text/css">
 	<link href="css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
-	<link href="css/new-styles.css?v=12" rel="stylesheet" type="text/css">
+	<link href="css/new-styles.css?v=14" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		WebFont.load( {
@@ -52,15 +52,15 @@
 			height: 100%;
 			overflow: hidden;
 		}
+  .paragraph-2 {
+   word-break: all;
+  }
 
+  .feature_container .feature.diff a:hover .feature_label{
+   opacity: .5 !important;
+  }
 	</style>
-	<style>
-		.paragraph-2 {
-			word-break: all;
-		}
-		
 
-	</style>
 	<script>
 		function getDoctors( value ) {
 			$( '#book_visit' ).val( $.trim( value ) );
@@ -118,7 +118,10 @@
 	<div id="masthead" class="masthead">
 		<div class="masthead_content_container homepage">
 			<div>
-				<h1 class="heading">Visite mediche a casa tua.</h1>
+			<?php
+   /*	<h1 class="heading">Visite mediche a casa tua.</h1>*/
+   ?>
+				<h1 class="heading">Visite mediche ed esami a casa tua.</h1>
 			</div>
 			<div class="w-embed">
 				<style>
@@ -177,7 +180,11 @@
 						</div>
 
 						<div class="text-left">
-							<h2>Cos'è Mobidoc?</h2> Mobidoc è un servizio di visite mediche a domicilio a nessun costo aggiuntivo per il paziente.</div>
+						<?php
+      /*<h2>Cos'è Mobidoc?</h2> Mobidoc è un servizio di visite mediche a domicilio a nessun costo aggiuntivo per il paziente.*/
+      ?>
+       <h2>Cos'è Mobidoc?</h2> Mobidoc è un servizio di visite mediche ed esami a domicilio.
+      </div>
 					</div>
 				</div>
 
@@ -187,7 +194,10 @@
 							<img src="images/location-icon.png" width="77" alt="">
 						</div>
 						<div class="text-left">
-							<h2>Dove Operiamo? </h2> Al momento offriamo visite a domicilio per pazienti in provincia di Ferrara e Rovigo.
+						<?php
+      /*	<h2>Dove Operiamo? </h2> Al momento offriamo visite a domicilio per pazienti in provincia di Ferrara e Rovigo.*/
+      ?>
+       <h2>Dove Operiamo? </h2> Siamo presenti in provincia di Ferrara e di Rovigo.
 						</div>
 					</div>
 				</div>
@@ -201,63 +211,86 @@
 						<p class="paragraph">I nostri professionisti sono medici, psicologi, infermieri, fisioterapisti e tecnici di radiologia che credono che la migliore cura possibile sia quella a casa del paziente: siamo noi che veniamo da te quando ne hai bisogno.</p>
 					</div>
 					<div class="feature_container">
+                   
 						<div class="feature diff">
-							<div class="feature_label"><a href="/visite-ed-esame/Ecografia-Ecocolordroppler.php" target="_blank">Ecografia ed<br> Ecocolordoppler <img src="images/arrow.png" alt="" ></a> </div>
+       <a href="/visite-ed-esame/Ecografia-Ecocolordroppler.php" target="_blank">
+							<div class="feature_label">Ecografia ed<br> Ecocolordoppler <img src="images/arrow.png" alt="" > </div>
 							<img src="images/img-1.png" alt="">
-
+   </a>
 						</div>
+                        
 						<div class="feature diff">
-							<div class="feature_label m-t-14"><a href="/visite-ed-esame/Radiologia.php" target="_blank">Radiologia <img src="images/arrow.png" alt="" ></a>
+       <a href="/visite-ed-esame/Radiologia.php" target="_blank">
+							<div class="feature_label m-t-14">
+        Radiologia <img src="images/arrow.png" alt="" >
 							</div>
 							<img src="images/img-2.png" alt="">
-
+       </a>
 						</div>
 						<div class="feature diff">
-							<div class="feature_label m-t-14"><a href="/visite-ed-esame/Fisioterapia.php" target="_blank">Fisioterapia <img src="images/arrow.png" alt="" ></a>
+       <a href="/visite-ed-esame/Fisioterapia.php" target="_blank">
+							<div class="feature_label m-t-14">
+        Fisioterapia
+         <img src="images/arrow.png" alt="" >
 							</div>
 							<img src="images/img-3.png" alt="">
-
+       </a>
 						</div>
 					</div>
 					<div class="feature_container">
 						<div class="feature diff">
-							<div class="feature_label"><a href="/visite-ed-esame/Psicologia-e-Psicoterapia.php" target="_blank">Psicologia e<br> Psicoterapia <img src="images/arrow.png" alt="" ></a> </div>
+       <a href="/visite-ed-esame/Psicologia-e-Psicoterapia.php" target="_blank">
+							<div class="feature_label">
+       Psicologia e<br> Psicoterapia <img src="images/arrow.png" alt="" >
+       </div>
 							<img src="images/img-4.png" alt="">
-
-						</div>
+       </a>
+      </div>
 						<div class="feature diff">
-							<div class="feature_label"><a href="/visite-ed-esame/Medicina-Interna-e-Geriatria.php" target="_blank">Medicina Interna<br>
-e Geriatria <img src="images/arrow.png" alt="" ></a>
+       <a href="/visite-ed-esame/Medicina-Interna-e-Geriatria.php" target="_blank">
+							<div class="feature_label">
+       Medicina Interna<br>
+e Geriatria <img src="images/arrow.png" alt="" >
+
 							</div>
 							<img src="images/img-5.png" alt="">
-
+       </a>
 						</div>
 						<div class="feature diff">
-							<div class="feature_label"><a href="/visite-ed-esame/Assistenza-Infermieristica.php" target="_blank">Assistenza<br>
-Infermieristica <img src="images/arrow.png" alt="" ></a>
+       <a href="/visite-ed-esame/Assistenza-Infermieristica.php" target="_blank">
+							<div class="feature_label">
+       Assistenza<br>
+Infermieristica <img src="images/arrow.png" alt="" >
 							</div>
 							<img src="images/img-6.png" alt="">
-
+       </a>
 						</div>
 
 					</div>
 					<div class="feature_container">
 						<div class="feature diff">
-							<div class="feature_label m-t-14"><a href="/visite-ed-esame/Oncologia.php" target="_blank">Oncologia <img src="images/arrow.png" alt="" ></a> </div>
+       <a href="/visite-ed-esame/Oncologia.php" target="_blank">
+							<div class="feature_label m-t-14">
+        Oncologia <img src="images/arrow.png" alt="" >
+       </div>
 							<img src="images/img-7.png" alt="">
-
-						</div>
+       </a>
+      </div>
 						<div class="feature diff">
-							<div class="feature_label m-t-14"><a href="/visite-ed-esame/Ortopedia.php" target="_blank">Ortopedia <img src="images/arrow.png" alt="" ></a>
+       <a href="/visite-ed-esame/Ortopedia.php" target="_blank">
+							<div class="feature_label m-t-14">
+       Ortopedia <img src="images/arrow.png" alt="" >
 							</div>
 							<img src="images/img-8.png" alt="">
-
+       </a>
 						</div>
 						<div class="feature diff">
-							<div class="feature_label m-t-14"><a href="/visite-ed-esame/ORL.php" target="_blank">ORL <img src="images/arrow.png" alt="" ></a>
+       <a href="/visite-ed-esame/ORL.php" target="_blank">
+							<div class="feature_label m-t-14">
+       ORL <img src="images/arrow.png" alt="" >
 							</div>
 							<img src="images/img-9.png" alt="">
-
+       </a>
 						</div>
 
 					</div>
@@ -704,12 +737,6 @@ Infermieristica <img src="images/arrow.png" alt="" ></a>
 	}
 	
 	.text-block-82 {
-		font-family: Poppins, sans-serif;
-		color: #00285c;
-	}
-	
-	*:focus {
-		outline: none;
-	}
-
-</style>
+  font-family: Poppins,
+ }
+ </style>

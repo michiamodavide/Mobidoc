@@ -28,6 +28,32 @@
 	width: 100%;
 	max-width: 1450px
 }
+
+a.pic{
+	    display: block;
+    cursor: pointer;
+    
+    position: absolute;
+    width: 463px;
+    height: 253px;
+}
+a:hover.pic .feature_label a:hover  {
+	filter:alpha(opacity=50) !important;
+	-moz-opacity:0.5 !important;
+	-khtml-opacity: 0.5 !important;
+	opacity: 0.5 !important;
+	z-index:99999;
+	font-size: 30px;
+}
+	a.pic2{
+    display: block;
+    height: 176px;
+    width: 321px;
+    position: absolute;
+    left: 0px;
+    top: 0;
+}
+	
 #n-section2 .feature {
 	margin: 0 20px 20px 0 !important;
 }
@@ -37,6 +63,14 @@
 	margin-left: 15px;
 	position: absolute;
 	text-align: left;
+		color: #00285C;
+	font-size: 26px;
+	font-family: "Poppins";
+	text-decoration: none;
+	font-weight: 600;
+	line-height: 32px;
+	width: auto;
+    height: auto;
 }
 #n-section2 .feature_label a {
 	color: #00285C;
@@ -45,7 +79,17 @@
 	text-decoration: none;
 	font-weight: 600;
 	line-height: 32px;
+	width: auto;
+    height: auto;
 }
+#n-section2 .feature_label a:hover {
+	
+	
+
+}
+
+
+
 #n-section2 .feature_container {
 	margin: 0px auto 0px;
 }
@@ -181,6 +225,12 @@
 	margin-left: 15px;
 	position: absolute;
 	text-align: left;
+	color: #00285C;
+	font-size: 26px;
+	font-family: "Poppins";
+	text-decoration: none;
+	font-weight: 600;
+	line-height: 32px;
 }
 #w-node-9ebfabc602d8-851af311 .feature_label a {
 	color: #00285C;
@@ -692,6 +742,28 @@
 	}
 	#w-node-9ebfabc602d8-851af311 .feature_label.fet_tm2{
 		margin-top: 33%;
+	}
+}
+
+.visit_page .service_container #w-node-9ebfabc602d8-851af311 .feature.diff a:hover .feature_label{
+	opacity: .5 !important;
+}
+@media screen and (min-width: 991px){
+	.visit_page .service_container #w-node-9ebfabc602d8-851af311 .feature.diff a.pic2{
+		position: inherit;
+	}
+}
+@media screen and (max-width: 991px){
+	.visit_page .service_container #w-node-9ebfabc602d8-851af311 .feature.diff a.pic2{
+		display: block;
+		height: 176px;
+		width: 100%;
+		position: inherit;
+		left: 0px;
+		top: 0;
+	}
+	.visit_page #w-node-9ebfabc602d8-851af311 .feature_label{
+		padding-right: 5px;
 	}
 }
 /****************** Ali Css new *********************/
