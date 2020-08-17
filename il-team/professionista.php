@@ -25,7 +25,7 @@ header("location: validate.php");
   <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
   <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="../images/webclip.png" rel="apple-touch-icon">
- <link href="../css/new-styles.css?v=2" rel="stylesheet" type="text/css">
+ <link href="../css/new-styles.css?v=3" rel="stylesheet" type="text/css">
   <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
   <style>
 ::-webkit-scrollbar {
