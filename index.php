@@ -59,6 +59,7 @@
   .feature_container .feature.diff a:hover .feature_label{
    opacity: .5 !important;
   }
+  @media screen and (min-width: 767px){.extra_card{visibility: hidden; display: block !important;}  }
 	</style>
 
 	<script>
@@ -91,6 +92,11 @@
 			xmlhttp2.send();
 		}
 	</script>
+ <?php include 'connect.php';
+ if($conn === false){
+   die("ERROR database");
+ }
+ ?>
 </head>
 
 <body class="body index_p">
@@ -210,15 +216,87 @@
 						<h2 class="heading-2">Visite Mediche Prenotabili a Domicilio:</h2>
 						<p class="paragraph">I nostri professionisti sono medici, psicologi, infermieri, fisioterapisti e tecnici di radiologia che credono che la migliore cura possibile sia quella a casa del paziente: siamo noi che veniamo da te quando ne hai bisogno.</p>
 					</div>
-					<div class="feature_container">
-                   
+
+      <?php
+      $x_num=0;
+      echo "<div class=\"feature_container\">";
+
+      $sql_get_result = "select * from visit order by visit_type_name_count desc";
+      $get_result = mysqli_query($conn, $sql_get_result);
+
+      while($visit_doc_rows = mysqli_fetch_array($get_result)){
+      $visit_name1 = $visit_doc_rows['visit_name'];
+     /*
+      $body_text1 = $visit_doc_rows['body_text'];
+      $image1 = $visit_doc_rows['image'];
+     */
+      $link1 = $visit_doc_rows['link'];
+      $sql21 = "select * from visit_type INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name where visit_type.visit_name='".$visit_name1."'";
+      $result21 = mysqli_query($conn, $sql21);
+      $row_count1 = mysqli_num_rows($result21);
+      if($row_count1){
+        if($x_num!=0 && $x_num%3==0){
+          echo "</div>\n<div class='feature_container'>";
+        }
+
+      $expl_visit_name = explode(" ", $visit_name1);
+
+        $tm21_class = '';
+        if (strlen($visit_name1) < 20)
+          $tm21_class = 'm-t-14';
+      ?>
+       <div class="feature diff">
+         <a href="/<?php echo $link1?>" target="_blank">
+          <div class="feature_label <?php echo $tm21_class?>"><?php echo wordwrap($visit_name1,20,"<br>\n");?> <img src="images/arrow.png" alt="" > </div>
+          <img src="images/<?php echo strtolower($expl_visit_name[0])?>.png?v=1" alt="">
+         </a>
+        </div>
+          <?php
+          ++$x_num;
+        }}
+          ?>
+      <?php
+      if ($x_num == "2" || $x_num == "5" || $x_num == "8" || $x_num == "11"){
+        ?>
+       <div class="feature diff extra_card" style="display: none">
+        <a href="/<?php echo $link1?>" target="_blank">
+         <div class="feature_label <?php echo $tm21_class?>"><?php echo wordwrap($visit_name1,20,"<br>\n");?> <img src="images/arrow.png" alt="" > </div>
+         <img src="images/<?php echo strtolower($expl_visit_name[0])?>.png?v=1" alt="">
+        </a>
+       </div>
+        <?php
+      }else if ($x_num == "1" || $x_num == "4" || $x_num == "7" || $x_num == "10") {
+        ?>
+       <div class="feature diff extra_card" style="display: none">
+        <a href="/<?php echo $link1 ?>" target="_blank">
+         <div class="feature_label <?php echo $tm21_class ?>"><?php echo wordwrap($visit_name1, 20, "<br>\n"); ?> <img
+           src="images/arrow.png" alt=""></div>
+         <img src="images/<?php echo strtolower($expl_visit_name[0]) ?>.png?v=1" alt="">
+        </a>
+       </div>
+       <div class="feature diff extra_card" style="display: none">
+        <a href="/<?php echo $link1 ?>" target="_blank">
+         <div class="feature_label <?php echo $tm21_class ?>"><?php echo wordwrap($visit_name1, 20, "<br>\n"); ?> <img
+           src="images/arrow.png" alt=""></div>
+         <img src="images/<?php echo strtolower($expl_visit_name[0]) ?>.png?v=1" alt="">
+        </a>
+       </div>
+          <?php
+        }
+      echo "</div>";
+
+      ?>
+
+				<?php /*
+ 	<div class="feature_container">
+
 						<div class="feature diff">
        <a href="/visite-ed-esame/Ecografia-Ecocolordroppler.php" target="_blank">
 							<div class="feature_label">Ecografia ed<br> Ecocolordoppler <img src="images/arrow.png" alt="" > </div>
 							<img src="images/img-1.png" alt="">
    </a>
 						</div>
-                        
+
 						<div class="feature diff">
        <a href="/visite-ed-esame/Radiologia.php" target="_blank">
 							<div class="feature_label m-t-14">
@@ -294,6 +372,7 @@ Infermieristica <img src="images/arrow.png" alt="" >
 						</div>
 
 					</div>
+ */?>
 				</div>
 			</section>
 		</div>
@@ -367,7 +446,6 @@ Infermieristica <img src="images/arrow.png" alt="" >
 					</style>
 				</div>
 				<?php
-				include 'connect.php';
 				$doctor = "select * from doctor_profile";
 				$doctor_result = mysqli_query( $conn, $doctor );
 				$doctor_count = mysqli_num_rows( $doctor_result );
