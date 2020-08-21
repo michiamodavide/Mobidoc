@@ -16,7 +16,7 @@
 	<link href="css/normalize.css" rel="stylesheet" type="text/css">
 	<link href="css/webflow.css" rel="stylesheet" type="text/css">
 	<link href="css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
-	<link href="css/new-styles.css?v=14" rel="stylesheet" type="text/css">
+	<link href="css/new-styles.css?v=22" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		WebFont.load( {
@@ -203,7 +203,7 @@
 						<?php
       /*	<h2>Dove Operiamo? </h2> Al momento offriamo visite a domicilio per pazienti in provincia di Ferrara e Rovigo.*/
       ?>
-       <h2>Dove Operiamo? </h2> Siamo presenti in provincia di Ferrara e di Rovigo.
+       <h2>Dove Operiamo? </h2> Siamo presenti in provincia di Ferrara <span class="mob_hide"><br></span> e di Rovigo.
 						</div>
 					</div>
 				</div>
@@ -409,7 +409,7 @@ Infermieristica <img src="images/arrow.png" alt="" >
 							<div class="feature_label">Scegli il Professionista<span class="hide"><br></span> e accordati su data e orario</div>
 						</div>
 						<div class="dottedline"></div>
-						<div class="feature diff">
+						<div class="feature diff" id="feature_dif3">
 							<div class="number">03</div>
 							<img src="images/icon-3.png" alt="">
 							<div class="feature_label">Paghi in tutta sicurezza<span class="hide"><br></span> a prestazione avvenuta</div>
@@ -429,7 +429,7 @@ Infermieristica <img src="images/arrow.png" alt="" >
 			</section>
 		</div>
 		<!---------New Content Ends---------->
-		<section data-w-id="92431e2b-82c4-bfde-c60b-c27892faf8bb" class="section-3">
+		<section id="section-3-grid" data-w-id="92431e2b-82c4-bfde-c60b-c27892faf8bb" class="section-3">
 			<div class="custom_container">
 				<div class="content_grid-2">
 					<h2 class="heading-2">Copertura Visite a Domicilio</h2>

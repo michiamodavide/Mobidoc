@@ -10,7 +10,7 @@
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
   <link href="css/mobidoc.webflow.css?v=4" rel="stylesheet" type="text/css">
-	<link href="css/new-styles.css?v=14" rel="stylesheet" type="text/css">
+	<link href="css/new-styles.css?v=17" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -174,7 +174,7 @@
 							<div class="feature_label">Scegli il Professionista<span class="hide"><br></span> e accordati su data e orario</div>
 						</div>
 						<div class="dottedline"></div>
-						<div class="feature diff">
+						<div class="feature diff" id="feature_dif3">
 							<div class="number">3</div>
 							<img src="images/icon-3.png" alt="">
 							<div class="feature_label">Paghi in tutta sicurezza<span class="hide"><br></span> a prestazione avvenuta</div>
