@@ -90,9 +90,9 @@ if(isset($_GET['admin'])){
                     <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox proff"></div>
                     <input type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1" required>
                     <span class="prff w-form-label">
-                      Informativa GDPR<br>
+                      Consenso GDPR<br>
                       <span class="text-span-4">
-                        Ho letto e compreso l&#x27;informativa e acconsento al trattamento dei miei dati personali ai fini dell&#x27;elaborazione della mia registrazione come professionista in Mobidoc.it.
+                        Ho letto e compreso l'<a href="/professionisti-privacy.html" target="_blank">informativa</a> e acconsento al trattamento dei miei dati personali ai fini dell'elaborazione della mia registrazione come professionista in Mobidoc.it.
                       </span>
                     </span>
                   </label>

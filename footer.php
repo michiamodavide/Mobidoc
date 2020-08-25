@@ -74,7 +74,7 @@
           <h4 class="heading-3">chi siamo</h4>
           <p class="paragraph-5"><em class="italic-text-2">Mobidoc è un servizio di visite ed esami a domicilio disponibile per le province di Ferrara e Rovigo che si rivolge a chi voglia ricevere un servizio sanitario qualificato a casa propria. </em><br></p>
           <br>
-          <a href="/privacy-policy.php" target="_blank" style="color:#fff; text-decoration:none;">Privacy Policy</a>
+          <a href="/privacypolicy.html" target="_blank" style="color:#fff; text-decoration:none;">Privacy Policy</a>
         </div>
         <div class="div-block-5">
           <h4 class="heading-3">seguici su</h4>

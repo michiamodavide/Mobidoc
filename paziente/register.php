@@ -113,16 +113,23 @@
               <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
               <input type="checkbox" id="checkbox2" name="checkbox" data-name="Checkbox" required="" style="opacity:0;position:absolute;z-index:-1">
               <span class="checkbox-label w-form-label">
-                <span class="legal_consent">Esprimo il consenso per finalità di gestione della prenotazione ed erogazione del servizio richiesto da parte dell’interessato (finalità a) indicata dall’informativa di trattamento).</span>
+                <span class="legal_consent">
+	Dichiaro d'aver letto, chiaramente compreso e preso atto dell'<a href="/informativaprivacy.html" target="_blank">informativa</a>, nonché dei miei diritti in qualità di interessato al trattamento, d'aver riconosciuto le esigenze funzionali rappresentate e, premendo su "Sì" o "No", esprimo la mia volontà in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di gestione della prenotazione ed erogazione del servizio richiesto alla società Tekamed S.r.l.. 
+Il consenso qui espresso potrà essere revocato con le medesime modalità.
+		</span>
               </span>
             </label>
             <label class="w-checkbox checkbox-field custom">
               <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
               <input type="checkbox" id="checkbox-3" name="checkbox-3" data-name="Checkbox 3" style="opacity:0;position:absolute;z-index:-1" required="">
               <span class="checkbox-label w-form-label">
-                <span class="legal_consent">Esprimo il consenso al trattamento, anche di dati appartenenti a particolari categorie, per finalità di erogazione delle prestazioni e degli interventi di prevenzione, diagnosi e cura (ivi incluse le attività di follow-up a fini di cura e/o le visite specialistiche e/o le prestazioni ambulatoriali eventualmente richieste dall’interessato) (finalità b) indicata dall’informativa di trattamento).</span>
+                <span class="legal_consent">
+Dichiaro d'aver letto, chiaramente compreso e preso atto dell'<a href="/informativaprivacy.html" target="_blank">informativa</a>, nonché dei miei diritti in qualità di interessato al trattamento, d'aver riconosciuto le esigenze funzionali rappresentate e, premendo su "Sì" o "No", esprimo la mia volontà in merito al trattamento e alla comunicazione a terzi dei miei dati personali, con specifico riguardo a quelli idonei a rivelare lo stato di salute (appartenenti a particolari categorie ai sensi degli art. 9 e seguenti del Regolamento U.E. n. 679/2016) per finalità di erogazione delle prestazioni e degli interventi di prevenzione, diagnosi e cura (ivi incluse le attività di follow-up a fini di cura e/o le visite specialistiche e/o le prestazioni ambulatoriali eventualmente da me richiesti). 
+Il consenso qui espresso potrà essere revocato con le medesime modalità.
+		</span>
               </span>
             </label>
+	   <div class="text-block-32">Leggi l'<a href="/informativaprivacy.html" target="_blank">informativa privacy completa</a>.</div>
             <!--
             <label class="w-checkbox checkbox-field custom">
               <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
