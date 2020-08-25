@@ -1,12 +1,17 @@
-  <footer class="footer">
+<style>@media screen and (max-width: 767px){.whats-app-btn{display: none;}}</style>
+<footer class="footer">
     <div class="custom_container footer_section">
       <div class="foofter_flex one">
         <div class="div-block-7">
           <div>
             <h4 class="heading-3">mobidoc</h4>
-            <!--<div class="detail"><img src="/images/Subtraction-3.svg" alt="" class="image-3">
+            <?php
+           /*
+           <div class="detail"><img src="/images/Subtraction-3.svg" alt="" class="image-3">
               <div class="text-block-6">Via Bellaria 6,<br>44121 Ferrara</div>
-            </div>-->
+            </div>
+           */
+           ?>
             <div class="detail"><img src="/images/phone-solid.svg" alt="" class="image-3">
               <div class="text-block-6">335 779 88 44</div>
             </div>
@@ -40,8 +45,8 @@
         if($row_count){
           if($visits_count <= 10) {
         ?>
-          <a href="<?php echo $link;?>" targe="_blank" style="color:#fff; text-decoration:none;">
-          <div>
+          <a href="/<?php echo $link;?>" style="color:#fff; text-decoration:none;">
+          <div style="margin-bottom: 10px;">
 
             <?php 
             switch ($visit_name) {
@@ -92,6 +97,14 @@
                 <div class="social_text">Facebook</div>
               </div>
             </a>
+
+
+        <a href="https://web.whatsapp.com/send?phone=+39%20335%20779%2088%2044" target="_blank" class="w-inline-block whats-app-btn">
+              <div class="social_icon"><img src="/images/what-app-icon.png?v=1" width="17" alt="" class="social_icon_image">
+                <div class="social_text">What's App</div>
+              </div>
+            </a>
+
           </div>
         </div>
       </div>
