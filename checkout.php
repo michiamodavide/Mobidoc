@@ -213,10 +213,6 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
 
                     <div class="pay_method_item_container">
 
-                     <div class="pay_method_item cash">
-                      <img src="images/cash.svg" alt="" class="pay_icon">
-                      <div class="pay_name">Contanti</div>
-                     </div>
                      <?php
                      /*
                       <div class="pay_method_item cash">
