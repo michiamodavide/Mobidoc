@@ -191,6 +191,10 @@
                 <div class="text-block-63">Email</div>
                 <div class="text-block-64"><?php echo $patient_rows['email'];?></div>
               </div>
+             <div class="paziente_data_block">
+              <div class="text-block-63">Telefono</div>
+              <div class="text-block-64"><?php echo $patient_rows['phone'];?></div>
+             </div>
               <div class="paziente_data_block">
                 <div class="text-block-63">Data</div>
                 <div class="text-block-64"><?php echo $date_of_booking; ?></div>
