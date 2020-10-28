@@ -1,3 +1,91 @@
+<style>
+.navbar {
+
+    display: block;
+   
+}
+.w-inline-block {
+    float: left;
+}
+.nav_menu_container {
+    display: block;
+	float:right;
+}
+.nav-menu {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: inline-block;
+    -webkit-box-align: top !important;
+    -webkit-align-items: top !important;
+    -ms-flex-align: top !important;
+    align-items: top !important;
+    height: 150px;
+	text-align:left;
+}
+.div-block-55 {
+	float: left;
+    display: block;
+    margin-top: 15px;
+}
+.text-block-37 {
+    margin-right: 4px;
+    margin-left: 4px;
+    display: block;
+    float: left;
+}
+.login_register {
+    display: block;
+    float: right;
+	margin-left: 0px;
+}
+.login_register a{float: left;}
+.login_register {
+   display: block;
+}
+.dropbtn {
+ /* background-color: #4CAF50;*/
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #00285c;
+  min-width: 160px;
+  z-index: 1;
+  
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  color:#fff;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color:  #d1faff;color:#00285c;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: rgba(255, 255, 255, 0.2);}
+</style>
+
 <?php
 	if(isset($_SESSION['paziente_email'])){
 		$email=$_SESSION['paziente_email'];
@@ -20,7 +108,15 @@
         <div class="nav_menu_container"><img src="/images/Menu.svg" width="23" data-w-id="0dc1ea3e-5be5-9a68-d1a4-9e9f84da893d" alt="" class="menu-button">
           <nav role="navigation" data-w-id="0dc1ea3e-5be5-9a68-d1a4-9e9f84da893e" class="nav-menu w-nav-menu">
           <a href="/professionisti-home.php" class="nav-link mem w-nav-link">Area Professionisti</a>
-            <a href="/visite-ed-esami.php" class="nav-link w-nav-link">Visite Ed Esami</a>
+          <div class="dropdown">
+            <a href="/visite-ed-esami.php" class="nav-link w-nav-link dropbtn">Visite Ed Esami</a>
+  <div class="dropdown-content">
+    <a href="/visite-ed-esami.php">A Domicilio</a>
+    <a href="/poliambulatorio-online.php">Online</a>
+  </div>
+</div>
+            
+            
             <a href="/comuni-serviti.php" class="nav-link w-nav-link">Comuni Serviti</a>
             <a href="/team-mobidoc.php" class="nav-link w-nav-link">Chi Siamo</a>
             <a href="/contattaci.php" class="nav-link w-nav-link">Contattaci</a>

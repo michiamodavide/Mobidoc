@@ -3,7 +3,7 @@
 <html data-wf-page="5daa262de3e3f012851af311" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
   <meta charset="utf-8">
-  <title>Services</title>
+  <title>Visite ed esami</title>
   <meta content="Services" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
@@ -33,6 +33,9 @@
 }
 .service_container{
  margin-top: 120px;
+}
+.w-inline-block{
+ float: inherit !important;
 }
   </style>
 <script>
@@ -285,23 +288,27 @@
       
 			while($rows2 = mysqli_fetch_array($result2)){
         $visit_type_name = trim($rows2['visit_name']," ");
-				$visit_name_2 = '"'.$visit_name.'", "'.$visit_type_name.'"'; 
-				echo "<div class='sub_service' onClick='get_visit_Doctors(".$visit_name_2.");' >";
-				echo "<div class='sub_service_text'>";
+				$visit_name_2 = '"'.$visit_name.'", "'.$visit_type_name.'"';
+
      if (in_array($visit_type_name, $cam_array)){
-      echo "<img src=\"assets/visit_icon/$cam_favicon\" style=\"width: 25px;margin-right: 10px;\" alt=\"\">";
+
+     }else{
+       echo "<div class='sub_service' onClick='get_visit_Doctors(".$visit_name_2.");' >";
+       echo "<div class='sub_service_text'>";
+
+       echo $visit_type_name;
+       echo"</div>";
+       echo "<div class='price'>";
+       echo "<div class='text-block-55'>A Partire da</div>";
+       $sql3 = "select MIN(price) from doctor_visit where visit_name ='".$visit_type_name."'";
+       $result3 = mysqli_query($conn, $sql3);
+       $rows3 = mysqli_fetch_array($result3);
+       $price = $rows3[0];
+       echo "<div class='price_text'>€$price</div>";
+       echo "</div>";
+       echo "</div>";
      }
-				echo $visit_type_name;
-				echo"</div>";
-				echo "<div class='price'>";
-        echo "<div class='text-block-55'>A Partire da</div>";       
-        $sql3 = "select MIN(price) from doctor_visit where visit_name ='".$visit_type_name."'";
-        $result3 = mysqli_query($conn, $sql3);
-        $rows3 = mysqli_fetch_array($result3);
-        $price = $rows3[0];
-        echo "<div class='price_text'>€$price</div>"; 
-				echo "</div>";
-				echo "</div>";
+
 			}
         ?>
           
