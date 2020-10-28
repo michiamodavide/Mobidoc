@@ -83,7 +83,52 @@
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: rgba(255, 255, 255, 0.2);}
+.dropdown:hover .dropbtn
+{
+ background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media screen and (max-width: 767px) {
+.nav-link {
+    display: inline-block;
+    text-align: center;
+	-webkit-transform-style: preserve-3d;
+transform-style: preserve-3d;}
+.nav-menu {
+    height: 100%;
+    text-align: center;
+}
+.login_register {
+    display: block;
+    float: none; 
+    margin-left: 0px; 
+}
+
+	
+	
+
+/*.t-m{
+	margin-top:90px;}*/
+	
+.text-block-37{
+	display:none;}	
+	
+.nav-menu {	
+display:flex;
+-webkit-box-orient: vertical !important;
+-webkit-box-direction: reverse !important;
+-webkit-flex-direction: column-reverse !important;
+-ms-flex-direction: column-reverse !important;
+flex-direction: column-reverse !important;
+	
+}
+
+
+.div-block-55 {
+    margin-top: 10px;
+}
+
+}
 </style>
 
 <?php
@@ -107,16 +152,16 @@
       <div class="navbar"><a href="/" class="w-inline-block w--current"><img src="/images/logo.svg" width="131" alt="" class="logo"></a>
         <div class="nav_menu_container"><img src="/images/Menu.svg" width="23" data-w-id="0dc1ea3e-5be5-9a68-d1a4-9e9f84da893d" alt="" class="menu-button">
           <nav role="navigation" data-w-id="0dc1ea3e-5be5-9a68-d1a4-9e9f84da893e" class="nav-menu w-nav-menu">
-          <a href="/professionisti-home.php" class="nav-link mem w-nav-link">Area Professionisti</a>
-          <div class="dropdown">
-            <a href="/visite-ed-esami.php" class="nav-link w-nav-link dropbtn">Visite Ed Esami</a>
-  <div class="dropdown-content">
+          <a href="/professionisti-home.php" class="nav-link mem w-nav-link t-m">Area Professionisti</a>
+ <div class="dropdown">
+            <a href="javascript:;" class="nav-link w-nav-link dropbtn">Visite Ed Esami <i class="fa fa-caret-down"></i></a>
+  <div class="dropdown-content" data-item="1">
     <a href="/visite-ed-esami.php">A Domicilio</a>
     <a href="/poliambulatorio-online.php">Online</a>
   </div>
 </div>
-            
-            
+
+
             <a href="/comuni-serviti.php" class="nav-link w-nav-link">Comuni Serviti</a>
             <a href="/team-mobidoc.php" class="nav-link w-nav-link">Chi Siamo</a>
             <a href="/contattaci.php" class="nav-link w-nav-link">Contattaci</a>
@@ -206,4 +251,24 @@
         };
     }
 });
+
+    $( ".dropdown" ).mouseenter(function() {
+      $(".dropbtn i", this).removeClass("fa-caret-down").addClass("fa-caret-up");
+    });
+    $( ".dropdown" ).mouseleave(function() {
+      $(".dropbtn i", this).removeClass("fa-caret-up").addClass("fa-caret-down");
+    });
+
+    $(".dropdown").on("click", function (e) {
+      e.preventDefault();
+      var current_item = $(".dropdown-content", this).attr("data-item");
+      console.log(current_item);
+      if (current_item == 1){
+        $(".dropbtn i", this).removeClass("fa-caret-down").addClass("fa-caret-up");
+        $(".dropdown-content", this).css("display", "block").attr("data-item","0");
+      }else {
+        $(".dropbtn i", this).removeClass("fa-caret-up").addClass("fa-caret-down");
+        $(".dropdown-content", this).css("display", "none").attr("data-item","1");
+      }
+    })
   </script>
