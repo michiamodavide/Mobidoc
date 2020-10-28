@@ -3,7 +3,7 @@
 <html data-wf-page="5daa262de3e3f012851af311" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
   <meta charset="utf-8">
-  <title>Visite ed esami</title>
+  <title>Visite ed esami a domicilio</title>
   <meta content="Services" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
@@ -64,7 +64,7 @@
   <div class="masthead services">
     <div class="custom_container masthead_content_container service">
       <div>
-        <h1 class="heading-4">Visite ed esami</h1>
+        <h1 class="heading-4">Visite ed esami a domicilio</h1>
       </div>
       <div class="w-embed">
         <style>
@@ -419,6 +419,15 @@
               }, 100); 
               getDoctors(visit_name);                   
         }
+
+
+  $('.section-7 .service_container').each(function(){
+    if ( $('.service_type_card .type_of-service_grid', this).children().length > 0 ) {
+
+    }else {
+      $(this).remove()
+    }
+  });
 </script>
 <style>
 .slect_visit_first{              
