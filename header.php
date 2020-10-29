@@ -88,7 +88,7 @@
  background-color: rgba(255, 255, 255, 0.2);
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 991px) {
 .nav-link {
     display: inline-block;
     text-align: center;
@@ -160,7 +160,6 @@ flex-direction: column-reverse !important;
     <a href="/poliambulatorio-online.php">Online</a>
   </div>
 </div>
-
 
             <a href="/comuni-serviti.php" class="nav-link w-nav-link">Comuni Serviti</a>
             <a href="/team-mobidoc.php" class="nav-link w-nav-link">Chi Siamo</a>
@@ -252,23 +251,26 @@ flex-direction: column-reverse !important;
     }
 });
 
-    $( ".dropdown" ).mouseenter(function() {
-      $(".dropbtn i", this).removeClass("fa-caret-down").addClass("fa-caret-up");
-    });
-    $( ".dropdown" ).mouseleave(function() {
-      $(".dropbtn i", this).removeClass("fa-caret-up").addClass("fa-caret-down");
-    });
 
-    $(".dropdown").on("click", function (e) {
-      e.preventDefault();
-      var current_item = $(".dropdown-content", this).attr("data-item");
-      console.log(current_item);
-      if (current_item == 1){
-        $(".dropbtn i", this).removeClass("fa-caret-down").addClass("fa-caret-up");
-        $(".dropdown-content", this).css("display", "block").attr("data-item","0");
-      }else {
-        $(".dropbtn i", this).removeClass("fa-caret-up").addClass("fa-caret-down");
-        $(".dropdown-content", this).css("display", "none").attr("data-item","1");
-      }
-    })
+    if (window.matchMedia('(max-width: 991px)').matches) {
+      $(".w-nav-link.dropbtn").on("click", function (e) {
+        e.preventDefault();
+        var current_item = $(".dropdown-content").attr("data-item");
+        console.log(current_item);
+        if (current_item == 1){
+          $("i", this).removeClass("fa-caret-down").addClass("fa-caret-up");
+          $(".dropdown-content").css("display", "block").attr("data-item","0");
+        }else {
+          $("i", this).removeClass("fa-caret-up").addClass("fa-caret-down");
+          $(".dropdown-content").css("display", "none").attr("data-item","1");
+        }
+      })
+    }else {
+      $( ".w-nav-link.dropbtn" ).mouseenter(function() {
+        $("i", this).removeClass("fa-caret-down").addClass("fa-caret-up");
+      });
+      $( ".dropdown" ).mouseleave(function() {
+        $("i", this).removeClass("fa-caret-up").addClass("fa-caret-down");
+      });
+    }
   </script>
