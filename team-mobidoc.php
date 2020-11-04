@@ -47,6 +47,34 @@
 	.p{
   	text-align-last: center !important;
   }
+  
+  .search_doctor {
+	  border-color: #00285c;
+    background-color: #00285c;}
+  .serch-icon{
+	  background-image: url(images/Search_icon.svg);
+	  background-color: transparent !important;
+	      height: 40px;
+		  border:none;
+		  cursor:pointer;}
+		 .text-field.team {
+opacity:1;
+    color: #fff!important;
+
+}
+
+.text-field.team::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+ color: #fff!important;
+  opacity: 1; /* Firefox */
+}
+
+.text-field.team:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #c5faff;
+}
+
+.text-field.team::-ms-input-placeholder { /* Microsoft Edge */
+  color: #c5faff;
+}
 </style>
 </head>
 <body class="body-7">
@@ -98,18 +126,19 @@
 		.professionist_header{
     	backdrop-filter: blur(10px);
     }
+	
 </style>
       </div>
       <div class="professionist_header">
         <h2 class="heading-2">I PROFESSIONISTI MOBIDOC</h2>
-        
-        <div class="search_doctor" style="display:none;">
-          <div class="form-block w-form">
-            <form id="Search_form" name="email-form" data-name="Email Form" class="form"><input type="text" class="text-field team w-input" autocomplete="off" maxlength="256" name="name-2" data-name="Name 2" placeholder="Cerca Professionista" id="name-2" required=""><input type="submit" value="Search" data-wait="Search" class="submit-button w-button"></form>
-            <div class="w-form-done"></div>
-            <div class="w-form-fail"></div>
-          </div>
+
+       <div class="search_doctor search-bg">
+        <div class="form-block w-form">
+         <form id="Search_form" name="email-form" action="javascript:;" method="get" class="form">
+          <input type="text" class="text-field team w-input text-white" autocomplete="off" maxlength="256" name="name-2" data-name="Name 2" placeholder="Cerca il dottore" id="name-2" required="">
+          <input type="submit" value="Search" data-wait="Search" class="submit-button serch-icon"></form>
         </div>
+       </div>
 
       </div>
       <div class="w-layout-grid professionist_grid">
@@ -257,7 +286,18 @@
         if(src == 'professionisti/photo/default.jpg'){          
           $(this).attr('src','images/Group-556.jpg');
         }
-      });      
+      });
+      $(".search_doctor .text-field").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        if (value.length == 0){
+          $(".search_doctor #Search_form .serch-icon").css("display", "block");
+        }else {
+          $(".search_doctor #Search_form .serch-icon").css("display", "none");
+        }
+        $(".professionist_grid .main_team").filter(function() {
+          $(this).toggle($(".preofessionist_name", this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
     });
   </script>
   <?php include ("google_analytic.php")?>
