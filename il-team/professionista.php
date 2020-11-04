@@ -91,7 +91,7 @@ header("location: validate.php");
 			$visit_name = $rows['visit_name'];
 			$visit[$i++]=$visit_name;
 		  ?>	
-		  <div class="doctura_visite">
+		  <div style="cursor: pointer" class="doctura_visite" data-item="<?php echo $visit_name?>" data-id="<?php echo $doctor_id?>">
             <div class="text-block-45">
               <?php
               checkVisitTypes($visit_name);
@@ -207,6 +207,13 @@ header("location: validate.php");
         }
       });      
     });
+
+    $(".doctura_visite").on("click", function (e) {
+      e.preventDefault();
+      var current_visit_name = $(this).attr("data-item");
+      var current_doc_id = $(this).data("id");
+      window.location.href = '/checkout.php?book_visit='+current_visit_name+'&book_doctor='+current_doc_id;
+    })
   </script>
   <?php include ("../google_analytic.php")?>
 </body>

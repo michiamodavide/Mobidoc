@@ -59,12 +59,13 @@
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #00285c;
-  min-width: 160px;
-  z-index: 1;
-  
+ display: none;
+ position: absolute;
+ background-color: rgba(255, 255, 255, 0.2);
+ min-width: 160px;
+ z-index: 1;
+ border-radius: 20px;
+ margin-left: 2.5px;
 }
 
 /* Links inside the dropdown */
@@ -77,7 +78,10 @@
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color:  #d1faff;color:#00285c;}
+.dropdown-content a:hover {
+ background-color: none;
+ color: #00285c;
+}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
@@ -152,7 +156,6 @@ flex-direction: column-reverse !important;
       <div class="navbar"><a href="/" class="w-inline-block w--current"><img src="/images/logo.svg" width="131" alt="" class="logo"></a>
         <div class="nav_menu_container"><img src="/images/Menu.svg" width="23" data-w-id="0dc1ea3e-5be5-9a68-d1a4-9e9f84da893d" alt="" class="menu-button">
           <nav role="navigation" data-w-id="0dc1ea3e-5be5-9a68-d1a4-9e9f84da893e" class="nav-menu w-nav-menu">
-          <a href="/professionisti-home.php" class="nav-link mem w-nav-link t-m">Area Professionisti</a>
  <div class="dropdown">
             <a href="javascript:;" class="nav-link w-nav-link dropbtn">Visite Ed Esami <i class="fa fa-caret-down"></i></a>
   <div class="dropdown-content" data-item="1">
@@ -160,8 +163,10 @@ flex-direction: column-reverse !important;
     <a href="/poliambulatorio-online.php">Online</a>
   </div>
 </div>
+           <a href="/professionisti-home.php" class="nav-link mem w-nav-link t-m">Area Professionisti</a>
 
-            <a href="/comuni-serviti.php" class="nav-link w-nav-link">Comuni Serviti</a>
+
+           <a href="/comuni-serviti.php" class="nav-link w-nav-link">Comuni Serviti</a>
             <a href="/team-mobidoc.php" class="nav-link w-nav-link">Chi Siamo</a>
             <a href="/contattaci.php" class="nav-link w-nav-link">Contattaci</a>
             

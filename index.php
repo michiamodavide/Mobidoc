@@ -375,7 +375,11 @@ Infermieristica <img src="images/arrow.png" alt="" >
     <div class="custom_container">
           <div class="content_grid-2">
         <h2 class="heading-2">Come funziona Mobidoc?</h2>
+      <?php
+      /*
         <p class="paragraph">Mobidoc è un punto di riferimento per chiunque abbia bisogno di assistenza sanitaria e voglia un servizio attento e dedicato, compatibile con i propri impegni, senza doversi sottoporre ad interminabili attese ed inutili spostamenti.</p>
+      */
+      ?>
       </div>
           <div class="feature_container">
         <div class="feature diff">

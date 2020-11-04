@@ -126,9 +126,9 @@
   <div class="section-7" style="padding-bottom: 0px">
     <div class="custom_container diff">
       <div class="content_grid">
-        <h2 class="heading-2 diff">Mobidoc Ospedale a domicilio</h2>
+        <h2 class="heading-2 diff">MOBIDOC TELEMEDICINA</h2>
         <p class="paragraph">
-          Mobidoc è stato pensato come un’organizzazione sanitaria, un ambulatorio o un piccolo ospedale a domicilio. I nostri professionisti sono medici, psicologi, infermieri, fisioterapisti e tecnici di radiologia che credono che in alcune circostanze la migliore cura possibile sia quella a casa del paziente: siamo noi che veniamo da te quando ne hai bisogno.
+         La telemedicina porta presso la casa del paziente il servizio del medico, dello psicologo, del fisioterapista senza che questo si allontani dal suo studio e senza che il paziente stesso sia costretto a muoversi. La telemedicina non sostituisce la tradizionale attività sanitaria in ospedale o in ambulatorio ma si integra nel percorso di cura del paziente. Ad esempio dopo una prima visita effettuata al domicilio si può utilizzare la telemedicina per controllare assieme al medico gli esami effettuati o per verificare la corretta esecuzione di esercizi di fisioterapia.
         </p>
       </div>
       <script>
@@ -167,8 +167,12 @@
       <section class="section-2 sec4-style">
         <div class="custom_container">
           <div class="content_grid-2">
-            <h2 class="heading-2">Come funziona Mobidoc?</h2>
+            <h2 class="heading-2">COME FUNZIONA IL POLIAMBULATORIO ONLINE MOBIDOC </h2>
+          <?php
+          /*
             <p class="paragraph">Mobidoc è un punto di riferimento per chiunque abbia bisogno di assistenza sanitaria e voglia un servizio attento e dedicato, compatibile con i propri impegni, senza doversi sottoporre ad interminabili attese ed inutili spostamenti.</p>
+          */
+          ?>
           </div>
           <div class="feature_container">
             <div class="feature diff">
