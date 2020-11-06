@@ -135,7 +135,7 @@ opacity:1;
        <div class="search_doctor search-bg">
         <div class="form-block w-form">
          <form id="Search_form" name="email-form" action="javascript:;" method="get" class="form">
-          <input type="text" class="text-field team w-input text-white" autocomplete="off" maxlength="256" name="name-2" data-name="Name 2" placeholder="Cerca il dottore" id="name-2" required="">
+          <input type="text" class="text-field team w-input text-white" autocomplete="off" maxlength="256" name="name-2" data-name="Name 2" placeholder="Cerca il professionista" id="name-2" required="">
           <input type="submit" value="Search" data-wait="Search" class="submit-button serch-icon"></form>
         </div>
        </div>
