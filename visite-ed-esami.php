@@ -337,10 +337,10 @@
       <div class="text-block-18">SELEZIONA PROFESSIONISTA</div>
       <div class="div-block-19">
         <div class="div-block-20" id="load_doctors">
-
           <div class="professionist_card-2 selecting">
             <div class="professionist_image_container"><img src="https://d3e54v103j8qbb.cloudfront.net/plugins/Image/assets/placeholder.60f9b1840c.svg" alt="" class="professionist_image">
-              <div class="selected_tick"><img src="images/Path-107.svg" width="55" alt="" class="image-4"></div>
+              <div class="selected_tick">
+               <img src="images/Path-107.svg" width="55" alt="" class="image-4"></div>
             </div>
             <div class="preofessionist_name">Paolo Colamussi</div>
             <div class="professionist_title">Primario Radiologia</div>
@@ -400,24 +400,24 @@
             };
             xmlhttp.open("GET", "getVisits.php?q=" + str, true);
             xmlhttp.send();
-          }      
-          
-          setTimeout( function(){ 
+          }
+
+          setTimeout( function(){
                 var visite_count = $('.visite_list').children('.visite').length;
-                
+
                 if(visite_count < 6){
                   $('.visite').css('margin-bottom','15px');
-                  $('.visite_list').css('display','block'); 
-                  $('#book_visit').val(visit_name);                
-                  $('#book_doctor').val('');                
+                  $('.visite_list').css('display','block');
+                  $('#book_visit').val(visit_name);
+                  $('#book_doctor').val('');
                 } else {
                   $('.visite').css('margin-bottom','0px');
-                  $('.visite_list').css('display','grid'); 
-                  $('#book_visit').val(visit_name);                
-                  $('#book_doctor').val('');  
+                  $('.visite_list').css('display','grid');
+                  $('#book_visit').val(visit_name);
+                  $('#book_doctor').val('');
                 }
-              }, 100); 
-              getDoctors(visit_name);                   
+              }, 100);
+              getDoctors(visit_name);
         }
 
 
