@@ -83,6 +83,7 @@ function readURL(input) {
 		$fiscale = $rows['fiscale'];
 		$vat_number = $rows['vat_number'];
 		$title = $rows['title'];
+		$p_type = $rows['p_type'];
 		$description = $rows['description'];
 		$education = $rows['education'];
 		$experience = $rows['experience'];
@@ -112,7 +113,7 @@ function readURL(input) {
                 <div class="form_section_heading">Descrizione Profilo</div>
                 
                 <div class="dual_container">
-                  <div class="input_element">
+                  <div class="input_element" style="width: inherit">
                     <select id="select-titilo" placeholder="<?php echo $title;?>" required="" >
                       <option value="<?php echo $title;?>"><?php echo $title;?></option>
 					            <option value="Medico Radiologo">Medico Radiologo</option>
@@ -133,7 +134,27 @@ function readURL(input) {
                     });
                     </script>                      
                   </div>   
-                  <input type="text" class="inputs proff w-input" maxlength="100" name="title" data-name="title" value="<?PHP echo $title;?>" id="title" required="" style="display:none;">           
+                  <input type="text" class="inputs proff w-input" maxlength="100" name="title" data-name="title" value="<?PHP echo $title;?>" id="title" required="" style="display:none;">
+                 <div class="input_element input_element_new" style="width: inherit">
+                  <select id="select-titilo-new" required="">
+                   <?php
+                   $prof_type_array = array('','Report','Execute','Both');
+                   ?>
+                   <option value="<?PHP echo $p_type;?>"><?php echo $prof_type_array[$p_type]?></option>
+                   <option value="1">Report</option>
+                   <option value="2">Execute</option>
+                   <option value="3">Both</option>
+                  </select>
+                  <script>
+                    $('#select-titilo-new').selectize();
+                    $('#select-titilo-new').change(function () {
+                      var slect_value = $('#select-titilo-new').val();
+                      $('#p_type').val(slect_value);
+                    });
+                  </script>
+                 </div>
+                 <input type="text" class="inputs proff w-input" maxlength="100" name="p_type" data-name="p_type"
+                        value="<?PHP echo $p_type;?>" id="p_type" required="" style="display:none;">
                 </div>
                 <textarea maxlength="10000" id="personal_description" name="personal_description" data-name="personal_description" class="text_area_profile personal_description w-input"><?PHP echo $description;?></textarea>
                 <textarea placeholder="Educazione:" maxlength="10000" id="educazione" name="personal_description-3" data-name="Personal Description 3" class="text_area_profile education w-input"><?PHP echo $education;?></textarea>
@@ -484,7 +505,9 @@ function readURL(input) {
     padding: 0px !important;
     overflow: hidden !important;
   }
-
+    .input_element_new .selectize-dropdown {
+     height: auto !important;
+    }
   .selectize-dropdown-content{
     max-height:100% !important;
   }

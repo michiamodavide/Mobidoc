@@ -212,14 +212,12 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
                     <div style="width:460px; text-align:center;">Continuando confermi la tua prenotazione e verrai contattato dal tuo professionista per programmare la tua visita o il tuo esame.</div>
 
                     <div class="pay_method_item_container">
-                      <?php
-                   /*
+
                       <div class="pay_method_item cash">
                         <img src="images/cash.svg" alt="" class="pay_icon">
                         <div class="pay_name">Contanti</div>
                       </div>
-                   */
-                   ?>
+
                       <div class="pay_method_item online"><img src="images/paypal_icon.svg?v=2" alt="" class="pay_icon">
                         <div class="pay_name">PayPal o Carta di Credito</div>
                       </div>
@@ -271,21 +269,24 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
               $link = "/il-team/professionista.php?".$rows5['doctor_id'];
               $id = $rows5['doctor_id'];
               $select_link = "/checkout.php?book_visit=".$booking_name."&book_doctor=".$id;
-        ?>
-              
-              <div class="professionist_card selecting">
-                <div class="professionist_image_container"><img src="<?php echo $profile_image;?>" alt="" class="professionist_image">
-                  <div class="selected_tick"><img src="images/Path-107.svg" width="55" alt="" class="image-4"></div>
-                </div>
-                <div class="preofessionist_name"><?php echo $name;?></div>
-                <div class="professionist_title"><?php echo $titile;?></div>
-                <div class="button_container">
-                  <a href="#" data-link="<?php echo $select_link;?>" class="button gradient select_button w-button">Seleziona</a>
-                  <a href="<?php echo $link;?>" target="_blank" class="button-3 w-button">Esplora Profilo</a>
-                </div>
-              </div>
+           if ($rows5['p_type'] == 1) {
+             ?>
 
-        <?php
+            <div class="professionist_card selecting">
+             <div class="professionist_image_container"><img src="<?php echo $profile_image; ?>" alt=""
+                                                             class="professionist_image">
+              <div class="selected_tick"><img src="images/Path-107.svg" width="55" alt="" class="image-4"></div>
+             </div>
+             <div class="preofessionist_name"><?php echo $name; ?></div>
+             <div class="professionist_title"><?php echo $titile; ?></div>
+             <div class="button_container">
+              <a href="#" data-link="<?php echo $select_link; ?>" class="button gradient select_button w-button">Seleziona</a>
+              <a href="<?php echo $link; ?>" target="_blank" class="button-3 w-button">Esplora Profilo</a>
+             </div>
+            </div>
+
+             <?php
+           }
           } mysqli_close($conn);
         ?>        
 
