@@ -106,10 +106,10 @@
         include '../connect.php';
         $sql = "select * from bookings where patient_id ='".$rows3['paziente_id']."' order by booking_id desc";
         $result = mysqli_query($conn, $sql);     
-        $count = mysqli_num_rows($result);         
-        
+        $count = mysqli_num_rows($result);
+
         $sql2 = "select * from bookings where patient_id ='".$rows3['paziente_id']."' and pateint_remove_from_list = '1'";
-        $result2 = mysqli_query($conn, $sql2);     
+        $result2 = mysqli_query($conn, $sql2);
         $count2 = mysqli_num_rows($result2);
         if($count < 1 || $count == $count2){          
       ?>
@@ -131,7 +131,8 @@
             });
           </script>
 
-        <?php 
+        <?php
+
           while($rows = mysqli_fetch_array($result)){
             $price = $rows['price'];
             $visit_name = $rows['visit_name'];
@@ -150,6 +151,12 @@
             $doctor_sql = "select * from doctor_profile where doctor_id ='".$doctor_id."'";
             $doctor_sql_result = mysqli_query($conn, $doctor_sql);     
             $doctor_rows = mysqli_fetch_array($doctor_sql_result);
+
+            //Executer Rows
+            $execut_id= $rows['executer_id'];
+            $execut_sql = "select * from doctor_profile where doctor_id ='".$execut_id."'";
+            $execut_sql_result = mysqli_query($conn, $execut_sql);
+            $execute_rows = mysqli_fetch_array($execut_sql_result);
 
             //auth code
             $auth_sql = "select * from payments where date_of_booking='".$date_of_book."' and patient_id='".$patient_id."'";
@@ -181,6 +188,12 @@
                     <div class="titlo">Professionista:</div>
                     <div class="doctor_name"><?php echo $doctor_rows['fname']." ".$doctor_rows['lname']?></div>
                   </div>
+                  <?php if (!empty($execute_rows)){?>
+                 <div class="doctor_name_data_container">
+                  <div class="titlo">Techniker zuweisen:</div>
+                  <div class="doctor_name"><?php echo $execute_rows['fname']." ".$execute_rows['lname']?></div>
+                 </div>
+                 <?php }?>
                   <div class="doctor_name_data_container">
                     <div class="titlo">Richiesta il:</div>
                     <div class="doctor_name"><?php echo $date_of_book; ?></div>

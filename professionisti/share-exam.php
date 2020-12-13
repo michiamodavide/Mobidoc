@@ -34,6 +34,7 @@ if(isset($_POST['submit']))
     mail($to, $subject, $message, $headers);
 
     echo "<script>alert('Lesame è stato condiviso con successo.');</script>";
+    echo "<script>window.location = 'account.php'</script>";
   }
   else{
     echo "Your Record not Updated";

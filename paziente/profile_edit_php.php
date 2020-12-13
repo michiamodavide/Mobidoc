@@ -24,19 +24,21 @@
 			
 		$result4 = mysqli_query($conn, $sql4);
 		$rows4 = mysqli_fetch_array($result4);
-		$profile_img = $rows4['photo'];
+     $photo = $rows4['photo'];
 
+		/*
 		if($_FILES["upload-image"]["error"] != 0) {
 			$photo = $profile_img;
 		} else {
-			$imageFileType = pathinfo($_FILES["upload-image"]["name"],PATHINFO_EXTENSION);			
+			$imageFileType = pathinfo($_FILES["upload-image"]["name"],PATHINFO_EXTENSION);
 			$photo = "photo/".$b[0].".".$imageFileType;
 			echo $photo;
 		}
+		*/
 
 		$sql = "update paziente_profile set dob='".$dob."', first_name='".$fname."', last_name='".$lname."', photo='".$photo."', fiscale='".$fiscal."', phone='".$tel."', via='".$via."', civico='".$civico."', comune='".$comune."', province='".$province."', cap='".$cap."', privacy_consent='".$check."' where email='".$email."'";
 		
-		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
+		/*move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);*/
 	
 		$result = mysqli_query($conn, $sql);
 		if($result==1)
