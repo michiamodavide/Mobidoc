@@ -108,7 +108,13 @@ $rows3 = mysqli_fetch_array($result3);
 
      <?php
      include '../connect.php';
-     $sql = "select * from bookings where doctor_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
+
+     if ($rows3['p_type'] == 2){
+       $sql = "select * from bookings where executer_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
+     }else{
+      $sql = "select * from bookings where doctor_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
+     }
+
      $result = mysqli_query($conn, $sql);
      $count = mysqli_num_rows($result);
      if ($count < 1) {
@@ -164,10 +170,12 @@ $rows3 = mysqli_fetch_array($result3);
            <div
             style="background:red; width:100%; height:100%; background:url('<?php echo "../paziente/" . $patient_rows['photo'] ?>') no-repeat center center / cover;"></div>
           </div>
+          <?php  if ($rows3['p_type'] != 2){?>
           <div class="price_container">
            <div class="text-block-65">Prezzo Visita</div>
            <div class="price_euro"><span class="text-span-5"></span><?php echo '€ ' . $price; ?></div>
           </div>
+          <?php }?>
          </div>
          <div class="data_container">
           <h3 class="paziente_name"><?php echo $patient_rows['first_name'] . " " . $patient_rows['last_name'] ?></h3>
@@ -175,6 +183,12 @@ $rows3 = mysqli_fetch_array($result3);
            <div class="text-block-63">Prenotato per</div>
            <div class="text-block-62"><?php echo $visit_name; ?></div>
           </div>
+         <?php  if ($rows3['p_type'] == 2){?>
+          <div class="paziente_data_block">
+           <div class="text-block-63">Professionista</div>
+           <div class="text-block-62"><?php echo $current_doc_name; ?></div>
+          </div>
+         <?php }?>
           <div class="paziente_data_block">
            <div class="text-block-63">Indirizzo</div>
            <div class="text-block-64"><?php echo $patient_rows['via']; ?>
@@ -186,11 +200,17 @@ $rows3 = mysqli_fetch_array($result3);
          <div class="appoint_buttons_container">
           <a href="tel:<?php echo $patient_rows['phone']; ?>" class="button-5 w-button">Chiama Paziente</a>
           <a href="#" class="button-5 faded diff w-button view_details_button">Vedi Dettagli Visita</a>
+
+          <?php  if ($rows3['p_type'] != 2){?>
            <?php if ($rows['doctor_booking_status'] == 0) { ?>
-            <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita
-             Completata</a>
+            <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
            <?php } ?>
+
           <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
+          <?php }else{?>
+           <a href="tel:<?php echo $doctor_rows['phone']; ?>" class="button-5 faded diff w-button" style="background-color: rgba(0, 0, 0, 0.7); color: white;">Chiama Professionisti</a>
+           <a href="<?php echo '/il-team/professionista.php?'.$doctor_rows['doctor_id']?>" target="_blank" class="button-5 faded diff w-button" style="background-color: #0ce5b2;">Profilo Professionisti</a>
+           <?php }?>
           <div data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c88" class="confirm diff">
            <div
             style="-webkit-transform:translate3d(0, 20%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 20%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 20%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 20%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0"
@@ -223,22 +243,28 @@ $rows3 = mysqli_fetch_array($result3);
            <div class="text-block-63">Data</div>
            <div class="text-block-64"><?php echo $date_of_booking; ?></div>
           </div>
+
+           <?php  if ($rows3['p_type'] != 2){?>
           <div class="paziente_data_block">
            <div class="text-block-63">Pagamento</div>
            <div class="text-block-64"><?php echo ucwords($rows['payment_mode']); ?> </div>
           </div>
+
            <?php if ($rows['payment_mode'] == 'online') { ?>
             <div class="paziente_data_block">
              <div class="text-block-63">Payment Status</div>
              <div class="text-block-64"><?php echo $payment_status; ?> </div>
             </div>
            <?php } ?>
+
           <div class="paziente_data_block">
            <div class="text-block-63">Messaggio</div>
            <div class="pateint_message">
             <div class="text-block-64 diff"><?php echo $rows['message']; ?> </div>
            </div>
           </div>
+          <?php }?>
+
          </div>
         </div>
 
@@ -285,7 +311,7 @@ $rows3 = mysqli_fetch_array($result3);
     <input type="text" name="vis_name" id="vis_name" style="display:none;">
     <input type="text" name="doct_name" id="doct_name" style="display:none;">
     <a data-w-id="365b64cd-1aba-0309-c567-e78f0e672a65" href="#" class="button-3 next odd w-button back-btn">Indietro</a>
-    <button type="submit" name="submit" class="button-3 next w-button share-exam-btn" style="padding-right:100px;">Continua</button>
+    <button type="submit" name="submit" class="button-3 next w-button share-exam-btn" style="padding-right:100px;cursor: no-drop" disabled>Continua</button>
    </form>
   </div>
  </div>
@@ -335,6 +361,7 @@ $rows3 = mysqli_fetch_array($result3);
     $('#share_exam').val(val);
     $("#excuter_email").val(email);
     $("#excuter_name").val(name);
+    $(".share-exam-btn").prop("disabled", false).css("cursor","pointer");
   }
 
   $('.select_button').click(function(){

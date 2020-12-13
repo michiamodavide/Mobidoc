@@ -178,7 +178,7 @@
                       <div class="form_section_heading">Consenso privacy</div>
                       <label class="w-checkbox checkbox-field-2">
                         <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
-                        <input type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1">
+                        <input type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1" required>
                         <span class="checkbox-label-2 w-form-label">Esprimo il consenso in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di marketing</span>
                       </label>
                     </div>
@@ -188,13 +188,18 @@
               
                 <div class="div-block-34">
                   <div class="div-block-35">
+                  <?php
+                  /*
                     <div class="profile_image_container">
                       <div id="dp_2" style="width:100%; height:100%; background: url('<?PHP echo $photo;?>'); background-position:center; background-size:cover;cursor: pointer"></div>
                     </div>
                     <div class="text-block-33">Carica un’immagine profilo</div>
                     <br>
-                    <input type="file" class="upload_image" style="display:none;" name="upload-image" accept="image/*" onchange="readURL(this);">                                         
-                </div>
+                    <input type="file" class="upload_image" style="display:none;" name="upload-image" accept="image/*" onchange="readURL(this);">
+
+                  */
+                  ?>
+                  </div>
 
             </div>
             <div>
@@ -210,24 +215,24 @@
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
   <div id="fb-root"></div>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
-  <script>
-                  $(document).ready(function(){
-                    $('.text-block-33, .profile_image_container').click(function(){
-                      $('.upload_image').trigger("click");
-                      $('.upload_image').change(function() {				
-                        var filename = $('.upload_image').val();
-                        var pos = filename.lastIndexOf("\\");
-                        filename = filename.substr(pos+1);
-                        if(filename != ''){
-                        $('.text-block-33').html(filename);
-                        } else {
-                          $('.text-block-33').html("Upload image");
-                        }
-                      });
-                    });
-                  });
-                 
-  </script>     
+<!--  <script>-->
+<!--                  $(document).ready(function(){-->
+<!--                    $('.text-block-33, .profile_image_container').click(function(){-->
+<!--                      $('.upload_image').trigger("click");-->
+<!--                      $('.upload_image').change(function() {				-->
+<!--                        var filename = $('.upload_image').val();-->
+<!--                        var pos = filename.lastIndexOf("\\");-->
+<!--                        filename = filename.substr(pos+1);-->
+<!--                        if(filename != ''){-->
+<!--                        $('.text-block-33').html(filename);-->
+<!--                        } else {-->
+<!--                          $('.text-block-33').html("Upload image");-->
+<!--                        }-->
+<!--                      });-->
+<!--                    });-->
+<!--                  });-->
+<!--                 -->
+<!--  </script>     -->
   <style>
     .search_help_open{
       display: block !important;

@@ -19,15 +19,17 @@
 		echo $dob;
 		$b = explode("@",$email);
 
-		$profile_img = "../images/Group-556.jpg";
-		$_FILES["upload-image"];
+     $photo = "../images/Group-556.jpg";
 
+     /*
+     	$_FILES["upload-image"];
 		if($_FILES["upload-image"]["error"] != 0) {
 			$photo = $profile_img;
 		} else {
 			$imageFileType = pathinfo($_FILES["upload-image"]["name"],PATHINFO_EXTENSION);
 			$photo = "photo/".$b[0].".".$imageFileType;
 		}
+     */
 
 		$sql = "update paziente_profile set dob='".$dob."', photo='".$photo."', fiscale='".$fiscal."', phone='".$tel."', via='".$via."', civico='".$civico."', comune='".$comune."', province='".$province."', cap='".$cap."', privacy_consent='".$check."' where email='".$email."' ";
 		
@@ -39,7 +41,7 @@
 		$full_name = $first_name.' '.$last_name;
 
 
-		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
+		/*move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);*/
 	
 		$result = mysqli_query($conn, $sql);
 		if($result==1){
