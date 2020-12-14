@@ -144,7 +144,11 @@ opacity:1;
       <div class="w-layout-grid professionist_grid">
 	<?php
 		include 'connect.php';
-		$sql = "select * from doctor_profile order by doctor_id desc";
+ if (isset($_SESSION['doctor_email'])) {
+   $sql = "select * from doctor_profile order by doctor_id desc";
+ }else{
+   $sql = "select * from doctor_profile where p_type = '1' order by doctor_id desc";
+ }
 		$result = mysqli_query($conn, $sql);
 		while($rows = mysqli_fetch_array($result)){
 			$doctor_id = $rows['doctor_id'];

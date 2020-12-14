@@ -531,7 +531,7 @@ Infermieristica <img src="images/arrow.png" alt="" >
 
           */
           ?>
-           <iframe src="https://snazzymaps.com/embed/279561" width="100%" height="600px" style="border:none;"></iframe>
+           <iframe src="https://snazzymaps.com/embed/279561" width="100%" height="100%" style="border:none;"></iframe>
           </div>
         </div>
     <a href="comuni-serviti.php" class="button gradient w-button">Scopri Lista Comuni</a><a href="#masthead" class="button _2nd w-button">Ricerca Visita o Esame</a> </div>
