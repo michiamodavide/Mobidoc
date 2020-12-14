@@ -213,8 +213,12 @@ $body_copy = $rows['body_text'];
              }
            }
            $uniqu = array_unique($unique_email);
-           foreach ($uniqu as $value){ 
-            $sql5 = "select * from doctor_profile where email='".$value."'";
+           foreach ($uniqu as $value){
+             if (isset($_SESSION['doctor_email'])) {
+               $sql5 = "select * from doctor_profile where email='".$value."'";
+             }else{
+               $sql5 = "select * from doctor_profile where email='".$value."' AND p_type='1'";
+             }
             $result5 = mysqli_query($conn, $sql5);    
             $rows5 = mysqli_fetch_array($result5);
           if (!empty($rows5['fname']) && !empty($rows5['title'])){
