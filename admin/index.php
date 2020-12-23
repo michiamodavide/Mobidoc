@@ -89,11 +89,17 @@ $('.admin_item:nth-child(2)').click(function(){
           <div data-w-id="98c7cd18-996f-4b08-777e-ae54e6517910" data-animation-type="lottie" data-src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5df9f0f25ccbf3bb4c727941_lottieflow-scrolling-01-1-00285C-easey.json" data-loop="0" data-direction="1" data-autoplay="0" data-is-ix2-target="1" data-renderer="svg" data-default-duration="2.76" data-duration="0" class="lottie-animation-3"></div>
         </div>
         <div id="add">
+         <?php
+         /*
           <a href="/paziente/register.php" target="_blank" class="button-10 w-button" style="display:inline; padding:10px 20px 10px 20px; margin-right:10px;">+ Paziente</a>
           <a href="/professionisti/register.php?admin" target="_blank" class="button-10 w-button" style="display:inline; padding:10px 20px 10px 20px; margin-right:30px;">+ Professionista</a>
-        </div>        
+         */
+         ?>
+          <a href="/paziente/patient-register.php" target="_blank" class="button-10 w-button" style="display:inline; padding:10px 20px 10px 20px; margin-right:30px;">+ Prenotazione Telefonica</a>
+        </div>
         <a href="logout.php" class="admin_logout w-button"></a></div>
     </div>
+
     <div class="section_content">
       <div class="applications">
         <div class="doctors_block">
