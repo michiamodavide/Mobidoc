@@ -47,13 +47,13 @@ include '../connect.php';
   <div class="custom_container update_form">
     <div class="update_form_main_container">
       <div class="update_form_block w-form">
-        <form id="email-form" name="email-form" class="update_form" action="profile_update_php.php" method="post" enctype="multipart/form-data">
+        <form id="email-form" name="email-form" class="update_form" action="patient_reg.php" method="post" enctype="multipart/form-data">
           <div>
             <div class="form_section">
               <div class="form_section_heading">Informazioni Contatto</div>
               <div class="dual_container diff">
-                <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" id="first_name" required>
-                <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" id="last_name" required>
+                <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" id="first_name" required>
+                <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" id="last_name" required>
               </div>
               <div class="dual_container diff">
                 <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" id="email" required>
@@ -75,6 +75,7 @@ include '../connect.php';
                        name="admin_note" data-name="personal_description"
                        class="text_area_profile personal_description w-input" required></textarea>
             </div>
+
            <div class="form_section">
             <div class="form_section_heading">Prenotazione Prestazione</div>
             <div class="duo_flex">
@@ -83,7 +84,7 @@ include '../connect.php';
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="select-visit" placeholder="Seleziona Prestazione *" name="select_comun" required onchange="getVisitDoc()">
+                <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" required onchange="getVisitDoc()">
                  <option value="">Seleziona Prestazione</option>
                   <?php
                   include '../connect.php';
@@ -106,7 +107,7 @@ include '../connect.php';
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="select-doctor" placeholder="Seleziona Professionista *" name="select_comun" required>
+                <select id="select-doctor" placeholder="Seleziona Professionista *" name="doc_id[]" required multiple>
                  <option value="">Seleziona Professionista</option>
                 </select>
                 <script>
@@ -125,7 +126,7 @@ include '../connect.php';
            <div class="form_section">
             <div class="form_section_heading">Data e Ora</div>
             <div class="dual_container diff">
-             <input type="text" class="datepicker-here inputs w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" name="dob" placeholder="Data di Nascita *" id="dob" required="">
+             <input type="text" class="datepicker-here inputs w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" name="appoint_time" placeholder="Data di Nascita *" id="appoint_time" required="">
             </div>
            </div>
            <div class="form_section">
@@ -136,8 +137,7 @@ include '../connect.php';
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="cash-option" placeholder="Metodo di Pagamento" name="select_comun">
-                 <option value="">Metodo di Pagamento</option>
+                <select id="cash-option" placeholder="Metodo di Pagamento" name="payment_mode">
                  <option value="Cash">Cash</option>
                  <option value="Bancomat">Bancomat</option>
                  <option value="Bonifico Bancario">Bonifico Bancario</option>
@@ -178,9 +178,8 @@ include '../connect.php';
             <div class="div-block-35">
             </div>
           </div>
-
           <div>
-            <input type="submit" style="color:#fff !important;" value="Invia" id="submit" class="button gradient submit w-button">
+            <input type="submit" name="submit" style="color:#fff !important;" value="Invia" id="submit" class="button gradient submit w-button">
           </div>
         </form>
       </div>
@@ -431,15 +430,15 @@ include '../connect.php';
 
 
 
-    $('#submit').click(function(){
-      var fiscale_value = $('#fiscal_code').val();
-      if(validateTaxCode(fiscale_value) == true){
-        return true;
-      } else {
-        alert('Il codice fiscale non è valido!');
-        return false;
-      }
-    });
+    // $('#submit').click(function(){
+    //   var fiscale_value = $('#fiscal_code').val();
+    //   if(validateTaxCode(fiscale_value) == true){
+    //     return true;
+    //   } else {
+    //     alert('Il codice fiscale non è valido!');
+    //     return false;
+    //   }
+    // });
   });
 
   function getVisitDoc() {
@@ -451,11 +450,9 @@ include '../connect.php';
       data: {data:visit_type_single},
       dataType: "json",
       success: function (response) {
-        console.log(response);
         $.each(response, function(index) {
           doc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
         });
-
         doc_select.refreshOptions();
       },
       error: function(jqXHR, textStatus, errorThrown) {
