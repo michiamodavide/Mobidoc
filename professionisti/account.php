@@ -221,8 +221,8 @@ $rows3 = mysqli_fetch_array($result3);
               <?php if ($rows['payment_mode'] == 'Online') { ?>
                <a href="#" class="button-5 yes w-button"
                   onClick="complete_visit(<?php echo $patient_id . ',' . $booking_id . ',' . $date_of_booking_string . ',' . $price; ?>)">Conferma</a>
-              <?php } ?>
-              <?php if ($rows['payment_mode'] == 'Contanti') { ?>
+              <?php }else{ ?>
+              <?php //if ($rows['payment_mode'] == 'Contanti') { ?>
                <a href="#" class="button-5 yes w-button"
                   onClick="complete_visit_cash(<?php echo $patient_id . ',' . $booking_id; ?>)">Conferma</a>
               <?php } ?>
