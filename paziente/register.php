@@ -63,11 +63,7 @@
                     $dor = date("Y/m/d");
                   
                     $sql = "insert into paziente_profile (first_name, last_name, password, email, photo, dor) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$profile_img."', '".$dor."')";
-                     print_r($sql);
-                     echo '<br>';
                     $result = mysqli_query($conn, $sql);
-                    print_r($result);
-                    exit();
                     mysqli_close($conn);
                     if($result==1)
                     {
