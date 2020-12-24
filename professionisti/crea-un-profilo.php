@@ -143,8 +143,8 @@ if (isset($_GET['email'])) {
 
         <div class="input_element input_element_new" style="width: inherit">
          <select id="select-titilo-new" required="">
-          <option value="1">Report</option>
-          <option value="2">Execute</option>
+          <option value="1">Reporter</option>
+          <option value="2">Executor</option>
           <option value="3">Both</option>
          </select>
          <script>

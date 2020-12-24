@@ -269,7 +269,7 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
               $link = "/il-team/professionista.php?".$rows5['doctor_id'];
               $id = $rows5['doctor_id'];
               $select_link = "/checkout.php?book_visit=".$booking_name."&book_doctor=".$id;
-           if ($rows5['p_type'] == 1) {
+           if ($rows5['p_type'] == 1 || $rows5['p_type'] == 3) {
              ?>
 
             <div class="professionist_card selecting">

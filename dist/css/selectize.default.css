@@ -314,6 +314,19 @@
   border-width: 5px 5px 0 5px;
   border-color: #808080 transparent transparent transparent;
 }
+.selectize-control.multi .selectize-input:after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  margin-top: -3px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 5px 0 5px;
+  border-color: #808080 transparent transparent transparent;
+}
 .selectize-control.single .selectize-input.dropdown-active:after {
   margin-top: -4px;
   border-width: 0 5px 5px 5px;
@@ -331,8 +344,9 @@
   background-color: #fafafa;
 }
 .selectize-control.multi .selectize-input.has-items {
-  padding-left: 5px;
-  padding-right: 5px;
+  /*padding-left: 5px;*/
+  /*padding-right: 5px;*/
+  padding: 15px;
 }
 .selectize-control.multi .selectize-input.disabled [data-value] {
   color: #999;

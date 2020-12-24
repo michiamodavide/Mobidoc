@@ -21,9 +21,9 @@ include '../connect.php';
   <link href="dist/css/datepicker.css" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-  <link href="../dist/css/selectize.default.css" rel="stylesheet"/>
+  <link href="../dist/css/selectize.default.css?v=1" rel="stylesheet"/>
   <script src="../dist/js/standalone/selectize.min.js"></script>
-  <script src="dist/js/datepicker.js"></script>
+  <script src="date_pic.js?v=1"></script>
   <script src="dist/js/i18n/datepicker.en.js"></script>
   <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
   <style>
@@ -67,9 +67,7 @@ include '../connect.php';
                 <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" id="first_name" required>
                 <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" id="last_name" required>
               </div>
-              <textarea placeholder="Indirizzo Completo *" maxlength="10000" id="personal_description"
-                        name="address" data-name="personal_description"
-                        class="text_area_profile personal_description w-input" required></textarea>
+             <input style="margin-bottom: 15px" type="text" class="inputs w-input" maxlength="256" name="address" data-name="fiscal_code" placeholder="Indirizzo Completo *" id="address" required="">
              <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" required="">
              <textarea placeholder="Note *" maxlength="10000" id="personal_description"
                        name="admin_note" data-name="personal_description"
@@ -88,10 +86,10 @@ include '../connect.php';
                  <option value="">Seleziona Prestazione</option>
                   <?php
                   include '../connect.php';
-                  $visit_sql = "select * from visit_type order by visit_type_name";
+                  $visit_sql = "select * from doctor_visit order by visit_name";
                   $visit_result = mysqli_query($conn, $visit_sql);
                   while($visit_rows = mysqli_fetch_array($visit_result)){
-                    $visit_types = $visit_rows['visit_type_name'];
+                    $visit_types = $visit_rows['visit_name'];
                     ?>
                    <option value="<?PHP echo $visit_types;?>"><?PHP echo $visit_types;?></option>
                   <?php } mysqli_close($conn);?>
@@ -107,7 +105,7 @@ include '../connect.php';
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="select-doctor" placeholder="Seleziona Professionista *" name="doc_id[]" required multiple>
+                <select id="select-doctor" placeholder="Seleziona Professionista *" multiple name="doc_id[]" required >
                  <option value="">Seleziona Professionista</option>
                 </select>
                 <script>
@@ -144,7 +142,7 @@ include '../connect.php';
            <div class="form_section">
             <div class="form_section_heading">Data e Ora</div>
             <div class="dual_container diff">
-             <input type="text" class="datepicker-here inputs w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" name="appoint_time" placeholder="Data di Nascita *" id="appoint_time" required="">
+             <input type="text" class="datepicker-here inputs w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data di Nascita *" id="appoint_time" required="">
             </div>
            </div>
            <div class="form_section">
@@ -301,6 +299,10 @@ include '../connect.php';
     color:#00285C !important;
   }
 
+ .choose_your_area.select2, .choose_your_area.select3{
+  pointer-events: none;
+  opacity: 0.6;
+ }
 </style>
 <script>
   $(document).ready(function(){
@@ -448,15 +450,15 @@ include '../connect.php';
 
 
 
-    // $('#submit').click(function(){
-    //   var fiscale_value = $('#fiscal_code').val();
-    //   if(validateTaxCode(fiscale_value) == true){
-    //     return true;
-    //   } else {
-    //     alert('Il codice fiscale non è valido!');
-    //     return false;
-    //   }
-    // });
+    $('#submit').click(function(){
+      var fiscale_value = $('#fiscal_code').val();
+      if(validateTaxCode(fiscale_value) == true){
+        return true;
+      } else {
+        alert('Il codice fiscale non è valido!');
+        return false;
+      }
+    });
   });
 
   function getVisitDoc() {
@@ -468,12 +470,13 @@ include '../connect.php';
       data: {data:visit_type_single},
       dataType: "json",
       success: function (response) {
+        $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+        $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
         $.each(response, function(index) {
-          console.log(response);
           var p_type = response[index].p_type;
-          if (p_type == 1){
+          if (p_type == 1 || p_type == 3){
             doc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
-          }else if (p_type == 2 || p_type == 3) {
+          }else if (p_type == 2) {
             exc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
           }
         });

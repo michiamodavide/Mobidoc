@@ -21,8 +21,7 @@ while($rows = mysqli_fetch_array($result)){
     $titile = ucwords($rows['title']);
     $link = "/il-team/professionista.php?".$rows['doctor_id'];
 ?>
-    
-    
+
     <div class="profile_header">
         <div class="qprofile_image">
             <div style="background:url(<?php echo $profile_image;?>) no-repeat center center / cover;" class="image-6"></div>

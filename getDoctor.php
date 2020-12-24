@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 $q = $_REQUEST["q"];
 
@@ -15,7 +15,11 @@ $result = mysqli_query($conn, $sql);
 
 while($rows = mysqli_fetch_array($result)){
     $doctor_email = $rows['doctor_email'];
+  if (isset($_SESSION['doctor_email'])) {
     $sql2 = "select * from doctor_profile where email ='".$doctor_email."'";
+  }else{
+    $sql2 = "select * from doctor_profile where email ='".$doctor_email."' AND p_type !='2'";
+  }
     $result2 = mysqli_query($conn, $sql2);
     $rows2 = mysqli_fetch_array($result2);
     $profile_image = "/professionisti/".$rows2['photo'];
@@ -23,8 +27,8 @@ while($rows = mysqli_fetch_array($result)){
     $titile = ucwords($rows2['title']);
     $link = "/il-team/professionista.php?".$rows2['doctor_id'];
     $id = $rows2['doctor_id'];
-        if ($rows2['p_type'] == 1) {
-     ?>
+    if (!empty($rows2)) {
+      ?>
 
      <div class="professionist_card-2 selecting">
       <div class="professionist_image_container">

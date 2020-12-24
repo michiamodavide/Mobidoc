@@ -138,11 +138,11 @@ function readURL(input) {
                  <div class="input_element input_element_new" style="width: inherit">
                   <select id="select-titilo-new" required="">
                    <?php
-                   $prof_type_array = array('','Report','Execute','Both');
+                   $prof_type_array = array('','Reporter','Executor','Both');
                    ?>
                    <option value="<?PHP echo $p_type;?>"><?php echo $prof_type_array[$p_type]?></option>
-                   <option value="1">Report</option>
-                   <option value="2">Execute</option>
+                   <option value="1">Reporter</option>
+                   <option value="2">Executor</option>
                    <option value="3">Both</option>
                   </select>
                   <script>
