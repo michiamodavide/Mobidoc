@@ -121,6 +121,24 @@ include '../connect.php';
               </div>
              </div>
             </div>
+            <div class="duo_flex">
+             <div class="choose_your_area select3">
+              <div class="search_cap_input sci2">
+               <div class="input_element" style="background:#d3fbff;">
+                <img src="../images/search.svg" width="28"  alt="">
+
+                <select id="select-excutor" placeholder="Seleziona Tecnico *" name="execut_id" required>
+                 <option value="">Seleziona Tecnico</option>
+                </select>
+                <script>
+                  var $select_ex = $('#select-excutor').selectize();
+
+                  var exc_select = $select_ex[0].selectize;
+                </script>
+               </div>
+              </div>
+             </div>
+            </div>
            </div>
 
            <div class="form_section">
@@ -451,9 +469,16 @@ include '../connect.php';
       dataType: "json",
       success: function (response) {
         $.each(response, function(index) {
-          doc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
+          console.log(response);
+          var p_type = response[index].p_type;
+          if (p_type == 1){
+            doc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
+          }else if (p_type == 2 || p_type == 3) {
+            exc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
+          }
         });
         doc_select.refreshOptions();
+        exc_select.refreshOptions();
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log(textStatus, errorThrown);
