@@ -34,9 +34,7 @@
 
 		} else {
 			$sql = "insert into bookings (patient_id, doctor_id, visit_name, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking) values('".$patient_id."', '".$doctor_id."', '".$visit_name."', '".$price."', '".$message."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."')";
-			
 			$result = mysqli_query($conn, $sql);
-			
 
 			$sql2 = "select * from paziente_profile where paziente_id='".$patient_id."'";
 			$result2 = mysqli_query($conn, $sql2);
@@ -51,8 +49,7 @@
 			$doctor_email = $rows3['email'];
 			mysqli_close($conn);
 
-			if($result==1)
-			{
+			if($result==1) {
 				
 				//email to admin
 				$to = 'info@mobidoc.it'; //admin email

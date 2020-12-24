@@ -18,7 +18,7 @@ while($rows = mysqli_fetch_array($result)){
   if (isset($_SESSION['doctor_email'])) {
     $sql2 = "select * from doctor_profile where email ='".$doctor_email."'";
   }else{
-    $sql2 = "select * from doctor_profile where email ='".$doctor_email."' AND p_type='1'";
+    $sql2 = "select * from doctor_profile where email ='".$doctor_email."' AND p_type !='2'";
   }
     $result2 = mysqli_query($conn, $sql2);
     $rows2 = mysqli_fetch_array($result2);

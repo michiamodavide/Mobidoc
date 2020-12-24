@@ -23,7 +23,7 @@ while($rows = mysqli_fetch_array($result)){
     $titile = ucwords($rows2['title']);
     $link = "/il-team/professionista.php?".$rows2['doctor_id'];
     $id = $rows2['doctor_id'];
-        if ($rows2['p_type'] == 2) {
+        if ($rows2['p_type'] == 2 || $rows2['p_type'] == 3) {
      ?>
 
      <div class="professionist_card-2 selecting">
