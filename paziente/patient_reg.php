@@ -1,6 +1,6 @@
 <?php
 include '../connect.php';
-//hello
+
 if(isset($_POST['submit'])){
 
   $caller_fname = $_POST['call_first_name'].' '.$_POST['call_last_name'];
@@ -34,6 +34,7 @@ if(isset($_POST['submit'])){
   $dor = date("Y/m/d");
 
   $sql = "insert into paziente_profile (first_name, last_name, password, caller_name, fiscale, via, cap, email, phone, photo, admin_note, dor, privacy_consent) values('".ucwords($first_name)."', '".ucwords($last_name)."', '".$pwrd."','".$caller_name."', '".$fiscal."', '".$address."', '".$cap."', '".$email."','".$tel."', '".$profile_img."', '".$admin_note."', '".$dor."','".$check."')";
+  print_r($sql);
   $result = mysqli_query($conn, $sql);
   if ($result == 1) {
     $paziente_name = "select * from paziente_profile where email='" . $paziente_email . "'";
@@ -82,6 +83,8 @@ if(isset($_POST['submit'])){
       $admin_book = 1;
 
       $sql_booking = "insert into bookings (patient_id, doctor_id, executer_id, visit_name, price, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book) values('".$patient_id."', '".$doctor_id."', '".$execut_id."', '".$visit_name."', '".$price."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."')";
+      print_r($sql_booking);
+      echo '<br>';
       $result_booking = mysqli_query($conn, $sql_booking);
 
       if ($result_booking == 1) {
@@ -107,6 +110,8 @@ if(isset($_POST['submit'])){
         mysqli_close($conn);
       }
     }
+
+    exit();
 
     if ($result_booking == 1) {
 //      echo "$passwd";
