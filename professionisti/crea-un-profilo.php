@@ -20,6 +20,7 @@ if (isset($_GET['email'])) {
     $r1 = $rows['name'];
     $r2 = $rows['cogname'];
     $r3 = $rows['email'];
+    $pro_phone = $rows['phone'];
     $approved = $rows['status'];
     if ($approved == 0) {
       header("location: validate.php");
@@ -299,7 +300,7 @@ if (isset($_GET['email'])) {
         <input type="email" class="inputs proff w-input" maxlength="100" name="email" data-name="Email"
                value="<?PHP echo $r3; ?>" id="email" required="" readonly>
         <input type="text" class="inputs proff w-input" maxlength="15" name="tele" data-name="Tele"
-               placeholder="Telefono *" id="tele" required="">
+               placeholder="Telefono *" value="<?php echo $pro_phone?>" id="tele" required="">
         <input type="text" class="inputs proff w-input" maxlength="100" name="Via" data-name="Via" placeholder="Via *"
                id="Via" required="">
         <input type="text" class="inputs proff w-input" name="Civico" data-name="Civico" placeholder="Civico *"
