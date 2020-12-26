@@ -35,7 +35,6 @@ if(isset($_POST['submit'])){
   $dor = date("Y/m/d");
 
   $sql = "insert into paziente_profile (first_name, last_name, password, caller_name, fiscale, via, cap, email, phone, photo, admin_note, dor, privacy_consent) values('".ucwords($first_name)."', '".ucwords($last_name)."', '".$pwrd."','".$caller_name."', '".$fiscal."', '".$address."', '".$cap."', '".$email."','".$tel."', '".$profile_img."', '".$admin_note."', '".$dor."','".$check."')";
-
   $result = mysqli_query($conn, $sql);
   if ($result == 1) {
     $paziente_name = "select * from paziente_profile where email='" . $paziente_email . "'";
@@ -83,7 +82,6 @@ if(isset($_POST['submit'])){
       $price = mysqli_real_escape_string($conn, $rows45['price']);
 
       $sql_booking = "insert into bookings (patient_id, doctor_id, executer_id, visit_name, price, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time) values('".$patient_id."', '".$doctor_id."', '".$execut_id."', '".$visit_name."', '".$price."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."')";
-
       $result_booking = mysqli_query($conn, $sql_booking);
 
       if ($result_booking == 1) {
