@@ -76,6 +76,18 @@ $rows3 = mysqli_fetch_array($result3);
      xmlhttp2.open("GET", "complete_visit_cash.php?q=" + value + "&c=" + value2, true);
      xmlhttp2.send();
    }
+   function confirm_doc_vst(value, value2) {
+     var xmlhttp2 = new XMLHttpRequest();
+     xmlhttp2.onreadystatechange = function () {
+       if (this.readyState == 4 && this.status == 200) {
+         setTimeout(function () {
+           location.reload();
+         }, 500);
+       }
+     };
+     xmlhttp2.open("GET", "confirm_doc_visit.php?q=" + value + "&c=" + value2, true);
+     xmlhttp2.send();
+   }
  </script>
 </head>
 <body>
@@ -207,7 +219,19 @@ $rows3 = mysqli_fetch_array($result3);
            <?php } ?>
 
           <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
-          <?php }else{?>
+        <?php if ($rows['admin_book'] == 1){?>
+          <a href="#" onClick="confirm_doc_vst(<?php echo $patient_id . ',' . $booking_id; ?>)" class="button-5 faded diff w-button" style="background-color: #ebeef2;">Conferma prenotazione</a>
+            <style>
+             .appoint_buttons_container a{
+              pointer-events: none !important;
+              opacity: 0.4 !important;
+             }
+             .appoint_buttons_container a:nth-child(5){
+              pointer-events: inherit !important;
+              opacity: inherit !important;
+             }
+            </style>
+            <?php }}else{?>
            <a href="tel:<?php echo $doctor_rows['phone']; ?>" class="button-5 faded diff w-button" style="background-color: rgba(0, 0, 0, 0.7); color: white;">Chiama Professionisti</a>
            <a href="<?php echo '/il-team/professionista.php?'.$doctor_rows['doctor_id']?>" target="_blank" class="button-5 faded diff w-button" style="background-color: #0ce5b2;">Profilo Professionisti</a>
            <?php }?>

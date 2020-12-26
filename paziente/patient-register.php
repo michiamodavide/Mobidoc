@@ -132,7 +132,7 @@ include '../connect.php';
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="select-excutor" placeholder="Seleziona Tecnico *" name="execut_id" required>
+                <select id="select-excutor" placeholder="Seleziona Tecnico *" name="execut_id">
                  <option value="">Seleziona Tecnico</option>
                 </select>
                 <script>
@@ -149,7 +149,7 @@ include '../connect.php';
            <div class="form_section">
             <div class="form_section_heading">Data e Ora</div>
             <div class="dual_container diff">
-             <input type="text" class="datepicker-here inputs w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data di Nascita *" id="appoint_time" required="">
+             <input type="text" class="datepicker-here inputs w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora *" id="appoint_time" required="">
             </div>
            </div>
            <div class="form_section">
