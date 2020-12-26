@@ -34,6 +34,34 @@ include '../connect.php';
     .p{
       text-align-last: center !important;
     }
+   @media screen and (max-width: 767px){
+  .duo_flex .choose_your_area .input_element{
+  width: 350px;
+  }
+    .choose_your_area.select2{
+     margin-left: 0px !important;
+     margin-top: 15px !important;
+     margin-bottom: 0px !important;
+    }
+    .submit_form_btn{
+     text-align: center;
+    }
+   }
+    @media screen and (max-width: 400px){
+     .duo_flex .choose_your_area .input_element {
+      width: 319px;
+     }
+    }
+    @media screen and (max-width: 360px){
+     .duo_flex .choose_your_area .input_element {
+      width: 307px;
+     }
+    }
+    @media screen and (max-width: 340px){
+     .duo_flex .choose_your_area .input_element {
+      width: 273px;
+     }
+    }
   </style>
 </head>
 <body>
@@ -75,7 +103,7 @@ include '../connect.php';
                 <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" id="last_name" required>
               </div>
              <input style="margin-bottom: 15px" type="text" class="inputs w-input" maxlength="256" name="address" data-name="fiscal_code" placeholder="Indirizzo Completo *" id="address" required="">
-             <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" required="">
+             <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" autocomplete="off" required="">
              <textarea placeholder="Note *" maxlength="10000" id="personal_description"
                        name="admin_note" data-name="personal_description"
                        class="text_area_profile personal_description w-input" required></textarea>
@@ -194,15 +222,19 @@ include '../connect.php';
                 <span class="checkbox-label-2 w-form-label">Esprimo il consenso in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di marketing</span>
               </label>
             </div>
+           <div class="error fasical_cd" style="display: none">
+            <div>Il codice fiscale esiste già.</div>
+           </div>
+           <div class="submit_form_btn">
+            <input type="submit" name="submit" style="color:#fff !important;" value="Invia" id="submit" class="button gradient submit w-button">
+           </div>
           </div>
 
           <div class="div-block-34">
             <div class="div-block-35">
             </div>
           </div>
-          <div>
-            <input type="submit" name="submit" style="color:#fff !important;" value="Invia" id="submit" class="button gradient submit w-button">
-          </div>
+
         </form>
       </div>
     </div>
@@ -313,7 +345,6 @@ include '../connect.php';
 <script>
   $(document).ready(function(){
     // fiscale validation
-
 
     function validateTaxCode(value) {
 
@@ -495,6 +526,31 @@ include '../connect.php';
       }
     });
   }
+
+    $('#fiscal_code').keyup(function(eev) {
+      eev.preventDefault();
+    var fis_val = $(this).val();
+      $.ajax({
+        url: "check_fiscal.php",
+        type: "post",
+        data: {data:fis_val},
+        success: function (response) {
+          console.log(response);
+       if (response == 'true'){
+         $(".error.fasical_cd").css("display", "none");
+         $("input#fiscal_code").css("background-color", "#d3fbff");
+         $("#submit").attr("style", "opacity: inherit;pointer-events: inherit;color: #fff !important;");
+       } else {
+         $(".error.fasical_cd").css("display", "block");
+         $("input#fiscal_code").css("background-color", "#ffc5c5");
+         $("#submit").attr("style", "opacity: 0.4;pointer-events: none;color: #fff !important;");
+       }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+      });
+  });
 </script>
 <?php include ("../google_analytic.php")?>
 </body>
