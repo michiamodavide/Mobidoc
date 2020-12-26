@@ -73,7 +73,7 @@ if(isset($_GET['admin'])){
                 </div>
                 <input type="email" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="email" data-name="email" placeholder="Email" id="email" required="">
                 <input type="email" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="confirm-email" data-name="confirm-email" placeholder="Conferma Email" id="confirm-email" required="">
-
+               <input type="tel" class="text-field-3 proff w-input" placeholder="Telefono" maxlength="15" name="tele" required="" autocomplete="off">
                 <?php if($admin == 0) {?>
                 <div class="upload_cv">
                   <div class="div-block-56"><img src="../images/upload.svg" width="24" alt=""><img src="../images/warning.svg" width="24" alt="" class="image-18"><img src="../images/file.svg" width="21" alt="" class="image-17">
@@ -120,7 +120,8 @@ if(isset($_GET['admin'])){
                     $fname = mysqli_real_escape_string($conn, $_POST['Name']);
                     $lname = mysqli_real_escape_string($conn, $_POST['Cognome']);
                     $email = mysqli_real_escape_string($conn, $_POST['email']);
-                    
+                    $phone_nmb = mysqli_real_escape_string($conn, $_POST['tele']);
+
                     if($admin == 1){
                       $cv = "cv/default_cv.pdf";                      
                     } else {
@@ -134,9 +135,9 @@ if(isset($_GET['admin'])){
                     $dor = date("Y/m/d");
                   
                     if($admin == 0){
-                    $sql = "insert into doctor_register (name, cogname, email, cv, dor) values('".$fname."', '".$lname."', '".$email."', '".$cv."', '".$dor."')";
+                    $sql = "insert into doctor_register (name, cogname, email, phone, cv, dor) values('".$fname."', '".$lname."', '".$email."', '".$phone_nmb."', '".$cv."', '".$dor."')";
                     } else {
-                      $sql = "insert into doctor_register (name, cogname, email, cv, dor, status) values('".$fname."', '".$lname."', '".$email."', '".$cv."', '".$dor."',1)";
+                      $sql = "insert into doctor_register (name, cogname, email, phone, cv, dor, status) values('".$fname."', '".$lname."', '".$email."', '".$phone_nmb."', '".$cv."', '".$dor."',1)";
                     }
                     if($admin == 0){
                     move_uploaded_file($_FILES["cv"]["tmp_name"], $cv);

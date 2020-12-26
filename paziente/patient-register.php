@@ -111,7 +111,6 @@ include '../connect.php';
               <div class="search_cap_input sci2">
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
-
                 <select id="select-doctor" placeholder="Seleziona Professionista *" multiple name="doc_id[]" required >
                  <option value="">Seleziona Professionista</option>
                 </select>
@@ -132,7 +131,7 @@ include '../connect.php';
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="select-excutor" placeholder="Seleziona Tecnico *" name="execut_id">
+                <select id="select-excutor" placeholder="Seleziona Tecnico" name="execut_id">
                  <option value="">Seleziona Tecnico</option>
                 </select>
                 <script>
@@ -477,13 +476,14 @@ include '../connect.php';
       data: {data:visit_type_single},
       dataType: "json",
       success: function (response) {
-        $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-        $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+
         $.each(response, function(index) {
           var p_type = response[index].p_type;
           if (p_type == 1 || p_type == 3){
+            $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
             doc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
           }else if (p_type == 2) {
+            $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
             exc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
           }
         });
