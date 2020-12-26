@@ -51,6 +51,13 @@ include '../connect.php';
           <div>
             <div class="form_section">
               <div class="form_section_heading">Informazioni Contatto</div>
+             <?php
+             if (isset($_GET['err']) && ($_GET['err'] == '1')){
+             ?>
+             <div class="error">
+              <div>Email già registrata.</div>
+             </div>
+             <?php }?>
               <div class="dual_container diff">
                 <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" id="first_name" required>
                 <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" id="last_name" required>
