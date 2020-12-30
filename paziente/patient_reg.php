@@ -2,7 +2,6 @@
 include '../connect.php';
 
 if(isset($_POST['submit'])){
-
   $caller_fname = $_POST['call_first_name'].' '.$_POST['call_last_name'];
   $caller_name = mysqli_real_escape_string($conn, $caller_fname);
   $paziente_email = $_POST['email'];
@@ -12,6 +11,8 @@ if(isset($_POST['submit'])){
   $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
   $select_address = $_POST['address'];
   $address = mysqli_real_escape_string($conn, $select_address);
+  $gmap_addr = $_POST['gmap_addr'];
+  $gmap_address = mysqli_real_escape_string($conn, $gmap_addr);
   $fiscal = mysqli_real_escape_string($conn, $_POST['fiscal_code']);
   $admin_note = mysqli_real_escape_string($conn, $_POST['admin_note']);
   $check = mysqli_real_escape_string($conn, $_POST['privacy_check']);
@@ -34,7 +35,7 @@ if(isset($_POST['submit'])){
   date_default_timezone_set("Europe/Rome");
   $dor = date("Y/m/d");
 
-  $sql = "insert into paziente_profile (first_name, last_name, password, caller_name, fiscale, via, cap, email, phone, photo, admin_note, dor, privacy_consent) values('".ucwords($first_name)."', '".ucwords($last_name)."', '".$pwrd."','".$caller_name."', '".$fiscal."', '".$address."', '".$cap."', '".$email."','".$tel."', '".$profile_img."', '".$admin_note."', '".$dor."','".$check."')";
+  $sql = "insert into paziente_profile (first_name, last_name, password, caller_name, fiscale, via, cap, email, phone, photo, admin_note, gmap_address, dor, privacy_consent) values('".ucwords($first_name)."', '".ucwords($last_name)."', '".$pwrd."','".$caller_name."', '".$fiscal."', '".$address."', '".$cap."', '".$email."','".$tel."', '".$profile_img."', '".$admin_note."', '".$gmap_address."','".$dor."','".$check."')";
   $result = mysqli_query($conn, $sql);
 
   if ($result == 1) {
@@ -172,7 +173,7 @@ if(isset($_POST['submit'])){
      ";
        }
       $message3 .= "<br>è stata prenotata con successo. Sarai a breve contattato dal tuo Professionista Mobidoc con cui potrai concordare data e orario. <br> <br>
-Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$select_address'>clic qui</a> per controllare la posizione del medico.<br> <br>
+Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>clic qui</a> per controllare la posizione del medico.<br> <br>
  Puoi aggiungere un evento di prenotazione sul tuo calendario di Google  
  <a target='_blank' style='color: blue; text-decoration: underline' href='https://calendar.google.com/calendar/u/0/r/eventedit?action=TEMPLATE&text=Mobidoc Visit&dates=$start_dt/$end_dt&ctz=Europe/Rome'>da qui</a>.<br> <br>
  Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";

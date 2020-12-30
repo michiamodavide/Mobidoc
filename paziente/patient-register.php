@@ -133,8 +133,8 @@ include '../connect.php';
                 <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" id="first_name" required>
                 <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" id="last_name" required>
               </div>
-             <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="" data-name="fiscal_code" placeholder="Indirizzo Completo *" id="address_search" required="">
-             <input type="hidden" class="inputs w-input patient_adress" value="" maxlength="256" name="address" placeholder="Indirizzo Completo *" >
+             <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="address" data-name="fiscal_code" placeholder="Indirizzo Completo *" id="address_search" required="">
+             <input type="hidden" class="inputs w-input gmap_adress" value="" maxlength="256" name="gmap_addr" placeholder="Indirizzo Completo *" >
              <div class="map" id="map" style="width: 100%; height: 300px;margin: 0% auto 33px;"></div>
              <?php
              /*
@@ -654,7 +654,7 @@ include '../connect.php';
   }
   function bindDataToForm(address,lat,lng){
 
-    $(".patient_adress").val("https://www.google.com/maps/place/"+address+"/@"+lat+","+lng);
+    $(".gmap_adress").val("https://www.google.com/maps/place/"+address+"/@"+lat+","+lng);
     // document.getElementById('location').value = address;
     // document.getElementById('lat').value = lat;
     // document.getElementById('lng').value = lng;
