@@ -99,7 +99,7 @@ include '../connect.php';
 <?php include '../header.php';?>
 <div class="masthead upform">
   <div class="masthead_container up_form" style="margin-bottom:0px;">
-    <h1 class="heading-10">Compila il modulo</h1>
+    <h1 class="heading-10" style="text-align: center">Prenotazione Telefonica</h1>
   </div>
 </div>
 <section class="section-19">
@@ -123,7 +123,7 @@ include '../connect.php';
               </div>
               <div class="dual_container diff">
                 <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" id="email" required>
-                <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Contatto *" id="tele" required="">
+                <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" id="tele" required="">
               </div>
 
             </div>
@@ -150,7 +150,6 @@ include '../connect.php';
                        name="admin_note" data-name="personal_description"
                        class="text_area_profile personal_description w-input" required></textarea>
             </div>
-
            <div class="form_section">
             <div class="form_section_heading">Prenotazione Prestazione</div>
             <div class="duo_flex">
@@ -163,7 +162,10 @@ include '../connect.php';
                  <option value="">Seleziona Prestazione</option>
                   <?php
                   include '../connect.php';
-                  $visit_sql = "select * from doctor_visit order by visit_name";
+                 /* $visit_sql = "select * from doctor_visit order by visit_name";*/
+                  $visit_sql = "select DISTINCT visit_name from doctor_visit
+  INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
+  where doctor_profile.p_type IN(1,3)";
                   $visit_result = mysqli_query($conn, $visit_sql);
                   while($visit_rows = mysqli_fetch_array($visit_result)){
                     $visit_types = $visit_rows['visit_name'];
@@ -181,8 +183,8 @@ include '../connect.php';
               <div class="search_cap_input sci2">
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
-                <select id="select-doctor" placeholder="Seleziona Professionista *" multiple name="doc_id[]" required >
-                 <option value="">Seleziona Professionista</option>
+                <select id="select-doctor" placeholder="Seleziona Refertatore *" multiple name="doc_id[]" required >
+                 <option value="">Seleziona Refertatore</option>
                 </select>
                 <script>
                   // var doc_select = $('#select-doctor').selectize();
@@ -201,8 +203,8 @@ include '../connect.php';
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="select-excutor" placeholder="Seleziona Tecnico" name="execut_id">
-                 <option value="">Seleziona Tecnico</option>
+                <select id="select-excutor" placeholder="Seleziona Esecutore" name="execut_id">
+                 <option value="">Seleziona Esecutore</option>
                 </select>
                 <script>
                   var $select_ex = $('#select-excutor').selectize();
@@ -230,7 +232,7 @@ include '../connect.php';
                 <img src="../images/search.svg" width="28"  alt="">
 
                 <select id="cash-option" placeholder="Metodo di Pagamento" name="payment_mode">
-                 <option value="Cash">Cash</option>
+                 <option value="Contanti">Contanti</option>
                  <option value="Bancomat">Bancomat</option>
                  <option value="Bonifico Bancario">Bonifico Bancario</option>
                 </select>
