@@ -176,6 +176,7 @@ if(isset($_POST['submit'])){
 Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>clic qui</a> per controllare la posizione del medico.<br> <br>
  Puoi aggiungere un evento di prenotazione sul tuo calendario di Google  
  <a target='_blank' style='color: blue; text-decoration: underline' href='https://calendar.google.com/calendar/u/0/r/eventedit?action=TEMPLATE&text=Mobidoc Visit&dates=$start_dt/$end_dt&ctz=Europe/Rome'>da qui</a>.<br> <br>
+ <a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/informativaprivacy.html'>Clicca qui</a> per leggere la nostra informativa sulla privacy.<br> <br>
  Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
        mail($to3, $subject3, $message3, $headers3);

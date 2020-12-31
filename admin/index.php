@@ -22,7 +22,9 @@
   <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="../images/webclip.png" rel="apple-touch-icon">
   <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
-  <style>
+ <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+ <style>
 ::-webkit-scrollbar {
   width: 0px;
   height:0px;
@@ -30,13 +32,29 @@
 	.p{
   	text-align-last: center !important;
   }
-</style>
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-  <style>
-	*:focus{
-  	outline:none;
-    border:none;
-  }
+*:focus{
+ outline:none;
+ border:none;
+}
+@media screen and (max-width: 767px){
+ .admin_main_section .admin_section_header{
+  display: inline-block;
+  left: 90px;
+ }
+ .admin_main_section .scroll_indicator{
+  display: none;
+ }
+}
+@media screen and (max-width: 400px){
+ #add .button-10{
+  font-size: 11px;
+ }
+}
+@media screen and (max-width: 340px){
+ #add .button-10{
+  margin-right: 10px !important;
+ }
+}
 </style>
   <script>
 $(document).ready(function(){
