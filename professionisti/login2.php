@@ -42,8 +42,12 @@
 
 	if($email===$rows['email'] && $pwrd_right==1)
 	{
-		$_SESSION['doctor_email']=$_POST['email'];
-		header('Location: account.php');
+     if ($rows['is_active'] == 1){
+       $_SESSION['doctor_email']=$_POST['email'];
+       header('Location: account.php');
+     }else{
+       header('Location: login.php?active=0');
+     }
 	}
 	else
 	{

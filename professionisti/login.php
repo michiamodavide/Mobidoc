@@ -79,7 +79,11 @@ $t2=$_SESSION['t2'];
                 <div class="error_message">
                   <div class="text-block-30">La password o la mail inserita non sono corrette. Si prega di controllare i dati inseriti.</div>
                 </div>
-
+                  <?php if (isset($_GET['active']) && ($_GET['active'] != '1')){ ?>
+               <div class="error_message" style="display: block">
+                <div class="text-block-30">Non sei più attivo.</div>
+               </div>
+               <?php }?>
               </form>
             </div>
             <div class="forgot_pwrd_form w-form">

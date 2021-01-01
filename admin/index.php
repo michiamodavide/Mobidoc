@@ -143,6 +143,7 @@ $('.admin_item:nth-child(2)').click(function(){
           $rows2 = mysqli_fetch_array($result2);
           $doct_id = $rows2['doctor_id'];
           $doct_photo = $rows2['photo'];
+          $user_active= $rows2['is_active'];
           if(isset($doct_id)){
             $link = "/il-team/professionista.php?".$doct_id;  
           } else {
@@ -206,7 +207,14 @@ $('.admin_item:nth-child(2)').click(function(){
                 <a href="#" class="button-10 approve w-button">Approva</a>
                 <?php } else {?> 
                 <a href="<?php echo $link?>" target="_blank" class="button-10 open_profile w-button">Vedi Profilo</a>
-                <?php }?>
+                <?php if(isset($doct_id)){
+                  if($user_active==1){
+                 ?>
+                <a href="doc_active.php?a=0&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attiva</a>
+                <?php }else{?>
+
+                <a href="doc_active.php?a=1&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non attivo</a>
+                <?php }}}?>
                 <div class="approve_confirm">
                   <div data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f7032b" class="closer"></div>
                   <div class="approve_confirm_container">
