@@ -213,14 +213,12 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
 
                     <div class="pay_method_item_container">
 
-                    <?php
-                    /*
+
                       <div class="pay_method_item cash">
                         <img src="images/cash.svg" alt="" class="pay_icon">
                         <div class="pay_name">Contanti</div>
                       </div>
-                    */
-                    ?>
+
 
                       <div class="pay_method_item online"><img src="images/paypal_icon.svg?v=2" alt="" class="pay_icon">
                         <div class="pay_name">PayPal o Carta di Credito</div>

@@ -24,6 +24,7 @@ while($rows = mysqli_fetch_array($result)){
     $link = "/il-team/professionista.php?".$rows2['doctor_id'];
     $id = $rows2['doctor_id'];
         if ($rows2['p_type'] == 2 || $rows2['p_type'] == 3) {
+         if ($rows2['is_active'] == 1 ){
      ?>
 
      <div class="professionist_card-2 selecting">
@@ -43,7 +44,7 @@ while($rows = mysqli_fetch_array($result)){
      </div>
 
       <?php
-    }
+    }}
 } mysqli_close($conn);
 
 ?>

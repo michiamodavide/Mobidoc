@@ -16,9 +16,9 @@ $result = mysqli_query($conn, $sql);
 while($rows = mysqli_fetch_array($result)){
     $doctor_email = $rows['doctor_email'];
   if (isset($_SESSION['doctor_email'])) {
-    $sql2 = "select * from doctor_profile where email ='".$doctor_email."'";
+    $sql2 = "select * from doctor_profile where email ='".$doctor_email."' AND is_active='1'";
   }else{
-    $sql2 = "select * from doctor_profile where email ='".$doctor_email."' AND p_type !='2'";
+    $sql2 = "select * from doctor_profile where email ='".$doctor_email."' AND p_type !='2' AND is_active='1'";
   }
     $result2 = mysqli_query($conn, $sql2);
     $rows2 = mysqli_fetch_array($result2);

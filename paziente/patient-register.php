@@ -165,7 +165,7 @@ include '../connect.php';
                  /* $visit_sql = "select * from doctor_visit order by visit_name";*/
                   $visit_sql = "select DISTINCT visit_name from doctor_visit
   INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where doctor_profile.p_type IN(1,3)";
+  where doctor_profile.p_type IN(1,3) AND doctor_profile.is_active='1'";
                   $visit_result = mysqli_query($conn, $visit_sql);
                   while($visit_rows = mysqli_fetch_array($visit_result)){
                     $visit_types = $visit_rows['visit_name'];
@@ -554,13 +554,17 @@ include '../connect.php';
 
         $.each(response, function(index) {
           var p_type = response[index].p_type;
-          if (p_type == 1 || p_type == 3){
-            $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-            doc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
-          }else if (p_type == 2) {
-            $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
-            exc_select.addOption({value: response[index].doctor_id, text: response[index].fname});
+          var is_active_doc = response[index].is_active;
+          if (is_active_doc == 1){
+            if (p_type == 1 || p_type == 3){
+              $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+              doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+            }else if (p_type == 2) {
+              $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+              exc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+            }
           }
+
         });
         doc_select.refreshOptions();
         exc_select.refreshOptions();
