@@ -583,7 +583,6 @@ include '../connect.php';
         type: "post",
         data: {data:fis_val},
         success: function (response) {
-          console.log(response);
        if (response == 'true'){
          $(".error.fasical_cd").css("display", "none");
          $("input#fiscal_code").css("background-color", "#d3fbff");
