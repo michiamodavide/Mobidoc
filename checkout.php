@@ -212,14 +212,14 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
                     <div style="width:460px; text-align:center;">Continuando confermi la tua prenotazione e verrai contattato dal tuo professionista per programmare la tua visita o il tuo esame.</div>
 
                     <div class="pay_method_item_container">
-
-
+                    <?php
+                    /*
                       <div class="pay_method_item cash">
                         <img src="images/cash.svg" alt="" class="pay_icon">
                         <div class="pay_name">Contanti</div>
                       </div>
-
-
+                    */
+                    ?>
                       <div class="pay_method_item online"><img src="images/paypal_icon.svg?v=2" alt="" class="pay_icon">
                         <div class="pay_name">PayPal o Carta di Credito</div>
                       </div>

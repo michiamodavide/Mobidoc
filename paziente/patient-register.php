@@ -183,7 +183,7 @@ include '../connect.php';
               <div class="search_cap_input sci2">
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
-                <select id="select-doctor" placeholder="Seleziona Refertatore *" multiple name="doc_id[]" required >
+                <select id="select-doctor" placeholder="Seleziona Refertatore *" class="select-doctor-new" multiple name="doc_id[]" required >
                  <option value="">Seleziona Refertatore</option>
                 </select>
                 <script>
@@ -544,14 +544,21 @@ include '../connect.php';
 
   function getVisitDoc() {
     var visit_type_single = $("#select-visit option").val();
+    var items_new = doc_select.items.slice(0);
+    for (var i in items_new) {
+      doc_select.removeItem(items_new[i]);
+    }
     doc_select.clearOptions();
+    exc_select.clearOptions();
+
+    // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
+    $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
     $.ajax({
       url: "get_visit_doc.php",
       type: "post",
       data: {data:visit_type_single},
       dataType: "json",
       success: function (response) {
-
         $.each(response, function(index) {
           var p_type = response[index].p_type;
           var is_active_doc = response[index].is_active;
@@ -564,8 +571,8 @@ include '../connect.php';
               exc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
             }
           }
-
         });
+
         doc_select.refreshOptions();
         exc_select.refreshOptions();
       },
