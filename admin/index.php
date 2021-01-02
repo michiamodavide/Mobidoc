@@ -36,6 +36,14 @@
  outline:none;
  border:none;
 }
+.pro_type{
+ margin-top: 20px;
+ width: 100% !important;
+ padding: 8px 7px;
+ border-radius: 1.2rem;
+ font-size: 12px;
+ border: 1px solid #979797 !important;
+}
 @media screen and (max-width: 767px){
  .admin_main_section .admin_section_header{
   display: inline-block;
@@ -155,6 +163,8 @@ $('.admin_item:nth-child(2)').click(function(){
           } else {
             $photo_link = "../images/Group-563.jpg";
           }
+
+          $prof_type_array = array('','Refertatore','Esecutore','Refertatore ed Esecutore');
         ?>
           <div class="regi_doctor_card regi_doctor_card<?php echo $doct_id?>">
             <div class="regi_doctor_image"><img src="<?PHP echo $photo_link ?>" alt="" class="image-24"></div>
@@ -164,19 +174,12 @@ $('.admin_item:nth-child(2)').click(function(){
                 <?PHP if($tick){?>
                 <div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div>
                   <?php
-                  $prof_type_array = array('','Refertatore','Esecutore','Refertatore ed Esecutore');
                   if(isset($p_type)){
                   $prof_type = $p_type;
                   }else{
                     $prof_type = '0';
                   }?>
                  <p style="margin-left: 15px" class="show-prof"><?php echo $prof_type_array[$prof_type] ?></p>
-               <select style="margin-left: 10px;width: 100px;outline: inherit;border: 1px solid;" name="pro_type" class="pro_type" data-item="<?php echo $doct_id?>">
-                <option value="<?PHP echo $prof_type;?>"><?php echo $prof_type_array[$prof_type]?></option>
-                <option value="1">Refertatore</option>
-                <option value="2">Esecutore</option>
-                <option value="3">Refertatore ed Esecutore</option>
-               </select>
                <?php }?>
               </div>
               <div class="div-block-66">
@@ -239,12 +242,28 @@ $('.admin_item:nth-child(2)').click(function(){
                  <?php if(isset($doct_id)){
                    if($user_active==1){
                      ?>
-                    <a href="doc_active.php?a=0&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attiva</a>
+                    <a href="doc_active.php?a=0&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attivato</a>
                    <?php }else{?>
 
                     <a href="doc_active.php?a=1&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non attivo</a>
                    <?php }}}?>
 
+             </div>
+             <div class="div-block-74">
+               <?PHP if($tick){?>
+                 <?php
+                 if(isset($p_type)){
+                   $prof_type = $p_type;
+                 }else{
+                   $prof_type = '0';
+                 }?>
+                <select style="margin-left: 10px;width: 100px;outline: inherit;border: 1px solid;" name="pro_type" class="pro_type" data-item="<?php echo $doct_id?>">
+                 <option value="<?PHP echo $prof_type;?>"><?php echo $prof_type_array[$prof_type]?></option>
+                 <option value="1">Refertatore</option>
+                 <option value="2">Esecutore</option>
+                 <option value="3">Refertatore ed Esecutore</option>
+                </select>
+               <?php }?>
              </div>
             </div>
           </div>

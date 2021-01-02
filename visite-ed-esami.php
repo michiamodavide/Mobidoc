@@ -282,7 +282,18 @@
         <div class="type_of-service_grid">      	
 		<?php
 			//$sql2 = "select * from visit_type where visit_name='".$visit_name."'";
-			$sql2 = "select DISTINCT doctor_visit.visit_name from visit_type INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name where visit_type.visit_name='".$visit_name."'";
+			//$sql2 = "select DISTINCT doctor_visit.visit_name from visit_type INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name where visit_type.visit_name='".$visit_name."'";
+  if (isset($_SESSION['doctor_email'])) {
+    $sql2 = "select DISTINCT doctor_visit.visit_name from visit_type
+  INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name
+  INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
+  where visit_type.visit_name='".$visit_name."' AND doctor_profile.is_active='1'";
+  }else{
+    $sql2 = "select DISTINCT doctor_visit.visit_name from visit_type
+  INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name
+  INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
+  where visit_type.visit_name='".$visit_name."' AND doctor_profile.p_type IN(1,3) AND doctor_profile.is_active='1'";
+  }
 			//$sql2 = "select doctor_visit.visit_name, doctor_visit.price from doctor_visit INNER JOIN visit_type on;
 			$result2 = mysqli_query($conn, $sql2);
       
