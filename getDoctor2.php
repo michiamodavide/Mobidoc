@@ -4,10 +4,10 @@ session_start();
 $q = $_REQUEST["q"];
 
 include 'connect.php';
-        
+
 if($conn === false){
     die("ERROR database");
-}        
+}
 
 $sql = "select * from doctor_visit where visit_name ='".$q."'";
 $result = mysqli_query($conn, $sql);
