@@ -242,10 +242,10 @@ $('.admin_item:nth-child(2)').click(function(){
                  <?php if(isset($doct_id)){
                    if($user_active==1){
                      ?>
-                    <a href="doc_active.php?a=0&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attivato</a>
+                    <a href="doc_active.php?a=0&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attivo</a>
                    <?php }else{?>
 
-                    <a href="doc_active.php?a=1&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non attivo</a>
+                    <a href="doc_active.php?a=1&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non Attivo</a>
                    <?php }}}?>
 
              </div>
