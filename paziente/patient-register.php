@@ -117,23 +117,23 @@ include '../connect.php';
               <div>Email già registrata.</div>
              </div>
              <?php }?>
+             <div class="dual_container diff">
+              <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" autocomplete="off" required="">
+              <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" id="email" required>
+             </div>
               <div class="dual_container diff">
-                <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" id="first_name" required>
-                <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" id="last_name" required>
+                <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" id="caller_first_name">
+                <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" id="caller_last_name">
               </div>
-              <div class="dual_container diff">
-                <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" id="email" required>
-                <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" id="tele" required="">
-              </div>
-
+             <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" id="tele">
             </div>
             <div class="form_section">
               <div class="form_section_heading">Informazioni Paziente</div>
               <div class="dual_container diff">
-                <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" id="first_name" required>
-                <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" id="last_name" required>
+                <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" id="first_name">
+                <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" id="last_name">
               </div>
-             <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="address" data-name="fiscal_code" placeholder="Indirizzo Completo *" id="address_search" required="">
+             <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="address" placeholder="Indirizzo Completo *" id="address_search">
              <input type="hidden" class="inputs w-input gmap_adress" value="" maxlength="256" name="gmap_addr" placeholder="Indirizzo Completo *" >
              <div class="map" id="map" style="width: 100%; height: 300px;margin: 0% auto 33px;"></div>
              <?php
@@ -145,10 +145,9 @@ include '../connect.php';
              </div>
              */
              ?>
-             <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" autocomplete="off" required="">
              <textarea placeholder="Note *" maxlength="10000" id="personal_description"
                        name="admin_note" data-name="personal_description"
-                       class="text_area_profile personal_description w-input" required></textarea>
+                       class="text_area_profile personal_description w-input"></textarea>
             </div>
            <div class="form_section">
             <div class="form_section_heading">Prenotazione Prestazione</div>
@@ -158,7 +157,7 @@ include '../connect.php';
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" required onchange="getVisitDoc()">
+                <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" onchange="getVisitDoc()">
                  <option value="">Seleziona Prestazione</option>
                   <?php
                   include '../connect.php';
@@ -183,7 +182,7 @@ include '../connect.php';
               <div class="search_cap_input sci2">
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
-                <select id="select-doctor" placeholder="Seleziona Refertatore *" class="select-doctor-new" multiple name="doc_id[]" required >
+                <select id="select-doctor" placeholder="Seleziona Refertatore *" class="select-doctor-new" multiple name="doc_id[]">
                  <option value="">Seleziona Refertatore</option>
                 </select>
                 <script>
@@ -226,7 +225,7 @@ include '../connect.php';
            <div class="form_section">
             <div class="form_section_heading">Metodo di Pagamento</div>
             <div class="duo_flex">
-             <div class="choose_your_area">
+             <div class="choose_your_area cash_method_select">
               <div class="search_cap_input sci2">
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
@@ -262,13 +261,13 @@ include '../connect.php';
               <div class="form_section_heading">Consenso privacy</div>
               <label class="w-checkbox checkbox-field-2">
                 <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
-                <input type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1" required>
+                <input type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1">
                 <span class="checkbox-label-2 w-form-label">Esprimo il consenso in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di marketing</span>
               </label>
             </div>
-           <div class="error fasical_cd" style="display: none">
-            <div>Il codice fiscale esiste già.</div>
-           </div>
+<!--           <div class="error fasical_cd" style="display: none">-->
+<!--            <div>Il codice fiscale esiste già.</div>-->
+<!--           </div>-->
            <div class="submit_form_btn">
             <input type="submit" name="submit" style="color:#fff !important;" value="Invia" id="submit" class="button gradient submit w-button">
            </div>
@@ -582,23 +581,105 @@ include '../connect.php';
     });
   }
 
-    $('#fiscal_code').keyup(function(eev) {
+  $(document).ready(function() {
+    $("input, textarea").prop( "disabled", true );
+    $(".choose_your_area.select1, .choose_your_area.cash_method_select").attr("style", "pointer-events: none; opacity: 0.6;");
+    $("#submit, #fiscal_code, #email").prop( "disabled", false );
+  });
+    $('#fiscal_code, #email').keyup(function(eev) {
       eev.preventDefault();
-    var fis_val = $(this).val();
+    var fis_val = $("#fiscal_code").val();
+    var email = $("#email").val();
+    var user_click_id = $(this).attr("id");
+    var user_click_val = $(this).val();
       $.ajax({
         url: "check_fiscal.php",
         type: "post",
-        data: {data:fis_val},
+        data: {data:user_click_val},
+        dataType: "json",
         success: function (response) {
-       if (response == 'true'){
-         $(".error.fasical_cd").css("display", "none");
-         $("input#fiscal_code").css("background-color", "#d3fbff");
-         $("#submit").attr("style", "opacity: inherit;pointer-events: inherit;color: #fff !important;");
-       } else {
-         $(".error.fasical_cd").css("display", "block");
-         $("input#fiscal_code").css("background-color", "#ffc5c5");
-         $("#submit").attr("style", "opacity: 0.4;pointer-events: none;color: #fff !important;");
-       }
+          console.log(response);
+          $("input, textarea").prop( "disabled", false );
+          $(".choose_your_area.select1, .choose_your_area.cash_method_select").attr("style", "pointer-events: inherit; opacity: inherit;");
+          $("#submit, #fiscal_code, #email").prop( "disabled", false );
+
+          if (response == 'true'){
+            $("input#fiscal_code").attr("style", "pointer-events: inherit; opacity: inherit;background-color:#d3fbff");
+            $("input#email").attr("style", "pointer-events: inherit; opacity: inherit;background-color:#d3fbff");
+            $("#caller_first_name").val('');
+            $("#caller_last_name").val('');
+            $("#first_name").val('');
+            $("#last_name").val('');
+            // if(user_click_id == 'fiscal_code'){
+            //   $("#email").val('');
+            // }
+            // if(user_click_id == 'email'){
+            //   if ($("#fiscal_code").val() !== 0){
+            //     $("#fiscal_code").val('');
+            //   }
+            // }
+            $("#tele").val('');
+          }else {
+            if (user_click_id == 'email'){
+              if (response.email == email) {
+                $("input#email").css("background-color", "#ffc5c5");
+                $("#fiscal_code").val(response.fiscale).attr("style", "pointer-events: none; opacity: 0.6;");
+                $("#email").val(response.email);
+                $("#first_name").val(response.first_name);
+                $("#last_name").val(response.last_name);
+                var call_name = response.caller_name;
+                var phone_num = response.phone;
+                if (call_name){
+                  var ret = call_name.split(" ");
+                  var call_fname = ret[0];
+                  var call_lname = ret[1];
+                  $("#caller_first_name").val(call_fname);
+                  $("#caller_last_name").val(call_lname);
+                }
+                if (phone_num){
+                  $("#tele").val(phone_num);
+                }
+              }
+            } else if(user_click_id == 'fiscal_code'){
+              console.log(response.fiscale);
+              console.log(fis_val);
+              if (response.fiscale == fis_val) {
+                $("input#fiscal_code").css("background-color", "#ffc5c5");
+                $("#email").val(response.email).attr("style", "pointer-events: none; opacity: 0.6;");
+                $("#first_name").val(response.first_name);
+                $("#last_name").val(response.last_name);
+                var call_name = response.caller_name;
+                var phone_num = response.phone;
+                if (call_name){
+                  var ret = call_name.split(" ");
+                  var call_fname = ret[0];
+                  var call_lname = ret[1];
+                  $("#caller_first_name").val(call_fname);
+                  $("#caller_last_name").val(call_lname);
+                }
+                if (phone_num){
+                  $("#tele").val(phone_num);
+                }
+              }
+            }
+
+          }
+          // if (response){
+          //   console.log("hell m good");
+          // } else {
+          //   console.log("hell m not good");
+          // }
+          // console.log(response.fiscale);
+
+       // if (response == 'true'){
+       //   $(".error.fasical_cd").css("display", "none");
+       //   $("input#fiscal_code").css("background-color", "#d3fbff");
+       //   $("#submit").attr("style", "opacity: inherit;pointer-events: inherit;color: #fff !important;");
+       // } else {
+       //   $(".error.fasical_cd").css("display", "block");
+       //   $("input#fiscal_code").css("background-color", "#ffc5c5");
+       //   $("#submit").attr("style", "opacity: 0.4;pointer-events: none;color: #fff !important;");
+       // }
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log(textStatus, errorThrown);
