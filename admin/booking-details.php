@@ -71,7 +71,7 @@
   <meta content="Webflow" name="generator">
   <link href="../css/admin/normalize.css" rel="stylesheet" type="text/css">
   <link href="../css/admin/webflow.css" rel="stylesheet" type="text/css">
-  <link href="../css/admin/mobidoc.webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/admin/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->

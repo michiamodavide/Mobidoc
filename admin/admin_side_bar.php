@@ -10,8 +10,8 @@
       setTimeout(function(){window.location.href=location},1200)
     });
     $('.admin_item:nth-child(3)').click(function(){
-      var location = '/admin/incomplete-patient.php';
-      setTimeout(function(){window.location.href=location},500)
+      var location = '/paziente/patient-register.php';
+      setTimeout(function(){window.location.href=location},50)
     });
     $('.filter_select_option').click(function(){
       var location = '/admin/booking.php';
@@ -47,8 +47,18 @@
   <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/icon.svg" width="21"
                                                                                 alt="" class="menu_icon">
    <div class="admin_item_text">
+    <div class="text-block-77">Prenotazione Telefonica</div>
+   </div>
+  </div>
+  <?php
+  /*
+  <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/icon.svg" width="21"
+                                                                                alt="" class="menu_icon">
+   <div class="admin_item_text">
     <div class="text-block-77">Pazienti incompleti</div>
    </div>
   </div>
+  */
+  ?>
  </div>
 </div>

@@ -14,7 +14,7 @@
   <meta content="Webflow" name="generator">
   <link href="../css/admin/normalize.css" rel="stylesheet" type="text/css">
   <link href="../css/admin/webflow.css" rel="stylesheet" type="text/css">
-  <link href="../css/admin/mobidoc.webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/admin/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -86,9 +86,10 @@
          /*
           <a href="/paziente/register.php" target="_blank" class="button-10 w-button" style="display:inline; padding:10px 20px 10px 20px; margin-right:10px;">+ Paziente</a>
           <a href="/professionisti/register.php?admin" target="_blank" class="button-10 w-button" style="display:inline; padding:10px 20px 10px 20px; margin-right:30px;">+ Professionista</a>
+           <a href="/paziente/patient-register.php" target="_blank" class="button-10 w-button" style="display:inline; padding:10px 20px 10px 20px; margin-right:30px;">+ Prenotazione Telefonica</a>
          */
          ?>
-          <a href="/paziente/patient-register.php" target="_blank" class="button-10 w-button" style="display:inline; padding:10px 20px 10px 20px; margin-right:30px;">+ Prenotazione Telefonica</a>
+
         </div>
         <a href="logout.php" class="admin_logout w-button"></a></div>
     </div>
@@ -131,7 +132,7 @@
             $photo_link = "../images/Group-563.jpg";
           }
 
-          $prof_type_array = array('','Refertatore','Esecutore','Refertatore ed Esecutore');
+          $prof_type_array = array('','Esecutore','Refertatore','Refertatore ed Esecutore');
         ?>
           <div class="regi_doctor_card regi_doctor_card<?php echo $doct_id?>">
             <div class="regi_doctor_image"><img src="<?PHP echo $photo_link ?>" alt="" class="image-24"></div>
@@ -226,8 +227,8 @@
                  }?>
                 <select style="margin-left: 10px;width: 100px;outline: inherit;border: 1px solid;" name="pro_type" class="pro_type" data-item="<?php echo $doct_id?>">
                  <option value="<?PHP echo $prof_type;?>"><?php echo $prof_type_array[$prof_type]?></option>
-                 <option value="1">Refertatore</option>
-                 <option value="2">Esecutore</option>
+                 <option value="1">Esecutore</option>
+                 <option value="2">Refertatore</option>
                  <option value="3">Refertatore ed Esecutore</option>
                 </select>
                <?php }?>
@@ -262,9 +263,9 @@
           // console.log(response);
          if (response == 'true'){
            if (pro_tt == 1){
-             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Refertatore");
-           }else if (pro_tt == 2){
              $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Esecutore");
+           }else if (pro_tt == 2){
+             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Refertatore");
            } else {
              $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Refertatore ed Esecutore");
            }
