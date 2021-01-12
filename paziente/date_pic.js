@@ -1,4 +1,8 @@
-;(function (window, $, undefined) { ;(function () {
+;(function (window, $, undefined) { ;
+(function () {
+  // var show_time = true;
+  // if($('#dob').length)
+  //   show_time = false;
   var VERSION = '2.2.3',
     pluginName = 'datepicker',
     autoInitSelector = '.datepicker-here',

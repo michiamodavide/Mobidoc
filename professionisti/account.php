@@ -49,6 +49,9 @@ $rows3 = mysqli_fetch_array($result3);
   .open {
    height: auto;
   }
+  .button-5{
+   font-size: 11px;
+  }
  </style>
  <script>
    function complete_visit(value, value2, value3, value4) {
@@ -182,12 +185,12 @@ $rows3 = mysqli_fetch_array($result3);
            <div
             style="background:red; width:100%; height:100%; background:url('<?php echo "../paziente/" . $patient_rows['photo'] ?>') no-repeat center center / cover;"></div>
           </div>
-          <?php  if ($rows3['p_type'] != 2){?>
+
           <div class="price_container">
            <div class="text-block-65">Prezzo Visita</div>
            <div class="price_euro"><span class="text-span-5"></span><?php echo '€ ' . $price; ?></div>
           </div>
-          <?php }?>
+
          </div>
          <div class="data_container">
           <h3 class="paziente_name"><?php echo $patient_rows['first_name'] . " " . $patient_rows['last_name'] ?></h3>
@@ -195,12 +198,12 @@ $rows3 = mysqli_fetch_array($result3);
            <div class="text-block-63">Prenotato per</div>
            <div class="text-block-62"><?php echo $visit_name; ?></div>
           </div>
-         <?php  if ($rows3['p_type'] == 2){?>
+
           <div class="paziente_data_block">
            <div class="text-block-63">Professionista</div>
            <div class="text-block-62"><?php echo $current_doc_name; ?></div>
           </div>
-         <?php }?>
+
           <div class="paziente_data_block">
            <div class="text-block-63">Indirizzo</div>
            <div class="text-block-64"><?php echo $patient_rows['via']; ?>
@@ -209,31 +212,24 @@ $rows3 = mysqli_fetch_array($result3);
           </div>
          </div>
 
-         <div class="appoint_buttons_container">
+         <div class="appoint_buttons_container book_btn_<?php echo $rows['booking_id']?>">
           <a href="tel:<?php echo $patient_rows['phone']; ?>" class="button-5 w-button">Chiama Paziente</a>
           <a href="#" class="button-5 faded diff w-button view_details_button">Vedi Dettagli Visita</a>
 
           <?php  if ($rows3['p_type'] != 2){?>
            <?php if ($rows['doctor_booking_status'] == 0) { ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
+            <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
            <?php } ?>
-
-          <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
-        <?php if ($rows['admin_book'] == 1){?>
+        <?php if ($rows['admin_book'] == 1){
+         ?>
           <a href="#" onClick="confirm_doc_vst(<?php echo $patient_id . ',' . $booking_id; ?>)" class="button-5 faded diff w-button" style="background-color: #ebeef2;">Conferma prenotazione</a>
-            <style>
-             .appoint_buttons_container a{
-              pointer-events: none !important;
-              opacity: 0.4 !important;
-             }
-             .appoint_buttons_container a:nth-child(5){
-              pointer-events: inherit !important;
-              opacity: inherit !important;
-             }
-            </style>
-            <?php }}else{?>
-           <a href="tel:<?php echo $doctor_rows['phone']; ?>" class="button-5 faded diff w-button" style="background-color: rgba(0, 0, 0, 0.7); color: white;">Chiama Professionisti</a>
-           <a href="<?php echo '/il-team/professionista.php?'.$doctor_rows['doctor_id']?>" target="_blank" class="button-5 faded diff w-button" style="background-color: #0ce5b2;">Profilo Professionisti</a>
+
+            <?php
+              echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' a{pointer-events: none !important;opacity: 0.4 !important;}  .appoint_buttons_container.book_btn_'.$rows['booking_id'].' a:nth-child(5){pointer-events: inherit !important;opacity: inherit !important;}</style>';
+          }}else{?>
+           <a href="tel:<?php echo $doctor_rows['phone']; ?>" class="button-5 faded diff w-button" style="background-color: rgba(0, 0, 0, 0.7); color: white;">Chiama Professionista</a>
+           <a href="<?php echo '/il-team/professionista.php?'.$doctor_rows['doctor_id']?>" target="_blank" class="button-5 faded diff w-button" style="background-color: #0ce5b2;">Vedi Profilo Professionista</a>
            <?php }?>
           <div data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c88" class="confirm diff">
            <div
@@ -268,7 +264,6 @@ $rows3 = mysqli_fetch_array($result3);
            <div class="text-block-64"><?php echo $date_of_booking; ?></div>
           </div>
 
-           <?php  if ($rows3['p_type'] != 2){?>
           <div class="paziente_data_block">
            <div class="text-block-63">Pagamento</div>
            <div class="text-block-64"><?php echo ucwords($rows['payment_mode']); ?> </div>
@@ -287,7 +282,7 @@ $rows3 = mysqli_fetch_array($result3);
             <div class="text-block-64 diff"><?php echo $rows['message']; ?> </div>
            </div>
           </div>
-          <?php }?>
+
 
          </div>
         </div>
@@ -312,7 +307,7 @@ $rows3 = mysqli_fetch_array($result3);
  <div data-w-id="815eebd5-c0bb-d447-59df-ebd85e4eeccd" style="transform: translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);opacity: 1;transform-style: preserve-3d;" class="select_doctor_container">
   <div class="text-block-18">SELEZIONA PROFESSIONISTA</div>
   <div class="div-block-19">
-   <div class="div-block-20" id="load_doctors">
+   <div class="div-block-20" id="load_doctors" style="margin-bottom: 5px;">
     <div class="professionist_card-2 selecting">
      <div class="professionist_image_container"><img src="https://d3e54v103j8qbb.cloudfront.net/plugins/Image/assets/placeholder.60f9b1840c.svg" alt="" class="professionist_image">
       <div class="selected_tick"><img src="../images/Path-107.svg" width="55" alt="" class="image-4"></div>
@@ -334,6 +329,9 @@ $rows3 = mysqli_fetch_array($result3);
     <input type="text" name="excuter_name" id="excuter_name" style="display:none;">
     <input type="text" name="vis_name" id="vis_name" style="display:none;">
     <input type="text" name="doct_name" id="doct_name" style="display:none;">
+    <textarea style="min-height: 100px;margin-top: 0px;" placeholder="Condividi rapporto *" maxlength="10000" id="ext_not"
+              name="ext_not" data-name="personal_description"
+              class="text_area_profile personal_description w-input" required></textarea>
     <a data-w-id="365b64cd-1aba-0309-c567-e78f0e672a65" href="#" class="button-3 next odd w-button back-btn">Indietro</a>
     <button type="submit" name="submit" class="button-3 next w-button share-exam-btn" style="padding-right:100px;cursor: no-drop" disabled>Continua</button>
    </form>

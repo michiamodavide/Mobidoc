@@ -111,17 +111,34 @@
         $sql2 = "select * from bookings where patient_id ='".$rows3['paziente_id']."' and pateint_remove_from_list = '1'";
         $result2 = mysqli_query($conn, $sql2);
         $count2 = mysqli_num_rows($result2);
-        if($count < 1 || $count == $count2){          
+
+        if($count < 1 || $count == $count2){
       ?>
+
 
         <div class="no_booking_prompt" style="display:flex;">
           <h2 class="heading-19">Al momento non hai nessuna prenotazione da visualizzare.</h2>
           <div class="div-block-57"><a href="../visite-ed-esami.php" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
         </div>
 
-      <?php } else {?>
+      <?php } else {
 
-        <div>
+          $sql34 = "select * from bookings where patient_id ='".$rows3['paziente_id']."'";
+          $result34 = mysqli_query($conn, $sql34);
+          $booking_array = mysqli_fetch_array($result34);
+
+          $sql35 = "select * from bookings where patient_id ='".$rows3['paziente_id']."' and admin_book = '2'";
+          $result35 = mysqli_query($conn, $sql35);
+          $count35 = mysqli_num_rows($result35);
+      if(isset($booking_array['admin_book']) && $count35 < 1){
+         ?>
+       <div class="no_booking_prompt" style="display:flex;">
+        <h2 class="heading-19">Al momento non hai nessuna prenotazione da visualizzare.</h2>
+        <div class="div-block-57"><a href="../visite-ed-esami.php" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
+       </div>
+        <?php }else{?>
+
+         <div>
           <h2 class="heading-18">Le tue prenotazioni</h2>
           <script>
             $(document).ready(function(){
@@ -172,7 +189,8 @@
             }
             
 
-            if($rows['pateint_remove_from_list'] == 0){ 
+            if($rows['pateint_remove_from_list'] == 0){
+
         ?>
         <div class="booking_card">
             <div class="main_data_container">
@@ -188,12 +206,6 @@
                     <div class="titlo">Professionista:</div>
                     <div class="doctor_name"><?php echo $doctor_rows['fname']." ".$doctor_rows['lname']?></div>
                   </div>
-                  <?php if (!empty($execute_rows)){?>
-                 <div class="doctor_name_data_container">
-                  <div class="titlo">Techniker zuweisen:</div>
-                  <div class="doctor_name"><?php echo $execute_rows['fname']." ".$execute_rows['lname']?></div>
-                 </div>
-                 <?php }?>
                   <div class="doctor_name_data_container">
                     <div class="titlo">Richiesta il:</div>
                     <div class="doctor_name"><?php echo $date_of_book; ?></div>
@@ -206,10 +218,10 @@
                   <a href="<?php echo '/il-team/professionista.php?'.$doctor_id?>" target="_blank" class="button view_profile w-button">Profilo Professionisti</a>
                   <?php if($rows['doctor_booking_status'] == 1 && $rows['patient_confirmation'] == 0){ ?>
                     <a href="<?php echo $auth_code;?>" class="button view_profile confirm w-button" style="display:block; height:auto;">Conferma Prestazione</a>
-                  <?php } ?>       
+                  <?php } ?>
                   <?php if($rows['patient_confirmation'] == 1){ ?>
                     <a href="#" class="button view_profile reject w-button" style="display:block;" onClick="remove_visit(<?php echo $patient_id.','.$booking_id;?>)">Rimuovi dalla lista</a>
-                  <?php } ?>           
+                  <?php } ?>
                 </div>
               </div>
               <div class="main_-details_container">
@@ -219,8 +231,8 @@
                     <div class="data">
                       <div>Tipo di visita:</div>
                     </div>
-                    <div class="value w-clearfix">                   
-                      <div class="text-block-35"><?php echo $visit_name;?></div>                    
+                    <div class="value w-clearfix">
+                      <div class="text-block-35"><?php echo $visit_name;?></div>
                       <div class="modify_visit_container"></div>
                     </div>
                     <div class="data">
@@ -265,12 +277,12 @@
             <div class="visit_completed" style="display:block;">
               <div class="text-block-59">Questa prestazione è stata completata.</div>
             </div>
-            <?php } ?>   
+            <?php } ?>
         </div>
         <?php }} ?>
         </div>
 
-      <?php } ?>
+      <?php } }?>
 
       </div>
       <div id="w-node-605318334e24-c21af325" class="site_nav_cta">
