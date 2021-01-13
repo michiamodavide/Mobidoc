@@ -104,6 +104,7 @@ include '../connect.php';
   $fname = '';
   $lname = '';
   $admin_note = '';
+  $dobb = '';
 
   $icp_param = '';
   if (isset($_GET['icp'])){
@@ -122,7 +123,7 @@ include '../connect.php';
     $fname = $sql_get_tmp_data['first_name'];
     $lname = $sql_get_tmp_data['last_name'];
     $admin_note = $sql_get_tmp_data['admin_note'];
-
+    $dobb = $sql_get_tmp_data['dob'];
   }
   ?>
 
@@ -159,19 +160,19 @@ include '../connect.php';
               <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" value="<?php echo $email?>" id="email" required>
              </div>
               <div class="dual_container diff">
-                <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $call_fname?>" id="caller_first_name" required>
-                <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $call_lname?>" id="caller_last_name" required>
+                <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $call_fname?>" id="caller_first_name">
+                <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $call_lname?>" id="caller_last_name">
               </div>
-             <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" value="<?php echo $phone?>" id="tele" required>
+             <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" value="<?php echo $phone?>" id="tele">
             </div>
             <div class="form_section">
               <div class="form_section_heading">Informazioni Paziente</div>
               <div class="dual_container diff">
-                <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname?>" id="first_name" required>
-                <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $fname?>" id="last_name" required>
+                <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname?>" id="first_name">
+                <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $fname?>" id="last_name">
               </div>
-             <input type="text" class="datepicker-here inputs w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" required="" style="margin-bottom: 25px">
-             <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="address" placeholder="Indirizzo Completo *" id="address_search" required>
+             <input type="text" class="datepicker-here inputs w-input date_of_birth" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" style="margin-bottom: 25px">
+             <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="address" placeholder="Indirizzo Completo *" id="address_search">
              <input type="hidden" class="inputs w-input gmap_adress" value="" maxlength="256" name="gmap_addr" placeholder="Indirizzo Completo *" >
              <div class="map" id="map" style="width: 100%; height: 300px;margin: 0% auto 33px;"></div>
              <?php
@@ -185,7 +186,7 @@ include '../connect.php';
              ?>
              <textarea placeholder="Note *" maxlength="10000" id="personal_description"
                        name="admin_note" data-name="personal_description"
-                       class="text_area_profile personal_description w-input" required><?php echo $admin_note?></textarea>
+                       class="text_area_profile personal_description w-input"><?php echo $admin_note?></textarea>
             </div>
            <div class="form_section">
             <div class="form_section_heading">Prenotazione Prestazione</div>
@@ -195,7 +196,7 @@ include '../connect.php';
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" required onchange="getVisitDoc()">
+                <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" onchange="getVisitDoc()">
                  <option value="">Seleziona Prestazione</option>
                   <?php
                   include '../connect.php';
@@ -285,7 +286,7 @@ include '../connect.php';
             </div>
            </div>
 
-            <input type="text" name="privacy_check" id="privacy_check" value="0" style="display:none;" required>
+            <input type="text" name="privacy_check" id="privacy_check" value="0" style="display:none;">
             <script>
               jQuery(document).ready(function() {
                 jQuery('#checkbox').change(function() {
@@ -619,15 +620,14 @@ include '../connect.php';
     });
   }
 
-  //$(document).ready(function() {
-  //  if (<?php //echo $icp_param?>//){
-  //       // not do anything
-  //  }else {
-  //    $("input, textarea").prop( "disabled", true );
-  //    $(".choose_your_area.select1, .choose_your_area.cash_method_select").attr("style", "pointer-events: none; opacity: 0.6;");
-  //    $("#submit, #fiscal_code, #email").prop( "disabled", false );
-  //  }
-  //});
+  $(document).ready(function() {
+    var temp_patient = '<?php echo $icp_param?>';
+    if (temp_patient){
+      $("#fiscal_code").prop("readonly", true);
+    }else {
+      $("#fiscal_code").prop("readonly", false);
+    }
+  });
     $('#fiscal_code').keyup(function(eev) {
       eev.preventDefault();
     var fis_val = $(this).val();
@@ -676,86 +676,6 @@ include '../connect.php';
                    $("#tele").val(phone_num);
                  }
           }
-          // $("input, textarea").prop( "disabled", false );
-          // $(".choose_your_area.select1, .choose_your_area.cash_method_select").attr("style", "pointer-events: inherit; opacity: inherit;");
-          // $("#submit, #fiscal_code, #email").prop( "disabled", false );
-          //
-          //if (response == 'true'){
-          //  $("input#fiscal_code").attr("style", "pointer-events: inherit; opacity: inherit;background-color:#d3fbff");
-          //  $("input#email").attr("style", "pointer-events: inherit; opacity: inherit;background-color:#d3fbff");
-          //
-          //  // if(user_click_id == 'fiscal_code'){
-          //  //   $("#email").val('');
-          //  // }
-          //  // if(user_click_id == 'email'){
-          //  //   if ($("#fiscal_code").val() !== 0){
-          //  //     $("#fiscal_code").val('');
-          //  //   }
-          //  // }
-          //  $("#tele").val('');
-          //  $("#caller_first_name, #caller_last_name, #first_name, #last_name, #tele").prop( "readonly", false );
-          //  if (<?php //echo $icp_param?>//){
-          //    $("#caller_first_name, #caller_last_name, #first_name, #last_name, #tele").prop( "readonly", true );
-          //  }else {
-          //    $("#caller_first_name").val('');
-          //    $("#caller_last_name").val('');
-          //    $("#first_name").val('');
-          //    $("#last_name").val('');
-          //  }
-          //
-          //}else {
-          //  if (user_click_id == 'email'){
-          //    if (response.email == email) {
-          //      $("input#email").css("background-color", "#ffc5c5");
-          //      $("#fiscal_code").val(response.fiscale).attr("style", "pointer-events: none; opacity: 0.6;");
-          //      $("#email").val(response.email);
-          //      $("#first_name").val(response.first_name);
-          //      $("#last_name").val(response.last_name);
-          //      var call_name = response.caller_name;
-          //      var phone_num = response.phone;
-          //      if (call_name){
-          //        var ret = call_name.split(" ");
-          //        var call_fname = ret[0];
-          //        var call_lname = ret[1];
-          //        $("#caller_first_name").val(call_fname);
-          //        $("#caller_last_name").val(call_lname);
-          //      }
-          //      if (phone_num){
-          //        $("#tele").val(phone_num);
-          //      }
-          //    }
-          //  } else if(user_click_id == 'fiscal_code'){
-          //    console.log(response.fiscale);
-          //    console.log(fis_val);
-          //    if (response.fiscale == fis_val) {
-          //      $("input#fiscal_code").css("background-color", "#ffc5c5");
-          //      $("#email").val(response.email).attr("style", "pointer-events: none; opacity: 0.6;");
-          //      $("#first_name").val(response.first_name);
-          //      $("#last_name").val(response.last_name);
-          //      var call_name = response.caller_name;
-          //      var phone_num = response.phone;
-          //      if (call_name){
-          //        var ret = call_name.split(" ");
-          //        var call_fname = ret[0];
-          //        var call_lname = ret[1];
-          //        $("#caller_first_name").val(call_fname);
-          //        $("#caller_last_name").val(call_lname);
-          //      }
-          //      if (phone_num){
-          //        $("#tele").val(phone_num);
-          //      }
-          //    }
-          //  }
-          //  $("#caller_first_name, #caller_last_name, #first_name, #last_name, #tele").prop( "readonly", true );
-          //
-          //}
-          // if (response){
-          //   console.log("hell m good");
-          // } else {
-          //   console.log("hell m not good");
-          // }
-          // console.log(response.fiscale);
-
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log(textStatus, errorThrown);
@@ -830,13 +750,21 @@ include '../connect.php';
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-
 <script src="date_pic.js?v=1"></script>
 <script src="dist/js/i18n/datepicker.en.js?v=1"></script>
 <script type="text/javascript">
-  $("#dob").datepicker({
-    timepicker: false
-  });
+ var dobb = '<?php echo $dobb?>';
+  if (dobb){
+    var date_of_birth = date_of_birth = new Date('<?php echo $dobb?>');
+    $('.date_of_birth').datepicker({
+      timepicker: false
+    }).data('datepicker').selectDate(new Date(date_of_birth.getFullYear(), date_of_birth.getMonth(), date_of_birth.getDate()));
+  }else {
+    $('.date_of_birth').datepicker({
+      timepicker: false
+    });
+  }
+
 </script>
 <?php include ("../google_analytic.php")?>
 
