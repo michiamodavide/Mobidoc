@@ -58,6 +58,13 @@ if(isset($_POST['submit'])){
   }
 
     if ($result == 1) {
+      /*delete temporary patients*/
+      if (isset($_POST['patient_temp_id'])) {
+        $tem_patient_id = $_POST['patient_temp_id'];
+        $sql333 = "DELETE FROM temprary_patient where patient_id = '".$tem_patient_id."'";
+        $result333 = mysqli_query($conn, $sql333);
+      }
+
       $paziente_name = "select * from paziente_profile where email='" . $paziente_email . "'";
       $paziente_name_result = mysqli_query($conn, $paziente_name);
       $paziente_rows = mysqli_fetch_array($paziente_name_result);
