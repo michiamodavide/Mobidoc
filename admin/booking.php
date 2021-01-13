@@ -34,6 +34,73 @@
     text-decoration:none;
     color:#00285c;
   }
+  .bg-color{
+	  background-color:#f8dbdb;
+	  color:#00285c;}  
+	  /*********************************/	  
+@media only screen and (max-width: 767px) {
+	.body-13 .top {
+
+    display: revert;
+}
+	.body-13 .bottom {
+    display: revert;
+}
+	
+	.body-13 .heading-24 {
+    font-size: 22px;
+}
+	
+	.body-13 .bookingcard {
+    display: revert;
+	    padding: 30px 15px 30px 15px;}
+	
+	.body-13 .open_booking {
+    padding: 10px 15px;}
+	
+	.body-13 .scroll_indicator {display:none;}
+	.body-13 .filter_button {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 163px;
+    height: 50px;
+    padding-right: 15px;
+    padding-left: 15px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 30px;
+    background-color: #e6e8eb;
+    cursor: pointer;
+}
+.body-13 .admin_section_header {
+left: 70px;
+    display: revert;
+    width: 74%;
+   
+}
+.body-13 .section_content {
+    margin-top: 120px;
+}
+.body-13 .admin_main_section {
+
+    width: 77%;
+    height: 100vh;
+    margin-left: 80px;
+    padding-top: 0.5px;
+    padding-right: 3%;
+    padding-left: 3%;
+
+}
+	}
+  
 </style>
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   <script>
@@ -56,6 +123,7 @@
   	outline:none;
     border:none;
   }
+  
 </style>
 </head>
 <body class="body-13">
@@ -159,6 +227,7 @@
         $sql = "select * from bookings order by ".$order_by."";
         $result = mysqli_query($conn, $sql);
         while($rows = mysqli_fetch_array($result)){
+         $bbb_id = $rows['booking_id'];
           $visit_name = $rows['visit_name'];
           $price = $rows['price'];
           $payment_mode = $rows['payment_mode'];
@@ -193,7 +262,12 @@
           </div>
           <div class="booking_details">
             <div class="top">
-              <h1 class="heading-24"><?PHP echo $patient_name; ?></h1><a href="<?php echo $booking_id;?>" class="open_booking w-button">Vedi dettagli</a></div>
+              <h1 class="heading-24"><?PHP echo $patient_name; ?></h1>
+              <div class="div">
+             <a href="/admin/edit-booking.php?id=<?php echo $bbb_id;?>" class="open_booking w-button bg-color">Il prossimo</a>
+             <a href="<?php echo $booking_id;?>" class="open_booking w-button">Vedi dettagli</a>
+             </div>
+            </div>
             <div class="bottom">
               <div class="glance_details">
                 <div class="glance_details_title">Prestazione prenotata</div>
