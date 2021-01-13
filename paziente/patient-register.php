@@ -169,7 +169,7 @@ include '../connect.php';
               <div class="form_section_heading">Informazioni Paziente</div>
               <div class="dual_container diff">
                 <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname?>" id="first_name">
-                <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $fname?>" id="last_name">
+                <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name">
               </div>
              <input type="text" class="datepicker-here inputs w-input date_of_birth" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" style="margin-bottom: 25px">
              <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="address" placeholder="Indirizzo Completo *" id="address_search">
@@ -621,12 +621,12 @@ include '../connect.php';
   }
 
   $(document).ready(function() {
-    var temp_patient = '<?php echo $icp_param?>';
-    if (temp_patient){
-      $("#fiscal_code").prop("readonly", true);
-    }else {
-      $("#fiscal_code").prop("readonly", false);
-    }
+    //var temp_patient = '<?php //echo $icp_param?>//';
+    //if (temp_patient){
+    //  $("#fiscal_code").prop("readonly", true);
+    //}else {
+    //  $("#fiscal_code").prop("readonly", false);
+    //}
   });
     $('#fiscal_code').keyup(function(eev) {
       eev.preventDefault();
