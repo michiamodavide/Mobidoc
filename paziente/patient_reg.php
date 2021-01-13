@@ -2,14 +2,15 @@
 include '../connect.php';
 
 if(isset($_POST['submit'])){
-//  $form_data_array = array('fiscal_code','email','call_first_name','call_last_name','tele','first_name','last_name','address','admin_note','vist_name','doc_id');
-//  $verified = 1;
-//  foreach($form_data_array as $form_data) {
-//    if(!isset($_POST[$form_data]) || empty($_POST[$form_data])) {
-//      $verified = 0;
-//    }
-//  }
-//  if ($verified == 1){
+
+  $form_data_array = array('fiscal_code','email','call_first_name','call_last_name','tele','first_name','last_name', 'dob','address','admin_note','vist_name','doc_id');
+  $verified = 1;
+  foreach($form_data_array as $form_data) {
+    if(!isset($_POST[$form_data]) || empty($_POST[$form_data])) {
+      $verified = 0;
+    }
+  }
+  if ($verified == 1){
     $caller_fname = $_POST['call_first_name'].' '.$_POST['call_last_name'];
     $caller_name = mysqli_real_escape_string($conn, $caller_fname);
     $paziente_email = $_POST['email'];
@@ -57,6 +58,13 @@ if(isset($_POST['submit'])){
   }
 
     if ($result == 1) {
+      /*delete temporary patients*/
+      if (isset($_POST['patient_temp_id'])) {
+        $tem_patient_id = $_POST['patient_temp_id'];
+        $sql333 = "DELETE FROM temprary_patient where patient_id = '".$tem_patient_id."'";
+        $result333 = mysqli_query($conn, $sql333);
+      }
+
       $paziente_name = "select * from paziente_profile where email='" . $paziente_email . "'";
       $paziente_name_result = mysqli_query($conn, $paziente_name);
       $paziente_rows = mysqli_fetch_array($paziente_name_result);
@@ -217,35 +225,47 @@ Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$g
 
     mysqli_close($conn);
 
-//  }else{
-//
-//    $caller_fname = $_POST['call_first_name'].' '.$_POST['call_last_name'];
-//    $caller_name = mysqli_real_escape_string($conn, $caller_fname);
-//    $paziente_email = $_POST['email'];
-//    $email = mysqli_real_escape_string($conn, $paziente_email);
-//    $tel = mysqli_real_escape_string($conn, $_POST['tele']);
-//    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
-//    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
-//    $fiscal = mysqli_real_escape_string($conn, $_POST['fiscal_code']);
-//    $admin_note = mysqli_real_escape_string($conn, $_POST['admin_note']);
-//
-//    date_default_timezone_set("Europe/Rome");
-//    $dor = date("Y/m/d");
-//
-//    if (isset($_POST['patient_temp_id'])){
-//      $sql = "update temprary_patient set first_name = ".$first_name.", last_name = ".$last_name.", caller_name = ".$caller_fname.", fiscale = ".$fiscal.", email = ".$email.", phone = ".$tel.", admin_note = ".$admin_note.", dor = ".$dor."  where patient_id='".$_POST['patient_temp_id']."'";
-//    }else{
-//      $sql = "insert into temprary_patient (first_name, last_name, caller_name, fiscale, email, phone, admin_note, dor) values('".ucwords($first_name)."', '".ucwords($last_name)."','".$caller_name."', '".$fiscal."', '".$email."','".$tel."', '".$admin_note."','".$dor."')";
-//    }
-//
-//    $result = mysqli_query($conn, $sql);
-//    if ($result == 1){
-//      header("location: /paziente/non-complete-profile.php");
-//    }else{
-//      echo "There are error in Database Connection";
-//    }
-//
-//    mysqli_close($conn);
-//  }
+  }else{
+    if(!isset($_POST['patients_id'])) {
+      $caller_fname = $_POST['call_first_name'] . ' ' . $_POST['call_last_name'];
+      $caller_name = mysqli_real_escape_string($conn, $caller_fname);
+      $paziente_email = $_POST['email'];
+      $email = mysqli_real_escape_string($conn, $paziente_email);
+      $tel = mysqli_real_escape_string($conn, $_POST['tele']);
+      $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
+      $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
+      $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+      $dob = strtotime($dob);
+      $dob = date('Y/m/d', $dob);
+      $fiscal = mysqli_real_escape_string($conn, $_POST['fiscal_code']);
+      $admin_note = mysqli_real_escape_string($conn, $_POST['admin_note']);
+
+      date_default_timezone_set("Europe/Rome");
+      $dor = date("Y/m/d");
+
+      if (isset($_POST['patient_temp_id'])) {
+        $sql = "update temprary_patient set first_name = '" . $first_name . "', last_name = '" . $last_name . "', caller_name = '" . $caller_fname . "', fiscale = '" . $fiscal . "', phone = '" . $tel . "', admin_note = '" . $admin_note . "', dor = '" . $dor . "', dob = '" . $dob . "' where patient_id='" . $_POST['patient_temp_id'] . "'";
+      } else {
+        $sql = "insert into temprary_patient (first_name, last_name, caller_name, fiscale, email, phone, admin_note, dor, dob) values('" . ucwords($first_name) . "', '" . ucwords($last_name) . "','" . $caller_name . "', '" . $fiscal . "', '" . $email . "','" . $tel . "', '" . $admin_note . "','" . $dor . "','" . $dob . "')";
+      }
+
+      $result = mysqli_query($conn, $sql);
+      if ($result == 1) {
+        header("location: /paziente/non-complete-profile.php");
+      } else {
+        $email = $_POST['email'];
+        $sql = "update temprary_patient set first_name = '" . $first_name . "', last_name = '" . $last_name . "', caller_name = '" . $caller_fname . "', fiscale = '" . $fiscal . "', phone = '" . $tel . "', admin_note = '" . $admin_note . "', dor = '" . $dor . "', dob = '" . $dob . "' where email='" . $email . "'";
+        $result = mysqli_query($conn, $sql);
+        if ($result == 1) {
+          header("location: /paziente/non-complete-profile.php");
+        } else {
+          echo 'There is some error in Database Connection';
+        }
+      }
+    }else{
+      header("location: /paziente/non-complete-profile.php");
+    }
+      mysqli_close($conn);
+  }
 }
 ?>
