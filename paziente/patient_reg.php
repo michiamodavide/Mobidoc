@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
       $verified = 0;
     }
   }
-  if ($verified == 1){
+  if ($verified == 1 || isset($_POST['patients_id'])){
     $caller_fname = $_POST['call_first_name'].' '.$_POST['call_last_name'];
     $caller_name = mysqli_real_escape_string($conn, $caller_fname);
     $paziente_email = $_POST['email'];
