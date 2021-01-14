@@ -620,14 +620,6 @@ include '../connect.php';
     });
   }
 
-  $(document).ready(function() {
-    //var temp_patient = '<?php //echo $icp_param?>//';
-    //if (temp_patient){
-    //  $("#fiscal_code").prop("readonly", true);
-    //}else {
-    //  $("#fiscal_code").prop("readonly", false);
-    //}
-  });
     $('#fiscal_code').keyup(function(eev) {
       eev.preventDefault();
     var fis_val = $(this).val();
@@ -765,6 +757,20 @@ include '../connect.php';
     });
   }
 
+ $("#appoint_time").keyup(function(){
+   var select_date = $(this).val().split('-');
+   var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
+
+   var opoint_date = opoint_date = new Date(date_string);
+   setTimeout(function(){
+     if (opoint_date == 'Invalid Date') {
+       //do not do anyting
+     }else {
+       $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+     }
+     }, 300);
+
+ });
 </script>
 <?php include ("../google_analytic.php")?>
 

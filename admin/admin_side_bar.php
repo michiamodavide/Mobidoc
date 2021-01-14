@@ -48,14 +48,14 @@
     <div class="text-block-77">Pazienti</div>
    </div>
   </div>
-  <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/telephon-booking.png" width="21"
+  <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/telephon-booking.png?v=1" width="21"
                                                                                 alt="" class="menu_icon">
    <div class="admin_item_text">
     <div class="text-block-77">Prenotazione Telefonica</div>
    </div>
   </div>
 
-  <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/uncomplete-patents.png" width="21"
+  <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/uncomplete-patents.png?v=1" width="21"
                                                                                 alt="" class="menu_icon">
    <div class="admin_item_text">
     <div class="text-block-77">Pazienti incompleti</div>
