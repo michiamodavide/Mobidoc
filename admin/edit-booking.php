@@ -394,7 +394,7 @@ include '../connect.php';
         }else {
           $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
         }
-      }, 300);
+      }, 500);
 
     });
   }

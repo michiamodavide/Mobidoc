@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
       $verified = 0;
     }
   }
-  if ($verified == 1 || isset($_POST['patients_id'])){
+  if ($verified == 1){
     $caller_fname = $_POST['call_first_name'].' '.$_POST['call_last_name'];
     $caller_name = mysqli_real_escape_string($conn, $caller_fname);
     $paziente_email = $_POST['email'];
@@ -122,7 +122,8 @@ if(isset($_POST['submit'])){
           //email to doctor
           $to2 = $doctor_email; //doctor email
           $subject2 = 'Mobidoc Prestazione Prenotata';
-          $from2 = 'mobidoc_update@mobidoc.it';
+          $from = 'mobidoc_update@mobidoc.it';
+          $rply_email = 'noreplay@mobidoc.it';
 
           // To send HTML mail, the Content-type header must be set
           $headers2  = 'MIME-Version: 1.0' . "\r\n";

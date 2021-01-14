@@ -34,7 +34,7 @@
   <div class="booking_complet_container">
     <div class="bc_message"><img src="../images/bc_image.svg" width="83" alt="">
       <h3 class="heading-23">La tua prenotazione è stata completata con successo!</h3>
-      <div class="text-block-73" style="width:400px;">Grazie per aver scelto Mobidoc. Riceverà a breve una conferma tramite posta elettronica.</div><a href="account.php" class="button gradient bc_button w-button">Vai al mio profilo</a></div>
+      <div class="text-block-73" style="width:400px;">Grazie per aver scelto Mobidoc. Riceverà a breve una conferma tramite posta elettronica.</div><a href="/admin/booking.php" class="button gradient bc_button w-button">Vai al mio profilo</a></div>
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="../js/webflow.js" type="text/javascript"></script>
