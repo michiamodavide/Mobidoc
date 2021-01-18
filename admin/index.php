@@ -132,7 +132,7 @@
             $photo_link = "../images/Group-563.jpg";
           }
 
-          $prof_type_array = array('','Esecutore','Refertatore','Refertatore ed Esecutore');
+          $prof_type_array = array('','Esecutore','Refertatore');
         ?>
           <div class="regi_doctor_card regi_doctor_card<?php echo $doct_id?>">
             <div class="regi_doctor_image"><img src="<?PHP echo $photo_link ?>" alt="" class="image-24"></div>
@@ -229,7 +229,6 @@
                  <option value="<?PHP echo $prof_type;?>"><?php echo $prof_type_array[$prof_type]?></option>
                  <option value="1">Esecutore</option>
                  <option value="2">Refertatore</option>
-                 <option value="3">Refertatore ed Esecutore</option>
                 </select>
                <?php }?>
              </div>
@@ -266,8 +265,6 @@
              $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Esecutore");
            }else if (pro_tt == 2){
              $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Refertatore");
-           } else {
-             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Refertatore ed Esecutore");
            }
          }
        },

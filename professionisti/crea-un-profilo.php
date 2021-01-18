@@ -146,7 +146,6 @@ if (isset($_GET['email'])) {
          <select id="select-titilo-new" required="">
           <option value="1">Esecutore</option>
           <option value="2">Refertatore</option>
-          <option value="3">Refertatore ed Esecutore</option>
          </select>
          <script>
            $('#select-titilo-new').selectize();

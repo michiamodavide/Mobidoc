@@ -219,7 +219,7 @@ Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$g
         mysqli_close($conn);
       }
     } else {
-      header("location: /paziente/patient-register.php?err=1");
+      header("location: /admin/patient-register.php?err=1");
       echo "Unable to insert record2";
       mysqli_close($conn);
     }

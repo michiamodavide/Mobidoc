@@ -176,7 +176,7 @@ if(!isset($_SESSION['adminlogin']))
 <div class="menu_current w-embed w-script"> 
   <script>
       $(document).ready(function(){
-        $('.admin_item:nth-child(1)').addClass('current');
+        $('.admin_item:nth-child(4)').addClass('current');
       });
 
     </script> 
