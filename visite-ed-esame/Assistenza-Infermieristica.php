@@ -148,12 +148,12 @@ $body_copy = $rows['body_text'];
         $sql2 = "select DISTINCT doctor_visit.visit_name from visit_type
   INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name
   INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where visit_type.visit_name='".$visit_name."' AND doctor_profile.is_active='1'";
+  where visit_type.visit_name='".$visit_name."' AND doctor_profile.active='Y'";
       }else{
         $sql2 = "select DISTINCT doctor_visit.visit_name from visit_type
   INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name
   INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where visit_type.visit_name='".$visit_name."' AND doctor_profile.p_type IN(1,3) AND doctor_profile.is_active='1'";
+  where visit_type.visit_name='".$visit_name."' AND doctor_profile.puo_refertare='N' AND doctor_profile.active='Y'";
       }
       $result2 = mysqli_query($conn, $sql2);
       
@@ -215,9 +215,9 @@ $body_copy = $rows['body_text'];
            $uniqu = array_unique($unique_email);
            foreach ($uniqu as $value){
              if (isset($_SESSION['doctor_email'])) {
-               $sql5 = "select * from doctor_profile where email='".$value."' AND is_active ='1'";
+               $sql5 = "select * from doctor_profile where email='".$value."' AND active = 'Y'";
              }else{
-               $sql5 = "select * from doctor_profile where email='".$value."' AND p_type !='2' AND is_active ='1'";
+               $sql5 = "select * from doctor_profile where email='".$value."' AND puo_refertare='N' AND active = 'Y'";
              }
             $result5 = mysqli_query($conn, $sql5);    
             $rows5 = mysqli_fetch_array($result5);

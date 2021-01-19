@@ -3,6 +3,7 @@ if(!isset($_SESSION['adminlogin']))
 {
   header("Location: login.php");
 }
+include '../connect.php';
 ?>
 <!DOCTYPE html>
 <html data-wf-page="5dfbca93dac992df80dd982b" data-wf-site="5d8cfd454ebd737ac1a48727">
@@ -317,25 +318,29 @@ if(!isset($_SESSION['adminlogin']))
                 <input type="hidden" value="<?php echo $patient_id?>" name="patient_temp_id">
                 <?php }?>
                 <div>
-                  <div class="form_section">
-                    <div class="form_section_heading">Informazioni Contatto</div>
-                    <?php
-             if (isset($_GET['err']) && ($_GET['err'] == '1')){
-             ?>
+                 <div class="form_section">
+                  <div class="form_section_heading">Controllo Anagrafica Paziente</div>
+                   <?php
+                   if (isset($_GET['err']) && ($_GET['err'] == '1')){
+                     ?>
                     <div class="error">
-                      <div>Email già registrata.</div>
+                     <div>Email già registrata.</div>
                     </div>
-                    <?php }?>
-                    <div class="dual_container diff">
-                      <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off" required="">
-                      <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" value="<?php echo $email?>" id="email" required>
-                    </div>
-                    <div class="dual_container diff">
-                      <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $call_fname?>" id="caller_first_name">
-                      <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $call_lname?>" id="caller_last_name">
-                    </div>
-                    <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" value="<?php echo $phone?>" id="tele">
+                   <?php }?>
+                  <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off">
+                 </div>
+                 <div class="form_section">
+                  <div class="form_section_heading">Informazioni Contatto</div>
+                  <div class="dual_container diff">
+                   <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $call_fname?>" id="caller_first_name">
+                   <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $call_lname?>" id="caller_last_name">
                   </div>
+                  <div class="dual_container diff">
+                   <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" value="<?php echo $email?>" id="email" required>
+                   <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" value="<?php echo $phone?>" id="tele">
+
+                  </div>
+                 </div>
                   <div class="form_section">
                     <div class="form_section_heading">Informazioni Paziente</div>
                     <div class="dual_container diff">
@@ -372,7 +377,7 @@ if(!isset($_SESSION['adminlogin']))
                  /* $visit_sql = "select * from doctor_visit order by visit_name";*/
                   $visit_sql = "select DISTINCT visit_name from doctor_visit
   INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where doctor_profile.p_type IN(1,3) AND doctor_profile.is_active='1'";
+  where doctor_profile.puo_refertare='N' AND doctor_profile.active = 'Y'";
                   $visit_result = mysqli_query($conn, $visit_sql);
                   while($visit_rows = mysqli_fetch_array($visit_result)){
                     $visit_types = $visit_rows['visit_name'];
@@ -403,28 +408,26 @@ if(!isset($_SESSION['adminlogin']))
                         </div>
                       </div>
                     </div>
-                    <?php
-          /*
+
             <div class="duo_flex">
              <div class="choose_your_area select3">
               <div class="search_cap_input sci2">
                <div class="input_element" style="background:#d3fbff;">
                 <img src="../images/search.svg" width="28"  alt="">
 
-                <select id="select-excutor" placeholder="Seleziona Esecutore" name="execut_id">
-                 <option value="">Seleziona Esecutore</option>
+                <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id">
+                 <option value="">Seleziona Refertatore</option>
                 </select>
                 <script>
-                  var $select_ex = $('#select-excutor').selectize();
+                  var $select_ref = $('#select-refertatore').selectize();
 
-                  var exc_select = $select_ex[0].selectize;
+                  var ref_select = $select_ref[0].selectize;
                 </script>
                </div>
               </div>
              </div>
             </div>
-          */
-          ?>
+
                   </div>
                   <div class="form_section">
                     <div class="form_section_heading">Data e Ora</div>
@@ -592,161 +595,161 @@ if(!isset($_SESSION['adminlogin']))
  }
 </style>
 <script>
-  $(document).ready(function(){
-    // fiscale validation
-
-    function validateTaxCode(value) {
-
-      var TAX_CODE_LENGTH = 16;
-      var REGEXP_STRING_FOR_LASTNAME = "[A-Za-z]{3}";
-      var REGEXP_STRING_FOR_FIRSTNAME = "[A-Za-z]{3}";
-      var REGEXP_STRING_FOR_BIRTHDATE_YEAR = "[0-9LlMmNnPpQqRrSsTtUuVv]{2}";
-      var REGEXP_STRING_FOR_BIRTHDATE_MONTH = "[AaBbCcDdEeHhLlMmPpRrSsTt]{1}";
-      var REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_1 = "[0-7LlMmNnPpQqRrSsTtUuVv]{1}";
-      var REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_2 = "[0-9LlMmNnPpQqRrSsTtUuVv]{1}";
-      var REGEXP_STRING_FOR_BIRTHTOWN_PART_1 = "[A-Za-z]{1}";
-      var REGEXP_STRING_FOR_BIRTHTOWN_PART_2 = "[0-9LlMmNnPpQqRrSsTtUuVv]{3}";
-      var REGEXP_STRING_FOR_CIN = "[A-Za-z]{1}";
-      var REGEXP = new RegExp("^" + REGEXP_STRING_FOR_LASTNAME + REGEXP_STRING_FOR_FIRSTNAME + REGEXP_STRING_FOR_BIRTHDATE_YEAR + REGEXP_STRING_FOR_BIRTHDATE_MONTH + REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_1 + REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_2 + REGEXP_STRING_FOR_BIRTHTOWN_PART_1 + REGEXP_STRING_FOR_BIRTHTOWN_PART_2 + REGEXP_STRING_FOR_CIN + "$");
-      var ODD_CHARS_MAP = new Map();
-      var EVEN_CHARS_MAP = new Map();
-      var MODS_MAP = new Map();
-
-      var validCode = false;
-
-      ODD_CHARS_MAP.set("0", 1);
-      ODD_CHARS_MAP.set("1", 0);
-      ODD_CHARS_MAP.set("2", 5);
-      ODD_CHARS_MAP.set("3", 7);
-      ODD_CHARS_MAP.set("4", 9);
-      ODD_CHARS_MAP.set("5", 13);
-      ODD_CHARS_MAP.set("6", 15);
-      ODD_CHARS_MAP.set("7", 17);
-      ODD_CHARS_MAP.set("8", 19);
-      ODD_CHARS_MAP.set("9", 21);
-      ODD_CHARS_MAP.set("A", 1);
-      ODD_CHARS_MAP.set("B", 0);
-      ODD_CHARS_MAP.set("C", 5);
-      ODD_CHARS_MAP.set("D", 7);
-      ODD_CHARS_MAP.set("E", 9);
-      ODD_CHARS_MAP.set("F", 13);
-      ODD_CHARS_MAP.set("G", 15);
-      ODD_CHARS_MAP.set("H", 17);
-      ODD_CHARS_MAP.set("I", 19);
-      ODD_CHARS_MAP.set("J", 21);
-      ODD_CHARS_MAP.set("K", 2);
-      ODD_CHARS_MAP.set("L", 4);
-      ODD_CHARS_MAP.set("M", 18);
-      ODD_CHARS_MAP.set("N", 20);
-      ODD_CHARS_MAP.set("O", 11);
-      ODD_CHARS_MAP.set("P", 3);
-
-      ODD_CHARS_MAP.set("Q", 6);
-      ODD_CHARS_MAP.set("R", 8);
-      ODD_CHARS_MAP.set("S", 12);
-      ODD_CHARS_MAP.set("T", 14);
-      ODD_CHARS_MAP.set("U", 16);
-      ODD_CHARS_MAP.set("V", 10);
-      ODD_CHARS_MAP.set("W", 22);
-      ODD_CHARS_MAP.set("X", 25);
-      ODD_CHARS_MAP.set("Y", 24);
-      ODD_CHARS_MAP.set("Z", 23);
-
-      EVEN_CHARS_MAP.set("0", 0);
-      EVEN_CHARS_MAP.set("1", 1);
-      EVEN_CHARS_MAP.set("2", 2);
-      EVEN_CHARS_MAP.set("3", 3);
-      EVEN_CHARS_MAP.set("4", 4);
-      EVEN_CHARS_MAP.set("5", 5);
-      EVEN_CHARS_MAP.set("6", 6);
-      EVEN_CHARS_MAP.set("7", 7);
-      EVEN_CHARS_MAP.set("8", 8);
-      EVEN_CHARS_MAP.set("9", 9);
-      EVEN_CHARS_MAP.set("A", 0);
-      EVEN_CHARS_MAP.set("B", 1);
-      EVEN_CHARS_MAP.set("C", 2);
-      EVEN_CHARS_MAP.set("D", 3);
-      EVEN_CHARS_MAP.set("E", 4);
-      EVEN_CHARS_MAP.set("F", 5);
-      EVEN_CHARS_MAP.set("G", 6);
-      EVEN_CHARS_MAP.set("H", 7);
-      EVEN_CHARS_MAP.set("I", 8);
-      EVEN_CHARS_MAP.set("J", 9);
-      EVEN_CHARS_MAP.set("K", 10);
-      EVEN_CHARS_MAP.set("L", 11);
-      EVEN_CHARS_MAP.set("M", 12);
-      EVEN_CHARS_MAP.set("N", 13);
-      EVEN_CHARS_MAP.set("O", 14);
-      EVEN_CHARS_MAP.set("P", 15);
-      EVEN_CHARS_MAP.set("Q", 16);
-      EVEN_CHARS_MAP.set("R", 17);
-      EVEN_CHARS_MAP.set("S", 18);
-      EVEN_CHARS_MAP.set("T", 19);
-      EVEN_CHARS_MAP.set("U", 20);
-      EVEN_CHARS_MAP.set("V", 21);
-      EVEN_CHARS_MAP.set("W", 22);
-      EVEN_CHARS_MAP.set("X", 23);
-      EVEN_CHARS_MAP.set("Y", 24);
-      EVEN_CHARS_MAP.set("Z", 25);
-
-      MODS_MAP.set(0, "A");
-      MODS_MAP.set(1, "B");
-      MODS_MAP.set(2, "C");
-      MODS_MAP.set(3, "D");
-      MODS_MAP.set(4, "E");
-      MODS_MAP.set(5, "F");
-      MODS_MAP.set(6, "G");
-      MODS_MAP.set(7, "H");
-      MODS_MAP.set(8, "I");
-      MODS_MAP.set(9, "J");
-      MODS_MAP.set(10, "K");
-      MODS_MAP.set(11, "L");
-      MODS_MAP.set(12, "M");
-      MODS_MAP.set(13, "N");
-      MODS_MAP.set(14, "O");
-      MODS_MAP.set(15, "P");
-      MODS_MAP.set(16, "Q");
-      MODS_MAP.set(17, "R");
-      MODS_MAP.set(18, "S");
-      MODS_MAP.set(19, "T");
-      MODS_MAP.set(20, "U");
-      MODS_MAP.set(21, "V");
-      MODS_MAP.set(22, "W");
-      MODS_MAP.set(23, "X");
-      MODS_MAP.set(24, "Y");
-      MODS_MAP.set(25, "Z");
-
-      if(value && value.length == 16 && REGEXP.test(value)) {
-
-        var charsSum = 0;
-
-        for(var position = 0; position < TAX_CODE_LENGTH - 1; ++position) {
-          if(((position + 1) % 2) > 0) {
-            charsSum += ODD_CHARS_MAP.get(value.charAt(position).toUpperCase());
-          }
-          else {
-            charsSum += EVEN_CHARS_MAP.get(value.charAt(position).toUpperCase());
-          }
-        }
-
-        validCode = (MODS_MAP.get(charsSum % 26)) == value.slice(-1).toUpperCase();
-      }
-
-      return validCode;
-    };
-
-
-
-    $('#submit').click(function(){
-      var fiscale_value = $('#fiscal_code').val();
-      if(validateTaxCode(fiscale_value) == true){
-        return true;
-      } else {
-        alert('Il codice fiscale non è valido!');
-        return false;
-      }
-    });
-  });
+  // $(document).ready(function(){
+  //   // fiscale validation
+  //
+  //   function validateTaxCode(value) {
+  //
+  //     var TAX_CODE_LENGTH = 16;
+  //     var REGEXP_STRING_FOR_LASTNAME = "[A-Za-z]{3}";
+  //     var REGEXP_STRING_FOR_FIRSTNAME = "[A-Za-z]{3}";
+  //     var REGEXP_STRING_FOR_BIRTHDATE_YEAR = "[0-9LlMmNnPpQqRrSsTtUuVv]{2}";
+  //     var REGEXP_STRING_FOR_BIRTHDATE_MONTH = "[AaBbCcDdEeHhLlMmPpRrSsTt]{1}";
+  //     var REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_1 = "[0-7LlMmNnPpQqRrSsTtUuVv]{1}";
+  //     var REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_2 = "[0-9LlMmNnPpQqRrSsTtUuVv]{1}";
+  //     var REGEXP_STRING_FOR_BIRTHTOWN_PART_1 = "[A-Za-z]{1}";
+  //     var REGEXP_STRING_FOR_BIRTHTOWN_PART_2 = "[0-9LlMmNnPpQqRrSsTtUuVv]{3}";
+  //     var REGEXP_STRING_FOR_CIN = "[A-Za-z]{1}";
+  //     var REGEXP = new RegExp("^" + REGEXP_STRING_FOR_LASTNAME + REGEXP_STRING_FOR_FIRSTNAME + REGEXP_STRING_FOR_BIRTHDATE_YEAR + REGEXP_STRING_FOR_BIRTHDATE_MONTH + REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_1 + REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_2 + REGEXP_STRING_FOR_BIRTHTOWN_PART_1 + REGEXP_STRING_FOR_BIRTHTOWN_PART_2 + REGEXP_STRING_FOR_CIN + "$");
+  //     var ODD_CHARS_MAP = new Map();
+  //     var EVEN_CHARS_MAP = new Map();
+  //     var MODS_MAP = new Map();
+  //
+  //     var validCode = false;
+  //
+  //     ODD_CHARS_MAP.set("0", 1);
+  //     ODD_CHARS_MAP.set("1", 0);
+  //     ODD_CHARS_MAP.set("2", 5);
+  //     ODD_CHARS_MAP.set("3", 7);
+  //     ODD_CHARS_MAP.set("4", 9);
+  //     ODD_CHARS_MAP.set("5", 13);
+  //     ODD_CHARS_MAP.set("6", 15);
+  //     ODD_CHARS_MAP.set("7", 17);
+  //     ODD_CHARS_MAP.set("8", 19);
+  //     ODD_CHARS_MAP.set("9", 21);
+  //     ODD_CHARS_MAP.set("A", 1);
+  //     ODD_CHARS_MAP.set("B", 0);
+  //     ODD_CHARS_MAP.set("C", 5);
+  //     ODD_CHARS_MAP.set("D", 7);
+  //     ODD_CHARS_MAP.set("E", 9);
+  //     ODD_CHARS_MAP.set("F", 13);
+  //     ODD_CHARS_MAP.set("G", 15);
+  //     ODD_CHARS_MAP.set("H", 17);
+  //     ODD_CHARS_MAP.set("I", 19);
+  //     ODD_CHARS_MAP.set("J", 21);
+  //     ODD_CHARS_MAP.set("K", 2);
+  //     ODD_CHARS_MAP.set("L", 4);
+  //     ODD_CHARS_MAP.set("M", 18);
+  //     ODD_CHARS_MAP.set("N", 20);
+  //     ODD_CHARS_MAP.set("O", 11);
+  //     ODD_CHARS_MAP.set("P", 3);
+  //
+  //     ODD_CHARS_MAP.set("Q", 6);
+  //     ODD_CHARS_MAP.set("R", 8);
+  //     ODD_CHARS_MAP.set("S", 12);
+  //     ODD_CHARS_MAP.set("T", 14);
+  //     ODD_CHARS_MAP.set("U", 16);
+  //     ODD_CHARS_MAP.set("V", 10);
+  //     ODD_CHARS_MAP.set("W", 22);
+  //     ODD_CHARS_MAP.set("X", 25);
+  //     ODD_CHARS_MAP.set("Y", 24);
+  //     ODD_CHARS_MAP.set("Z", 23);
+  //
+  //     EVEN_CHARS_MAP.set("0", 0);
+  //     EVEN_CHARS_MAP.set("1", 1);
+  //     EVEN_CHARS_MAP.set("2", 2);
+  //     EVEN_CHARS_MAP.set("3", 3);
+  //     EVEN_CHARS_MAP.set("4", 4);
+  //     EVEN_CHARS_MAP.set("5", 5);
+  //     EVEN_CHARS_MAP.set("6", 6);
+  //     EVEN_CHARS_MAP.set("7", 7);
+  //     EVEN_CHARS_MAP.set("8", 8);
+  //     EVEN_CHARS_MAP.set("9", 9);
+  //     EVEN_CHARS_MAP.set("A", 0);
+  //     EVEN_CHARS_MAP.set("B", 1);
+  //     EVEN_CHARS_MAP.set("C", 2);
+  //     EVEN_CHARS_MAP.set("D", 3);
+  //     EVEN_CHARS_MAP.set("E", 4);
+  //     EVEN_CHARS_MAP.set("F", 5);
+  //     EVEN_CHARS_MAP.set("G", 6);
+  //     EVEN_CHARS_MAP.set("H", 7);
+  //     EVEN_CHARS_MAP.set("I", 8);
+  //     EVEN_CHARS_MAP.set("J", 9);
+  //     EVEN_CHARS_MAP.set("K", 10);
+  //     EVEN_CHARS_MAP.set("L", 11);
+  //     EVEN_CHARS_MAP.set("M", 12);
+  //     EVEN_CHARS_MAP.set("N", 13);
+  //     EVEN_CHARS_MAP.set("O", 14);
+  //     EVEN_CHARS_MAP.set("P", 15);
+  //     EVEN_CHARS_MAP.set("Q", 16);
+  //     EVEN_CHARS_MAP.set("R", 17);
+  //     EVEN_CHARS_MAP.set("S", 18);
+  //     EVEN_CHARS_MAP.set("T", 19);
+  //     EVEN_CHARS_MAP.set("U", 20);
+  //     EVEN_CHARS_MAP.set("V", 21);
+  //     EVEN_CHARS_MAP.set("W", 22);
+  //     EVEN_CHARS_MAP.set("X", 23);
+  //     EVEN_CHARS_MAP.set("Y", 24);
+  //     EVEN_CHARS_MAP.set("Z", 25);
+  //
+  //     MODS_MAP.set(0, "A");
+  //     MODS_MAP.set(1, "B");
+  //     MODS_MAP.set(2, "C");
+  //     MODS_MAP.set(3, "D");
+  //     MODS_MAP.set(4, "E");
+  //     MODS_MAP.set(5, "F");
+  //     MODS_MAP.set(6, "G");
+  //     MODS_MAP.set(7, "H");
+  //     MODS_MAP.set(8, "I");
+  //     MODS_MAP.set(9, "J");
+  //     MODS_MAP.set(10, "K");
+  //     MODS_MAP.set(11, "L");
+  //     MODS_MAP.set(12, "M");
+  //     MODS_MAP.set(13, "N");
+  //     MODS_MAP.set(14, "O");
+  //     MODS_MAP.set(15, "P");
+  //     MODS_MAP.set(16, "Q");
+  //     MODS_MAP.set(17, "R");
+  //     MODS_MAP.set(18, "S");
+  //     MODS_MAP.set(19, "T");
+  //     MODS_MAP.set(20, "U");
+  //     MODS_MAP.set(21, "V");
+  //     MODS_MAP.set(22, "W");
+  //     MODS_MAP.set(23, "X");
+  //     MODS_MAP.set(24, "Y");
+  //     MODS_MAP.set(25, "Z");
+  //
+  //     if(value && value.length == 16 && REGEXP.test(value)) {
+  //
+  //       var charsSum = 0;
+  //
+  //       for(var position = 0; position < TAX_CODE_LENGTH - 1; ++position) {
+  //         if(((position + 1) % 2) > 0) {
+  //           charsSum += ODD_CHARS_MAP.get(value.charAt(position).toUpperCase());
+  //         }
+  //         else {
+  //           charsSum += EVEN_CHARS_MAP.get(value.charAt(position).toUpperCase());
+  //         }
+  //       }
+  //
+  //       validCode = (MODS_MAP.get(charsSum % 26)) == value.slice(-1).toUpperCase();
+  //     }
+  //
+  //     return validCode;
+  //   };
+  //
+  //
+  //
+  //   $('#submit').click(function(){
+  //     var fiscale_value = $('#fiscal_code').val();
+  //     if(validateTaxCode(fiscale_value) == true){
+  //       return true;
+  //     } else {
+  //       alert('Il codice fiscale non è valido!');
+  //       return false;
+  //     }
+  //   });
+  // });
 
   function getVisitDoc() {
     var visit_type_single = $("#select-visit option").val();
@@ -755,8 +758,8 @@ if(!isset($_SESSION['adminlogin']))
       doc_select.removeItem(items_new[i]);
     }
     doc_select.clearOptions();
-    // exc_select.clearOptions();
-
+    ref_select.clear();
+    ref_select.clearOptions();
     // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
     $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
     $.ajax({
@@ -766,19 +769,21 @@ if(!isset($_SESSION['adminlogin']))
       dataType: "json",
       success: function (response) {
         $.each(response, function(index) {
-          var p_type = response[index].p_type;
-          var is_active_doc = response[index].is_active;
-
-          if (is_active_doc == 1){
-            if (p_type == 1 || p_type == 3){
+          var puo_refertare = response[index].puo_refertare;
+          var is_active_doc = response[index].active;
+          if (is_active_doc == 'Y'){
+            if (puo_refertare == 'N'){
               $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
               doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+            } else if (puo_refertare == 'Y') {
+              $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+              ref_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
             }
           }
         });
 
         doc_select.refreshOptions();
-        // exc_select.refreshOptions();
+        ref_select.refreshOptions();
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log(textStatus, errorThrown);

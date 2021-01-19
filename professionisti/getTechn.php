@@ -23,8 +23,8 @@ while($rows = mysqli_fetch_array($result)){
     $titile = ucwords($rows2['title']);
     $link = "/il-team/professionista.php?".$rows2['doctor_id'];
     $id = $rows2['doctor_id'];
-        if ($rows2['p_type'] == 2 || $rows2['p_type'] == 3) {
-         if ($rows2['is_active'] == 1 && $rows2['email'] !== $_SESSION['doctor_email']){
+        if ($rows2['puo_refertare'] == 'Y') {
+         if ($rows2['active'] == 'Y' && $rows2['email'] !== $_SESSION['doctor_email']){
      ?>
 
      <div class="professionist_card-2 selecting">

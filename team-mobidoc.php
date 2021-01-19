@@ -145,9 +145,9 @@ opacity:1;
 	<?php
 		include 'connect.php';
  if (isset($_SESSION['doctor_email'])) {
-   $sql = "select * from doctor_profile where is_active='1' order by doctor_id desc";
+   $sql = "select * from doctor_profile where active = 'Y' order by doctor_id desc";
  }else{
-   $sql = "select * from doctor_profile where p_type != '2' AND is_active='1' order by doctor_id desc";
+   $sql = "select * from doctor_profile where puo_refertare='N' AND active = 'Y' order by doctor_id desc";
  }
 		$result = mysqli_query($conn, $sql);
 		while($rows = mysqli_fetch_array($result)){

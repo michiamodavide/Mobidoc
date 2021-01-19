@@ -124,8 +124,8 @@ $rows3 = mysqli_fetch_array($result3);
      <?php
      include '../connect.php';
 
-     if ($rows3['p_type'] == 2){
-       $sql = "select * from bookings where executer_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
+     if ($rows3['puo_refertare'] == 'Y'){
+       $sql = "select * from bookings where refertatore_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
      }else{
       $sql = "select * from bookings where doctor_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
      }
@@ -216,7 +216,7 @@ $rows3 = mysqli_fetch_array($result3);
           <a href="tel:<?php echo $patient_rows['phone']; ?>" class="button-5 w-button">Chiama Paziente</a>
           <a href="#" class="button-5 faded diff w-button view_details_button">Vedi Dettagli Visita</a>
 
-          <?php  if ($rows3['p_type'] != 2){?>
+          <?php  if ($rows3['puo_refertare'] != 'Y'){?>
            <?php if ($rows['doctor_booking_status'] == 0) { ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
             <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
@@ -325,7 +325,7 @@ $rows3 = mysqli_fetch_array($result3);
    <form action="share-exam.php" method="post">
     <input type="text" name="book_id" id="book_id" style="display:none;">
     <input type="text" name="excuter_email" id="excuter_email" style="display:none;">
-    <input type="text" name="executer_id" id="share_exam" style="display:none;">
+    <input type="text" name="refertatore_id" id="share_exam" style="display:none;">
     <input type="text" name="excuter_name" id="excuter_name" style="display:none;">
     <input type="text" name="vis_name" id="vis_name" style="display:none;">
     <input type="text" name="doct_name" id="doct_name" style="display:none;">

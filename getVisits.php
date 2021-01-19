@@ -13,12 +13,12 @@ if (isset($_SESSION['doctor_email'])) {
   $sql = "select DISTINCT doctor_visit.visit_name from visit_type
   INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name
   INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where visit_type.visit_name='".$q."' AND doctor_profile.is_active='1'";
+  where visit_type.visit_name='".$q."' AND doctor_profile.active = 'Y'";
 }else{
   $sql = "select DISTINCT doctor_visit.visit_name from visit_type
   INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name
   INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where visit_type.visit_name='".$q."' AND doctor_profile.p_type IN(1,3) AND doctor_profile.is_active='1'";
+  where visit_type.visit_name='".$q."' AND doctor_profile.puo_refertare='N' AND doctor_profile.active = 'Y'";
 }
 
 $result = mysqli_query($conn, $sql);

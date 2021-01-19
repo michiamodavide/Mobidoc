@@ -170,8 +170,8 @@
             $doctor_rows = mysqli_fetch_array($doctor_sql_result);
 
             //Executer Rows
-            $execut_id= $rows['executer_id'];
-            $execut_sql = "select * from doctor_profile where doctor_id ='".$execut_id."'";
+            $refertatore_id = $rows['refertatore_id'];
+            $execut_sql = "select * from doctor_profile where doctor_id ='".$refertatore_id."'";
             $execut_sql_result = mysqli_query($conn, $execut_sql);
             $execute_rows = mysqli_fetch_array($execut_sql_result);
 

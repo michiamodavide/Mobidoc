@@ -142,6 +142,8 @@ if (isset($_GET['email'])) {
         <input type="text" class="inputs proff w-input" maxlength="100" name="title" data-name="title"
                value="<?PHP echo $title; ?>" id="title" required="" style="display:none;">
 
+       <?php
+       /*
         <div class="input_element input_element_new" style="width: inherit">
          <select id="select-titilo-new" required="">
           <option value="1">Esecutore</option>
@@ -157,6 +159,8 @@ if (isset($_GET['email'])) {
         </div>
         <input type="text" class="inputs proff w-input" maxlength="100" name="p_type" data-name="p_type"
                value="1" id="p_type" required="" style="display:none;">
+       */
+       ?>
        </div>
        <textarea placeholder="Descrizione Personale *" maxlength="10000" id="personal_description"
                  name="personal_description" data-name="personal_description"

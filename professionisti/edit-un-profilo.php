@@ -83,7 +83,6 @@ function readURL(input) {
 		$fiscale = $rows['fiscale'];
 		$vat_number = $rows['vat_number'];
 		$title = $rows['title'];
-		$p_type = $rows['p_type'];
 		$description = $rows['description'];
 		$education = $rows['education'];
 		$experience = $rows['experience'];
@@ -135,6 +134,8 @@ function readURL(input) {
                     </script>                      
                   </div>   
                   <input type="text" class="inputs proff w-input" maxlength="100" name="title" data-name="title" value="<?PHP echo $title;?>" id="title" required="" style="display:none;">
+                 <?php
+                 /*
                  <div class="input_element input_element_new" style="width: inherit">
                   <select id="select-titilo-new" required="">
                    <?php
@@ -154,6 +155,8 @@ function readURL(input) {
                  </div>
                  <input type="text" class="inputs proff w-input" maxlength="100" name="p_type" data-name="p_type"
                         value="<?PHP echo $p_type;?>" id="p_type" required="" style="display:none;">
+                 */
+                 ?>
                 </div>
                 <textarea maxlength="10000" id="personal_description" name="personal_description" data-name="personal_description" class="text_area_profile personal_description w-input"><?PHP echo $description;?></textarea>
                 <textarea placeholder="Educazione:" maxlength="10000" id="educazione" name="personal_description-3" data-name="Personal Description 3" class="text_area_profile education w-input"><?PHP echo $education;?></textarea>
