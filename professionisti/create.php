@@ -15,7 +15,7 @@
 		$fiscal = mysqli_real_escape_string($conn, $_POST['fiscal_code']);
 		$vat = mysqli_real_escape_string($conn, $_POST['vat_number']);
 		$title = mysqli_real_escape_string($conn, $_POST['title']);
-		$p_type = mysqli_real_escape_string($conn, $_POST['p_type']);
+		/*$p_type = mysqli_real_escape_string($conn, $_POST['p_type']);*/
 		$description = mysqli_real_escape_string($conn, $_POST['personal_description']);
 		$education = mysqli_real_escape_string($conn, $_POST['personal_description-3']);
 		$experience = mysqli_real_escape_string($conn, $_POST['personal_description-2']);
@@ -43,7 +43,7 @@
 		date_default_timezone_set("Europe/Rome");
 		$dor = date("Y/m/d");
 	
-		$sql = "insert into doctor_profile (fname, lname, password, dob, photo, fiscale, vat_number, title, p_type, description, education, experience, email, phone, street_name, street_no, comune, province, cap, dor) values('".$fname."', '".$lname."', '".$password."', '".$dob."', '".$photo."', '".strtoupper($fiscal)."', '".$vat."', '".$title."','".$p_type."', '".$description."', '".$education."', '".$experience."', '".$email."', '".$tel."', '".$street_name."', '".$street_no."', '".$comune."', '".$province."', '".$cap."', '".$dor."')";
+		$sql = "insert into doctor_profile (fname, lname, password, dob, photo, fiscale, vat_number, title, description, education, experience, email, phone, street_name, street_no, comune, province, cap, dor) values('".$fname."', '".$lname."', '".$password."', '".$dob."', '".$photo."', '".strtoupper($fiscal)."', '".$vat."', '".$title."','".$description."', '".$education."', '".$experience."', '".$email."', '".$tel."', '".$street_name."', '".$street_no."', '".$comune."', '".$province."', '".$cap."', '".$dor."')";
 		
 		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
 	

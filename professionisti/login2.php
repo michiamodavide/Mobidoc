@@ -42,7 +42,7 @@
 
 	if($email===$rows['email'] && $pwrd_right==1)
 	{
-     if ($rows['is_active'] == 1){
+     if ($rows['active'] == 'Y'){
        $_SESSION['doctor_email']=$_POST['email'];
        header('Location: account.php');
      }else{

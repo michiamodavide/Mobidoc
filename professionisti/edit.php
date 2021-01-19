@@ -12,7 +12,7 @@
 		$fiscal = mysqli_real_escape_string($conn, $_POST['fiscal_code']);
 		$vat = mysqli_real_escape_string($conn, $_POST['vat_number']);
 		$title = mysqli_real_escape_string($conn, $_POST['title']);
-		$p_type = mysqli_real_escape_string($conn, $_POST['p_type']);
+	/*	$p_type = mysqli_real_escape_string($conn, $_POST['p_type']);*/
 		$description = mysqli_real_escape_string($conn, $_POST['personal_description']);
 		$education = mysqli_real_escape_string($conn, $_POST['personal_description-3']);
 		$experience = mysqli_real_escape_string($conn, $_POST['personal_description-2']);
@@ -46,7 +46,7 @@
 		date_default_timezone_set("Europe/Rome");
 		$dor = date("Y/m/d");
 		
-		$sql = "update doctor_profile set fname='$fname', lname='$lname', dob='$dob', photo='$photo', fiscale='$fiscal', vat_number='$vat', title='$title', p_type='$p_type', description='$description', education='$education', experience='$experience', phone='$tel', street_name='$street_name', street_no='$street_no', comune='$comune', province='$province', cap='$cap' where email = '$email'";
+		$sql = "update doctor_profile set fname='$fname', lname='$lname', dob='$dob', photo='$photo', fiscale='$fiscal', vat_number='$vat', title='$title', description='$description', education='$education', experience='$experience', phone='$tel', street_name='$street_name', street_no='$street_no', comune='$comune', province='$province', cap='$cap' where email = '$email'";
 		
 		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
 	
@@ -141,7 +141,7 @@
 		mysqli_close($conn);
 	}
 	
-	echo "<script>alert('Il suo profilo è stato aggiornato con successo. Sarà ora reindirizzato al suo account.');</script>"; 
+	echo "<script>alert('Il suo profilo è stato aggiornato con successo. Sarà ora reindirizzato al suo account.');</script>";
 	echo "<script>window.location = 'account.php'</script>";
 	//header("Location: account.php");
 ?>

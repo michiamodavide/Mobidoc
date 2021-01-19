@@ -1,13 +1,13 @@
 <?php
-$prof_type = $_POST['pro_value'];
-$doctor_id = $_POST['doc_id'];
+$doctor_id = $_POST['doctor_id'];
+$puo_refertare = $_POST['puo_refertare'];
 include '../connect.php';
 
 if($conn === false){
   die("ERROR database");
 }
 
-$sql = "update doctor_profile set p_type = ".$prof_type." where doctor_id='".$doctor_id."'";
+$sql = "update doctor_profile set puo_refertare = '".$puo_refertare."' where doctor_id='".$doctor_id."'";
 $result = mysqli_query($conn, $sql);
 mysqli_close($conn);
 

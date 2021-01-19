@@ -101,6 +101,7 @@ include '../connect.php';
     $get_book_con = mysqli_query($conn, $sql_book);
     $get_book_result = mysqli_fetch_array($get_book_con);
     $book_visit_name = $get_book_result['visit_name'];
+    $refertatore_id = $get_book_result['refertatore_id'];
 
     $apoint_time = date("m-d-Y H:s", strtotime($get_book_result['apoint_time']));
 
@@ -110,6 +111,15 @@ include '../connect.php';
   $sql_get_doc_data = mysqli_fetch_array($sql_get_doc);
   $doctor_id = $sql_get_doc_data['doctor_id'];
   $doc_name = $sql_get_doc_data['fname'].' '.$sql_get_doc_data['lname'];
+
+  if (isset($refertatore_id)) {
+    /*get refertatore data*/
+    $sql_ref = "select * from doctor_profile where doctor_id ='" . $refertatore_id . "'";
+    $sql_get_ref = mysqli_query($conn, $sql_ref);
+    $sql_get_ref_data = mysqli_fetch_array($sql_get_ref);
+    $ref_id = $sql_get_ref_data['doctor_id'];
+    $ref_name = $sql_get_ref_data['fname'] . ' ' . $sql_get_ref_data['lname'];
+  }
 
     /*get patient data*/
     $sql_get_query = "select * from paziente_profile where paziente_id ='".$get_book_result['patient_id']."'";
@@ -174,7 +184,7 @@ include '../connect.php';
                         /* $visit_sql = "select * from doctor_visit order by visit_name";*/
                         $visit_sql = "select DISTINCT visit_name from doctor_visit
   INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where doctor_profile.p_type IN(1,3) AND doctor_profile.is_active='1'";
+  where doctor_profile.puo_refertare='N' AND doctor_profile.active = 'Y'";
                         $visit_result = mysqli_query($conn, $visit_sql);
                         while($visit_rows = mysqli_fetch_array($visit_result)){
                           $visit_types = $visit_rows['visit_name'];
@@ -206,6 +216,31 @@ include '../connect.php';
                   </div>
                 </div>
               </div>
+             <div class="duo_flex">
+              <div class="choose_your_area select3">
+               <div class="search_cap_input sci2">
+                <div class="input_element" style="background:#d3fbff;">
+                 <img src="../images/search.svg" width="28"  alt="">
+
+                 <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id">
+
+                  <?php  if (isset($refertatore_id)) {?>
+                   <option value="<?php echo $ref_id ?>" selected><?php echo $ref_name ?></option>
+                    <?php
+                  } else{
+                  ?>
+                  <option value="">Seleziona Refertatore</option>
+                  <?php }?>
+                 </select>
+                 <script>
+                   var $select_ref = $('#select-refertatore').selectize();
+
+                   var ref_select = $select_ref[0].selectize;
+                 </script>
+                </div>
+               </div>
+              </div>
+             </div>
             </div>
             <div class="form_section">
               <div class="form_section_heading">Data e Ora</div>
@@ -332,14 +367,10 @@ include '../connect.php';
 <script src="/paziente/date_pic.js?v=1"></script>
 <script src="/paziente/dist/js/i18n/datepicker.en.js?v=1"></script>
 <script type="text/javascript">
-  function getVisitDoc() {
+  $( document ).ready(function() {
     var visit_type_single = $("#select-visit option").val();
-
-    var selectedValue = doc_select.getValue();
-    doc_select.removeOption(selectedValue);
-
-    doc_select.clearOptions();
-
+    // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
+    $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
     $.ajax({
       url: "/paziente/get_visit_doc.php",
       type: "post",
@@ -347,17 +378,58 @@ include '../connect.php';
       dataType: "json",
       success: function (response) {
         $.each(response, function(index) {
-          var p_type = response[index].p_type;
-          var is_active_doc = response[index].is_active;
-          if (is_active_doc == 1){
-            if (p_type == 1 || p_type == 3){
+          console.log(response);
+          var puo_refertare = response[index].puo_refertare;
+          var is_active_doc = response[index].active;
+          if (is_active_doc == 'Y'){
+            if (puo_refertare == 'N'){
               $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
               doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+            } else if (puo_refertare == 'Y') {
+              $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+              ref_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+            }
+          }
+        });
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown);
+      }
+    });
+  });
+  function getVisitDoc() {
+    var visit_type_single = $("#select-visit option").val();
+    var items_new = doc_select.items.slice(0);
+    for (var i in items_new) {
+      doc_select.removeItem(items_new[i]);
+    }
+    doc_select.clearOptions();
+    ref_select.clear();
+    ref_select.clearOptions();
+    // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
+    $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
+    $.ajax({
+      url: "/paziente/get_visit_doc.php",
+      type: "post",
+      data: {data:visit_type_single},
+      dataType: "json",
+      success: function (response) {
+        $.each(response, function(index) {
+          var puo_refertare = response[index].puo_refertare;
+          var is_active_doc = response[index].active;
+          if (is_active_doc == 'Y'){
+            if (puo_refertare == 'N'){
+              $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+              doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+            } else if (puo_refertare == 'Y') {
+              $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+              ref_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
             }
           }
         });
 
         doc_select.refreshOptions();
+        ref_select.refreshOptions();
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log(textStatus, errorThrown);

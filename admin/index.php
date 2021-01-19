@@ -119,8 +119,8 @@
           $rows2 = mysqli_fetch_array($result2);
           $doct_id = $rows2['doctor_id'];
           $doct_photo = $rows2['photo'];
-          $user_active= $rows2['is_active'];
-          $p_type = $rows2['p_type'];
+          $user_active= $rows2['active'];
+          $puo_refertare = $rows2['puo_refertare'];
           if(isset($doct_id)){
             $link = "/il-team/professionista.php?".$doct_id;  
           } else {
@@ -132,7 +132,7 @@
             $photo_link = "../images/Group-563.jpg";
           }
 
-          $prof_type_array = array('','Esecutore','Refertatore','Refertatore ed Esecutore');
+         /* $prof_type_array = array('','Esecutore','Refertatore');*/
         ?>
           <div class="regi_doctor_card regi_doctor_card<?php echo $doct_id?>">
             <div class="regi_doctor_image"><img src="<?PHP echo $photo_link ?>" alt="" class="image-24"></div>
@@ -141,14 +141,19 @@
                 <div class="text-block-68"><?PHP echo ucwords($name)." ".ucwords($cogname); ?></div>
                 <?PHP if($tick){?>
                 <div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div>
-                  <?php
+                 <?php
+                  /*
+                   <?php
                   if(isset($p_type)){
                   $prof_type = $p_type;
                   }else{
                     $prof_type = '0';
                   }?>
                  <p style="margin-left: 15px" class="show-prof"><?php echo $prof_type_array[$prof_type] ?></p>
-               <?php }?>
+
+                  */
+                  ?>
+                <?php }?>
               </div>
               <div class="div-block-66">
                 <div class="regi_data">Email</div>
@@ -208,16 +213,31 @@
              <div class="div-block-74">
                <?PHP if($status==1){ ?>
                  <?php if(isset($doct_id)){
-                   if($user_active==1){
+                   if($user_active=='Y'){
                      ?>
-                    <a href="doc_active.php?a=0&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attivo</a>
+                    <a href="doc_active.php?a=N&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attivo</a>
                    <?php }else{?>
 
-                    <a href="doc_active.php?a=1&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non Attivo</a>
+                    <a href="doc_active.php?a=Y&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non Attivo</a>
                    <?php }}}?>
 
              </div>
              <div class="div-block-74">
+               <?php
+               if ($puo_refertare == 'Y'){
+                 $is_check = 'checked';
+               }else{
+                 $is_check = '';
+               }
+               ?>
+              <div class="glance_details_title" style="font-size: 14px">
+               <input type="checkbox" <?php echo $is_check?> class="puo_refertare lable2" id="puo_refertare" name="puo_refertare" data-id="<?php echo $doct_id?>" value="<?php echo $puo_refertare?>">
+               <label for="puo_refertare">puo refertare </label>
+               <p class="gen_errr" style="display: none">Database Error</p>
+              </div>
+              <br>
+            <?php
+            /*
                <?PHP if($tick){?>
                  <?php
                  if(isset($p_type)){
@@ -229,9 +249,10 @@
                  <option value="<?PHP echo $prof_type;?>"><?php echo $prof_type_array[$prof_type]?></option>
                  <option value="1">Esecutore</option>
                  <option value="2">Refertatore</option>
-                 <option value="3">Refertatore ed Esecutore</option>
                 </select>
                <?php }?>
+            */
+            ?>
              </div>
             </div>
           </div>
@@ -251,32 +272,59 @@
   	$('.admin_item:nth-child(1)').addClass('current');
   });
 
- $('.pro_type').on('change', function() {
-   var pro_tt = this.value;
-   var doctor_idd = $(this).attr("data-item");
-   if (pro_tt > 0){
-     $.ajax({
-       url: "change_p_type.php",
-       type: "post",
-       data: {pro_value:pro_tt, doc_id:doctor_idd},
-       success: function (response) {
-          // console.log(response);
-         if (response == 'true'){
-           if (pro_tt == 1){
-             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Esecutore");
-           }else if (pro_tt == 2){
-             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Refertatore");
-           } else {
-             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Refertatore ed Esecutore");
-           }
-         }
-       },
-       error: function(jqXHR, textStatus, errorThrown) {
-         console.log(textStatus, errorThrown);
-       }
-     });
+ $('.puo_refertare ').click(function() {
+   var puo_refertare  = $(this).val();
+   var doctor_id = $(this).attr("data-id");
+   if (puo_refertare  == 'Y'){
+     var puo_refertare  = 'N';
+     $(this).val(puo_refertare );
+   } else {
+     var puo_refertare  = 'Y';
+     $(this).val(puo_refertare );
    }
+   $.ajax({
+     url: "change_p_type.php",
+     type: "post",
+     data: {doctor_id: doctor_id, puo_refertare: puo_refertare},
+     success: function (response) {
+       // console.log(response);
+       if (response == 'true'){
+         $(".regi_doctor_card"+doctor_id+" .gen_errr").attr("style", "display:none");
+       }else {
+         $(".regi_doctor_card"+doctor_id+" .gen_errr").attr("style", "display:block;color:red");
+       }
+     },
+     error: function(jqXHR, textStatus, errorThrown) {
+       console.log(textStatus, errorThrown);
+     }
+   });
+
  });
+
+ // $('.pro_type').on('change', function() {
+ //   var pro_tt = this.value;
+ //   var doctor_idd = $(this).attr("data-item");
+ //   if (pro_tt > 0){
+ //     $.ajax({
+ //       url: "change_p_type.php",
+ //       type: "post",
+ //       data: {pro_value:pro_tt, doc_id:doctor_idd},
+ //       success: function (response) {
+ //          // console.log(response);
+ //         if (response == 'true'){
+ //           if (pro_tt == 1){
+ //             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Esecutore");
+ //           }else if (pro_tt == 2){
+ //             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Refertatore");
+ //           }
+ //         }
+ //       },
+ //       error: function(jqXHR, textStatus, errorThrown) {
+ //         console.log(textStatus, errorThrown);
+ //       }
+ //     });
+ //   }
+ // });
 </script>
     </div>
   </div>

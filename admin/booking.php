@@ -305,7 +305,7 @@
         <div class="booking_details">
           <div class="top">
             <h1 class="heading-24"><?PHP echo $patient_name; ?></h1>
-            <div class="div"> <a href="/admin/edit-booking.php?id=<?php echo $bbb_id;?>" class="open_booking w-button bg-color">Il prossimo</a> <a href="<?php echo $booking_id;?>" class="open_booking w-button">Vedi dettagli</a> </div>
+            <div class="div"> <a href="/admin/edit-booking.php?id=<?php echo $bbb_id;?>" class="open_booking w-button bg-color">Modifica</a> <a href="<?php echo $booking_id;?>" class="open_booking w-button">Vedi dettagli</a> </div>
           </div>
           <div class="bottom">
             <div class="glance_details">

@@ -101,7 +101,7 @@ if(!isset($_SESSION['adminlogin']))
 </div>
 <div class="admin_main_section">
   <div data-w-id="671d7027-6f87-1c3f-c474-3b17f4b83b06" class="admin_section_header">
-    <h1 class="admin_section_heading">Profilo paziente incompleto</h1>
+    <h1 class="admin_section_heading">Prenotazioni in sospeso</h1>
     <div class="div-block-70">
       <div class="scroll_indicator">
         <div data-w-id="98c7cd18-996f-4b08-777e-ae54e6517910" data-animation-type="lottie" data-src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5df9f0f25ccbf3bb4c727941_lottieflow-scrolling-01-1-00285C-easey.json" data-loop="0" data-direction="1" data-autoplay="0" data-is-ix2-target="1" data-renderer="svg" data-default-duration="2.76" data-duration="0" class="lottie-animation-3"></div>
@@ -143,7 +143,7 @@ if(!isset($_SESSION['adminlogin']))
             <div class="text-block-68"><?PHP echo ucwords($fname)." ".ucwords($lname); ?></div>
           </div>
           <div class="div-block-66">
-            <div class="regi_data">Nome del chiamante</div>
+            <div class="regi_data">Nome contatto</div>
             <div class="regi_value"><?PHP echo $caller_name; ?></div>
           </div>
           <div class="div-block-67">
@@ -160,7 +160,7 @@ if(!isset($_SESSION['adminlogin']))
           </div>
         </div>
         <div id="w-node-cf99e8f70307-80dd982b" class="regi_button_container">
-          <div id="w-node-cf99e8f70308-80dd982b"> <a href="/paziente/patient-register.php?icp=<?php echo $patient_id?>" target="_blank" class="button-10 w-button">Profilo completo</a></div>
+          <div id="w-node-cf99e8f70308-80dd982b"> <a href="/admin/patient-register.php?icp=<?php echo $patient_id?>" class="button-10 w-button">Riprendi prenotazione</a></div>
         </div>
       </div>
       <?php } mysqli_close($conn);?>
@@ -176,7 +176,7 @@ if(!isset($_SESSION['adminlogin']))
 <div class="menu_current w-embed w-script"> 
   <script>
       $(document).ready(function(){
-        $('.admin_item:nth-child(1)').addClass('current');
+        $('.admin_item:nth-child(4)').addClass('current');
       });
 
     </script> 

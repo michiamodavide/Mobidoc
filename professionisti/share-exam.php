@@ -10,9 +10,9 @@ if(isset($_POST['submit']))
   $doct_name = $_POST['doct_name'];
   $excuter_email = $_POST['excuter_email'];
   $excuter_note = $_POST['ext_not'];
-  $executer_id = mysqli_real_escape_string($conn, $_POST['executer_id']);
+  $refertatore_id = mysqli_real_escape_string($conn, $_POST['refertatore_id']);
 
-  $sql = "UPDATE `bookings` SET `executer_id` = '$executer_id', `executer_note` = '$excuter_note' WHERE `bookings`.`booking_id` = $booking_id;";
+  $sql = "UPDATE `bookings` SET `refertatore_id` = '$refertatore_id', `executer_note` = '$excuter_note' WHERE `bookings`.`booking_id` = $booking_id;";
   $result = mysqli_query($conn, $sql);
 
   if($result==1) {
