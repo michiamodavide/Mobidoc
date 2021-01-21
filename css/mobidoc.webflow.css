@@ -3701,7 +3701,7 @@
   align-items: center;
 }
 
-.select_doctor {
+.select_doctor, .edit_booking {
   position: fixed;
   left: 0%;
   top: 0%;
@@ -3725,7 +3725,7 @@
   opacity: 0;
 }
 
-.select_doctor_container {
+.select_doctor_container, .edit_booking_container {
   position: relative;
   z-index: 9;
   display: block;
@@ -11983,7 +11983,7 @@
     -ms-transform: scale(1);
     transform: scale(1);
   }
-  .select_doctor {
+  .select_doctor, .edit_booking {
     display: none;
     overflow: visible;
     -webkit-box-align: center;
@@ -11992,7 +11992,7 @@
     align-items: center;
     opacity: 1;
   }
-  .select_doctor_container {
+  .select_doctor_container, .edit_booking_container {
     width: 100%;
     margin-top: 0%;
     margin-bottom: 0%;

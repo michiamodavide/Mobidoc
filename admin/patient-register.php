@@ -40,6 +40,8 @@ include '../connect.php';
 <script src="../dist/js/standalone/selectize.min.js"></script>
 <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
 <style>
+.error_message{
+	transform: none !important;}
 ::-webkit-scrollbar {
  width: 0px;
  height:0px;
@@ -336,7 +338,7 @@ include '../connect.php';
                    <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $call_lname?>" id="caller_last_name">
                   </div>
                   <div class="dual_container diff">
-                   <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" value="<?php echo $email?>" id="email" required>
+                   <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" value="<?php echo $email?>" id="email">
                    <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" value="<?php echo $phone?>" id="tele">
 
                   </div>
@@ -348,7 +350,7 @@ include '../connect.php';
                       <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name">
                     </div>
                     <input type="text" class="datepicker-here inputs w-input date_of_birth" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" style="margin-bottom: 25px">
-                    <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="address" placeholder="Indirizzo Completo *" id="address_search">
+                    <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="address" placeholder="Indirizzo Completo *" autocomplete="off" id="address_search">
                     <input type="hidden" class="inputs w-input gmap_adress" value="" maxlength="256" name="gmap_addr" placeholder="Indirizzo Completo *" >
                     <div class="map" id="map" style="width: 100%; height: 300px;margin: 0% auto 33px;"></div>
                     <?php
@@ -367,7 +369,7 @@ include '../connect.php';
                   <div class="form_section">
                     <div class="form_section_heading">Prenotazione Prestazione</div>
                     <div class="duo_flex">
-                      <div class="choose_your_area select1">
+                      <div class="choose_your_area select1" id="select1">
                         <div class="search_cap_input sci2">
                           <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
                             <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" onchange="getVisitDoc()">
@@ -391,7 +393,7 @@ include '../connect.php';
                           </div>
                         </div>
                       </div>
-                      <div class="choose_your_area select2" style="margin: 10px;">
+                      <div class="choose_your_area select2" id="select2" style="margin: 10px;">
                         <div class="search_cap_input sci2">
                           <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
                             <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">
@@ -475,11 +477,51 @@ include '../connect.php';
                     <span class="checkbox-label-2 w-form-label">Esprimo il consenso in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di marketing</span>
                     </label>
                   </div>
-                  <!--           <div class="error fasical_cd" style="display: none">--> 
-                  <!--            <div>Il codice fiscale esiste già.</div>--> 
-                  <!--           </div>-->
+
+                 <div class="error_container">
+                  <div class="error_message fiscale error_fiscal_code" onClick="window.location='#fiscal_code';">
+                   <div class="text-block-30">Il codice fiscale non è valido.</div>
+                  </div>
+                  <div class="error_message call_fname_length error_caller_first_name" onClick="window.location='#caller_first_name';">
+                   <div class="text-block-30">Il nome del chiamante deve contenere un massimo di 2 caratteri.</div>
+                  </div>
+                  <div class="error_message caller_last_length error_caller_last_name" onClick="window.location='#caller_last_name';">
+                   <div class="text-block-30">Il cognome del chiamante deve contenere un massimo di 2 caratteri.</div>
+                  </div>
+                  <div class="error_message email_dont_match error_email" onClick="window.location='#email';">
+                   <div class="text-block-30">Email non valida.</div>
+                  </div>
+                  <div class="error_message tele_length error_tele" onClick="window.location='#tele';">
+                   <div class="text-block-30">Aggiungi un numero di telefono valido.</div>
+                  </div>
+                  <div class="error_message first_name_length error_first_name" onClick="window.location='#first_name';">
+                   <div class="text-block-30">Il nome del paziente deve contenere un massimo di 2 caratteri.</div>
+                  </div>
+                  <div class="error_message last_name_length error_last_name" onClick="window.location='#last_name';">
+                   <div class="text-block-30">Il cognome del paziente deve contenere un massimo di 2 caratteri.</div>
+                  </div>
+
+                  <div class="error_message age error_dob" onClick="window.location='#dob';">
+                   <div class="text-block-30">Si prega di aggiungere la data di nascita.</div>
+                  </div>
+                  <div class="error_message address_search_length error_address_search" onClick="window.location='#address_search';">
+                   <div class="text-block-30">Si prega di aggiungere l'indirizzo.</div>
+                  </div>
+
+                  <div class="error_message personal_description_length error_personal_description" onClick="window.location='#personal_description';">
+                   <div class="text-block-30">Inserisci almeno 15 caratteri per il campo della nota amministratore.</div>
+                  </div>
+                  <div class="error_message select-visi_length error_select-visit-selectized" onClick="window.location='#select1';">
+                   <div class="text-block-30">Seleziona Visita.</div>
+                  </div>
+                  <div class="error_message select-doctor_length error_select-doctor-selectized" onClick="window.location='#select-doctor';">
+                   <div class="text-block-30">Seleziona Executor.</div>
+                  </div>
+
+                 </div>
                   <div class="submit_form_btn">
-                    <input type="submit" name="submit" style="color:#fff !important;" value="Invia" id="submit" class="button gradient submit w-button">
+                    <input type="submit" name="save_data" style="color:#fff !important;" value="Salva" class="button gradient w-button">
+                    <input type="submit" name="submit" style="color:#fff !important;" value="Salva e conferma" id="submit" class="button gradient submit w-button">
                   </div>
                 </div>
                 <div class="div-block-34">
@@ -499,7 +541,8 @@ include '../connect.php';
   </div>
 </div>
 <style>
-  .search_help_open{
+
+ .search_help_open{
     display: block !important;
   }
   .search_help_open:hover{
@@ -595,162 +638,6 @@ include '../connect.php';
  }
 </style>
 <script>
-  // $(document).ready(function(){
-  //   // fiscale validation
-  //
-  //   function validateTaxCode(value) {
-  //
-  //     var TAX_CODE_LENGTH = 16;
-  //     var REGEXP_STRING_FOR_LASTNAME = "[A-Za-z]{3}";
-  //     var REGEXP_STRING_FOR_FIRSTNAME = "[A-Za-z]{3}";
-  //     var REGEXP_STRING_FOR_BIRTHDATE_YEAR = "[0-9LlMmNnPpQqRrSsTtUuVv]{2}";
-  //     var REGEXP_STRING_FOR_BIRTHDATE_MONTH = "[AaBbCcDdEeHhLlMmPpRrSsTt]{1}";
-  //     var REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_1 = "[0-7LlMmNnPpQqRrSsTtUuVv]{1}";
-  //     var REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_2 = "[0-9LlMmNnPpQqRrSsTtUuVv]{1}";
-  //     var REGEXP_STRING_FOR_BIRTHTOWN_PART_1 = "[A-Za-z]{1}";
-  //     var REGEXP_STRING_FOR_BIRTHTOWN_PART_2 = "[0-9LlMmNnPpQqRrSsTtUuVv]{3}";
-  //     var REGEXP_STRING_FOR_CIN = "[A-Za-z]{1}";
-  //     var REGEXP = new RegExp("^" + REGEXP_STRING_FOR_LASTNAME + REGEXP_STRING_FOR_FIRSTNAME + REGEXP_STRING_FOR_BIRTHDATE_YEAR + REGEXP_STRING_FOR_BIRTHDATE_MONTH + REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_1 + REGEXP_STRING_FOR_BIRTHDATE_DAY_GENDER_PART_2 + REGEXP_STRING_FOR_BIRTHTOWN_PART_1 + REGEXP_STRING_FOR_BIRTHTOWN_PART_2 + REGEXP_STRING_FOR_CIN + "$");
-  //     var ODD_CHARS_MAP = new Map();
-  //     var EVEN_CHARS_MAP = new Map();
-  //     var MODS_MAP = new Map();
-  //
-  //     var validCode = false;
-  //
-  //     ODD_CHARS_MAP.set("0", 1);
-  //     ODD_CHARS_MAP.set("1", 0);
-  //     ODD_CHARS_MAP.set("2", 5);
-  //     ODD_CHARS_MAP.set("3", 7);
-  //     ODD_CHARS_MAP.set("4", 9);
-  //     ODD_CHARS_MAP.set("5", 13);
-  //     ODD_CHARS_MAP.set("6", 15);
-  //     ODD_CHARS_MAP.set("7", 17);
-  //     ODD_CHARS_MAP.set("8", 19);
-  //     ODD_CHARS_MAP.set("9", 21);
-  //     ODD_CHARS_MAP.set("A", 1);
-  //     ODD_CHARS_MAP.set("B", 0);
-  //     ODD_CHARS_MAP.set("C", 5);
-  //     ODD_CHARS_MAP.set("D", 7);
-  //     ODD_CHARS_MAP.set("E", 9);
-  //     ODD_CHARS_MAP.set("F", 13);
-  //     ODD_CHARS_MAP.set("G", 15);
-  //     ODD_CHARS_MAP.set("H", 17);
-  //     ODD_CHARS_MAP.set("I", 19);
-  //     ODD_CHARS_MAP.set("J", 21);
-  //     ODD_CHARS_MAP.set("K", 2);
-  //     ODD_CHARS_MAP.set("L", 4);
-  //     ODD_CHARS_MAP.set("M", 18);
-  //     ODD_CHARS_MAP.set("N", 20);
-  //     ODD_CHARS_MAP.set("O", 11);
-  //     ODD_CHARS_MAP.set("P", 3);
-  //
-  //     ODD_CHARS_MAP.set("Q", 6);
-  //     ODD_CHARS_MAP.set("R", 8);
-  //     ODD_CHARS_MAP.set("S", 12);
-  //     ODD_CHARS_MAP.set("T", 14);
-  //     ODD_CHARS_MAP.set("U", 16);
-  //     ODD_CHARS_MAP.set("V", 10);
-  //     ODD_CHARS_MAP.set("W", 22);
-  //     ODD_CHARS_MAP.set("X", 25);
-  //     ODD_CHARS_MAP.set("Y", 24);
-  //     ODD_CHARS_MAP.set("Z", 23);
-  //
-  //     EVEN_CHARS_MAP.set("0", 0);
-  //     EVEN_CHARS_MAP.set("1", 1);
-  //     EVEN_CHARS_MAP.set("2", 2);
-  //     EVEN_CHARS_MAP.set("3", 3);
-  //     EVEN_CHARS_MAP.set("4", 4);
-  //     EVEN_CHARS_MAP.set("5", 5);
-  //     EVEN_CHARS_MAP.set("6", 6);
-  //     EVEN_CHARS_MAP.set("7", 7);
-  //     EVEN_CHARS_MAP.set("8", 8);
-  //     EVEN_CHARS_MAP.set("9", 9);
-  //     EVEN_CHARS_MAP.set("A", 0);
-  //     EVEN_CHARS_MAP.set("B", 1);
-  //     EVEN_CHARS_MAP.set("C", 2);
-  //     EVEN_CHARS_MAP.set("D", 3);
-  //     EVEN_CHARS_MAP.set("E", 4);
-  //     EVEN_CHARS_MAP.set("F", 5);
-  //     EVEN_CHARS_MAP.set("G", 6);
-  //     EVEN_CHARS_MAP.set("H", 7);
-  //     EVEN_CHARS_MAP.set("I", 8);
-  //     EVEN_CHARS_MAP.set("J", 9);
-  //     EVEN_CHARS_MAP.set("K", 10);
-  //     EVEN_CHARS_MAP.set("L", 11);
-  //     EVEN_CHARS_MAP.set("M", 12);
-  //     EVEN_CHARS_MAP.set("N", 13);
-  //     EVEN_CHARS_MAP.set("O", 14);
-  //     EVEN_CHARS_MAP.set("P", 15);
-  //     EVEN_CHARS_MAP.set("Q", 16);
-  //     EVEN_CHARS_MAP.set("R", 17);
-  //     EVEN_CHARS_MAP.set("S", 18);
-  //     EVEN_CHARS_MAP.set("T", 19);
-  //     EVEN_CHARS_MAP.set("U", 20);
-  //     EVEN_CHARS_MAP.set("V", 21);
-  //     EVEN_CHARS_MAP.set("W", 22);
-  //     EVEN_CHARS_MAP.set("X", 23);
-  //     EVEN_CHARS_MAP.set("Y", 24);
-  //     EVEN_CHARS_MAP.set("Z", 25);
-  //
-  //     MODS_MAP.set(0, "A");
-  //     MODS_MAP.set(1, "B");
-  //     MODS_MAP.set(2, "C");
-  //     MODS_MAP.set(3, "D");
-  //     MODS_MAP.set(4, "E");
-  //     MODS_MAP.set(5, "F");
-  //     MODS_MAP.set(6, "G");
-  //     MODS_MAP.set(7, "H");
-  //     MODS_MAP.set(8, "I");
-  //     MODS_MAP.set(9, "J");
-  //     MODS_MAP.set(10, "K");
-  //     MODS_MAP.set(11, "L");
-  //     MODS_MAP.set(12, "M");
-  //     MODS_MAP.set(13, "N");
-  //     MODS_MAP.set(14, "O");
-  //     MODS_MAP.set(15, "P");
-  //     MODS_MAP.set(16, "Q");
-  //     MODS_MAP.set(17, "R");
-  //     MODS_MAP.set(18, "S");
-  //     MODS_MAP.set(19, "T");
-  //     MODS_MAP.set(20, "U");
-  //     MODS_MAP.set(21, "V");
-  //     MODS_MAP.set(22, "W");
-  //     MODS_MAP.set(23, "X");
-  //     MODS_MAP.set(24, "Y");
-  //     MODS_MAP.set(25, "Z");
-  //
-  //     if(value && value.length == 16 && REGEXP.test(value)) {
-  //
-  //       var charsSum = 0;
-  //
-  //       for(var position = 0; position < TAX_CODE_LENGTH - 1; ++position) {
-  //         if(((position + 1) % 2) > 0) {
-  //           charsSum += ODD_CHARS_MAP.get(value.charAt(position).toUpperCase());
-  //         }
-  //         else {
-  //           charsSum += EVEN_CHARS_MAP.get(value.charAt(position).toUpperCase());
-  //         }
-  //       }
-  //
-  //       validCode = (MODS_MAP.get(charsSum % 26)) == value.slice(-1).toUpperCase();
-  //     }
-  //
-  //     return validCode;
-  //   };
-  //
-  //
-  //
-  //   $('#submit').click(function(){
-  //     var fiscale_value = $('#fiscal_code').val();
-  //     if(validateTaxCode(fiscale_value) == true){
-  //       return true;
-  //     } else {
-  //       alert('Il codice fiscale non è valido!');
-  //       return false;
-  //     }
-  //   });
-  // });
-
   function getVisitDoc() {
     var visit_type_single = $("#select-visit option").val();
     var items_new = doc_select.items.slice(0);
@@ -806,14 +693,14 @@ include '../connect.php';
             // $("#submit").attr("style", "opacity: inherit;pointer-events: inherit;color: #fff !important;");
             $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele").prop( "readonly", false );
             $("#dob").css("pointer-events", "inherit").prop( "readonly", false );
-            $("#email").val('');
-            $("#first_name").val('');
-            $("#last_name").val('');
-            $("#dob").val('');
-              $("#caller_first_name").val('');
-              $("#caller_last_name").val('');
-            $("#tele").val('');
-            $('.patiend_idd').remove();
+            // $("#email").val('');
+            // $("#first_name").val('');
+            // $("#last_name").val('');
+            // $("#dob").val('');
+            //   $("#caller_first_name").val('');
+            //   $("#caller_last_name").val('');
+            // $("#tele").val('');
+            // $('.patiend_idd').remove();
           } else {
             $('.patiend_idd').remove();
             $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="'+response.paziente_id+'">');
@@ -966,10 +853,26 @@ include '../connect.php';
       });
     });
   });
-</script> 
+
+  $("input, textarea").focus(function() {
+    var input_id = $(this).attr("id");
+    $(".error_"+input_id).removeClass('error_show');
+  });
+</script>
+<style>
+ .error_message{
+  margin-bottom:25px;
+ }
+ .error_show{
+  display:block;
+ }
+</style>
 <script src="../js/admin/webflow.js" type="text/javascript"></script> 
+<script src="/js/admin/tel_book_val.js" type="text/javascript"></script>
 <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 <div id="fb-root"></div>
 <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
+
+</body>
 </body>
 </html>
