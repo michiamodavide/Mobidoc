@@ -44,21 +44,6 @@
  font-size: 12px;
  border: 1px solid #979797 !important;
 }
-/**************************************/
-.body-14 .glance_details_title {
-    padding-top: 25px;
-}
-.body-14 .glance_details_title label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    float: left;
-}
-.body-14 input[type="checkbox"] {
-    float: left;
-    margin-right: 10px;
-	margin-top:7px;
-}
 @media screen and (max-width: 767px){
  .admin_main_section .admin_section_header{
   display: inline-block;
@@ -67,11 +52,6 @@
  .admin_main_section .scroll_indicator{
   display: none;
  }
-.body-14 .regi_doctor_card {
-
-    padding: 23px 10px;
-    
-} 
 }
 @media screen and (max-width: 400px){
  #add .button-10{

@@ -32,10 +32,12 @@ $rows3 = mysqli_fetch_array($result3);
  <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
  <link href="../images/webclip.png" rel="apple-touch-icon">
  <link href="../css/new-styles.css?v=3" rel="stylesheet" type="text/css">
+ <link href="/paziente/dist/css/datepicker.css" rel="stylesheet" type="text/css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
  <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
-
+ <link href="../dist/css/selectize.default.css?v=1" rel="stylesheet"/>
+ <script src="../dist/js/standalone/selectize.min.js"></script>
  <style>
   ::-webkit-scrollbar {
    width: 0px;
@@ -146,6 +148,8 @@ $rows3 = mysqli_fetch_array($result3);
          $price = $rows['price'];
          $payment_status = $rows['payment_status'];
          $booking_id = $rows['booking_id'];
+         $refertatore_id = $rows['refertatore_id'];
+         $opoint_time = $rows['apoint_time'];
 
          if ($payment_status == 0) {
            $payment_status = "Authorized, Not Captured";
@@ -175,8 +179,9 @@ $rows3 = mysqli_fetch_array($result3);
          <div class="div-block-61">
           <div class="patient_profile_image" style="position:relative;">
             <?php if ($rows['doctor_booking_status'] == 1 && $rows['patient_confirmation'] == 0) { ?>
-             <div class="booking_completed done" style="background-color: rgba(255, 221, 0, 0.5);"><img
-               src="../images/Path-107.svg" width="59" alt=""></div>
+             <div class="booking_completed done" style="background-color: rgba(255, 221, 0, 0.5);">
+              <img src="../images/Path-107.svg" width="59" alt="">
+             </div>
             <?php } ?>
             <?php if ($rows['doctor_booking_status'] == 1 && $rows['patient_confirmation'] == 1) { ?>
              <div class="booking_completed done" style="background-color: rgba(73, 255, 155, 0.51);"><img
@@ -220,13 +225,14 @@ $rows3 = mysqli_fetch_array($result3);
            <?php if ($rows['doctor_booking_status'] == 0) { ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
             <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
+            <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>
            <?php } ?>
         <?php if ($rows['admin_book'] == 1){
          ?>
           <a href="#" onClick="confirm_doc_vst(<?php echo $patient_id . ',' . $booking_id; ?>)" class="button-5 faded diff w-button" style="background-color: #ebeef2;">Conferma prenotazione</a>
 
             <?php
-              echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' a{pointer-events: none !important;opacity: 0.4 !important;}  .appoint_buttons_container.book_btn_'.$rows['booking_id'].' a:nth-child(5){pointer-events: inherit !important;opacity: inherit !important;}</style>';
+              echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' a{pointer-events: none !important;opacity: 0.4 !important;}  .appoint_buttons_container.book_btn_'.$rows['booking_id'].' a:nth-child(6){pointer-events: inherit !important;opacity: inherit !important;}</style>';
           }}else{?>
            <a href="tel:<?php echo $doctor_rows['phone']; ?>" class="button-5 faded diff w-button" style="background-color: rgba(0, 0, 0, 0.7); color: white;">Chiama Professionista</a>
            <a href="<?php echo '/il-team/professionista.php?'.$doctor_rows['doctor_id']?>" target="_blank" class="button-5 faded diff w-button" style="background-color: #0ce5b2;">Vedi Profilo Professionista</a>
@@ -291,6 +297,7 @@ $rows3 = mysqli_fetch_array($result3);
      <?php } ?>
    </div>
   </div>
+
   <div id="w-node-9d0132f6eb49-41f51898" class="site_nav">
    <h2 class="heading-20 diff">Gestisci Profilo</h2>
    <div class="nav_container">
@@ -341,6 +348,8 @@ $rows3 = mysqli_fetch_array($result3);
 <?PHP include '../footer.php' ?>
 <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="/paziente/date_pic.js?v=1"></script>
+<script src="/paziente/dist/js/i18n/datepicker.en.js?v=1"></script>
 <script src="../js/webflow.js" type="text/javascript"></script>
 <!-- [if lte IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
