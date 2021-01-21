@@ -108,7 +108,7 @@ if (!isset($_GET['bookid'])) {
                       <div class="choose_your_area">
                   <div class="search_cap_input sci2">
                     <div class="input_element"> <img src="../images/search.svg" width="28"  alt="">
-                      <select id="select-refer" name="ref_id" placeholder="Seleziona comune">
+                      <select id="select-refer" name="ref_id" placeholder="Seleziona Refertatore">
                         <?php
                       include '../connect.php';
 

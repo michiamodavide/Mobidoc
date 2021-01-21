@@ -54,6 +54,11 @@ $rows3 = mysqli_fetch_array($result3);
   .button-5{
    font-size: 11px;
   }
+  @media screen and (max-width: 767px){
+   .button-5.faded.diff{
+    display: block;
+   }
+  }
  </style>
  <script>
    function complete_visit(value, value2, value3, value4) {

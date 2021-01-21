@@ -141,6 +141,7 @@
           $doct_photo = $rows2['photo'];
           $user_active= $rows2['active'];
           $puo_refertare = $rows2['puo_refertare'];
+
           if(isset($doct_id)){
             $link = "/il-team/professionista.php?".$doct_id;  
           } else {
@@ -292,7 +293,7 @@
   	$('.admin_item:nth-child(1)').addClass('current');
   });
 
- $('.puo_refertare ').click(function() {
+ $('.puo_refertare').click(function() {
    var puo_refertare  = $(this).val();
    var doctor_id = $(this).attr("data-id");
    if (puo_refertare  == 'Y'){
