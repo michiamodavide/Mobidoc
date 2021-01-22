@@ -168,7 +168,7 @@ if(isset($_POST['submit'])){
         $patient_time =  date('H:i', strtotime($booking_date));
 
         //email to admin
-        $to = 'info@mobidoc.it'; //admin email
+        $to = 'patientmobdoc@gmail.com'; //admin email //info@mobidoc.it
         $subject = 'Nuova Prenotazione!';
         $from = 'mobidoc_update@mobidoc.it';
         $rply_email = 'noreplay@mobidoc.it';

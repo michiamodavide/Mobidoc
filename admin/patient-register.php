@@ -885,17 +885,11 @@ include '../connect.php';
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script> 
-<script src="/paziente/date_pic.js?v=1"></script>
-<script src="/paziente/dist/js/i18n/datepicker.en.js?v=1"></script>
+<script src="/paziente/date_pic.js?v=2"></script>
+<script src="/paziente/dist/js/i18n/datepicker.en.js?v=2"></script>
 <script type="text/javascript">
- var opoint_dd = '<?php echo $apoint_time?>';
- if (opoint_dd){
-   var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
-   $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
 
- }
-
- $("#appoint_time").keyup(function(){
+ $(".appoint_time").keyup(function(){
    var select_date = $(this).val().split('-');
    var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
 
@@ -927,7 +921,11 @@ include '../connect.php';
       $(document).ready(function(){
         $('.admin_item:nth-child(3)').addClass('current');
       });
-
+      var opoint_dd = '<?php echo $apoint_time?>';
+      if (opoint_dd){
+        var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
+        $('.appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+      }
     </script> 
 </div>
 <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> 
