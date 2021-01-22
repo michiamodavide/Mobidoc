@@ -231,16 +231,18 @@
                   </div>
                 </div>
               </div>
+              <?PHP if($status==1){ ?>
+                <?php if(isset($doct_id)){
+             ?>
              <div class="div-block-74">
-               <?PHP if($status==1){ ?>
-                 <?php if(isset($doct_id)){
+               <?PHP
                    if($user_active=='Y'){
                      ?>
                     <a href="doc_active.php?a=N&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attivo</a>
                    <?php }else{?>
 
                     <a href="doc_active.php?a=Y&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non Attivo</a>
-                   <?php }}}?>
+                   <?php }?>
 
              </div>
              <div class="div-block-74">
@@ -275,6 +277,9 @@
             */
             ?>
              </div>
+            <?php }}?>
+
+
             </div>
           </div>
           <?php } mysqli_close($conn);?>

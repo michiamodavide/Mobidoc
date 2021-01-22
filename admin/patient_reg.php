@@ -286,7 +286,15 @@ Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$g
 
 }else{
 
-  if(!isset($_POST['patients_id'])) {
+  $fiscal = mysqli_real_escape_string($conn, $_POST['fiscal_code']);
+
+  $sql_temp = "select * from temprary_patient where fiscale ='".$fiscal."'";
+  $result_temp = mysqli_query($conn, $sql_temp);
+  $fesic_code = 0;
+  if (mysqli_num_rows($result_temp) > 0) {
+   $fesic_code = 1;
+  }
+
     $caller_fname = $_POST['call_first_name'] . ' ' . $_POST['call_last_name'];
     $caller_name = mysqli_real_escape_string($conn, $caller_fname);
     $paziente_email = $_POST['email'];
@@ -294,44 +302,46 @@ Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$g
     $tel = mysqli_real_escape_string($conn, $_POST['tele']);
     $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
-
     $date_of_birth = $_POST['dob'];
     $dob = $date_of_birth;
-//    if (isset($date_of_birth)){
-//      $dob = strtotime($date_of_birth);
-//      $dob = date('Y/m/d', $dob);
-//    }else{
-//      $dob = null;
-//    }
-
-    $fiscal = mysqli_real_escape_string($conn, $_POST['fiscal_code']);
     $admin_note = mysqli_real_escape_string($conn, $_POST['admin_note']);
+    $select_address = $_POST['address'];
+    $address = mysqli_real_escape_string($conn, $select_address);
+    $gmap_addr = $_POST['gmap_addr'];
+    $gmap_address = mysqli_real_escape_string($conn, $gmap_addr);
+    $visit_name = mysqli_real_escape_string($conn, $_POST['vist_name']);
+    $payment_mode = mysqli_real_escape_string($conn, $_POST['payment_mode']);
+    $patient_apt_date = $_POST['appoint_time'];
+     $appoint_time = mysqli_real_escape_string($conn, $patient_apt_date);
+     $doc_ids_array = json_encode($_POST['doc_id']) ;
+     $referr_id = $_POST['refertatore_id'];
+     $lat_log = $_POST['lat_log'];
+
+    $refertatore_id = '0';
+     if (!empty($referr_id)) {
+    $refertatore_id = $referr_id;
+     }
 
     date_default_timezone_set("Europe/Rome");
     $dor = date("Y/m/d");
 
-    if (isset($_POST['patient_temp_id'])) {
-      $sql = "update temprary_patient set first_name = '" . $first_name . "', last_name = '" . $last_name . "', caller_name = '" . $caller_fname . "', fiscale = '" . $fiscal . "', phone = '" . $tel . "', admin_note = '" . $admin_note . "', dor = '" . $dor . "', dob = '" . $dob . "' where patient_id='" . $_POST['patient_temp_id'] . "'";
+    if ($fesic_code == 1 || isset($_POST['patient_temp_id'])) {
+      if ($fesic_code == 1){
+        $sql = "update temprary_patient set first_name = '" . $first_name . "', last_name = '" . $last_name . "', last_name = '" . $last_name . "', caller_name = '" . $caller_fname . "', fiscale = '" . $fiscal . "', phone = '" . $tel . "', admin_note = '" . $admin_note . "', dor = '" . $dor . "', dob = '" . $dob . "', email = '" . $email . "', address = '" . $address . "', gmap_address = '" . $gmap_address . "', visit_name = '" . $visit_name . "', appoint_time = '" . $appoint_time . "', payment_mode = '" . $payment_mode . "', excutor_ids = '" . $doc_ids_array . "', refertatore_id = '" . $refertatore_id . "', lat_log = '" . $lat_log . "' where  fiscale='" . $fiscal . "'";
+      }else{
+        $sql = "update temprary_patient set first_name = '" . $first_name . "', last_name = '" . $last_name . "', last_name = '" . $last_name . "', caller_name = '" . $caller_fname . "', fiscale = '" . $fiscal . "', phone = '" . $tel . "', admin_note = '" . $admin_note . "', dor = '" . $dor . "', dob = '" . $dob . "', email = '" . $email . "', address = '" . $address . "', gmap_address = '" . $gmap_address . "', visit_name = '" . $visit_name . "', appoint_time = '" . $appoint_time . "', payment_mode = '" . $payment_mode . "', excutor_ids = '" . $doc_ids_array . "', refertatore_id = '" . $refertatore_id . "', lat_log = '" . $lat_log . "' where  patient_id='" . $_POST['patient_temp_id'] . "'";
+      }
     } else {
-      $sql = "insert into temprary_patient (first_name, last_name, caller_name, fiscale, email, phone, admin_note, dor, dob) values('" . ucwords($first_name) . "', '" . ucwords($last_name) . "','" . $caller_name . "', '" . $fiscal . "', '" . $email . "','" . $tel . "', '" . $admin_note . "','" . $dor . "','" . $dob . "')";
+      $sql = "insert into temprary_patient (first_name, last_name, caller_name, dob, fiscale, address, email, phone, admin_note, gmap_address, lat_log, dor, visit_name, excutor_ids, refertatore_id, appoint_time, payment_mode) values('".ucwords($first_name)."', '".ucwords($last_name)."','".$caller_name."', '".$dob."', '".$fiscal."', '".$address."', '".$email."','".$tel."', '".$admin_note."', '".$gmap_address."', '".$lat_log."', '".$dor."','".$visit_name."','".$doc_ids_array."', '".$refertatore_id."', '".$appoint_time."','".$payment_mode."')";
     }
 
     $result = mysqli_query($conn, $sql);
     if ($result == 1) {
       header("location: /paziente/non-complete-profile.php");
     } else {
-      $email = $_POST['email'];
-      $sql = "update temprary_patient set first_name = '" . $first_name . "', last_name = '" . $last_name . "', caller_name = '" . $caller_fname . "', fiscale = '" . $fiscal . "', phone = '" . $tel . "', admin_note = '" . $admin_note . "', dor = '" . $dor . "', dob = '" . $dob . "' where email='" . $email . "'";
-      $result = mysqli_query($conn, $sql);
-      if ($result == 1) {
-        header("location: /paziente/non-complete-profile.php");
-      } else {
-        echo 'There is some error in Database Connection';
-      }
+      echo 'There is some error in Database Connection';
     }
-  }else{
-    header("location: /paziente/non-complete-profile.php");
-  }
+
 
   mysqli_close($conn);
 }
