@@ -269,6 +269,8 @@ Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$g
 
         mail($to4, $subject4, $message4, $headers4);
 
+//        this is print
+        exit();
 
         header("location: /paziente/booking-completed.php");
 
