@@ -296,7 +296,11 @@ include '../connect.php';
   $book_visit_name = $get_book_result['visit_name'];
   $refertatore_id = $get_book_result['refertatore_id'];
 
-  $apoint_time = date("m-d-Y H:s", strtotime($get_book_result['apoint_time']));
+  if ($get_book_result['apoint_time']){
+    $apoint_time = date("m-d-Y H:s", strtotime($get_book_result['apoint_time']));
+  }else{
+    $apoint_time = $get_book_result['apoint_time'];
+  }
 
   /*get doctor data*/
   $sql_doc = "select * from doctor_profile where doctor_id ='".$get_book_result['doctor_id']."'";
@@ -712,7 +716,6 @@ include '../connect.php';
       dataType: "json",
       success: function (response) {
         $.each(response, function(index) {
-          console.log(response);
           var puo_refertare = response[index].puo_refertare;
           var is_active_doc = response[index].active;
           if (is_active_doc == 'Y'){
@@ -773,7 +776,6 @@ include '../connect.php';
 
 
   var dobb = '<?php echo $dobb?>';
-  var opoint_dd = '<?php echo $apoint_time?>';
   if (dobb){
     var date_of_birth = date_of_birth = new Date('<?php echo $dobb?>');
     $('.date_of_birth').datepicker({
@@ -783,12 +785,6 @@ include '../connect.php';
     $('.date_of_birth').datepicker({
       timepicker: false
     });
-  }
-
-  if (opoint_dd){
-    var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
-    $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
-
   }
 
   $("#appoint_time").keyup(function(){
@@ -806,6 +802,14 @@ include '../connect.php';
 
   });
 
+
+  var opoint_dd = '<?php echo $apoint_time?>';
+  if (opoint_dd){
+    console.log(opoint_dd);
+    var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
+    $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+
+  }
 </script>
 <!-- [if lte IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
