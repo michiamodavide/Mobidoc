@@ -1,4 +1,5 @@
 <?php session_start();
+
 if(!isset($_SESSION['adminlogin']))
 {
   header("Location: login.php");
@@ -321,14 +322,14 @@ include '../connect.php';
                 <?php }?>
                 <div>
                  <div class="form_section">
-                  <div class="form_section_heading">Controllo Anagrafica Paziente</div>
                    <?php
                    if (isset($_GET['err']) && ($_GET['err'] == '1')){
                      ?>
-                    <div class="error">
+                    <div class="error" style="display: block">
                      <div>Email già registrata.</div>
                     </div>
                    <?php }?>
+                  <div class="form_section_heading">Controllo Anagrafica Paziente</div>
                   <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off">
                  </div>
                  <div class="form_section">
@@ -704,7 +705,7 @@ include '../connect.php';
           } else {
             $('.patiend_idd').remove();
             $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="'+response.paziente_id+'">');
-          $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele").prop( "readonly", true );
+          $("#email, #first_name, #last_name, #tele").prop( "readonly", true );
           $("#dob").css("pointer-events", "none").prop( "readonly", true );
             // $(".error.fasical_cd").css("display", "block");
             $("input#fiscal_code").css("background-color", "#ffc5c5");
