@@ -269,9 +269,6 @@ Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$g
 
         mail($to4, $subject4, $message4, $headers4);
 
-//        this is print
-        exit();
-
         header("location: /paziente/booking-completed.php");
 
       }else{
@@ -315,7 +312,7 @@ Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$g
     $payment_mode = mysqli_real_escape_string($conn, $_POST['payment_mode']);
     $patient_apt_date = $_POST['appoint_time'];
      $appoint_time = mysqli_real_escape_string($conn, $patient_apt_date);
-     $doc_ids_array = json_encode($_POST['doc_id']) ;
+
      $referr_id = $_POST['refertatore_id'];
      $lat_log = $_POST['lat_log'];
 
@@ -324,10 +321,15 @@ Fare <a target='_blank' style='color: blue; text-decoration: underline' href='$g
     $refertatore_id = $referr_id;
      }
 
+    $doc_ids_array = '0';
+    if (!empty($_POST['doc_id'])) {
+      $doc_ids_array = json_encode($_POST['doc_id']);
+    }
+
     date_default_timezone_set("Europe/Rome");
     $dor = date("Y/m/d");
 
-    if ($fesic_code == 1 || isset($_POST['patient_temp_id'])) {
+    if ($fesic_code == 1 && !empty($fiscal) || isset($_POST['patient_temp_id'])) {
       if ($fesic_code == 1){
         $sql = "update temprary_patient set first_name = '" . $first_name . "', last_name = '" . $last_name . "', last_name = '" . $last_name . "', caller_name = '" . $caller_fname . "', fiscale = '" . $fiscal . "', phone = '" . $tel . "', admin_note = '" . $admin_note . "', dor = '" . $dor . "', dob = '" . $dob . "', email = '" . $email . "', address = '" . $address . "', gmap_address = '" . $gmap_address . "', visit_name = '" . $visit_name . "', appoint_time = '" . $appoint_time . "', payment_mode = '" . $payment_mode . "', excutor_ids = '" . $doc_ids_array . "', refertatore_id = '" . $refertatore_id . "', lat_log = '" . $lat_log . "' where  fiscale='" . $fiscal . "'";
       }else{

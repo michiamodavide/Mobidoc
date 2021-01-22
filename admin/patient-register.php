@@ -295,7 +295,6 @@ include '../connect.php';
     $lat_log = $sql_get_tmp_data['lat_log'];
     $selected_exc = $sql_get_tmp_data['excutor_ids'];
 
-
       /*get refer email*/
       $sql44 = "select * from doctor_profile where doctor_id ='".$refer_id."'";
       $result44 = mysqli_query($conn, $sql44);
@@ -681,8 +680,7 @@ include '../connect.php';
   var icp_param = '<?php echo $icp_param?>';
   $( document ).ready(function() {
     if (icp_param){
-      console.log('<?php echo $selected_exc?>');
-      var executor_selected = [];
+      var executor_selected = $.parseJSON('<?php echo $selected_exc?>');
       var visit_type_single = $("#select-visit option").val();
       $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
       $.ajax({
@@ -815,18 +813,12 @@ include '../connect.php';
   /* script */
   function initialize() {
    var selected_latlng = $(".lat_log").val();
-   console.log(selected_latlng);
-    // var latlng = new google.maps.LatLng(selected_latlng);
-
-    // if (selected_latlng){
-    //   // var latlng = new google.maps.LatLng(selected_latlng);
-    //   var latlng = new google.maps.LatLng($(".lat_log").val());
-    // } else {
-    var split = selected_latlng.split(",");
-
+    if (selected_latlng){
+      var split = selected_latlng.split(",");
       var latlng = new google.maps.LatLng(split[0],split[1]);
-      // var latlng = new google.maps.LatLng(31.5205412,74.4105177);
-      // var latlng = new google.maps.LatLng(44.838124,11.619787);
+    } else {
+      var latlng = new google.maps.LatLng(44.838124,11.619787);
+    }
     console.log(latlng);
     // }
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -896,18 +888,6 @@ include '../connect.php';
 <script src="/paziente/date_pic.js?v=1"></script>
 <script src="/paziente/dist/js/i18n/datepicker.en.js?v=1"></script>
 <script type="text/javascript">
- var dobb = '<?php echo $dobb?>';
-  if (dobb){
-    var date_of_birth = date_of_birth = new Date('<?php echo $dobb?>');
-    $('.date_of_birth').datepicker({
-      timepicker: false
-    }).data('datepicker').selectDate(new Date(date_of_birth.getFullYear(), date_of_birth.getMonth(), date_of_birth.getDate()));
-  }else {
-    $('.date_of_birth').datepicker({
-      timepicker: false
-    });
-  }
-
  var opoint_dd = '<?php echo $apoint_time?>';
  if (opoint_dd){
    var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
@@ -929,6 +909,18 @@ include '../connect.php';
    }, 500);
 
  });
+
+ var dobb = '<?php echo $dobb?>';
+ if (dobb){
+   var date_of_birth = date_of_birth = new Date('<?php echo $dobb?>');
+   $('.date_of_birth').datepicker({
+     timepicker: false
+   }).data('datepicker').selectDate(new Date(date_of_birth.getFullYear(), date_of_birth.getMonth(), date_of_birth.getDate()));
+ }else {
+   $('.date_of_birth').datepicker({
+     timepicker: false
+   });
+ }
 </script>
 <div class="menu_current w-embed w-script"> 
   <script>
@@ -972,7 +964,6 @@ include '../connect.php';
 <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 <div id="fb-root"></div>
 <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
-
 </body>
 </body>
 </html>
