@@ -681,7 +681,7 @@ include '../connect.php';
   var icp_param = '<?php echo $icp_param?>';
   $( document ).ready(function() {
     if (icp_param){
-      console.log($selected_exc)
+      console.log('<?php echo $selected_exc?>');
       var executor_selected = [];
       var visit_type_single = $("#select-visit option").val();
       $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
