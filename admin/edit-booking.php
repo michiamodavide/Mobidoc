@@ -789,21 +789,22 @@ include '../connect.php';
     var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
     $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
 
-    $("#appoint_time").keyup(function(){
-      var select_date = $(this).val().split('-');
-      var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
-
-      var opoint_date = opoint_date = new Date(date_string);
-      setTimeout(function(){
-        if (opoint_date == 'Invalid Date') {
-          //do not do anyting
-        }else {
-          $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
-        }
-      }, 500);
-
-    });
   }
+
+  $("#appoint_time").keyup(function(){
+    var select_date = $(this).val().split('-');
+    var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
+
+    var opoint_date = opoint_date = new Date(date_string);
+    setTimeout(function(){
+      if (opoint_date == 'Invalid Date') {
+        //do not do anyting
+      }else {
+        $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+      }
+    }, 500);
+
+  });
 
 </script>
 <!-- [if lte IE 9]>

@@ -259,6 +259,14 @@ include '../connect.php';
   $lname = '';
   $admin_note = '';
   $dobb = '';
+  $address= '';
+  $visit_name1 = '';
+  $opoint_time = '';
+  $payment_mode = '';
+   $refer_id = '';
+   $gmap_addr = '';
+   $lat_log = '';
+   $selected_exc = '';
 
   $icp_param = '';
   if (isset($_GET['icp'])){
@@ -278,6 +286,22 @@ include '../connect.php';
     $lname = $sql_get_tmp_data['last_name'];
     $admin_note = $sql_get_tmp_data['admin_note'];
     $dobb = $sql_get_tmp_data['dob'];
+    $address = $sql_get_tmp_data['address'];
+    $visit_name1 = $sql_get_tmp_data['visit_name'];
+    $apoint_time = date("m-d-Y H:s", strtotime($sql_get_tmp_data['appoint_time']));
+    $payment_mode = $sql_get_tmp_data['payment_mode'];
+    $refer_id = $sql_get_tmp_data['refertatore_id'];
+    $gmap_addr = $sql_get_tmp_data['gmap_address'];
+    $lat_log = $sql_get_tmp_data['lat_log'];
+    $selected_exc = $sql_get_tmp_data['excutor_ids'];
+
+
+      /*get refer email*/
+      $sql44 = "select * from doctor_profile where doctor_id ='".$refer_id."'";
+      $result44 = mysqli_query($conn, $sql44);
+      $rows44 = mysqli_fetch_array($result44);
+      $doctor_main_name = $rows44['fname'].' '.$rows44['lname'];
+      $doctor_id= $rows44['doctor_id'];
   }
   ?>
 
@@ -351,8 +375,9 @@ include '../connect.php';
                       <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name">
                     </div>
                     <input type="text" class="datepicker-here inputs w-input date_of_birth" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" style="margin-bottom: 25px">
-                    <input style="margin-bottom: 15px" type="text" class="inputs w-input" value="" maxlength="256" name="address" placeholder="Indirizzo Completo *" autocomplete="off" id="address_search">
-                    <input type="hidden" class="inputs w-input gmap_adress" value="" maxlength="256" name="gmap_addr" placeholder="Indirizzo Completo *" >
+                    <input style="margin-bottom: 15px" type="text" class="inputs w-input" maxlength="256" name="address" placeholder="Indirizzo Completo *" autocomplete="off" id="address_search" value="<?php echo $address?>">
+                    <input type="hidden" class="inputs w-input gmap_adress" value="<?php echo $gmap_addr?>" maxlength="256" name="gmap_addr" placeholder="Indirizzo Completo *">
+                    <input type="hidden" class="inputs w-input lat_log" value="<?php echo $lat_log?>" maxlength="256" name="lat_log" placeholder="Indirizzo Completo *">
                     <div class="map" id="map" style="width: 100%; height: 300px;margin: 0% auto 33px;"></div>
                     <?php
              /*
@@ -375,6 +400,7 @@ include '../connect.php';
                           <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
                             <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" onchange="getVisitDoc()">
                               <option value="">Seleziona Prestazione</option>
+                             <option selected value="<?PHP echo $visit_name1;?>"><?PHP echo $visit_name1;?></option>
                               <?php
                   include '../connect.php';
                  /* $visit_sql = "select * from doctor_visit order by visit_name";*/
@@ -398,6 +424,7 @@ include '../connect.php';
                         <div class="search_cap_input sci2">
                           <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
                             <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">
+<!--                              <option value="" selected>Seleziona Esecutore</option>-->
                               <option value="">Seleziona Esecutore</option>
                             </select>
                             <script>
@@ -419,7 +446,13 @@ include '../connect.php';
                 <img src="../images/search.svg" width="28"  alt="">
 
                 <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id">
+                 <?php
+                 if (!empty($refer_id)){
+                 ?>
+                 <option value="<?php echo $doctor_id?>" selected><?php echo $doctor_main_name?></option>
+                 <?php }else{?>
                  <option value="">Seleziona Refertatore</option>
+                 <?php }?>
                 </select>
                 <script>
                   var $select_ref = $('#select-refertatore').selectize();
@@ -435,7 +468,7 @@ include '../connect.php';
                   <div class="form_section">
                     <div class="form_section_heading">Data e Ora</div>
                     <div class="dual_container diff">
-                      <input type="text" class="datepicker-here inputs w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora" id="appoint_time">
+                      <input type="text" class="datepicker-here inputs w-input appoint_time"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora" id="appoint_time">
                     </div>
                   </div>
                   <div class="form_section">
@@ -445,6 +478,11 @@ include '../connect.php';
                         <div class="search_cap_input sci2">
                           <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
                             <select id="cash-option" placeholder="Metodo di Pagamento" name="payment_mode">
+                             <?php
+                             if (!empty($payment_mode)){
+                             ?>
+                             <option value="<?php echo $payment_mode?>" selected><?php echo $payment_mode?></option>
+                             <?php }?>
                               <option value="Contanti">Contanti</option>
                               <option value="Bancomat">Bancomat</option>
                               <option value="Bonifico Bancario">Bonifico Bancario</option>
@@ -639,6 +677,44 @@ include '../connect.php';
  }
 </style>
 <script>
+
+  var icp_param = '<?php echo $icp_param?>';
+  $( document ).ready(function() {
+    if (icp_param){
+      console.log($selected_exc)
+      var executor_selected = [];
+      var visit_type_single = $("#select-visit option").val();
+      $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
+      $.ajax({
+        url: "/paziente/get_visit_doc.php",
+        type: "post",
+        data: {data:visit_type_single},
+        dataType: "json",
+        success: function (response) {
+          $.each(response, function(index) {
+            var puo_refertare = response[index].puo_refertare;
+            var is_active_doc = response[index].active;
+            if (is_active_doc == 'Y'){
+              if (puo_refertare == 'N'){
+                $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+                doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+                // executor_selected.push(response[index].doctor_id);
+              } else if (puo_refertare == 'Y') {
+                $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+                ref_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+              }
+            }
+          });
+
+          doc_select.setValue(executor_selected);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+  });
+    }
+  });
+
   function getVisitDoc() {
     var visit_type_single = $("#select-visit option").val();
     var items_new = doc_select.items.slice(0);
@@ -672,6 +748,7 @@ include '../connect.php';
 
         doc_select.refreshOptions();
         ref_select.refreshOptions();
+
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log(textStatus, errorThrown);
@@ -737,7 +814,21 @@ include '../connect.php';
 <script>
   /* script */
   function initialize() {
-    var latlng = new google.maps.LatLng(44.838124,11.619787);
+   var selected_latlng = $(".lat_log").val();
+   console.log(selected_latlng);
+    // var latlng = new google.maps.LatLng(selected_latlng);
+
+    // if (selected_latlng){
+    //   // var latlng = new google.maps.LatLng(selected_latlng);
+    //   var latlng = new google.maps.LatLng($(".lat_log").val());
+    // } else {
+    var split = selected_latlng.split(",");
+
+      var latlng = new google.maps.LatLng(split[0],split[1]);
+      // var latlng = new google.maps.LatLng(31.5205412,74.4105177);
+      // var latlng = new google.maps.LatLng(44.838124,11.619787);
+    console.log(latlng);
+    // }
     var map = new google.maps.Map(document.getElementById('map'), {
       center: latlng,
       zoom: 13
@@ -795,6 +886,7 @@ include '../connect.php';
   function bindDataToForm(address,lat,lng){
 
     $(".gmap_adress").val("https://www.google.com/maps/place/"+address+"/@"+lat+","+lng);
+    $(".lat_log").val(lat+","+lng);
     // document.getElementById('location').value = address;
     // document.getElementById('lat').value = lat;
     // document.getElementById('lng').value = lng;
@@ -816,6 +908,13 @@ include '../connect.php';
     });
   }
 
+ var opoint_dd = '<?php echo $apoint_time?>';
+ if (opoint_dd){
+   var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
+   $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+
+ }
+
  $("#appoint_time").keyup(function(){
    var select_date = $(this).val().split('-');
    var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
@@ -827,7 +926,7 @@ include '../connect.php';
      }else {
        $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
      }
-     }, 500);
+   }, 500);
 
  });
 </script>
