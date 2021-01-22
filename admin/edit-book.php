@@ -24,7 +24,13 @@ if(isset($_POST['submit'])){
       $patient_apt_date = $_POST['appoint_time'];
 
       $booking_idd = $_POST['booing_idd'];
-      $sql12 = "UPDATE `bookings` SET `doctor_id` = '$doctor_id',`refertatore_id` = '$refertatore_id', `visit_name` = '$visit_name', `apoint_time` = '$patient_apt_date' WHERE `booking_id` = $booking_idd;";
+
+      $referr_id = '0';
+      if (!empty($refertatore_id)) {
+        $referr_id = $refertatore_id;
+      }
+
+      $sql12 = "UPDATE `bookings` SET `doctor_id` = '$doctor_id',`refertatore_id` = '$referr_id', `visit_name` = '$visit_name', `apoint_time` = '$patient_apt_date' WHERE `booking_id` = $booking_idd;";
       $result12 = mysqli_query($conn, $sql12);
 
       /*get doctor data*/

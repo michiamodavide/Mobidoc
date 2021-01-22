@@ -15,8 +15,7 @@
 		$comune = substr($select_comun,0,$pos-1);
 		$province = substr($select_comun,$pos+1,2);
 		$cap = substr($select_comun,$pos+6,5);
-		
-		echo $dob;
+
 		$b = explode("@",$email);
 
      $photo = "../images/Group-556.jpg";

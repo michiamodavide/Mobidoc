@@ -8,7 +8,12 @@ if(isset($_POST['submit']))
   $ref_id = $_POST['ref_id'];
   $appoint_time = $_POST['appoint_time'];
 
-  $sql = "UPDATE `bookings` SET `refertatore_id` = '$ref_id', `apoint_time` = '$appoint_time' WHERE `booking_id` = $booking_id;";
+  $refertatore_id = '0';
+  if (!empty($ref_id)) {
+    $refertatore_id = $ref_id;
+  }
+
+  $sql = "UPDATE `bookings` SET `refertatore_id` = '$refertatore_id', `apoint_time` = '$appoint_time' WHERE `booking_id` = $booking_id;";
   $result = mysqli_query($conn, $sql);
 
   if($result==1) {
