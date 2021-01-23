@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
 
     $patients_idd = $_POST['patient_id'];
-    $sql = "UPDATE `paziente_profile` SET `dob` = '$dob', `photo` = '$tel', `first_name` = '$first_name', `last_name` = '$last_name' WHERE `paziente_id` = $patients_idd;";
+    $sql = "UPDATE `paziente_profile` SET `dob` = '$dob', `phone` = '$tel', `first_name` = '$first_name', `last_name` = '$last_name' WHERE `paziente_id` = $patients_idd;";
     $result = mysqli_query($conn, $sql);
 
     if ($result == 1) {

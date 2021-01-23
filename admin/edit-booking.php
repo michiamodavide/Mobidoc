@@ -810,6 +810,9 @@ include '../connect.php';
     $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
 
   }
+  $(document).ready(function(){
+    $('.admin_item:nth-child(2)').addClass('current');
+  });
 </script>
 <!-- [if lte IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->

@@ -285,10 +285,16 @@ include '../connect.php';
     $fname = $sql_get_tmp_data['first_name'];
     $lname = $sql_get_tmp_data['last_name'];
     $admin_note = $sql_get_tmp_data['admin_note'];
-    $dobb = $sql_get_tmp_data['dob'];
+    $dobb = date("m-d-Y H:i", strtotime($sql_get_tmp_data['dob']));;
+
     $address = $sql_get_tmp_data['address'];
     $visit_name1 = $sql_get_tmp_data['visit_name'];
-    $apoint_time = date("m-d-Y H:i", strtotime($sql_get_tmp_data['appoint_time']));
+
+    $apoint_time = '';
+    if ($sql_get_tmp_data['appoint_time']){
+      $apoint_time = date("m-d-Y H:i", strtotime($sql_get_tmp_data['appoint_time']));
+    }
+
     $payment_mode = $sql_get_tmp_data['payment_mode'];
     $refer_id = $sql_get_tmp_data['refertatore_id'];
     $gmap_addr = $sql_get_tmp_data['gmap_address'];
@@ -754,70 +760,81 @@ include '../connect.php';
     });
   }
 
+  function checkFisical(fis_val){
+    $.ajax({
+      url: "check_fiscal.php",
+      type: "post",
+      data: {data:fis_val},
+      dataType: "json",
+      success: function (response) {
+        if (response == 'true'){
+          // $(".error.fasical_cd").css("display", "none");
+          $("input#fiscal_code").css("background-color", "#d3fbff");
+          // $("#submit").attr("style", "opacity: inherit;pointer-events: inherit;color: #fff !important;");
+          $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele").prop( "readonly", false );
+          $("#dob").css("pointer-events", "inherit").prop( "readonly", false );
+          // $("#email").val('');
+          // $("#first_name").val('');
+          // $("#last_name").val('');
+          // $("#dob").val('');
+          //   $("#caller_first_name").val('');
+          //   $("#caller_last_name").val('');
+          // $("#tele").val('');
+          $('.patiend_idd').remove();
+        } else {
+          $('.patiend_idd').remove();
+          $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="'+response.paziente_id+'">');
+          $("#email, #first_name, #last_name, #tele").prop( "readonly", true );
+          $("#dob").css("pointer-events", "none").prop( "readonly", true );
+          // $(".error.fasical_cd").css("display", "block");
+          $("input#fiscal_code").css("background-color", "#ffc5c5");
+          // $("#submit").attr("style", "opacity: 0.4;pointer-events: none;color: #fff !important;");
+          $("#email").val(response.email);
+          $("#first_name").val(response.first_name);
+          $("#last_name").val(response.last_name);
+          $("#dob").val(response.dob);
+          var call_name = response.caller_name;
+          var phone_num = response.phone;
+          if (call_name){
+            var ret = call_name.split(" ");
+            var call_fname = ret[0];
+            var call_lname = ret[1];
+            $("#caller_first_name").val(call_fname);
+            $("#caller_last_name").val(call_lname);
+          }
+          if (phone_num){
+            $("#tele").val(phone_num);
+          }
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown);
+      }
+    });
+  }
     $('#fiscal_code').keyup(function(eev) {
       eev.preventDefault();
-    var fis_val = $(this).val();
-    if (fis_val.length > 1) {
-      $.ajax({
-        url: "check_fiscal.php",
-        type: "post",
-        data: {data:fis_val},
-        dataType: "json",
-        success: function (response) {
-          if (response == 'true'){
-            // $(".error.fasical_cd").css("display", "none");
-            $("input#fiscal_code").css("background-color", "#d3fbff");
-            // $("#submit").attr("style", "opacity: inherit;pointer-events: inherit;color: #fff !important;");
-            $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele").prop( "readonly", false );
-            $("#dob").css("pointer-events", "inherit").prop( "readonly", false );
-            // $("#email").val('');
-            // $("#first_name").val('');
-            // $("#last_name").val('');
-            // $("#dob").val('');
-            //   $("#caller_first_name").val('');
-            //   $("#caller_last_name").val('');
-            // $("#tele").val('');
-            $('.patiend_idd').remove();
-          } else {
-            $('.patiend_idd').remove();
-            $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="'+response.paziente_id+'">');
-            $("#email, #first_name, #last_name, #tele").prop( "readonly", true );
-            $("#dob").css("pointer-events", "none").prop( "readonly", true );
-            // $(".error.fasical_cd").css("display", "block");
-            $("input#fiscal_code").css("background-color", "#ffc5c5");
-            // $("#submit").attr("style", "opacity: 0.4;pointer-events: none;color: #fff !important;");
-            $("#email").val(response.email);
-            $("#first_name").val(response.first_name);
-            $("#last_name").val(response.last_name);
-            $("#dob").val(response.dob);
-            var call_name = response.caller_name;
-            var phone_num = response.phone;
-            if (call_name){
-              var ret = call_name.split(" ");
-              var call_fname = ret[0];
-              var call_lname = ret[1];
-              $("#caller_first_name").val(call_fname);
-              $("#caller_last_name").val(call_lname);
-            }
-            if (phone_num){
-              $("#tele").val(phone_num);
-            }
-          }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.log(textStatus, errorThrown);
-        }
-      });
-    }else {
-      $("#email").val('');
-      $("#first_name").val('');
-      $("#last_name").val('');
-      $("#dob").val('');
+      var fis_val = $("#fiscal_code").val();
+      if (fis_val.length > 1) {
+        checkFisical(fis_val);
+      }else {
+        $("#email").val('');
+        $("#first_name").val('');
+        $("#last_name").val('');
+        $("#dob").val('');
         $("#caller_first_name").val('');
         $("#caller_last_name").val('');
-      $("#tele").val('');
+        $("#tele").val('');
+      }
+  });
+
+  $(document).ready(function(){
+    if (icp_param){
+      var fis_val = $("#fiscal_code").val();
+      checkFisical(fis_val);
     }
   });
+
 </script> 
 <script>
   /* script */
