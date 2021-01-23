@@ -154,7 +154,8 @@
             $price = $rows['price'];
             $visit_name = $rows['visit_name'];
             $message = $rows['message'];
-            
+            $opoint_time = $rows['apoint_time'];
+
             $date_of_book = $rows['date_of_booking'] ;
             $booking_id = $rows['booking_id'];
             //Patient Rows
@@ -206,10 +207,24 @@
                     <div class="titlo">Professionista:</div>
                     <div class="doctor_name"><?php echo $doctor_rows['fname']." ".$doctor_rows['lname']?></div>
                   </div>
+                 <?php
+                 /*
                   <div class="doctor_name_data_container">
                     <div class="titlo">Richiesta il:</div>
                     <div class="doctor_name"><?php echo $date_of_book; ?></div>
                   </div>
+                 */
+                 ?>
+                 <div class="doctor_name_data_container">
+                  <div class="titlo">Data e Ora:</div>
+                  <div class="doctor_name">
+                    <?php
+                    if (!empty($opoint_time)){
+                      echo date("d/m/Y H:i", strtotime($opoint_time));;
+                    }
+                    ?>
+                  </div>
+                 </div>
                 </div>
                 <div class="booking_card_buttons">
                 <?php if($rows['booking_status'] == 0){ ?>

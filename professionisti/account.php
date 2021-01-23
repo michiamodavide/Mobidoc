@@ -1,4 +1,5 @@
 <?php session_start();
+
 if (!isset($_SESSION['doctor_email'])) {
   header("Location: login.php");
 }
@@ -270,9 +271,23 @@ $rows3 = mysqli_fetch_array($result3);
            <div class="text-block-63">Telefono</div>
            <div class="text-block-64"><?php echo $patient_rows['phone']; ?></div>
           </div>
+          <?php
+          /*
           <div class="paziente_data_block">
-           <div class="text-block-63">Data</div>
+           <div class="text-block-63">Data Prenotazione</div>
            <div class="text-block-64"><?php echo $date_of_booking; ?></div>
+          </div>
+          */
+          ?>
+          <div class="paziente_data_block">
+           <div class="text-block-63">Data e Ora</div>
+           <div class="text-block-64">
+          <?php
+          if (!empty($opoint_time)){
+           echo date("d/m/Y H:i", strtotime($opoint_time));;
+          }
+           ?>
+           </div>
           </div>
 
           <div class="paziente_data_block">
@@ -336,9 +351,9 @@ $rows3 = mysqli_fetch_array($result3);
   <div class="div-block-25">
    <form action="share-exam.php" method="post">
     <input type="text" name="book_id" id="book_id" style="display:none;">
-    <input type="text" name="excuter_email" id="excuter_email" style="display:none;">
+    <input type="text" name="refer_email" id="refer_email" style="display:none;">
     <input type="text" name="refertatore_id" id="share_exam" style="display:none;">
-    <input type="text" name="excuter_name" id="excuter_name" style="display:none;">
+    <input type="text" name="refer_name" id="refer_name" style="display:none;">
     <input type="text" name="vis_name" id="vis_name" style="display:none;">
     <input type="text" name="doct_name" id="doct_name" style="display:none;">
     <textarea style="min-height: 100px;margin-top: 0px;" placeholder="Condividi rapporto *" maxlength="10000" id="ext_not"
@@ -395,8 +410,8 @@ $rows3 = mysqli_fetch_array($result3);
 
   function setDoctor(val, email,name){
     $('#share_exam').val(val);
-    $("#excuter_email").val(email);
-    $("#excuter_name").val(name);
+    $("#refer_email").val(email);
+    $("#refer_name").val(name);
     $(".share-exam-btn").prop("disabled", false).css("cursor","pointer");
   }
 
