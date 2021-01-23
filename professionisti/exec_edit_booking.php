@@ -42,7 +42,7 @@ if(isset($_POST['submit']))
     $gmap_addr = $ref_v_res22['gmap_address'];
 
     /*get ref detail*/
-    $ref_v_sql25 = "select * from doctor_profile where doctor_id ='" . $booking_res['refertatore_id'] . "'";
+    $ref_v_sql25 = "select * from doctor_profile where doctor_id ='" . $ref_id . "'";
     $ref_v_result25 = mysqli_query($conn, $ref_v_sql25);
     $ref_v_res25 = mysqli_fetch_array($ref_v_result25);
     $refer_name1 = $ref_v_res25['fname'].' '.$ref_v_res25['lname'];
@@ -105,7 +105,7 @@ if(isset($_POST['submit']))
 
     /*get old ref*/
     $old_ref = $_POST['old_ref_id'];
-    if ($old_ref == $booking_res['refertatore_id']){
+    if ($old_ref == $ref_id){
 
       if (!empty($opointment_time)) {
         /*email to patient*/

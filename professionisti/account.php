@@ -59,6 +59,9 @@ $rows3 = mysqli_fetch_array($result3);
    .button-5.faded.diff{
     display: block;
    }
+   .view_details_button{
+    display: none !important;
+   }
   }
  </style>
  <script>

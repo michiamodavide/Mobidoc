@@ -124,7 +124,7 @@ if(!isset($_SESSION['adminlogin']))
       <?php
 
         include '../connect.php';
-        $sql = "select * from temprary_patient order by email";
+        $sql = "select * from temprary_patient order by dor DESC";
         $result = mysqli_query($conn, $sql);
         while($rows = mysqli_fetch_array($result)){
           $patient_id = $rows['patient_id'];
