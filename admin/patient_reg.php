@@ -179,7 +179,7 @@ if(isset($_POST['submit'])){
         }
 
         //email to admin
-        $to = 'docmobdoc@gmail.com'; //admin email //info@mobidoc.it
+        $to = 'info@mobidoc.it';
         $subject = 'Nuova Prenotazione!';
         $from = 'mobidoc_update@mobidoc.it';
         $rply_email = 'noreplay@mobidoc.it';
