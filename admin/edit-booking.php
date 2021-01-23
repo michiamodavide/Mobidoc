@@ -297,7 +297,7 @@ include '../connect.php';
   $refertatore_id = $get_book_result['refertatore_id'];
 
   if ($get_book_result['apoint_time']){
-    $apoint_time = date("m-d-Y H:s", strtotime($get_book_result['apoint_time']));
+    $apoint_time = date("m-d-Y H:i", strtotime($get_book_result['apoint_time']));
   }else{
     $apoint_time = $get_book_result['apoint_time'];
   }

@@ -17,6 +17,7 @@
   $doctor_id = $rows['doctor_id'];          
   $booking_status = $rows['booking_status'];          
   $fattura = $rows['fattura'];          
+  $opointment_time = $rows['apoint_time'];
   if($booking_status == 1){
     $state = 'Eseguito';          
   } else {
@@ -136,8 +137,22 @@
           </div>
           <div>
             <div class="glance_details diff">
+             <div class="glance_details_title">Data e Ora</div>
+             <div class="glance_details_value">
+               <?php
+               if (!empty($opointment_time)){
+                 echo date("d/m/Y H:i", strtotime($opointment_time));;
+               }else{
+             ?>
+              <p style="text-align: center">...</p>
+              <?php }?>
+             </div>
+              <?php
+              /*
               <div class="glance_details_title">Data Prenotazione</div>
               <div class="glance_details_value"><?php echo $dateBooking;?></div>
+              */
+              ?>
             </div>
             <div class="glance_details diff">
               <div class="glance_details_title">Prezzo</div>

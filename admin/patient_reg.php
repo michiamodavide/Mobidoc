@@ -150,22 +150,32 @@ if(isset($_POST['submit'])){
 
       if ($result_booking == 1) {
 
-        $booking_date = strtr($patient_apt_date, '/', '-');
-        /*booking start time*/
-        $start_date =  date('Ymd', strtotime($booking_date));
-        $start_time =  date('His', strtotime($booking_date));
-        /*booking end time*/
-        $selectedate = $booking_date;
-        $enddate = strtotime("+15 minutes", strtotime($selectedate));
-        $booking_end_date =  date('Ymd', $enddate);
-        $booking_end_time =  date('His', $enddate);
+        $start_dt = '';
+        $end_dt = '';
+        $patient_date =  '';
+        $patient_time =  '';
+        $calender_link = 'javascript:;';
 
-        $start_dt = $start_date.'T'.$start_time;
-        $end_dt = $booking_end_date.'T'.$booking_end_time;
+        if (!empty($patient_apt_date)){
+          $booking_date = strtr($patient_apt_date, '/', '-');
+          /*booking start time*/
+          $start_date =  date('Ymd', strtotime($booking_date));
+          $start_time =  date('His', strtotime($booking_date));
+          /*booking end time*/
+          $selectedate = $booking_date;
+          $enddate = strtotime("+15 minutes", strtotime($selectedate));
+          $booking_end_date =  date('Ymd', $enddate);
+          $booking_end_time =  date('His', $enddate);
 
-        /*just date format change for date and time*/
-        $patient_date =  date('d-m-Y', strtotime($booking_date));
-        $patient_time =  date('H:i', strtotime($booking_date));
+          $start_dt = $start_date.'T'.$start_time;
+          $end_dt = $booking_end_date.'T'.$booking_end_time;
+
+          /*just date format change for date and time*/
+          $patient_date =  date('d-m-Y', strtotime($booking_date));
+          $patient_time =  date('H:i', strtotime($booking_date));
+
+          $calender_link = 'https://calendar.google.com/calendar/u/0/r/eventedit?action=TEMPLATE&text=Mobidoc Visit&dates='.$start_dt.'/'.$end_dt.'&ctz=Europe/Rome';
+        }
 
         //email to admin
         $to = 'docmobdoc@gmail.com'; //admin email //info@mobidoc.it
@@ -191,10 +201,9 @@ if(isset($_POST['submit'])){
       " . $doc_detail['fname'].' '.$doc_detail['lname'].$comma_w."
      ";
         }
-        $message .= "<br>Refertatore: $refertatore_name<br><br>Nome Paziente: $paziente_main_name<br>Codice Fiscale: $fiscal.<br>Data di nascita: $date_of_birth<br><br>Data: $patient_date<br>Ora: $patient_time<br>Indirizzo: <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>$address</a><br><br>Prezzo: €$price<br>Metodo di pagamento: $payment_mode<br><br><a target='_blank' style='color: blue; text-decoration: underline' href='https://calendar.google.com/calendar/u/0/r/eventedit?action=TEMPLATE&text=Mobidoc Visit&dates=$start_dt/$end_dt&ctz=Europe/Rome'>Aggiungi l’evento al tuo calendario google: </a><br><br>Clicca il seguente link per connetterti all’admin dashboard e visualizzare i dettagli completi della prenotazione: <a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/admin/index.php'>https://mobidoc.it/admin/index.php</a></div> <br></div></body></html>";
+        $message .= "<br>Refertatore: $refertatore_name<br><br>Nome Paziente: $paziente_main_name<br>Codice Fiscale: $fiscal.<br>Data di nascita: $date_of_birth<br><br>Data: $patient_date<br>Ora: $patient_time<br>Indirizzo: <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>$address</a><br><br>Prezzo: €$price<br>Metodo di pagamento: $payment_mode<br><br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Aggiungi l’evento al tuo calendario google: </a><br><br>Clicca il seguente link per connetterti all’admin dashboard e visualizzare i dettagli completi della prenotazione: <a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/admin/index.php'>https://mobidoc.it/admin/index.php</a></div> <br></div></body></html>";
 
         mail($to, $subject, $message, $headers);
-
 
         //email to patient
         $to3 = $paziente_email; //patient email

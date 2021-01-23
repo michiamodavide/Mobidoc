@@ -288,7 +288,7 @@ include '../connect.php';
     $dobb = $sql_get_tmp_data['dob'];
     $address = $sql_get_tmp_data['address'];
     $visit_name1 = $sql_get_tmp_data['visit_name'];
-    $apoint_time = date("m-d-Y H:s", strtotime($sql_get_tmp_data['appoint_time']));
+    $apoint_time = date("m-d-Y H:i", strtotime($sql_get_tmp_data['appoint_time']));
     $payment_mode = $sql_get_tmp_data['payment_mode'];
     $refer_id = $sql_get_tmp_data['refertatore_id'];
     $gmap_addr = $sql_get_tmp_data['gmap_address'];
@@ -494,7 +494,7 @@ include '../connect.php';
                       </div>
                     </div>
                   </div>
-                  <input type="text" name="privacy_check" id="privacy_check" value="0" style="display:none;">
+                  <input type="text" name="privacy_check" id="privacy_check" checked value="1" style="display:none;">
                   <script>
               jQuery(document).ready(function() {
                 jQuery('#checkbox').change(function() {
@@ -510,8 +510,8 @@ include '../connect.php';
                   <div class="form_section">
                     <div class="form_section_heading">Consenso privacy</div>
                     <label class="w-checkbox checkbox-field-2">
-                    <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
-                    <input type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1">
+                    <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked"></div>
+                    <input type="checkbox" id="checkbox" name="checkbox" checked value="1" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1">
                     <span class="checkbox-label-2 w-form-label">Esprimo il consenso in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di marketing</span>
                     </label>
                   </div>
@@ -757,6 +757,7 @@ include '../connect.php';
     $('#fiscal_code').keyup(function(eev) {
       eev.preventDefault();
     var fis_val = $(this).val();
+    if (fis_val.length > 1) {
       $.ajax({
         url: "check_fiscal.php",
         type: "post",
@@ -776,37 +777,46 @@ include '../connect.php';
             //   $("#caller_first_name").val('');
             //   $("#caller_last_name").val('');
             // $("#tele").val('');
-            // $('.patiend_idd').remove();
+            $('.patiend_idd').remove();
           } else {
             $('.patiend_idd').remove();
             $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="'+response.paziente_id+'">');
-          $("#email, #first_name, #last_name, #tele").prop( "readonly", true );
-          $("#dob").css("pointer-events", "none").prop( "readonly", true );
+            $("#email, #first_name, #last_name, #tele").prop( "readonly", true );
+            $("#dob").css("pointer-events", "none").prop( "readonly", true );
             // $(".error.fasical_cd").css("display", "block");
             $("input#fiscal_code").css("background-color", "#ffc5c5");
             // $("#submit").attr("style", "opacity: 0.4;pointer-events: none;color: #fff !important;");
-                 $("#email").val(response.email);
-                 $("#first_name").val(response.first_name);
-                 $("#last_name").val(response.last_name);
-                 $("#dob").val(response.dob);
-                 var call_name = response.caller_name;
-                 var phone_num = response.phone;
-                 if (call_name){
-                   var ret = call_name.split(" ");
-                   var call_fname = ret[0];
-                   var call_lname = ret[1];
-                   $("#caller_first_name").val(call_fname);
-                   $("#caller_last_name").val(call_lname);
-                 }
-                 if (phone_num){
-                   $("#tele").val(phone_num);
-                 }
+            $("#email").val(response.email);
+            $("#first_name").val(response.first_name);
+            $("#last_name").val(response.last_name);
+            $("#dob").val(response.dob);
+            var call_name = response.caller_name;
+            var phone_num = response.phone;
+            if (call_name){
+              var ret = call_name.split(" ");
+              var call_fname = ret[0];
+              var call_lname = ret[1];
+              $("#caller_first_name").val(call_fname);
+              $("#caller_last_name").val(call_lname);
+            }
+            if (phone_num){
+              $("#tele").val(phone_num);
+            }
           }
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log(textStatus, errorThrown);
         }
       });
+    }else {
+      $("#email").val('');
+      $("#first_name").val('');
+      $("#last_name").val('');
+      $("#dob").val('');
+        $("#caller_first_name").val('');
+        $("#caller_last_name").val('');
+      $("#tele").val('');
+    }
   });
 </script> 
 <script>
@@ -819,8 +829,6 @@ include '../connect.php';
     } else {
       var latlng = new google.maps.LatLng(44.838124,11.619787);
     }
-    console.log(latlng);
-    // }
     var map = new google.maps.Map(document.getElementById('map'), {
       center: latlng,
       zoom: 13
@@ -918,9 +926,6 @@ include '../connect.php';
 </script>
 <div class="menu_current w-embed w-script"> 
   <script>
-      $(document).ready(function(){
-        $('.admin_item:nth-child(3)').addClass('current');
-      });
       var opoint_dd = '<?php echo $apoint_time?>';
       if (opoint_dd){
         var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
@@ -931,6 +936,8 @@ include '../connect.php';
 <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> 
 <script>
   $(document).ready(function(){
+    $('.admin_item:nth-child(3)').addClass('current');
+
     $(".search .text-field").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       if (value.length == 0){
