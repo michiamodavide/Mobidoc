@@ -99,6 +99,9 @@ include '../connect.php';
     left: 40px !important;
     top: 51px !important;
    }
+   .section_content{
+    padding-bottom: 10px;
+   }
   }
 
   @media screen and (max-width: 400px) {
@@ -111,6 +114,7 @@ include '../connect.php';
     left: 38px !important;
     top: 51px !important;
    }
+
   }
 
   @media screen and (max-width: 360px) {

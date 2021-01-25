@@ -8,7 +8,7 @@ if(!isset($_SESSION['adminlogin']))
 <html data-wf-page="5dfbca93dac992df80dd982b" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
 <meta charset="utf-8">
-<title>Profilo non completo</title>
+<title>Prenotazioni in sospeso</title>
 <meta content="admin" property="og:title">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <meta content="Webflow" name="generator">

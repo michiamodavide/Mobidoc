@@ -10,7 +10,7 @@ include '../connect.php';
 <html data-wf-page="5dfbca93dac992df80dd982b" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
 <meta charset="utf-8">
-<title>Profilo non completo</title>
+<title>Registro dei pazienti</title>
 <meta content="admin" property="og:title">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <meta content="Webflow" name="generator">
@@ -176,14 +176,12 @@ include '../connect.php';
     margin-left: 70px;
     padding-top: 0.5px;
     padding-right: 3%;
-    border:1px solid green;
    }
 
    .register .admin_main_section .admin_section_header {
     display: inline-block;
     left: 70px;
     width: 76%;
-    border:1px solid red;
    }
 
 
@@ -224,6 +222,9 @@ include '../connect.php';
     min-width: 290px;
     width: 100%;
    }
+   .section_content{
+    padding-bottom: 5px;
+   }
 
   }
 
@@ -235,6 +236,10 @@ include '../connect.php';
     min-width: 255px;
     width: 100%;
    }
+   .button.gradient.submit{
+    padding-right: 22px;
+    padding-left: 22px;
+   }
   }
 
   @media screen and (max-width: 340px) {
@@ -244,6 +249,14 @@ include '../connect.php';
    .register .duo_flex .choose_your_area .input_element {
     min-width: 100%;
     width: 100%;
+   }
+   .button.gradient{
+    padding: 11px 17px;
+   }
+   .button.gradient.submit {
+    padding-right: 18px;
+    padding-left: 18px;
+    font-size: 11px;
    }
   }
  </style>
@@ -322,7 +335,7 @@ include '../connect.php';
 </div>
 <div class="admin_main_section">
   <div data-w-id="671d7027-6f87-1c3f-c474-3b17f4b83b06" class="admin_section_header">
-    <h1 class="admin_section_heading">Profilo paziente incompleto</h1>
+    <h1 class="admin_section_heading">Registro dei pazienti</h1>
     <!-- <div class="div-block-70">
       <div class="scroll_indicator">
         <div data-w-id="98c7cd18-996f-4b08-777e-ae54e6517910" data-animation-type="lottie" data-src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5df9f0f25ccbf3bb4c727941_lottieflow-scrolling-01-1-00285C-easey.json" data-loop="0" data-direction="1" data-autoplay="0" data-is-ix2-target="1" data-renderer="svg" data-default-duration="2.76" data-duration="0" class="lottie-animation-3"></div>
