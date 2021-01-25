@@ -586,11 +586,6 @@ include '../connect.php';
      }
     </style>
    </div>
-   <div class="end-of-the-list" style="margin-top: 0px">
-    <div class="line"></div>
-    <div id="w-node-0e7522d67d94-80dd982b" class="text-block-70">Non ci sono più profili da visualizzare.</div>
-    <div class="line"></div>
-   </div>
   </div>
  </div>
 </div>

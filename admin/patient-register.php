@@ -429,7 +429,6 @@ include '../connect.php';
                         <div class="search_cap_input sci2">
                           <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
                             <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">
-<!--                              <option value="" selected>Seleziona Esecutore</option>-->
                               <option value="">Seleziona Esecutore</option>
                             </select>
                             <script>
@@ -565,7 +564,7 @@ include '../connect.php';
                  </div>
                   <div class="submit_form_btn">
                     <input type="submit" name="save_data" style="color:#fff !important;" value="Salva" class="button gradient w-button">
-                    <input type="submit" name="submit" style="color:#fff !important;" value="Salva e conferma" id="submit" class="button gradient submit w-button">
+                    <input type="submit" name="submit" style="color:#fff !important;" value="Conferma e Invia" id="submit" class="button gradient submit w-button">
                   </div>
                 </div>
                 <div class="div-block-34">
@@ -575,11 +574,6 @@ include '../connect.php';
             </div>
           </div>
         </div>
-      </div>
-      <div class="end-of-the-list">
-        <div class="line"></div>
-        <div id="w-node-0e7522d67d94-80dd982b" class="text-block-70">Non ci sono più profili da visualizzare.</div>
-        <div class="line"></div>
       </div>
     </div>
   </div>

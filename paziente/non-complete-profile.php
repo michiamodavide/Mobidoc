@@ -33,8 +33,8 @@
   <div class="masthead booking_done"></div>
   <div class="booking_complet_container">
     <div class="bc_message">
-      <h3 class="heading-23">Il profilo del paziente non è completo!</h3>
-      <div class="text-block-73" style="width:400px;">Vai alla dashboard dell'amministratore per il profilo completo</div><a href="/admin/incomplete-patient.php" class="button gradient bc_button w-button">Profilo completo</a></div>
+      <h3 class="heading-23">Prenotazione telefonica salvata correttamente.</h3>
+     <a href="/admin/incomplete-patient.php" class="button gradient bc_button w-button">Continua</a></div>
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="../js/webflow.js" type="text/javascript"></script>
