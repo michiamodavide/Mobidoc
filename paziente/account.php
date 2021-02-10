@@ -7,11 +7,11 @@
 
   setcookie("Booking_name", "", time() + (86400 * 0.0416), "/");
   setcookie("Booking_id", "", time() + (86400 * 0.0416), "/");
-  
+
   include '../connect.php';
   $sql3 = "select * from paziente_profile where email ='".$email_of_patient."'";
   $result3 = mysqli_query($conn, $sql3);
-  $rows3 = mysqli_fetch_array($result3); 
+  $rows3 = mysqli_fetch_array($result3);
   
 
 ?>
@@ -71,6 +71,7 @@
         <div class="patient_name"><?php echo $fname." ".$lname?></div>
       </div>
       <div class="cover_section_buttons_container">
+       <a href="contact-list.php" class="button stroked cover_btns w-button">Contatto</a>
       <?php if($rows3['cap'] == ''){ ?>
           <?php echo ' '; ?>
       <?php } else { ?> 
