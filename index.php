@@ -218,28 +218,23 @@
         <p class="paragraph">I nostri professionisti sono medici, psicologi, infermieri, fisioterapisti e tecnici di radiologia che credono che la migliore cura possibile sia quella a casa del paziente: siamo noi che veniamo da te quando ne hai bisogno.</p>
       </div>
           <?php
+
+
       $x_num=0;
       echo "<div class=\"feature_container\">";
 
-      $sql_get_result = "select * from visit order by visit_type_name_count desc";
-      $get_result = mysqli_query($conn, $sql_get_result);
+      $sql_get_result1 = "SELECT * FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+      $get_result1 = mysqli_query($conn, $sql_get_result1);
+      $row_count1 = mysqli_num_rows($get_result1);
 
-      while($visit_doc_rows = mysqli_fetch_array($get_result)){
+      while($visit_doc_rows = mysqli_fetch_array($get_result1)){
       $visit_name1 = $visit_doc_rows['visit_name'];
-     /*
-      $body_text1 = $visit_doc_rows['body_text'];
-      $image1 = $visit_doc_rows['image'];
-     */
-      $link1 = $visit_doc_rows['link'];
-      $sql21 = "select * from visit_type INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name where visit_type.visit_name='".$visit_name1."'";
-      $result21 = mysqli_query($conn, $sql21);
-      $row_count1 = mysqli_num_rows($result21);
+        $link1 = $visit_doc_rows['link'];
+        $image1 = $visit_doc_rows['image'];
       if($row_count1){
         if($x_num!=0 && $x_num%3==0){
           echo "</div>\n<div class='feature_container'>";
         }
-
-      $expl_visit_name = explode(" ", $visit_name1);
 
         $tm21_class = '';
         if (strlen($visit_name1) < 20)
@@ -247,7 +242,7 @@
       ?>
           <div class="feature diff"> <a href="/<?php echo $link1?>" target="_blank">
             <div class="feature_label <?php echo $tm21_class?>"><?php echo wordwrap($visit_name1,20,"<br>\n");?> <img src="images/arrow.png" alt="" > </div>
-            <img src="images/<?php echo strtolower($expl_visit_name[0])?>.png?v=1" alt=""> </a> </div>
+            <img src="images/<?php echo strtolower($image1)?>?v=1" alt=""> </a> </div>
           <?php
           ++$x_num;
         }}
@@ -257,109 +252,23 @@
         ?>
           <div class="feature diff extra_card" style="display: none"> <a href="/<?php echo $link1?>" target="_blank">
             <div class="feature_label <?php echo $tm21_class?>"><?php echo wordwrap($visit_name1,20,"<br>\n");?> <img src="images/arrow.png" alt="" > </div>
-            <img src="images/<?php echo strtolower($expl_visit_name[0])?>.png?v=1" alt=""> </a> </div>
+            <img src="images/<?php echo strtolower($image1)?>?v=1" alt=""> </a> </div>
           <?php
       }else if ($x_num == "1" || $x_num == "4" || $x_num == "7" || $x_num == "10") {
         ?>
           <div class="feature diff extra_card" style="display: none"> <a href="/<?php echo $link1 ?>" target="_blank">
             <div class="feature_label <?php echo $tm21_class ?>"><?php echo wordwrap($visit_name1, 20, "<br>\n"); ?> <img
            src="images/arrow.png" alt=""></div>
-            <img src="images/<?php echo strtolower($expl_visit_name[0]) ?>.png?v=1" alt=""> </a> </div>
+            <img src="images/<?php echo strtolower($image1) ?>?v=1" alt=""> </a> </div>
           <div class="feature diff extra_card" style="display: none"> <a href="/<?php echo $link1 ?>" target="_blank">
             <div class="feature_label <?php echo $tm21_class ?>"><?php echo wordwrap($visit_name1, 20, "<br>\n"); ?> <img
            src="images/arrow.png" alt=""></div>
-            <img src="images/<?php echo strtolower($expl_visit_name[0]) ?>.png?v=1" alt=""> </a> </div>
+            <img src="images/<?php echo strtolower($image1) ?>?v=1" alt=""> </a> </div>
           <?php
         }
       echo "</div>";
 
       ?>
-          <?php /*
- 	<div class="feature_container">
-
-						<div class="feature diff">
-       <a href="/visite-ed-esame/Ecografia-Ecocolordroppler.php" target="_blank">
-							<div class="feature_label">Ecografia ed<br> Ecocolordoppler <img src="images/arrow.png" alt="" > </div>
-							<img src="images/img-1.png" alt="">
-   </a>
-						</div>
-
-						<div class="feature diff">
-       <a href="/visite-ed-esame/Radiologia.php" target="_blank">
-							<div class="feature_label m-t-14">
-        Radiologia <img src="images/arrow.png" alt="" >
-							</div>
-							<img src="images/img-2.png" alt="">
-       </a>
-						</div>
-						<div class="feature diff">
-       <a href="/visite-ed-esame/Fisioterapia.php" target="_blank">
-							<div class="feature_label m-t-14">
-        Fisioterapia
-         <img src="images/arrow.png" alt="" >
-							</div>
-							<img src="images/img-3.png" alt="">
-       </a>
-						</div>
-					</div>
-					<div class="feature_container">
-						<div class="feature diff">
-       <a href="/visite-ed-esame/Psicologia-e-Psicoterapia.php" target="_blank">
-							<div class="feature_label">
-       Psicologia e<br> Psicoterapia <img src="images/arrow.png" alt="" >
-       </div>
-							<img src="images/img-4.png" alt="">
-       </a>
-      </div>
-						<div class="feature diff">
-       <a href="/visite-ed-esame/Medicina-Interna-e-Geriatria.php" target="_blank">
-							<div class="feature_label">
-       Medicina Interna<br>
-e Geriatria <img src="images/arrow.png" alt="" >
-
-							</div>
-							<img src="images/img-5.png" alt="">
-       </a>
-						</div>
-						<div class="feature diff">
-       <a href="/visite-ed-esame/Assistenza-Infermieristica.php" target="_blank">
-							<div class="feature_label">
-       Assistenza<br>
-Infermieristica <img src="images/arrow.png" alt="" >
-							</div>
-							<img src="images/img-6.png" alt="">
-       </a>
-						</div>
-
-					</div>
-					<div class="feature_container">
-						<div class="feature diff">
-       <a href="/visite-ed-esame/Oncologia.php" target="_blank">
-							<div class="feature_label m-t-14">
-        Oncologia <img src="images/arrow.png" alt="" >
-       </div>
-							<img src="images/img-7.png" alt="">
-       </a>
-      </div>
-						<div class="feature diff">
-       <a href="/visite-ed-esame/Ortopedia.php" target="_blank">
-							<div class="feature_label m-t-14">
-       Ortopedia <img src="images/arrow.png" alt="" >
-							</div>
-							<img src="images/img-8.png" alt="">
-       </a>
-						</div>
-						<div class="feature diff">
-       <a href="/visite-ed-esame/ORL.php" target="_blank">
-							<div class="feature_label m-t-14">
-       ORL <img src="images/arrow.png" alt="" >
-							</div>
-							<img src="images/img-9.png" alt="">
-       </a>
-						</div>
-
-					</div>
- */?>
         </div>
   </section>
     </div>

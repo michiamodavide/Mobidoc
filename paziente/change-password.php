@@ -51,7 +51,7 @@
         <div class="w-form">
           <form id="email-form" name="email-form" data-name="Email Form" class="form-5" action="change_password_php.php" method="post">
             <h2 class="heading-21 diff">
-              Enter your New Password</h2>
+             Inserisci la tua nuova password</h2>
               <input type="password" class="text-field-3 w-input" autofocus="true" maxlength="256" name="pwrd" data-name="password" placeholder="Password" id="password" required="">
               <input type="email" maxlength="256" name="email" value="<?php echo $rows['email'];?>" style="display:none;">
               <input type="text" maxlength="256" name="reset_code" value="<?php echo $rows['reset_code'];?>" style="display:none;">

@@ -139,17 +139,18 @@ flex-direction: column-reverse !important;
 	if(isset($_SESSION['paziente_email'])){
 		$email=$_SESSION['paziente_email'];
 		include 'connect.php';
-		$sql = "select * from paziente_profile where email = '".$email."'";
+		$sql = "select * from contact_profile where email = '".$email."'";
 		$result = mysqli_query($conn, $sql);
 		$rows = mysqli_fetch_array($result);
-		$photo = '/paziente/'.$rows['photo'];
-		$fname = $rows['first_name'];
-		$lname = $rows['last_name'];
+		$fname = $rows['name'];
+		$lname = $rows['surname'];
 		mysqli_close($conn);
 	}
-	else { 
+	/*
+	else {
 	$photo = "https://d3e54v103j8qbb.cloudfront.net/plugins/Image/assets/placeholder.60f9b1840c.svg";
 	}
+	*/
 ?>
 <header class="header header-2">
     <div class="custom_container header_nav_bar">
@@ -186,7 +187,7 @@ flex-direction: column-reverse !important;
             <div class="login_register">
               <div class="user_doctor_image">
               <?php if(isset($_SESSION['paziente_email'])){ ?>                
-                  <div id="dp" class="user_doct_img" style="display:block; width:100%; height:100%; background: url('<?PHP echo $photo;?>'); background-position:center; background-size:cover;"></div>              
+                  <div id="dp" class="user_doct_img" style="display:block; width:100%; height:100%; background: url('https://d3e54v103j8qbb.cloudfront.net/plugins/Image/assets/placeholder.60f9b1840c.svg'); background-position:center; background-size:cover;"></div>
                 </a>
               <?PHP } ?>
               </div>

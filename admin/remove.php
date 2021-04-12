@@ -1,8 +1,8 @@
 <?php
-	$email = $_GET['email'];
+	$doctor_id= $_GET['id'];
 	include '../connect.php';
-	$sql = "update doctor_register set remove = 1 where email='".$email."'";
-	
+	$sql = "update doctor_register set remove = 1 where id='".$doctor_id."'";
+
 	$result = mysqli_query($conn, $sql);
 	
 	if($result==1)

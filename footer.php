@@ -31,16 +31,15 @@
         if($conn === false){
           die("ERROR database");
         }
-        $sql = "select * from visit order by visit_type_name_count";
-        $result = mysqli_query($conn, $sql);
+
+          $sql = "SELECT * FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+          $result = mysqli_query($conn, $sql_get_result1);
         $visits_count = 0;
+          $row_count = mysqli_num_rows($result);
 
         while($rows = mysqli_fetch_array($result)){
         $visit_name = $rows['visit_name'];
-        $link = $rows['link'];  
-        $sql2 = "select * from visit_type INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name where visit_type.visit_name='".$visit_name."'";
-        $result2 = mysqli_query($conn, $sql2);
-        $row_count = mysqli_num_rows($result2);
+        $link = $rows['link'];
         $visits_count += 1;
         if($row_count){
           if($visits_count <= 10) {

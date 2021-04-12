@@ -1,16 +1,40 @@
 <?php
-	$status = $_GET['s'];
-	$email = $_GET['email'];
-	include '../connect.php';
-	$sql = "update doctor_register set status = ".$status." where email='".$email."'";
-	
-	$result = mysqli_query($conn, $sql);
+$is_first = 0;
+if(isset($_POST['update-status'])){
+  $is_first = 1;
+  $doct_id = $_POST['doctor-id'];
+  $status = $_POST['status'];
+  $med_speciality = $_POST['medical_speciality'];
+  $puo_refertare = $_POST['puo_refertare'];
+}else{
+  $status = $_GET['s'];
+  $doct_id = $_GET['id'];
+}
 
-	$sql2 = "select name, cogname from doctor_register where email='".$email."'";
+
+	include '../connect.php';
+
+$sql = "update doctor_register set status = ".$status." where id='".$doct_id."'";
+
+$result = mysqli_query($conn, $sql);
+
+if ($is_first ==1 && $result==1){
+ $sql1 = "update doctor_profile set puo_refertare = '".$puo_refertare."', title= '".$med_speciality."' where doctor_id='".$doct_id."'";
+  $result1 = mysqli_query($conn, $sql1);
+  if ($result1 ==1){
+//   its good
+  }else{
+    echo '<script type="text/javascript">alert("Your Data not updating correctly in doctor profile table")</script>';
+    header("Location: index.php");
+  }
+}
+
+
+	$sql2 = "select fname, lname from doctor_profile where doctor_id='".$doct_id."'";
 	$result2 = mysqli_query($conn, $sql2);
 	$rows = mysqli_fetch_array($result2);
-	$doctor_fname = $rows['name'];
-	$doctor_lname = $rows['cogname'];
+	$doctor_fname = $rows['fname'];
+	$doctor_lname = $rows['lname'];
 
 	$doctor_name =  $doctor_fname." ".$doctor_lname;
 	

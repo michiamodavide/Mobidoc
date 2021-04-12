@@ -372,7 +372,19 @@ include '../connect.php';
                     </div>
                    <?php }?>
                   <div class="form_section_heading">Controllo Anagrafica Paziente</div>
-                  <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off">
+                  <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name">
+                  <div class="patient_names">
+                   <ul>
+
+                   </ul>
+                  </div>
+                   <br>
+                  <div class="dual_container diff">
+                   <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname?>" id="first_name">
+
+                   <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off">
+                  </div>
+
                  </div>
                  <div class="form_section">
                   <div class="form_section_heading">Informazioni Contatto</div>
@@ -388,10 +400,6 @@ include '../connect.php';
                  </div>
                   <div class="form_section">
                     <div class="form_section_heading">Informazioni Paziente</div>
-                    <div class="dual_container diff">
-                      <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname?>" id="first_name">
-                      <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name">
-                    </div>
                     <input type="text" class="datepicker-here inputs w-input date_of_birth" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" style="margin-bottom: 25px">
                     <input style="margin-bottom: 15px" type="text" class="inputs w-input" maxlength="256" name="address" placeholder="Indirizzo Completo *" autocomplete="off" id="address_search" value="<?php echo $address?>">
                     <input type="hidden" class="inputs w-input gmap_adress" value="<?php echo $gmap_addr?>" maxlength="256" name="gmap_addr" placeholder="Indirizzo Completo *">
@@ -840,6 +848,48 @@ include '../connect.php';
       var fis_val = $("#fiscal_code").val();
       checkFisical(fis_val);
     }
+  });
+
+  $('#last_name').keyup(function(eev) {
+    eev.preventDefault();
+    var lname_val = $(this).val();
+    $.post('get_patient.php', {'lname': lname_val} , function(data){
+      var json = JSON.parse(JSON.stringify(data));
+      console.log(json);
+      // $('#main-show').html(json.xxx);
+    });
+    // if (lname_val.length > 1) {
+    //   $.ajax({
+    //     url: "get_patient.php",
+    //     type: "post",
+    //     data: {lname:lname_val},
+    //     dataType: "json",
+    //     success: function (response) {
+    //       console.log(response);
+    //       // if (response){
+    //       //
+    //       // }
+    //       // if (response == 'true'){
+    //       //   $(".patient_names ul li").remove();
+    //       // } else {
+    //       //   $.each(response, function(key, value ) {
+    //       //     $(".patient_names ul").append("<li>"+response.first_name+response.last_name+"</li>");
+    //       //   });
+    //       // }
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown) {
+    //       console.log(textStatus, errorThrown);
+    //     }
+    //   });
+    // }else {
+    //   $("#email").val('');
+    //   $("#first_name").val('');
+    //   $("#fiscal_code").val('');
+    //   $("#dob").val('');
+    //   $("#caller_first_name").val('');
+    //   $("#caller_last_name").val('');
+    //   $("#tele").val('');
+    // }
   });
 
 </script> 

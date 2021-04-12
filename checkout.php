@@ -4,22 +4,26 @@ include 'connect.php';
 
 $booking_name =  $_GET['book_visit'];
 $doctor_id = $_GET['book_doctor'];
+$article_id = $_GET['article_id'];
+
 
 if(isset($booking_name,$doctor_id)){
   setcookie("Booking_name", $booking_name, time() + (86400 * 0.0416), "/");
   setcookie("Booking_id", $doctor_id, time() + (86400 * 0.0416), "/");
+  setcookie("article_id", $article_id, time() + (86400 * 0.0416), "/");
 } else {
   header('Location: /');
   setcookie("Booking_name", "", time() + (86400 * 0.0416), "/");
 	setcookie("Booking_id", "", time() + (86400 * 0.0416), "/");
+	setcookie("article_id", "", time() + (86400 * 0.0416), "/");
 }
 
-$sql8 = "select * from doctor_visit where visit_name ='".$booking_name."'";
-$result8 = mysqli_query($conn, $sql8);
-$rows8 = mysqli_fetch_array($result8);
-
-if(!isset($rows8['visit_name'])){
+if(!isset($booking_name) || empty($booking_name)){
  header('Location: /');
+}
+
+if(!isset($article_id) || empty($article_id)){
+  header('Location: /');
 }
 
 if(!isset($_SESSION['paziente_email']))
@@ -27,14 +31,16 @@ if(!isset($_SESSION['paziente_email']))
   header('Location: /paziente/login.php');
 }
 
-$email_of_patient = $_SESSION['paziente_email'];
+if (isset($_SESSION['pat_id'])){
+   $pat_id = $_SESSION['pat_id'];
+}
 
 
-$sql = "select * from paziente_profile where email ='".$email_of_patient."'";
-$result = mysqli_query($conn, $sql);
-$rows = mysqli_fetch_array($result);   
-if($rows['cap'] == ''){
-  header("Location: /paziente/profile-update.php");
+$sql132 = "select * from paziente_profile where paziente_id ='".$pat_id."'";
+$result132 = mysqli_query($conn, $sql132);
+$rows132 = mysqli_fetch_array($result132);
+if (!$rows132){
+  header('Location: /');
 }
 
 $sql2 = "select * from doctor_profile where doctor_id ='".$doctor_id."'";
@@ -49,17 +55,29 @@ if(!isset($rows2['email'])){
 $doctor_name = $rows2['fname']." ".$rows2['lname'];
 $doctor_photo = "/professionisti/".$rows2['photo'];
 
-$sql3 = "select * from doctor_visit where doctor_email='".$doctor_email."' AND visit_name='".$booking_name."'";
+$sql3 = "SELECT DISTINCT lis.visit_home_price, lis.visit_tele_price, am.home, am.tele
+FROM articlesMobidoc am
+JOIN listini lis ON am.id=lis.article_mobidoc_id
+JOIN articlesMobidoc_specialty ams ON am.id=ams.id
+JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
+JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
+WHERE am.`descrizione`='$booking_name' AND (am.home='Y' OR am.tele='Y')";
+
 $result3 = mysqli_query($conn, $sql3);
-$rows3 = mysqli_fetch_array($result3);   
-$visit_price = $rows3['price'];
+$rows3 = mysqli_fetch_array($result3);
+
+if ($rows3['home'] == 'Y' && $rows3['tele'] == 'Y' || $rows3['home'] == 'Y'){
+  $visit_price = $rows3['visit_home_price'];
+}else {
+  $visit_price = $rows3['visit_tele_price'];
+}
 
 $month = date('m');
 $day = date('d');
 $year = date('Y');
 
 $today = $year . '-' . $month . '-' . $day;
-$_SESSION['patient_main_name'] = $rows['first_name']." ".$rows['last_name'];
+$_SESSION['patient_main_name'] = $rows132['first_name']." ".$rows132['last_name'];
 $_SESSION['doctor_main_name'] = $doctor_name;
 $_SESSION['doctor_main_email'] = $rows2['email'];
 $_SESSION['doctor_main_email'] = $rows2['email'];
@@ -137,25 +155,20 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
                   <div>Nome Paziente:</div>
                 </div>
                 <div class="value">
-                  <div><?php echo $rows['first_name']." ".$rows['last_name']; ?></div>
+                  <div><?php echo $rows132['first_name']." ".$rows132['last_name']; ?></div>
                 </div>
                 <div class="data">
                   <div>Indirizzo:</div>
                 </div>
                 <div class="value">
-                  <div><?php echo $rows['via']; ?><br><?php echo $rows['civico'].", ".$rows['comune'];?> <br><?php echo $rows['province']." ".$rows['cap']; ?></div>
+                  <div><?php echo $rows132['address']; ?></div>
                 </div>
-                <div class="data">
-                  <div>Telefono:</div>
-                </div>
-                <div class="value">
-                  <div><?php echo $rows['phone']; ?></div>
-                </div>
+
                 <div class="data">
                   <div>Email:</div>
                 </div>
                 <div class="value">
-                  <div><?php echo $rows['email']; ?></div>
+                  <div><?php echo $rows132['email']; ?></div>
                 </div>
                 <div class="data">
                   <div>Prezzo</div>
@@ -186,10 +199,11 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
             <div class="w-form">
               <form id="checkout_form" name="checkout" action="booking-submit.php" method="post">
                 <div class="input_fields" style="display:none;">
-                  <input type="text" class="w-input" maxlength="256" name="patient_id" placeholder="Patient ID" id="patient_id" value="<?php echo $rows['paziente_id'];?>">
+                  <input type="text" class="w-input" maxlength="256" name="patient_id" placeholder="Patient ID" id="patient_id" value="<?php echo $pat_id;?>">
                   <input type="text" class="w-input" maxlength="256" name="doctor_id" placeholder="Doctor ID" id="doctor_id" value="<?php echo $doctor_id;?>">
                   <input type="text" class="w-input" maxlength="256" name="visit_name" placeholder="Visit Name" id="visit_name" value="<?php echo $booking_name;?>">
                   <input type="text" class="w-input" maxlength="256" name="price" placeholder="Price" id="price" value="<?php echo $visit_price;?>">
+                  <input type="text" class="w-input" maxlength="256" name="article_id" placeholder="article_id" id="article_id" value="<?php echo $article_id;?>">
                   <input type="text" class="w-input" maxlength="256" name="message" placeholder="Message" id="message" >
                   <input type="text" class="w-input" maxlength="256" name="payment_mode" placeholder="Payment Mode" id="payment_mode" value="">
                   <input type="text" class="w-input" maxlength="256" name="booking_status" placeholder="Booking Status" id="booking_status" value="0">
@@ -200,7 +214,7 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
                 </div>
 
                 <div data-w-id="0b7e3b0c-13c6-61bf-4622-8858fe41e086" style="opacity:0;display:none;" class="select_payment_method">
-                  <div data-w-id="815cc03f-3eba-e168-af08-dba23d269218" class="closer"><input type="email" class="w-input" maxlength="256" name="date_of_booking" data-name="date_of_booking" placeholder="Date of Booking" id="date_of_booking"></div>
+                  <div data-w-id="815cc03f-3eba-e168-af08-dba23d269218" class="closer"><input type="email" class="w-input" maxlength="256" name="email" data-name="email" placeholder="email" id="email"></div>
                   <div data-w-id="f2fb9200-3f41-4cc9-a9ce-2395f5b0dabd" style="opacity:0;-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="slectpay_container">
                     <div class="text-block-18 paypay_heading">
                      <span class="heading1">AUTORIZZA IL PAGAMENTO</span>  <br><br>
@@ -213,14 +227,12 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
 
                     <div class="pay_method_item_container">
 
-                     <?php
-                     /*
+
                       <div class="pay_method_item cash">
                         <img src="images/cash.svg" alt="" class="pay_icon">
                         <div class="pay_name">Contanti</div>
                       </div>
-                     */
-                     ?>
+
 
                       <div class="pay_method_item online"><img src="images/paypal_icon.svg?v=2" alt="" class="pay_icon">
                         <div class="pay_name">PayPal o Carta di Credito</div>
@@ -240,7 +252,13 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
 
         </div>
         <div id="w-node-278d9db1f54f-de2666cf" class="div-block-50">
-          <div class="div-block-49"><a data-w-id="c52ba0f4-d38b-9687-46ce-e745bbba5e78" href="#" class="button gradient submit booking w-button">Conferma prenotazione</a><a href="paziente/profile-edit.php" class="button modify w-button">Modifica Dettagli Personali</a><a data-w-id="0f151d5f-aa1b-7d96-f52d-8d7913128245" href="#" class="button modify w-button">Cambia Professionista</a></div>
+          <div class="div-block-49"><a data-w-id="c52ba0f4-d38b-9687-46ce-e745bbba5e78" href="#" class="button gradient submit booking w-button">Conferma prenotazione</a>
+           <?php
+           /*
+           <a href="paziente/profile-edit.php" class="button modify w-button">Modifica Dettagli Personali</a>
+           */
+           ?>
+           <a data-w-id="0f151d5f-aa1b-7d96-f52d-8d7913128245" href="#" class="button modify w-button">Cambia Professionista</a></div>
         </div>
       </div>
     </div>
@@ -255,25 +273,29 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
 
           include 'connect.php';
                   
-          $sql4 = "select * from doctor_visit where visit_name ='".$booking_name."'";
+        $sql4 = "SELECT DISTINCT am.id AS article_id, dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
+FROM articlesMobidoc am
+JOIN listini lis ON am.id=lis.article_mobidoc_id
+JOIN articlesMobidoc_specialty ams ON am.id=ams.id
+JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
+JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
+WHERE am.`descrizione`='$booking_name' AND dp.`puo_refertare`='N' AND (am.home='Y' OR am.tele='Y')";
           $result4 = mysqli_query($conn, $sql4);
-          
+          $row5_count = mysqli_num_rows($result4);
+
           if($conn === false){
               die("ERROR database");
           }        
 
-          while($rows4 = mysqli_fetch_array($result4)){
-              $doctor_email = $rows4['doctor_email'];
-              $sql5 = "select * from doctor_profile where email ='".$doctor_email."'";
-              $result5 = mysqli_query($conn, $sql5);
-              $rows5 = mysqli_fetch_array($result5);
+          if ($row5_count){
+          while($rows5 = mysqli_fetch_array($result4)){
               $profile_image = "/professionisti/".$rows5['photo'];
               $name = $rows5['fname']." ".$rows2['lname'];
               $titile = ucwords($rows5['title']);
               $link = "/il-team/professionista.php?".$rows5['doctor_id'];
               $id = $rows5['doctor_id'];
-              $select_link = "/checkout.php?book_visit=".$booking_name."&book_doctor=".$id;
-           if ($rows5['puo_refertare'] == 'N') {
+              $article_id = $rows5['article_id'];
+              $select_link = "/checkout.php?book_visit=".$booking_name."&book_doctor=".$id."&article_id=".$article_id;
              ?>
 
             <div class="professionist_card selecting">
@@ -290,8 +312,7 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
             </div>
 
              <?php
-           }
-          } mysqli_close($conn);
+          } }mysqli_close($conn);
         ?>        
 
         </div>

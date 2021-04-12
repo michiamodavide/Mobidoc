@@ -1,10 +1,13 @@
-<?php session_start();	
+<?php session_start();
+
 	if(isset($_POST['submit']))
 	{
+
 
 		$_SESSION['doctor_email']=$_POST['email'];
 		include '../connect.php';
 		$email = $_SESSION['doctor_email'];
+		$doctor_id = $_POST['doctor-id'];
 		$fname = $_POST['nome'];
 		$lname = $_POST['cognome'];
 		$passwords = mysqli_real_escape_string($conn, $_POST['pwrds']);
@@ -14,9 +17,10 @@
 		$dob = date('Y/m/d', $dob);
 		$fiscal = mysqli_real_escape_string($conn, $_POST['fiscal_code']);
 		$vat = mysqli_real_escape_string($conn, $_POST['vat_number']);
-		$title = mysqli_real_escape_string($conn, $_POST['title']);
-		/*$p_type = mysqli_real_escape_string($conn, $_POST['p_type']);*/
-		$description = mysqli_real_escape_string($conn, $_POST['personal_description']);
+		/*$title = mysqli_real_escape_string($conn, $_POST['title']);
+		$p_type = mysqli_real_escape_string($conn, $_POST['p_type']);
+			$description = mysqli_real_escape_string($conn, $_POST['personal_description']);
+		*/
 		$education = mysqli_real_escape_string($conn, $_POST['personal_description-3']);
 		$experience = mysqli_real_escape_string($conn, $_POST['personal_description-2']);
 		$tel = mysqli_real_escape_string($conn, $_POST['tele']);
@@ -27,11 +31,12 @@
 		$comune = substr($select_comun,0,$pos-1);
 		$province = substr($select_comun,$pos+1,2);
 		$cap = substr($select_comun,$pos+6,5);
-		
+		$checkbox = 'Y';
+
 		$b = explode("@",$email);
 
 		$profile_img = "photo/default.jpg";
-		
+
 		if($_FILES["upload-image"]["error"] != 0) {
 			$photo = $profile_img;
 		} else {
@@ -42,57 +47,68 @@
 
 		date_default_timezone_set("Europe/Rome");
 		$dor = date("Y/m/d");
-	
-		$sql = "insert into doctor_profile (fname, lname, password, dob, photo, fiscale, vat_number, title, description, education, experience, email, phone, street_name, street_no, comune, province, cap, dor) values('".$fname."', '".$lname."', '".$password."', '".$dob."', '".$photo."', '".strtoupper($fiscal)."', '".$vat."', '".$title."','".$description."', '".$education."', '".$experience."', '".$email."', '".$tel."', '".$street_name."', '".$street_no."', '".$comune."', '".$province."', '".$cap."', '".$dor."')";
-		
+
+    $sql = "update doctor_profile set fname = '".$fname."', lname= '".$lname."', password= '".$password."', dob= '".$dob."', photo= '".$photo."', fiscale= '".strtoupper($fiscal)."', vat_number= '".$vat."', education= '".$education."', experience= '".$experience."', phone= '".$tel."', street_name= '".$street_name."', street_no= '".$street_no."', comune= '".$comune."' , province= '".$province."', cap= '".$cap."', deontological_consent= '".$checkbox."', deontologicalAcceptDate= '".$dor."', dor= '".$dor."' where email='".$email."'";
+
+
 		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
-	
+
 		$result = mysqli_query($conn, $sql);
 		if($result==1)
 			echo "Record inserted1";
 		else{
-			echo "Unable to insert record1"; 
+			echo "Unable to insert record1";
 			mysqli_close($conn);
 		}
-		
+
 		$i=0;
 		for($i=1;$i<=100;$i++)
 		{
 			$c1='cap'.$i;
-			
+
 			if(isset($_POST[$c1])){
 				$c2 = mysqli_real_escape_string($conn, $_POST[$c1]);
 				$c3 = strpos($c2, "(");
 				$c4 = substr($c2, 0, $c3-1);
 				$c5 = substr($c2, $c3+1, 2);
 				$c6 = substr($c2, $c3+6, 5);
-				$sql2 = "insert into doctor_cap (doctor_email, comune, province, cap) values('".$email."','".$c4."', '".$c5."', '".$c6."')";
+				$sql2 = "insert into doctor_cap (doctor_id, comune, province, cap) values('".$doctor_id."', '".$c4."', '".$c5."', '".$c6."')";
 				$result = mysqli_query($conn, $sql2);
 				if($result==1)
 					echo "Record inserted2";
 				else
-					echo "Unable to insert record2"; 
+					echo "Unable to insert record2";
 			}
 		}
-		
+
 		$i=0;
 		for($i=1;$i<=100;$i++)
 		{
 			$v1='service_name'.$i;
 			$v2='service_price'.$i;
+			$v5='service_price_tel'.$i;
 			if(isset($_POST[$v1])){
 				$v3 = mysqli_real_escape_string($conn, $_POST[$v1]);
 				$v4 = mysqli_real_escape_string($conn, $_POST[$v2]);
-				$sql3 = "insert into doctor_visit (doctor_email, visit_name, price) values('".$email."','".$v3."', '".$v4."')";
+				$v6 = mysqli_real_escape_string($conn, $_POST[$v5]);
+				$sql3 = "insert into listini (doctor_id, article_mobidoc_id, visit_home_price, visit_tele_price) values('".$doctor_id."','".$v3."', '".$v4."', '".$v6."')";
 				$result = mysqli_query($conn, $sql3);
 				if($result==1)
 					echo "Record inserted3";
 				else
-					echo "Unable to insert record3"; 
+					echo "Unable to insert record3";
 			}
 		}
 
-		$sql3 = "update doctor_register set tick = 1 where email = '".$email."' ";
+    $sql3_new = "insert into doctor_specialty (doctor_id, specialty) values('".$doctor_id."','".$_POST['doc_spaciality']."')";
+    $result3_new = mysqli_query($conn, $sql3_new);
+    if($result==1) {
+      echo "Record inserted45";
+    }else {
+      echo "Unable to insert record45";
+    }
+
+    $sql3 = "update doctor_register set tick = 1 where id = '".$doctor_id."' ";
 		$result = mysqli_query($conn, $sql3);
 
 		mysqli_close($conn);

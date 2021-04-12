@@ -75,6 +75,7 @@ function readURL(input) {
 		$sql = "select * from doctor_profile where email = '".$email."'";
 		$result = mysqli_query($conn, $sql);
 		$rows = mysqli_fetch_array($result);
+		$doctor_id = $rows['doctor_id'];
 		$fname = $rows['fname'];
 		$lname = $rows['lname'];
 		$dob = $rows['dob'];                 
@@ -101,6 +102,7 @@ function readURL(input) {
               <div class="form_section">
                 <div class="form_section_heading">Dati Personali</div>
                 <div class="dual_container">
+                 <input type="hidden" name="doctor-id" value="<?=$doctor_id?>">
                   <input type="text" class="inputs proff w-input" maxlength="100" name="nome" data-name="nome" value="<?PHP echo $fname;?>" id="nome" pattern="[A-Z][a-z]*" title="Il nome deve essere in lettere e la prima lettera deve essere maiuscola" required="" >
                   <input type="text" class="inputs proff w-input" maxlength="100" name="cognome" data-name="cognome" value="<?PHP echo $lname;?>" id="cognome" pattern="[A-Z][a-z]*" title="Il nome deve essere in lettere e la prima lettera deve essere maiuscola" required="" >
                   <input type="text" class="datepicker-here inputs proff w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256"  value="<?PHP echo $dob;?>" name="dob" placeholder="Data di Nascita" id="dob" required="">
@@ -110,55 +112,6 @@ function readURL(input) {
               </div>
               <div class="form_section">
                 <div class="form_section_heading">Descrizione Profilo</div>
-                
-                <div class="dual_container">
-                  <div class="input_element" style="width: inherit">
-                    <select id="select-titilo" placeholder="<?php echo $title;?>" required="" >
-                      <option value="<?php echo $title;?>"><?php echo $title;?></option>
-					            <option value="Medico Radiologo">Medico Radiologo</option>
-					            <option value="Medico Otorinolaringoiatra">Medico Otorinolaringoiatra</option>
-					            <option value="Medico Geriatra">Medico Geriatra</option>
-					            <option value="Medico Internista">Medico Internista</option>
-					            <option value="Psicologo">Psicologo</option>
-					            <option value="Infermiere">Infermiere</option>
-					            <option value="Tecnico di Radiologia">Tecnico di Radiologia</option>
-					            <option value="Fisioterapista">Fisioterapista</option>
-						    <option value="Medico Psichiatra">Medico Psichiatra</option>
-                    </select>
-                    <script>
-                    $('#select-titilo').selectize();
-                    $('#select-titilo').change(function(){
-                      var slect_value = $('#select-titilo').val();
-                      $('#title').val(slect_value);
-                    });
-                    </script>                      
-                  </div>   
-                  <input type="text" class="inputs proff w-input" maxlength="100" name="title" data-name="title" value="<?PHP echo $title;?>" id="title" required="" style="display:none;">
-                 <?php
-                 /*
-                 <div class="input_element input_element_new" style="width: inherit">
-                  <select id="select-titilo-new" required="">
-                   <?php
-                   $prof_type_array = array('','Esecutore','Refertatore');
-                   ?>
-                   <option value="<?PHP echo $p_type;?>"><?php echo $prof_type_array[$p_type]?></option>
-                   <option value="1">Esecutore</option>
-                   <option value="2">Refertatore</option>
-                  </select>
-                  <script>
-                    $('#select-titilo-new').selectize();
-                    $('#select-titilo-new').change(function () {
-                      var slect_value = $('#select-titilo-new').val();
-                      $('#p_type').val(slect_value);
-                    });
-                  </script>
-                 </div>
-                 <input type="text" class="inputs proff w-input" maxlength="100" name="p_type" data-name="p_type"
-                        value="<?PHP echo $p_type;?>" id="p_type" required="" style="display:none;">
-                 */
-                 ?>
-                </div>
-                <textarea maxlength="10000" id="personal_description" name="personal_description" data-name="personal_description" class="text_area_profile personal_description w-input"><?PHP echo $description;?></textarea>
                 <textarea placeholder="Educazione:" maxlength="10000" id="educazione" name="personal_description-3" data-name="Personal Description 3" class="text_area_profile education w-input"><?PHP echo $education;?></textarea>
                 <textarea placeholder="Esperienze Professionali:" maxlength="10000" id="esperienze_professionali-2" name="personal_description-2" data-name="Personal Description 2" class="text_area_profile w-input"><?PHP echo $experience;?></textarea>
                 </div>
@@ -203,44 +156,43 @@ function readURL(input) {
                 <div class="visit_selector_grid">
                   <div class="slectors">
 
-                    <div class="visits_selector_container">					
-                      <?php
-                        include '../connect.php';
-                        $sql = "select * from visit order by visit_id desc";
-                        $result = mysqli_query($conn, $sql);
+                   <div class="visits_selector_container">
+                    <!--start-->
+                    <div class="visit">
+                     <div class="visit_heading">
+                      <div class="text-block-42"><?php echo trim($title); ?></div>
+                     </div>
+                     <div class="visit_subitem_container_new" style="width: 488.391px;height: auto">
+                       <?php
+                       include '../connect.php';
+                       $get_medical_spec = "SELECT ERid from medical_specialty WHERE name='".trim($title)."'";
+                       $get_medical_result = mysqli_query($conn, $get_medical_spec);
+                       $get_medical_row = mysqli_fetch_array($get_medical_result);
+                       $erid = $get_medical_row['ERid'];
 
-                        while($rows = mysqli_fetch_array($result)){
-                        $visit_name = $rows['visit_name'];
-                      ?>
-	
-                      <div class="visit">
-                        
-                        <div class="visit_heading">
-                          <div class="text-block-42"><?php echo $visit_name;?></div>
-                          <img src="../images/arrow.svg" alt="" class="image-13">
-                        </div>
+                       $sql2 = "SELECT DISTINCT am.id AS article_id, descrizione
+FROM articlesMobidoc am
+JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+JOIN medical_specialty as ms ON '".$erid."'=ams.specialtyMobidoc
+WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
 
-                        <div class="visit_subitem_container">						
-                          <?php
-                          $sql2 = "select * from visit_type where visit_name='".$visit_name."'";
-                          $result2 = mysqli_query($conn, $sql2);
-                        
-                          while($rows2 = mysqli_fetch_array($result2)){
-                            $visit_type_name = $rows2['visit_type_name'];
-                          ?>                  
-                          <div class="visit_subitem" data-item="<?php echo $visit_type_name?>">
-                              <div class="text-block-43"><?php
-                                checkVisitTypes($visit_type_name);
-                                echo $visit_type_name;?>
-                              </div>
-                              <img src="../images/Path-175.svg" alt="" class="image-12">
-                          </div>
-						<?php } ?>                          
-                        </div>
-
-                      </div>
-					  <?php } mysqli_close($conn);?>
+                       $result2 = mysqli_query($conn, $sql2);
+                       while ($rows2 = mysqli_fetch_array($result2)) {
+                         $visit_type_name = trim($rows2['descrizione']);
+                         $article_id = trim($rows2['article_id']);
+                         ?>
+                        <div class="visit_subitem" data-item="<?php echo $visit_type_name ?>" data-id="<?php echo $article_id ?>">
+                         <div class="text-block-43">
+                           <?php echo $visit_type_name; ?>
+                         </div>
+                         <img src="../images/Path-175.svg" alt="" class="image-12"></div>
+                       <?php }
+                       mysqli_close($conn); ?>
+                     </div>
+                     <input type="hidden" name="doc_spaciality" value="<?php echo $erid?>">
                     </div>
+                    <!--end-->
+                   </div>
 
                   </div>
 
@@ -248,28 +200,40 @@ function readURL(input) {
                     <!--start-->
                     <?php
                       include '../connect.php';
-                      $sql = "select * from doctor_visit where doctor_email = '".$email."'";
+
+                      $sql = "SELECT DISTINCT am.id AS article_id, descrizione, ls.visit_home_price, ls.visit_tele_price
+FROM listini ls
+JOIN articlesmobidoc as am ON ls.article_mobidoc_id = am.id
+JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
+WHERE ms.status='Y' AND ls.doctor_id=11 AND (am.home = 'Y' OR am.tele = 'Y')";
+
                       $result = mysqli_query($conn, $sql);
 					  $i=1;
                       while($rows = mysqli_fetch_array($result)){
-                      $visit_name = $rows['visit_name'];
-                      $price = $rows['price'];
+                      $visit_name = $rows['descrizione'];
+                      $article_id = $rows['article_id'];
+                      $price = $rows['visit_home_price'];
+                      $tele_price = $rows['visit_tele_price'];
 					  $service_name = "service_name_pre".$i;
 					  $price_name = "service_price_pre".$i++;
+					  $price_tele_name = "service_price_pre_tele".$i++;
                     ?>
 	
 					<div class="visit_subitem selected">
                       <div style=' width:65%;'>
-                        <input type='checkbox' style='display:none;' checked class='text-block-44' value='<?php echo $visit_name; ?>' name='<?php echo $service_name; ?>'>
-                       <?php
-                       checkVisitTypes($visit_name);
-                       echo $visit_name; ?>
+                        <input type='checkbox' style='display:none;' checked class='text-block-44' value='<?php echo $article_id; ?>' name='<?php echo $service_name; ?>'>
+                       <?php echo $visit_name; ?>
                       </div>
                       <div class="price_n_remove">
                         <div class="price_input">
                           <div>€</div>
                           <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_name; ?>" min="1" data-name="Field" value="<?php echo $price; ?>" id="field" required=""/>
                         </div>
+                       <div class="price_input" style="margin-left: 5px">
+                        <div>€</div>
+                        <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_tele_name; ?>" min="1" data-name="Field" value="<?php echo $tele_price; ?>" id="field" required=""/>
+                       </div>
                         <img src="../images/minus_1.svg" class="image-14" onclick="service_remove(this)">
                       </div>
                     </div>
@@ -315,7 +279,7 @@ function readURL(input) {
                 <!--start-->
                 <?php
                   include '../connect.php';
-                  $sql = "select * from doctor_cap where doctor_email = '".$email."'";
+                  $sql = "select * from doctor_cap where doctor_id = '".$doctor_id."'";
                   $result = mysqli_query($conn, $sql);
 				  $i=1;
                   while($rows = mysqli_fetch_array($result)){

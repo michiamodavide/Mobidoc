@@ -33,6 +33,7 @@
   	text-align-last: center !important;
   }
 </style>
+
 </head>
 <body>
     <?php include '../header.php';?>
@@ -47,45 +48,68 @@
 
         <div class="errors">
             <?PHP
+            $show_error = 0;
+            include ("../recapctha.php");
                   if(isset($_POST['submit']) && $_POST['Email-register'] == $_POST['confirm-email-register'] && $_POST['pwrd'] == $_POST['cnfirm_pwrd'])
                   {
-                    $_SESSION['paziente_email']=$_POST['Email-register'];
                     include '../connect.php';
-                    $email_paziente = $_SESSION['paziente_email'];
-                    $fname = mysqli_real_escape_string($conn, $_POST['First_Name']);
-                    $lname = mysqli_real_escape_string($conn, $_POST['Last_Name']);
-                    $pwrds = mysqli_real_escape_string($conn, $_POST['pwrd']);
-                    $email = mysqli_real_escape_string($conn, $_POST['Email-register']);
-                    $profile_img = '../images/Group-556.jpg';
-                    $pwrd = password_hash($pwrds, PASSWORD_DEFAULT);
-                              
-                    date_default_timezone_set("Europe/Rome");
-                    $dor = date("Y/m/d");
-                  
-                    $sql = "insert into paziente_profile (first_name, last_name, password, email, photo, dor) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$profile_img."', '".$dor."')";
-                    $result = mysqli_query($conn, $sql);
-                    mysqli_close($conn);
-                    if($result==1)
-                    {
-                      //header("location: application-sucessful.php");
-                      include '../connect.php';
-  		                $sql3 = "select * from paziente_profile where email ='".$email_paziente."'";
-  		                $result3 = mysqli_query($conn, $sql3);
-                      $rows3 = mysqli_fetch_array($result3); 
 
-                      if($rows3['cap'] == ''){
-                        echo "<script>window.location = '/paziente/profile-update.php'</script>";
-                      } else {
-                        echo "<script>window.location = 'account.php'</script>";
+                    $_SESSION['paziente_email']=$_POST['Email-register'];
+                    $email = mysqli_real_escape_string($conn, $_POST['Email-register']);
+
+                    $sql_1 = "select * from contact_profile";
+                    $result_1 = mysqli_query($conn, $sql_1);
+
+                    while($rows_1 = mysqli_fetch_array($result_1))
+                    {
+                      if($email==$rows_1['email'])
+                      {
+                        $show_error = 1;
+                       $error_text = 'Email già registrata.';
+                      }else{
+
+                        $recaptcha = $_POST['g-recaptcha-response'];
+                        $res = reCaptcha($recaptcha);
+                        if(!$res['success']){
+                          $show_error = 1;
+                          $error_text = 'Si prega di compilare recaptcha.';
+                        }else{
+                          $fname = mysqli_real_escape_string($conn, $_POST['First_Name']);
+                          $lname = mysqli_real_escape_string($conn, $_POST['Last_Name']);
+                          $pwrds = mysqli_real_escape_string($conn, $_POST['pwrd']);
+                          $phone = mysqli_real_escape_string($conn, $_POST['tele']);
+                          //$profile_img = '../images/Group-556.jpg';
+                          $pwrd = password_hash($pwrds, PASSWORD_DEFAULT);
+
+                          $privacy_consent = 'N';
+                          if ($_POST['checkbox'] == 'on'){
+                            $privacy_consent = 'Y';
+                          }
+
+                          date_default_timezone_set("Europe/Rome");
+                          $privacy_consent_date = date("Y/m/d");
+
+                          //$sql = "insert into paziente_profile (first_name, last_name, password, email, photo, dor) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$profile_img."', '".$dor."')";
+                          $sql = "insert into contact_profile (name, surname, password, email, phone, privacy_consent, lastDatePrivacyConsent) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$phone."', '".$privacy_consent."', '".$privacy_consent_date."')";
+                          $result = mysqli_query($conn, $sql);
+                          mysqli_close($conn);
+                          if($result==1)
+                          {
+                            echo "<script>window.location = 'account.php'</script>";
+                          }
+
+                        }
                       }
                     }
-	                	else { ?>
+	                 }
 
-                        <div class="error">
-                          <div>Email già registrata.</div>
-                        </div>
-                    
-                    <?php }} ?>
+	                 if ($show_error == 1){
+	                 ?>
+
+         <div class="error">
+          <div><?=$error_text?></div>
+         </div>
+         <?php }?>
 
             <div class="error password_dont_match">
               <div>Le password non combaciano!</div>
@@ -108,6 +132,7 @@
               <input type="password" class="text-field-3 name w-input" maxlength="256" name="pwrd" data-name="pwrd" placeholder="Password" id="pwrd" required="">
               <input type="password" class="text-field-3 name w-input" maxlength="256" name="cnfirm_pwrd" data-name="Email Register 3" placeholder="Conferma Password" required="" id="email-register-3">
             </div>
+           <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono" id="tele" required="" style="margin-bottom: 30px">
             <label class="w-checkbox checkbox-field custom">
               <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
               <input type="checkbox" id="checkbox2" name="checkbox" data-name="Checkbox" required="" style="opacity:0;position:absolute;z-index:-1">
@@ -138,13 +163,11 @@ Il consenso qui espresso potrà essere revocato con le medesime modalità.
               </span>
             </label>-->
             <div class="text-block-32">In questo modulo puoi inserire e modificare i tuoi dati. Seleziona con cura il tuo comune di residenza ed il CAP, specie se il tuo comune ne prevede più di uno, perché è in base ad esso che cambierà la lista delle visite/esami disponibili</div>
-            
-            <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn" style="margin-bottom:30px;">
+
+           <div class="g-recaptcha brochure__form__captcha" data-sitekey="6LdyDJwaAAAAABFuvH-xSQDxaX0I16shCUMw8jCe" aria-required="true"></div>
+           <br>
+           <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn" style="margin-bottom:30px;">
           </form>
-
-                 
-          
-
 
         </div>
         <div class="text-block-29">Per assistenza chiama il <span class="text-span-3">335 77 988 44</span></div>
@@ -194,6 +217,8 @@ Il consenso qui espresso potrà essere revocato con le medesime modalità.
       }
     }); 
   </script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <?php include ("../google_analytic.php")?>
+
 </body>
 </html>

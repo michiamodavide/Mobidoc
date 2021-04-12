@@ -2,13 +2,13 @@
 if (!isset($_SESSION['paziente_email'])) {
   header("Location: login.php");
 }
-$user_email = $_SESSION['paziente_email'];
+$contact_email = $_SESSION['paziente_email'];
 
 include '../connect.php';
-$sql = "select * from paziente_profile where email = '" . $user_email . "'";
+$sql = "select * from contact_profile where email = '" . $contact_email . "'";
 $result = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($result);
-$patient_id = $rows['paziente_id'];
+$contact_id = $rows['id'];
 
 
 $name = '';
@@ -17,12 +17,14 @@ $email_p = '';
 $dob = '';
 $fiscale = '';
 $address = '';
+$gmap_addr = '';
+$lat_lang = '';
 
-$contact_id_param = '';
-if (isset($_GET['contact_id'])) {
+$patient_id_param = '';
+if (isset($_GET['pid'])) {
 
-  $contact_id_param = $_GET['contact_id'];
-  $sql12 = "select * from paziente_contact where id = '" . $contact_id_param . "'";
+  $patient_id_param = $_GET['pid'];
+  $sql12 = "select * from paziente_profile where paziente_id = '" . $patient_id_param . "'";
   $result12 = mysqli_query($conn, $sql12);
   $rows12 = mysqli_fetch_array($result12);
 
@@ -39,6 +41,9 @@ if (isset($_GET['contact_id'])) {
 
   $fiscale = $rows12['fiscale'];
   $address = $rows12['address'];
+  $gmap_addr = $rows12['gmap_address'];
+  $lat_lang = $rows12['latitude'].','.$rows12['longitude'];
+
 }
 ?>
 <!DOCTYPE html>
@@ -97,7 +102,7 @@ if (isset($_GET['contact_id'])) {
  <div class="masthead_container up_form" style="margin-bottom:50px;">
   <h1 class="heading-10">Compilare il modulo</h1>
   <div class="cover_section_buttons_container" style="margin-top:30px;">
-   <a href="contact-list.php" class="button stroked cover_btns logout w-button back-btn">Indietro</a>
+   <a href="account.php" class="button stroked cover_btns logout w-button back-btn">Indietro</a>
    <a href="logout.php" class="button stroked cover_btns logout w-button">Logout</a>
   </div>
  </div>
@@ -109,9 +114,9 @@ if (isset($_GET['contact_id'])) {
    <div class="update_form_block w-form">
     <form id="email-form" name="email-form" class="update_form" action="patient_profile_c.php" method="post"
           enctype="multipart/form-data" style="display: inherit;">
-     <input type="hidden" name="paziente_id" value="<?php echo $patient_id?>">
-     <?php if ((isset($_GET['contact_id'])) && (!empty($_GET['contact_id']))){ ?>
-     <input type="hidden" name="patient_contact_id" value="<?php echo $_GET['contact_id']?>">
+     <input type="hidden" name="contact_id" value="<?php echo $contact_id?>">
+     <?php if ((isset($_GET['pid'])) && (!empty($_GET['pid']))){ ?>
+     <input type="hidden" name="patient_id" value="<?php echo $_GET['pid']?>">
      <?php }?>
      <div>
       <div class="form_section">
@@ -119,24 +124,24 @@ if (isset($_GET['contact_id'])) {
 
        <div class="dual_container diff">
         <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code"
-               placeholder="Codice Fiscale" id="fiscal_code" value="<?PHP echo $fiscale; ?>">
-        <input type="email" class="inputs w-input" maxlength="256" name="email" value="<?PHP echo $email_p; ?>"
+               placeholder="Codice Fiscale" id="fiscal_code" value="<?PHP echo $fiscale; ?>" required>
+        <input type="email" class="inputs w-input" maxlength="256" name="email" value="<?PHP echo $email_p; ?>" required
                data-name="email" placeholder="Email" id="email">
        </div>
 
        <div class="dual_container diff">
-        <input type="text" class="inputs w-input" maxlength="256" name="first_name" value="<?PHP echo $name; ?>"
+        <input type="text" class="inputs w-input" maxlength="256" name="first_name" value="<?PHP echo $name; ?>" required
                data-name="first_name" placeholder="Nome" id="first_name">
-        <input type="text" class="inputs w-input" maxlength="256" name="last_name" value="<?PHP echo $cogname; ?>"
+        <input type="text" class="inputs w-input" maxlength="256" name="last_name" value="<?PHP echo $cogname; ?>" required
                data-name="last_name" placeholder="Cognome" id="last_name">
        </div>
-       <div class="dual_container diff">
-        <input type="text" class="datepicker-here inputs w-input" autocomplete="off" data-language="it" data-date-format="dd-mm-yyyy"
-               maxlength="256" name="dob" placeholder="Data di Nascita" id="dob" value="<?PHP echo $dob; ?>">
-
-        <input type="text" class="inputs w-input" maxlength="256" name="address" data-name="address"
-               placeholder="Indirizzo" id="address" value="<?PHP echo $address; ?>">
-       </div>
+       <input type="text" class="datepicker-here inputs w-input" autocomplete="off" data-language="it" data-date-format="dd-mm-yyyy"
+              maxlength="256" name="dob" placeholder="Data di Nascita" id="dob" value="<?PHP echo $dob; ?>" required>
+      <br>
+       <input style="margin-bottom: 15px;width: 70%;margin-left: 15%;" type="text" class="inputs w-input" maxlength="256" name="address" placeholder="Indirizzo Completo *" autocomplete="off" id="address_search" value="<?php echo $address?>" required>
+       <input type="hidden" class="inputs w-input gmap_adress" value="<?php echo $gmap_addr?>" maxlength="256" name="gmap_addr" placeholder="Indirizzo Completo *">
+       <input type="hidden" class="inputs w-input lat_log" value="<?php echo $lat_lang?>" maxlength="256" name="lat_log" placeholder="Indirizzo Completo *">
+       <div class="map" id="map" style="width: 100%; height: 300px;margin: 0% auto 33px;"></div>
       </div>
 
      </div>
@@ -170,6 +175,67 @@ if (isset($_GET['contact_id'])) {
   </div>
  </div>
 </section>
+
+<div data-w-id="c63fef3a-23b1-f70c-9014-2968db2eacbb" class="vselect_doctor">
+ <div data-w-id="33cdd347-afe1-85b8-dddd-e96494f0f01b" style="transform: translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); opacity: 1; transform-style: preserve-3d;" class="vdoctor_container">
+  <div class="text-block-18">Stai riscontrando un problema? Scrivici</div>
+  <br>
+  <br>
+  <div class="div-block-25">
+
+   <script>
+     function submit_message(){
+       var name = document.getElementById("name_contact").value;
+       var email = document.getElementById("email_contact").value;
+       var msg = document.getElementById("msg_contact").value;
+
+       if(name == '' || email == '' || msg == ''){
+         alert('Si prega di inserire tutte le informazioni correttamente.');
+       } else {
+         var xmlhttp2 = new XMLHttpRequest();
+         xmlhttp2.onreadystatechange = function() {
+           if (this.readyState == 4 && this.status == 200) {
+             if(this.responseText == 'Yes'){
+               document.getElementById('load').click();
+             } else {
+               document.getElementById("contact_result").innerHTML = this.responseText;
+               document.getElementById("name_contact").value = '';
+               document.getElementById("email_contact").value = '';
+               document.getElementById("msg_contact").value = '';
+               document.getElementById("contact_btn").value = 'Invia';
+             }
+
+           }
+         };
+         xmlhttp2.open("GET", "/sendMessage.php?name=" + name +"&email=" + email +"&message=" + msg, true);
+         xmlhttp2.send();
+       }
+
+     }
+   </script>
+   <div class="contact_section">
+    <div class="custom_container center">
+     <div class="div-block-79">
+      <div class="contact_form">
+       <div class="form-block-4 w-form">
+        <form id="email-form" name="email-form" data-name="Email Form">
+         <input type="text" class="text-field-3 contact w-input" maxlength="256" name="name-3" data-name="Name 3" placeholder="Nome" id="name_contact" required="">
+         <input type="email" class="text-field-3 contact w-input" maxlength="256" name="email" data-name="Email" placeholder="Email" id="email_contact" required="">
+         <textarea name="field" maxlength="5000" id="msg_contact" placeholder="Messaggio" class="text-field-3 contact text_ara w-input" required=""></textarea>
+         <a data-w-id="deac175c-85b0-7104-4736-171b0c9ce4da" href="#" class="button-3 next odd w-button">Indietro</a>
+         <input type="button" value="Invia" id="contact_btn" class="button gradient contact w-button" style="color: #fff !important;" onClick="submit_message()">
+        </form>
+       </div>
+       <div id="contact_result">
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div data-w-id="d1769b47-b536-ea11-3350-e5df432dbf52" class="closer"></div>
+</div>
 <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="../js/webflow.js" type="text/javascript"></script>
@@ -181,6 +247,7 @@ if (isset($_GET['contact_id'])) {
 
 <script type="text/javascript">
   var contact_param = '<?php echo $contact_id_param?>';
+
   function checkFisical(fis_val){
     $.ajax({
       url: "check_fiscal.php",
@@ -188,15 +255,16 @@ if (isset($_GET['contact_id'])) {
       data: {data:fis_val},
       dataType: "json",
       success: function (response) {
-        console.log(response);
+        // console.log(response);
         if (response == 'true'){
           $("input#fiscal_code").css("background-color", "#d3fbff");
-          $("#submit").css("display", "inline-block");
-          $(".contact-error-msg").css("display", "none");
+          return true;
         } else {
+          $(".vselect_doctor").attr("style", "display: flex;opacity: 1;");
           $("input#fiscal_code").css("background-color", "#ffc5c5");
-          $("#submit").css("display", "none");
-          $(".contact-error-msg").css("display", "block");
+          // $("#submit").css("display", "none");
+          // $(".contact-error-msg").css("display", "block");
+          return false;
         }
       },
       error: function(jqXHR, textStatus, errorThrown) {
@@ -204,14 +272,21 @@ if (isset($_GET['contact_id'])) {
       }
     });
   }
-  $('#fiscal_code').keyup(function(eev) {
-    eev.preventDefault();
+
+  $('#submit').click(function(){
     var fis_val = $("#fiscal_code").val();
     if (fis_val.length > 1) {
       checkFisical(fis_val);
     }
+
+  });
+
+  $(".odd.w-button").on("click", function () {
+    $(".vselect_doctor").attr("style", "display: none;opacity: 1;");
+    $("input#fiscal_code").css("background-color", "#d3fbff");
   });
 </script>
+<?php include ("../googel_map.php")?>
 <style>
  .search_help_open {
   display: block !important;
