@@ -5,7 +5,7 @@ if($_SERVER['SERVER_NAME'] == 'w4.mobidoc.it')
 else if($_SERVER['SERVER_NAME'] == 'localhost')
 	$conn = mysqli_connect("localhost", "root", "", "mobidoc5");
 else
-	$conn = mysqli_connect("localhost", "mobidoc4_user", "r8zEVuwag3mAXA8AYAjAtIfO3adifE", "mobidoc1");
+	$conn = mysqli_connect("localhost", "mobidoc4_user", "r8zEVuwag3mAXA8AYAjAtIfO3adifE", "mobidoc5");
 
 //	$conn = mysqli_connect("localhost", "mobidoc4_user", "8ag2Ju8I2A2aC8NaL4c7JEF8q8qiHI", "mobidoc1");
 //$conn = mysqli_connect("localhost", "root", "", "mobidoc1");
