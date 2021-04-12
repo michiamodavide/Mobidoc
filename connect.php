@@ -1,7 +1,7 @@
 <?php
 /*manage db connectivity according to domain*/
 if($_SERVER['SERVER_NAME'] == 'w4.mobidoc.it')
-	$conn = mysqli_connect("79.137.84.125", "root", "duqAF8l5PoSE", "mobidoc1");
+	$conn = mysqli_connect("79.137.84.125", "root", "duqAF8l5PoSE", "mobidoc5");
 else if($_SERVER['SERVER_NAME'] == 'localhost')
 	$conn = mysqli_connect("localhost", "root", "", "mobidoc5");
 else
