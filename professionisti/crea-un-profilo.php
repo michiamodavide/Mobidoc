@@ -3,25 +3,30 @@ if (isset($_GET['email'])) {
   $email = $_GET['email'];
 
   include '../connect.php';
-  $sql = "select * from doctor_register where email = '" . $email . "'";
-  $result = mysqli_query($conn, $sql);
 
   $sql2 = "select * from doctor_profile where email = '" . $email . "'";
   $result2 = mysqli_query($conn, $sql2);
+  $rows = mysqli_fetch_array($result2);
+  $doctorr_id = $rows['doctor_id'];
   $rowcount2 = mysqli_num_rows($result2);
-  if ($rowcount2 == 1) {
+
+  $sql = "select * from doctor_register where id = '" . $doctorr_id . "'";
+  $result = mysqli_query($conn, $sql);
+  $result_row_new = mysqli_fetch_array($result);
+
+  if ($rowcount2 < 1 || $result_row_new['status'] == 0) {
     header("location: validate.php");
   }
 
-  $rowcount = mysqli_num_rows($result);
 
-  if ($rowcount) {
-    $rows = mysqli_fetch_array($result);
-    $r1 = $rows['name'];
-    $r2 = $rows['cogname'];
+  if ($rowcount2) {
+//    $rows = mysqli_fetch_array($result2);
+    $r1 = $rows['fname'];
+    $r2 = $rows['lname'];
     $r3 = $rows['email'];
     $pro_phone = $rows['phone'];
-    $approved = $rows['status'];
+    $doc_title = $rows['title'];
+    $approved = $result_row_new['status'];
     if ($approved == 0) {
       header("location: validate.php");
     }
@@ -98,6 +103,7 @@ if (isset($_GET['email'])) {
       <div class="form_section">
        <div class="form_section_heading">Dati Personali</div>
        <div class="dual_container">
+        <input type="hidden" name="doctor-id" value="<?php echo $rows['doctor_id']?>">
         <input type="text" class="inputs proff w-input" maxlength="100" id="nome" name="nome" data-name="nome"
                value="<?PHP echo $r1; ?>" id="nome" required="" readonly>
         <input type="text" class="inputs proff w-input" maxlength="100" id="cognome" name="cognome" data-name="cognome"
@@ -106,7 +112,7 @@ if (isset($_GET['email'])) {
                placeholder="Password *" id="pwrds" required="">
         <input type="password" class="inputs proff w-input" maxlength="100" id="Cnfrm_pwrd" name="Cnfrm_pwrd"
                data-name="Cnfrm_pwrd *" placeholder="Conferma Password" id="Cnfrm_pwrd" required="">
-        <input type="text" class="datepicker-here inputs proff w-input" data-language="it" data-date-format="dd-mm-yyyy"
+        <input type="text" class="datepicker-here inputs proff w-input" autocomplete="off" data-language="it" data-date-format="dd-mm-yyyy"
                maxlength="256" name="dob" placeholder="Data di Nascita" id="dob" required="">
         <input type="text" class="inputs proff w-input" name="fiscal_code" data-name="fiscal_code"
                placeholder="Codice Fiscale *" id="fiscal_code" required="">
@@ -117,54 +123,6 @@ if (isset($_GET['email'])) {
 
       <div class="form_section">
        <div class="form_section_heading">Descrizione Profilo</div>
-       <div class="dual_container">
-        <div class="input_element" style="width: inherit">
-         <select id="select-titilo" placeholder="<?PHP echo $title; ?>" required="">
-          <option value=""><?PHP echo $title; ?></option>
-          <option value="Medico Radiologo">Medico Radiologo</option>
-          <option value="Medico Otorinolaringoiatra">Medico Otorinolaringoiatra</option>
-          <option value="Medico Geriatra">Medico Geriatra</option>
-          <option value="Medico Internista">Medico Internista</option>
-          <option value="Psicologo">Psicologo</option>
-          <option value="Infermiere">Infermiere</option>
-          <option value="Tecnico di Radiologia">Tecnico di Radiologia</option>
-          <option value="Fisioterapista">Fisioterapista</option>
-          <option value="Medico Psichiatra">Medico Psichiatra</option>
-         </select>
-         <script>
-           $('#select-titilo').selectize();
-           $('#select-titilo').change(function () {
-             var slect_value = $('#select-titilo').val();
-             $('#title').val(slect_value);
-           });
-         </script>
-        </div>
-        <input type="text" class="inputs proff w-input" maxlength="100" name="title" data-name="title"
-               value="<?PHP echo $title; ?>" id="title" required="" style="display:none;">
-
-       <?php
-       /*
-        <div class="input_element input_element_new" style="width: inherit">
-         <select id="select-titilo-new" required="">
-          <option value="1">Esecutore</option>
-          <option value="2">Refertatore</option>
-         </select>
-         <script>
-           $('#select-titilo-new').selectize();
-           $('#select-titilo-new').change(function () {
-             var slect_value = $('#select-titilo-new').val();
-             $('#p_type').val(slect_value);
-           });
-         </script>
-        </div>
-        <input type="text" class="inputs proff w-input" maxlength="100" name="p_type" data-name="p_type"
-               value="1" id="p_type" required="" style="display:none;">
-       */
-       ?>
-       </div>
-       <textarea placeholder="Descrizione Personale *" maxlength="10000" id="personal_description"
-                 name="personal_description" data-name="personal_description"
-                 class="text_area_profile personal_description w-input" required></textarea>
        <textarea placeholder="Educazione *" maxlength="10000" id="educazione" name="personal_description-3"
                  data-name="Personal Description 3" class="text_area_profile education w-input" required></textarea>
        <textarea placeholder="Esperienze Professionali *" maxlength="10000" id="esperienze_professionali-2"
@@ -177,7 +135,6 @@ if (isset($_GET['email'])) {
        <div class="profile_image_container proff" id="profile_image">
         <div id="dp"
              style="width:100%; height:100%; background-position:center; background-size:cover;cursor: pointer"></div>
-        <!--               background: url('../images/Group-563.jpg')-->
        </div>
        <div class="text-block-33" style="cursor:pointer;">Immagine del profilo</div>
        <br>
@@ -226,36 +183,39 @@ if (isset($_GET['email'])) {
         <div class="slectors">
          <div class="visits_selector_container">
           <!--start-->
-           <?php
-           include '../connect.php';
-           $sql = "select * from visit order by visit_id desc";
-           $result = mysqli_query($conn, $sql);
-           while ($rows = mysqli_fetch_array($result)) {
-             $visit_name = $rows['visit_name'];
-             ?>
             <div class="visit">
              <div class="visit_heading">
-              <div class="text-block-42"><?php echo $visit_name; ?></div>
-              <img src="../images/arrow.svg" alt="" class="image-13"></div>
-             <div class="visit_subitem_container">
+              <div class="text-block-42"><?php echo trim($doc_title); ?></div>
+              </div>
+             <div class="visit_subitem_container_new" style="width: 488.391px;height: auto">
                <?php
-               $sql2 = "select * from visit_type where visit_name='" . $visit_name . "'";
+               include '../connect.php';
+               $get_medical_spec = "SELECT ERid from medical_specialty WHERE name='".trim($doc_title)."'";
+               $get_medical_result = mysqli_query($conn, $get_medical_spec);
+               $get_medical_row = mysqli_fetch_array($get_medical_result);
+               $erid = $get_medical_row['ERid'];
+
+               $sql2 = "SELECT DISTINCT am.id AS article_id, descrizione
+FROM articlesMobidoc am
+JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+JOIN medical_specialty as ms ON '".$erid."'=ams.specialtyMobidoc
+WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
+
                $result2 = mysqli_query($conn, $sql2);
                while ($rows2 = mysqli_fetch_array($result2)) {
-                 $visit_type_name = $rows2['visit_type_name'];
+                 $visit_type_name = trim($rows2['descrizione']);
+                 $article_id = trim($rows2['article_id']);
                  ?>
-                <div class="visit_subitem" data-item="<?php echo $visit_type_name ?>">
+                <div class="visit_subitem" data-item="<?php echo $visit_type_name ?>" data-id="<?php echo $article_id ?>">
                  <div class="text-block-43">
-                   <?php
-                   checkVisitTypes($visit_type_name);
-                   echo $visit_type_name; ?>
+                   <?php echo $visit_type_name; ?>
                  </div>
                  <img src="../images/Path-175.svg" alt="" class="image-12"></div>
-               <?php } ?>
+               <?php }
+               mysqli_close($conn); ?>
              </div>
+             <input type="hidden" name="doc_spaciality" value="<?php echo $erid?>">
             </div>
-           <?php }
-           mysqli_close($conn); ?>
           <!--end-->
          </div>
         </div>
@@ -408,7 +368,7 @@ if (isset($_GET['email'])) {
 </script>
 <script async="" defer="" crossorigin="anonymous"
         src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
-<script src="../js/crea_un_profilo.js?v=29" type="text/javascript"></script>
+<script src="../js/crea_un_profilo.js?v=32" type="text/javascript"></script>
 <script src="../js/validations.js?v=20" type="text/javascript"></script>
 <style>
  .search_help_open {

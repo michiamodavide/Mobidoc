@@ -42,6 +42,7 @@
   function getDoctors(value){
     $('#book_visit').val($.trim(value));
     $('#book_doctor').val('');
+    $('#article_id').val('');
     var xmlhttp2 = new XMLHttpRequest();
     xmlhttp2.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -51,8 +52,9 @@
     xmlhttp2.open("GET", "getDoctor.php?q=" + value, true);
     xmlhttp2.send();
   }
-  function setDoctor(val){
+  function setDoctor(val, art_id){
     $('#book_doctor').val(val);
+    $('#article_id').val(art_id);
   }
 </script>
 
@@ -148,10 +150,12 @@
                   $('.visite').css('margin-bottom','15px');
                   $('.visite_list').css('display','block'); 
                   $('#book_visit, #book_doctor').val('');                
+                  $('#book_visit, #article_id').val('');
                 } else {
                   $('.visite').css('margin-bottom','0px');
                   $('.visite_list').css('display','grid'); 
                   $('#book_visit, #book_doctor').val('');
+                  $('#book_visit, #article_id').val('');
                 }
               }, 100);                        
         }
@@ -230,19 +234,17 @@
 	if($conn === false){
 		die("ERROR database");
 	}
-	$sql = "select * from visit order by visit_type_name_count desc";
+
+
+ $sql = "SELECT * FROM groups";
   $result = mysqli_query($conn, $sql);
+ $row_count = mysqli_num_rows($result);
             
 	while($rows = mysqli_fetch_array($result)){
-	$visit_name = $rows['visit_name'];
-	$body_text = $rows['body_text'];
-	$image = $rows['image'];
-  $link = $rows['link'];  
-  $sql2 = "select * from visit_type INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name where visit_type.visit_name='".$visit_name."'";
-  $result2 = mysqli_query($conn, $sql2);
-  $row_count = mysqli_num_rows($result2);
-  if($row_count){
+	$visit_name = $rows['detailName'];
+  $link = 'javascript:;';
 
+  if($row_count){
    $expl_visit_name = explode(" ", $visit_name);
 
    $tm2_class = '';
@@ -263,63 +265,33 @@
     </a>
 						</div>
 		  <!-- New HTML-Code --->
-		  
-		 <?php
-   /*
-    <img src="<?php echo $image;?>" alt="" class="service_main_icon">
-     <h3 class="service_main_name" style="width:90%; margin-left:3.5%;"><strong><?php echo $visit_name;?> a Domicilio</strong></h3>
-        <p class="service_main_description" style="height:200px; overflow:hidden;"><?php echo $body_text;?></p>
-        <div class="div-block-9">
-          <a href="#" class="button gradient service_main_book w-button" data-name="<?php echo $visit_name;?>" onClick="showHint(this.getAttribute('data-name'))">Prenota online</a>
-          <a href="<?php echo $link;?>" class="button service_main_learn_more w-button">Scopri di più</a>
-        </div>
-   */
-   ?>
 
       </div>
       <div class="service_type_card">
         <div class="text-block-7"><span class="service_text_underline"><?php echo $visit_name;?></span></div>
         <div class="type_of-service_grid">      	
 		<?php
-			//$sql2 = "select * from visit_type where visit_name='".$visit_name."'";
-			//$sql2 = "select DISTINCT doctor_visit.visit_name from visit_type INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name where visit_type.visit_name='".$visit_name."'";
-  if (isset($_SESSION['doctor_email'])) {
-    $sql2 = "select DISTINCT doctor_visit.visit_name from visit_type
-  INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name
-  INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where visit_type.visit_name='".$visit_name."' AND doctor_profile.active = 'Y'";
-  }else{
-    $sql2 = "select DISTINCT doctor_visit.visit_name from visit_type
-  INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name
-  INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where visit_type.visit_name='".$visit_name."' AND doctor_profile.puo_refertare='N' AND doctor_profile.active = 'Y'";
-  }
-			//$sql2 = "select doctor_visit.visit_name, doctor_visit.price from doctor_visit INNER JOIN visit_type on;
-			$result2 = mysqli_query($conn, $sql2);
+  $sql2 = "SELECT DISTINCT am.id AS article_id, g.detailName, home, tele, descrizione, attributo
+ FROM articlesMobidoc am
+ JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+ JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
+ LEFT JOIN groups g ON g.id=am.gruppo
+ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
+
+  $result2 = mysqli_query($conn, $sql2);
       
 			while($rows2 = mysqli_fetch_array($result2)){
-        $visit_type_name = trim($rows2['visit_name']," ");
-				$visit_name_2 = '"'.$visit_name.'", "'.$visit_type_name.'"';
+			 if (trim($rows2['detailName']) == trim($visit_name)) {
+      $visit_type_name = trim($rows2['descrizione'], " ");
+      $visit_name_2 = '"' . $visit_name . '", "' . $visit_type_name . '"';
 
-     if (in_array($visit_type_name, $cam_array)){
+      echo "<div class='sub_service' onClick='get_visit_Doctors(" . $visit_name_2 . ");' >";
+      echo "<div class='sub_service_text'>";
 
-     }else{
-       echo "<div class='sub_service' onClick='get_visit_Doctors(".$visit_name_2.");' >";
-       echo "<div class='sub_service_text'>";
-
-       echo $visit_type_name;
-       echo"</div>";
-       echo "<div class='price'>";
-       echo "<div class='text-block-55'>A Partire da</div>";
-       $sql3 = "select MIN(price) from doctor_visit where visit_name ='".$visit_type_name."'";
-       $result3 = mysqli_query($conn, $sql3);
-       $rows3 = mysqli_fetch_array($result3);
-       $price = $rows3[0];
-       echo "<div class='price_text'>€$price</div>";
-       echo "</div>";
-       echo "</div>";
-     }
-
+      echo $visit_type_name;
+      echo "</div>";
+      echo "</div>";
+    }
 			}
         ?>
           
@@ -365,6 +337,7 @@
         <form action="checkout.php?book_visit" method="get">
           <input type="text" name="book_visit" id="book_visit" style="display:none;"> 
           <input type="text" name="book_doctor" id="book_doctor" style="display:none;"> 
+          <input type="text" name="article_id" id="article_id" style="display:none;">
           <a data-w-id="365b64cd-1aba-0309-c567-e78f0e672a65" href="#" class="button-3 next odd w-button">Indietro</a>
           <button href="checkout.php" class="button-3 next w-button" style="padding-right:100px;">Continua</button>
         </form>
@@ -421,11 +394,13 @@
                   $('.visite_list').css('display','block');
                   $('#book_visit').val(visit_name);
                   $('#book_doctor').val('');
+                  $('#article_id').val('');
                 } else {
                   $('.visite').css('margin-bottom','0px');
                   $('.visite_list').css('display','grid');
                   $('#book_visit').val(visit_name);
                   $('#book_doctor').val('');
+                  $('#article_id').val('');
                 }
               }, 100);
               getDoctors(visit_name);

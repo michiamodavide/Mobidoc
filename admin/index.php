@@ -121,12 +121,17 @@
         <?php
         include '../connect.php';
         
-        $sql = "select * from doctor_register where remove = 0 order by id desc";
+//        $sql = "select * from doctor_register order by id desc";
+        $sql = "SELECT DISTINCT dp.fname, dp.lname, dp.email, dp.description, dr.cv, dr.dor, dr.status, dr.tick 
+FROM doctor_profile dp
+JOIN doctor_register as dr ON dp.doctor_id = dr.id
+WHERE dr.remove=0";
         $result = mysqli_query($conn, $sql);
         while($rows = mysqli_fetch_array($result)){
-          $name = $rows['name'];
-          $cogname = $rows['cogname'];
+          $name = $rows['fname'];
+          $cogname = $rows['lname'];
           $email = $rows['email'];
+          $description = $rows['description'];
           $cv = "/professionisti/".$rows['cv'];
           $dor = strtotime($rows['dor']);
 		      $status = $rows['status'];
@@ -162,18 +167,6 @@
                 <div class="text-block-68"><?PHP echo ucwords($name)." ".ucwords($cogname); ?></div>
                 <?PHP if($tick){?>
                 <div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div>
-                 <?php
-                  /*
-                   <?php
-                  if(isset($p_type)){
-                  $prof_type = $p_type;
-                  }else{
-                    $prof_type = '0';
-                  }?>
-                 <p style="margin-left: 15px" class="show-prof"><?php echo $prof_type_array[$prof_type] ?></p>
-
-                  */
-                  ?>
                 <?php }?>
               </div>
               <div class="div-block-66">
@@ -199,7 +192,7 @@
                     <div class="text-block-66">Sei sicuro di voler rifiutare questa candidatura?</div>
                     <div class="div-block-63">
                       <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70317" href="#" class="button-5 no w-button">Cancella</a>
-                      <a href="index2.php?s=0&email=<?php echo urlencode($email);?>" class="button-5 yes w-button">Conferma</a>
+                      <a href="index2.php?s=0&id=<?php echo urlencode($doct_id);?>" class="button-5 yes w-button">Conferma</a>
                     </div>
                   </div>
                 </div>
@@ -208,7 +201,7 @@
                     <div class="text-block-66">Sei sicuro di voler rimuovere questa candidatura?</div>
                     <div class="div-block-63">
                       <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70320" href="#" class="button-5 no w-button">Cancella</a>
-                      <a href="remove.php?email=<?php echo urldecode($email);?>" class="button-5 yes w-button">Conferma</a>
+                      <a href="remove.php?id=<?php echo urldecode($doct_id);?>" class="button-5 yes w-button">Conferma</a>
                     </div>
                   </div>
                   <div data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70324" class="closer"></div>
@@ -225,10 +218,45 @@
                   <div class="approve_confirm_container">
                     <div class="text-block-66 diff">Sei sicuro di voler approvare?</div>
                     <div class="text-block-69">Una volta approvata la candidatura, un link per la registrazione verrà inviato alla casella mail del Professionista, il quale, effettuata la registrazione, potrà unirsi al team.<br></div>
-                    <div class="div-block-63">
+
+                   <div class="w-form" data-id="1">
+                    <div class="text-block-69">
+                     <p><strong><?=$description?></strong></p>
+                    </div>
+                    <form action="index2.php" method="post" enctype="multipart/form-data">
+                     <input type="hidden" name="doctor-id" value="<?php echo urlencode($doct_id);?>">
+                     <input type="hidden" name="status" value="1">
+                     <div class="input_fields">
+
+                      <select id="medical_speciality" name="medical_speciality">
+                       <option value="">Seleziona Specialità medica</option>
+                       <?php
+                       $get_speciality_sql = "select * from medical_specialty where status='Y'";
+                       $get_speciality_result = mysqli_query($conn, $get_speciality_sql);
+
+                       while($speciality_result_row = mysqli_fetch_array($get_speciality_result)) {
+                        $speciality_name = $speciality_result_row['name'];
+                        ?>
+                        <option value="<?=$speciality_name?>"><?=$speciality_name?></option>
+                         <?php
+                       }
+                       ?>
+                      </select>
+
+                      <select id="puo_refertare" name="puo_refertare">
+                       <option value="N">N</option>
+                       <option value="Y">Y</option>
+                      </select>
+                     </div>
+
+                     <div class="div-block-63">
                       <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70333" href="#" class="button-5 no w-button">Cancella</a>
-                      <a href="index2.php?s=1&email=<?php echo urlencode($email);?>" class="button-5 yes w-button">Si</a></div>
+                      <button type="submit" name="update-status" class="button-5 yes w-button update-status">Si</button>
+                     </div>
+                    </form>
+                   </div>
                   </div>
+
                 </div>
               </div>
               <?PHP if($status==1){ ?>
@@ -293,6 +321,22 @@
       </div>
     </div>
     <div class="menu_current w-embed w-script">
+     <script type="text/javascript">
+       $(document).ready(function(){
+         $('.update-status').click(function(){
+           var get_parent_div = $(this).parent().parent();
+           var get_option_val = $("#medical_speciality", get_parent_div).val();
+           if (get_option_val){
+             return true;
+           } else {
+             alert("Seleziona Specialità medica");
+             return false;
+           }
+
+         });
+
+       });
+     </script>
       <script>
 	$(document).ready(function(){
   	$('.admin_item:nth-child(1)').addClass('current');
@@ -327,30 +371,6 @@
 
  });
 
- // $('.pro_type').on('change', function() {
- //   var pro_tt = this.value;
- //   var doctor_idd = $(this).attr("data-item");
- //   if (pro_tt > 0){
- //     $.ajax({
- //       url: "change_p_type.php",
- //       type: "post",
- //       data: {pro_value:pro_tt, doc_id:doctor_idd},
- //       success: function (response) {
- //          // console.log(response);
- //         if (response == 'true'){
- //           if (pro_tt == 1){
- //             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Esecutore");
- //           }else if (pro_tt == 2){
- //             $(".regi_doctor_card"+doctor_idd+" .show-prof").text("Refertatore");
- //           }
- //         }
- //       },
- //       error: function(jqXHR, textStatus, errorThrown) {
- //         console.log(textStatus, errorThrown);
- //       }
- //     });
- //   }
- // });
 </script>
     </div>
   </div>

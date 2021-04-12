@@ -4,7 +4,6 @@ $name = $_REQUEST["name"];
 $email = $_REQUEST["email"];
 $msg = $_REQUEST["message"];
 
-
 $to = 'info@mobidoc.it'; //admin email
 $subject = 'Nuova Richiesta!';
 $from = 'mobidoc_update@mobidoc.it';

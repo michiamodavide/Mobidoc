@@ -66,14 +66,19 @@ if(isset($_GET['admin'])){
             <div class="login_form w-clearfix w-form">
 
               <form name="email-form" id="regist_form" class="form-4" action="<?php if($admin == 1){echo 'register.php?admin';}else{echo 'register.php';}?>" method="post" enctype="multipart/form-data">
-                
                 <div class="dual_container proff">
                   <input type="text" class="text-field-3 proff w-input" name="Name" data-name="First Name" placeholder="Nome di battesimo" id="Name"  pattern="[A-Z][a-z]*" title="Il nome deve essere in lettere e la prima lettera deve essere maiuscola" required=""  autocomplete="off" >
                   <input type="text" class="text-field-3 proff w-input" name="Cognome" data-name="Cognome" placeholder="Cognome" id="Cognome" required="" pattern="[A-Z][a-z]*" title="Il nome deve essere in lettere e la prima lettera deve essere maiuscola" autocomplete="off">
                 </div>
                 <input type="email" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="email" data-name="email" placeholder="Email" id="email" required="">
                 <input type="email" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="confirm-email" data-name="confirm-email" placeholder="Conferma Email" id="confirm-email" required="">
+               <input type="text" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="description" placeholder="Descrivi la tua specialità" id="confirm-email" required="">
+
+               <?php
+               /*
                <input type="tel" class="text-field-3 proff w-input" placeholder="Telefono" maxlength="15" name="tele" required="" autocomplete="off">
+               */
+               ?>
                 <?php if($admin == 0) {?>
                 <div class="upload_cv">
                   <div class="div-block-56"><img src="../images/upload.svg" width="24" alt=""><img src="../images/warning.svg" width="24" alt="" class="image-18"><img src="../images/file.svg" width="21" alt="" class="image-17">
@@ -98,6 +103,18 @@ if(isset($_GET['admin'])){
                   </label>
                 </div>
 
+               <div class="check_box_container">
+                <label class="w-checkbox checkbox-field">
+                 <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox proff"></div>
+                 <input type="checkbox" id="checkbox-m" name="checkbox-m" data-name="checkbox-m" style="opacity:0;position:absolute;z-index:-1">
+                 <span class="prff w-form-label">
+                      <span class="text-span-4">
+                       Consenso al Trattamento di Dati Personali: Letta e compresa l’informativa privacy, premendo su “Presto il consenso” o “Nego il consenso”, esprimo la mia volontà in merito al trattamento dei miei dati personali per finalità di marketing: invio di comunicazioni di carattere commerciale, informativo e promo-pubblicitario su prodotti, servizi ed attività di Tekamed S.r.l., con modalità automatizzate di contatto o comunicazioni elettroniche mediante l’utilizzo di posta elettronica e messaggi del tipo SMS, IM, MMS, notifiche push; compimento di indagini di mercato e rilevazione del gradimento e della soddisfazione sui servizi resi agli interessati. Comunicazioni informative, commerciali e pubblicitarie che acconsento a ricevere anche tramite posta cartacea o chiamate telefoniche. Questo consenso potrà essere revocato nello stesso modo.
+                      </span>
+                    </span>
+                </label>
+               </div>
+
                 <?php if($admin == 0) {?>
 				        <div>
 					        <input type="file" name="cv" class="file_upload_input" accept=".pdf, application/msword" required>
@@ -114,72 +131,134 @@ if(isset($_GET['admin'])){
                 <div>Le email non combaciano!</div>
                </div>
                 <?PHP
+                $show_error = 0;
+                include ("../recapctha.php");
                   if(isset($_POST['submit']) && $_POST['email'] == $_POST['confirm-email'])
                   {
-                    include '../connect.php';
-                    $fname = mysqli_real_escape_string($conn, $_POST['Name']);
-                    $lname = mysqli_real_escape_string($conn, $_POST['Cognome']);
-                    $email = mysqli_real_escape_string($conn, $_POST['email']);
-                    $phone_nmb = mysqli_real_escape_string($conn, $_POST['tele']);
 
-                    if($admin == 1){
-                      $cv = "cv/default_cv.pdf";                      
-                    } else {
-                      $b = explode("@",$email);
-                      $imageFileType = pathinfo($_FILES["cv"]["name"],PATHINFO_EXTENSION);
-                      $cv = "cv/".$b[0]."_cv.".$imageFileType;
+                    $recaptcha = $_POST['g-recaptcha-response'];
+                    $res = reCaptcha($recaptcha);
+
+                if(!$res['success']){
+                  $show_error = 1;
+                  $error_text = 'Si prega di compilare recaptcha.';
+                }else{
+
+                  $check_marketing_checkbox = array('checkbox-m');
+                  $check_marketing_checkbox_ver = 1;
+                  foreach($check_marketing_checkbox as $mark_checkbox) {
+                    if(!isset($_POST[$mark_checkbox]) || empty($_POST[$mark_checkbox])) {
+                      $check_marketing_checkbox_ver = 0;
                     }
-                    
-                    
-                    date_default_timezone_set("Europe/Rome");
-                    $dor = date("Y/m/d");
-                  
+                  }
+
+                  include '../connect.php';
+                  $fname = mysqli_real_escape_string($conn, $_POST['Name']);
+                  $lname = mysqli_real_escape_string($conn, $_POST['Cognome']);
+                  $email = mysqli_real_escape_string($conn, $_POST['email']);
+                  $description = mysqli_real_escape_string($conn, $_POST['description']);
+                  $checkbox = mysqli_real_escape_string($conn, $_POST['checkbox']);
+                  $cv_status = 'Y';
+                  if($admin == 1){
+                    $cv = "cv/default_cv.pdf";
+                  } else {
+                    $b = explode("@",$email);
+                    $imageFileType = pathinfo($_FILES["cv"]["name"],PATHINFO_EXTENSION);
+                    $cv = "cv/".$b[0]."_cv.".$imageFileType;
+                  }
+
+                  $privacy_checkbox = 'N';
+                  $market_checkbox = 'N';
+
+                  date_default_timezone_set("Europe/Rome");
+                  $dor = date("Y/m/d H:i:s");
+                  if ($checkbox == 'on'){
+                    $privacy_checkbox = 'Y';
+                  }
+
+                  $market_mod = '';
+                  if ($check_marketing_checkbox_ver == 1){
+                    $market_checkbox = 'Y';
+                    $market_mod = date("Y/m/d H:i:s");
+                  }
+
+
+                  if($admin == 0){
+                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$market_mod."', '".$description."')";
+                  } else {
+                    $market_checkbox = 'Y';
+                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$dor."', '".$description."')";
+                  }
+
+                  $result = mysqli_query($conn, $sql); // or die(mysqli_error($conn));
+
+                  if($result==1)
+                  {
+                    $last_doctor_id = mysqli_insert_id($conn);
                     if($admin == 0){
-                    $sql = "insert into doctor_register (name, cogname, email, phone, cv, dor) values('".$fname."', '".$lname."', '".$email."', '".$phone_nmb."', '".$cv."', '".$dor."')";
-                    } else {
-                      $sql = "insert into doctor_register (name, cogname, email, phone, cv, dor, status) values('".$fname."', '".$lname."', '".$email."', '".$phone_nmb."', '".$cv."', '".$dor."',1)";
-                    }
-                    if($admin == 0){
-                    move_uploaded_file($_FILES["cv"]["tmp_name"], $cv);
+                      $sql_new1 = "insert into doctor_register (id, cv, dor, status, remove, tick) values('".$last_doctor_id."', '".$cv."', '".$dor."',0,0,0)";
+                    }else{
+                      $sql_new1 = "insert into doctor_register (id, cv, dor, status, remove, tick) values('".$last_doctor_id."', '".$cv."', '".$dor."',1,1,1)";
                     }
 
-                    $result = mysqli_query($conn, $sql); // or die(mysqli_error($conn));
-                    mysqli_close($conn);
-                    if($result==1)
-                    {
+                    $result_new1 = mysqli_query($conn, $sql_new1);
+
+                    if ($result_new1 == 1){
+
+                      if($admin == 0){
+                        move_uploaded_file($_FILES["cv"]["tmp_name"], $cv);
+                      }
+
                       if($admin == 1){
                         $location = '/professionisti/crea-un-profilo.php?email='.$email;
                         echo "<script>window.location = '".$location."'</script>";
                       } else {
-                      //header("location: application-sucessful.php");
-                      $to = 'info@mobidoc.it';
-                      $subject = 'Nuova Candidatura';
-                      $from = 'mobidoc_update@mobidoc.it';
-                      $rply_email = 'noreplay@mobidoc.it';
+                        //header("location: application-sucessful.php");
+                        $to = 'info@mobidoc.it';
+                        $subject = 'Nuova Candidatura';
+                        $from = 'mobidoc_update@mobidoc.it';
+                        $rply_email = 'noreplay@mobidoc.it';
 
-                      // To send HTML mail, the Content-type header must be set
-                      $headers  = 'MIME-Version: 1.0' . "\r\n";
-                      $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                        // To send HTML mail, the Content-type header must be set
+                        $headers  = 'MIME-Version: 1.0' . "\r\n";
+                        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-                      // Create email headers
-                      $headers .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
+                        // Create email headers
+                        $headers .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
 
-                      // Compose a simple HTML email message
-                      $message = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Nuova Candidatura ricevuta!</h4><div class="text-block">Un nuovo Professionista ha inoltrato la sua candidatura. Effettua il login dal Pannello Amministratore per vedere ulteriori dettagli e scaricare il suo CV</div> <br> <br><a href="https://www.mobidoc.it/admin" class="button" style="margin-top:100px;">Pannello Amministratore</a></div></body></html>';
+                        // Compose a simple HTML email message
+                        $message = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Nuova Candidatura ricevuta!</h4><div class="text-block">Un nuovo Professionista ha inoltrato la sua candidatura. Effettua il login dal Pannello Amministratore per vedere ulteriori dettagli e scaricare il suo CV</div> <br> <br><a href="https://www.mobidoc.it/admin" class="button" style="margin-top:100px;">Pannello Amministratore</a></div></body></html>';
 
-                      mail($to, $subject, $message, $headers);
+                        mail($to, $subject, $message, $headers);
 
-                      echo "<script>window.location = 'application-sucessful.php'</script>";
+                        echo "<script>window.location = 'application-sucessful.php'</script>";
                       }
-                    }
-	                	else { ?>
+                      mysqli_close($conn);
+                    }else{
 
-                      <div class="error_message file_not_available" style="display:block;">
-                          <div class="text-block-30">Indirizzo email già registrato.</div>
-                      </div>
-                    
-                    <?php }} ?>
-                
+                      echo '<script type="text/javascript">alert("C\'è qualcosa di sbagliato")</script>';
+
+                    }
+
+                  }
+                  else {
+                    $error_text = 'Indirizzo email già registrato.';
+                    $show_error = 1;
+
+                  }
+
+                }
+
+              }
+                if ($show_error == 1){
+              ?>
+
+               <div class="error_message file_not_available" style="display:block;">
+                <div class="text-block-30"><?=$error_text?></div>
+               </div>
+                <?php }?>
+               <div class="g-recaptcha brochure__form__captcha" data-sitekey="6LdyDJwaAAAAABFuvH-xSQDxaX0I16shCUMw8jCe" aria-required="true"></div>
+               <br>
                 <input type="submit" name="submit" value="Invia" id="submit_application" class="button gradient login_button proff w-button" >
                 
               </form>
@@ -236,6 +315,7 @@ if(isset($_GET['admin'])){
        });
 
        $('#submit_application').click(function(){
+
          var a = $('input[name=Name]').val();
 
 
@@ -250,17 +330,20 @@ if(isset($_GET['admin'])){
            $('.email_dont_match').addClass("error_show");
          }
 
+       });
+
+       $('#submit_application').click(function(){
          if($('.file_upload_input').get(0).files.length === 0){
            $('.file_not_available').addClass("error_show");
-         } else {
+         }else {
            return true;
          }
-
        });
 
      });
    </script>
 <?php } ?>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
   <?php include ("../google_analytic.php")?>
 </body>
 </html>

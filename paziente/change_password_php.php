@@ -6,7 +6,7 @@
   $email = mysqli_real_escape_string($conn, $_POST['email']);
   $reset_code = mysqli_real_escape_string($conn, $_POST['reset_code']);
  
-  $sql = "update paziente_profile set password = '".$pwrd."' where email = '".$email."'";
+  $sql = "update contact_profile set password = '".$pwrd."' where email = '".$email."'";
                       
   $result = mysqli_query($conn, $sql);
  

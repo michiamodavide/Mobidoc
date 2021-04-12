@@ -1,13 +1,11 @@
 <?php
-	
 		
 	include '../connect.php';
 	$email = mysqli_real_escape_string($conn, $_POST['email']);
-	$sql = "select * from paziente_profile where email = '".$email."'";
+	$sql = "select * from contact_profile where email = '".$email."'";
 		
 	$result = mysqli_query($conn, $sql);
 	$rows = mysqli_fetch_array($result);
-
 
 	//generating random reset code 
 
@@ -41,8 +39,7 @@
 
 		$reset_link = 'www.mobidoc.it/paziente/change-password.php?reset_code='.$code;
 
-		$name = $rows['first_name'].' '.$rows['last_name'];
-		
+		$name = $rows['name'].' '.$rows['surname'];
 
 		$to = $email;
         $subject = 'Change Password';
