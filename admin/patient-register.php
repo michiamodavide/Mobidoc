@@ -374,9 +374,9 @@ include '../connect.php';
                   <div class="form_section_heading">Controllo Anagrafica Paziente</div>
                   <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name">
                   <div class="patient_names">
-                   <ul>
+                   <ol>
 
-                   </ul>
+                   </ol>
                   </div>
                    <br>
                   <div class="dual_container diff">
@@ -853,44 +853,71 @@ include '../connect.php';
   $('#last_name').keyup(function(eev) {
     eev.preventDefault();
     var lname_val = $(this).val();
-    $.post('get_patient.php', {'lname': lname_val} , function(data){
-      var json = JSON.parse(JSON.stringify(data));
-      console.log(json);
-      // $('#main-show').html(json.xxx);
-    });
-    // if (lname_val.length > 1) {
-    //   $.ajax({
-    //     url: "get_patient.php",
-    //     type: "post",
-    //     data: {lname:lname_val},
-    //     dataType: "json",
-    //     success: function (response) {
-    //       console.log(response);
-    //       // if (response){
-    //       //
-    //       // }
-    //       // if (response == 'true'){
-    //       //   $(".patient_names ul li").remove();
-    //       // } else {
-    //       //   $.each(response, function(key, value ) {
-    //       //     $(".patient_names ul").append("<li>"+response.first_name+response.last_name+"</li>");
-    //       //   });
-    //       // }
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {
-    //       console.log(textStatus, errorThrown);
-    //     }
-    //   });
-    // }else {
-    //   $("#email").val('');
-    //   $("#first_name").val('');
-    //   $("#fiscal_code").val('');
-    //   $("#dob").val('');
-    //   $("#caller_first_name").val('');
-    //   $("#caller_last_name").val('');
-    //   $("#tele").val('');
-    // }
+    if (lname_val.length > 1) {
+      $.ajax({
+        url: "get_patient.php",
+        type: "post",
+        data: {lname:lname_val, search_name:1},
+        dataType: "json",
+        success: function (response) {
+          $(".patient_names ol strong").remove();
+          if (response == 'true'){
+            $(".patient_names ol strong").remove();
+          } else {
+            $.each(response, function(key, value ) {
+              $(".patient_names ol").append("<strong><li class='data-list' style='cursor: pointer;' contact-id='"+response[key].contact_id+"' data-id='"+response[key].paziente_id+"'>"+response[key].fname+' '+response[key].lname+"</li></strong>");
+            });
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+      });
+    }else {
+      $("#email").val('');
+      $("#first_name").val('');
+      $("#last_name").val('');
+      $("#dob").val('');
+      $("#caller_first_name").val('');
+      $("#caller_last_name").val('');
+      $("#tele").val('');
+    }
   });
+
+  $('.patient_names').on('click', '.data-list', function() {
+    var paziente_id = $(this).attr("data-id");
+    var contact_id = $(this).attr("contact-id");
+    $.ajax({
+      url: "get_patient.php",
+      type: "post",
+      data: {paziente_id:paziente_id,contact_id:contact_id,search_name:2},
+      dataType: "json",
+      success: function (response) {
+        console.log(response);
+        if (response == 'true'){
+          $("#email").val('');
+          $("#first_name").val('');
+          $("#last_name").val('');
+          $("#dob").val('');
+          $("#caller_first_name").val('');
+          $("#caller_last_name").val('');
+          $("#tele").val('');
+        } else {
+          $("#first_name").val(response[0].fname);
+          $("#last_name").val('');
+          $("#dob").val('');
+          $("#email").val(response[1].contact_email);
+          $("#caller_first_name").val('');
+          $("#caller_last_name").val('');
+          $("#tele").val('');
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown);
+      }
+    });
+  });
+
 
 </script> 
 <script>
