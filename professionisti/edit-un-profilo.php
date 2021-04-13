@@ -176,9 +176,6 @@ JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '".$erid."'=ams.specialtyMobidoc
 WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
 
-                       echo $sql2;
-                       exit();
-
                        $result2 = mysqli_query($conn, $sql2);
                        while ($rows2 = mysqli_fetch_array($result2)) {
                          $visit_type_name = trim($rows2['descrizione']);
@@ -209,7 +206,7 @@ FROM listini ls
 JOIN articlesmobidoc as am ON ls.article_mobidoc_id = am.id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
-WHERE ms.status='Y' AND ls.doctor_id=11 AND (am.home = 'Y' OR am.tele = 'Y')";
+WHERE ms.status='Y' AND ls.doctor_id='".$doctor_id."' AND (am.home = 'Y' OR am.tele = 'Y')";
 
                       $result = mysqli_query($conn, $sql);
 					  $i=1;
@@ -235,7 +232,7 @@ WHERE ms.status='Y' AND ls.doctor_id=11 AND (am.home = 'Y' OR am.tele = 'Y')";
                         </div>
                        <div class="price_input" style="margin-left: 5px">
                         <div>€</div>
-                        <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_tele_name; ?>" min="1" data-name="Field" value="<?php echo $tele_price; ?>" id="field" required=""/>
+                        <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_tele_name; ?>" min="1" data-name="Field" value="<?php echo $tele_price; ?>" id="field"/>
                        </div>
                         <img src="../images/minus_1.svg" class="image-14" onclick="service_remove(this)">
                       </div>
@@ -398,7 +395,7 @@ WHERE ms.status='Y' AND ls.doctor_id=11 AND (am.home = 'Y' OR am.tele = 'Y')";
     var visit_type_array = <?php echo json_encode($cam_array); ?>;
   </script>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
-  <script src="../js/crea_un_profilo.js?v=9" type="text/javascript"></script>
+  <script src="../js/crea_un_profilo.js?v=10" type="text/javascript"></script>
   <script src="../js/validations.js?v=9" type="text/javascript"></script>
 
   <style>
