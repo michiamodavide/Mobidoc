@@ -112,7 +112,7 @@ if (isset($_GET['pid'])) {
 
   <div class="update_form_main_container">
    <div class="update_form_block w-form">
-    <form id="email-form" name="email-form" class="update_form" action="patient_profile_c.php" method="post"
+    <form id="email-form" name="email-form" action="javascript:;" class="update_form patient_formm" method="post"
           enctype="multipart/form-data" style="display: inherit;">
      <input type="hidden" name="contact_id" value="<?php echo $contact_id?>">
      <?php if ((isset($_GET['pid'])) && (!empty($_GET['pid']))){ ?>
@@ -167,7 +167,7 @@ if (isset($_GET['pid'])) {
      </style>
      <div style="text-align: center">
       <p class="contact-error-msg">Paziente già registrato con questo codice fiscale.</p>
-      <input type="submit" name="submit" value="Conferma Dati" id="submit"
+      <input type="submit" name="submit" value="Verifica e Aggiungi" id="submit"
              class="button gradient submit w-button">
      </div>
     </form>
@@ -236,49 +236,73 @@ if (isset($_GET['pid'])) {
  </div>
  <div data-w-id="d1769b47-b536-ea11-3350-e5df432dbf52" class="closer"></div>
 </div>
+
 <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="../js/webflow.js" type="text/javascript"></script>
-<!-- [if lte IE 9]>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
-<div id="fb-root"></div>
-<script async="" defer="" crossorigin="anonymous"
-        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
 
 <script type="text/javascript">
-  var contact_param = '<?php echo $contact_id_param?>';
 
-  function checkFisical(fis_val){
-    $.ajax({
-      url: "check_fiscal.php",
-      type: "post",
-      data: {data:fis_val},
-      dataType: "json",
-      success: function (response) {
-        // console.log(response);
-        if (response == 'true'){
-          $("input#fiscal_code").css("background-color", "#d3fbff");
-          return true;
-        } else {
-          $(".vselect_doctor").attr("style", "display: flex;opacity: 1;");
-          $("input#fiscal_code").css("background-color", "#ffc5c5");
-          // $("#submit").css("display", "none");
-          // $(".contact-error-msg").css("display", "block");
-          return false;
-        }
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
-      }
-    });
-  }
+  var patient_id_param = '<?php echo $patient_id_param?>';
 
   $('#submit').click(function(){
-    var fis_val = $("#fiscal_code").val();
-    if (fis_val.length > 1) {
-      checkFisical(fis_val);
-    }
 
+    if (patient_id_param){
+      var data = $(".patient_formm").serialize();
+      $.ajax({
+        url: "patient_profile_c.php",
+        type: "post",
+        data: data,
+        success: function (response) {
+          console.log(response);
+          if (response == 'done'){
+            window.location.href = "/paziente/account.php";
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+      });
+    } else {
+
+      var fis_val = $("#fiscal_code").val();
+      if (fis_val.length > 1) {
+        $.ajax({
+          url: "check_fiscal.php",
+          type: "post",
+          data: {data:fis_val},
+          dataType: "json",
+          success: function (response) {
+            // console.log(response);
+            if (response == 'true'){
+              $("input#fiscal_code").css("background-color", "#d3fbff");
+              var data = $(".patient_formm").serialize();
+              $.ajax({
+                url: "patient_profile_c.php",
+                type: "post",
+                data: data,
+                success: function (response) {
+                  console.log(response);
+                  if (response == 'done'){
+                    window.location.href = "/paziente/account.php";
+                  }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                  console.log(textStatus, errorThrown);
+                }
+              });
+            } else {
+              $(".vselect_doctor").attr("style", "display: flex;opacity: 1;");
+              $("input#fiscal_code").css("background-color", "#ffc5c5");
+              return false;
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+          }
+        });
+      }
+
+    }
   });
 
   $(".odd.w-button").on("click", function () {
@@ -286,6 +310,12 @@ if (isset($_GET['pid'])) {
     $("input#fiscal_code").css("background-color", "#d3fbff");
   });
 </script>
+<script src="../js/webflow.js" type="text/javascript"></script>
+<!-- [if lte IE 9]>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+<div id="fb-root"></div>
+<script async="" defer="" crossorigin="anonymous"
+        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
 <?php include ("../googel_map.php")?>
 <style>
  .search_help_open {

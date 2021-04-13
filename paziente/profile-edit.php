@@ -70,7 +70,7 @@
     <div class="masthead_container up_form" style="margin-bottom:50px;">
       <h1 class="heading-10">Compila il modulo per aggiornare i tuoi dati personali</h1>
       <div class="cover_section_buttons_container" style="margin-top:30px;">
-        <a href="logout.php" class="button stroked cover_btns logout w-button">Logout</a>
+        <a href="logout.php" class="button stroked cover_btns logout w-button">Esci</a>
       </div>
     </div>
   </div>

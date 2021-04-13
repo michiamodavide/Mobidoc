@@ -1,6 +1,5 @@
 <?php
 include '../connect.php';
-if(isset($_POST['submit'])){
 
   $fiscal = mysqli_real_escape_string($conn, $_POST['fiscal_code']);
 
@@ -23,9 +22,15 @@ if(isset($_POST['submit'])){
   }
   $address = $_POST['address'];
   $gmap_addr = mysqli_real_escape_string($conn, $_POST['gmap_addr']);
-  $lat_lang = explode(',', mysqli_real_escape_string($conn, $_POST['lat_log']));
-  $latitude = $lat_lang[0];
-  $long = $lat_lang[1];
+
+  $latitude = '';
+   $long = '';
+  if ($_POST['lat_log']){
+    $lat_lang = explode(',', mysqli_real_escape_string($conn, $_POST['lat_log']));
+    $latitude = $lat_lang[0];
+    $long = $lat_lang[1];
+  }
+
 
   date_default_timezone_set("Europe/Rome");
   $dor = date("Y/m/d H:i:s");
@@ -43,7 +48,8 @@ if(isset($_POST['submit'])){
 
   $result = mysqli_query($conn, $sql);
   if ($result == 1) {
-    header("location: /paziente/account.php");
+    echo 'done';
+//    header("location: /paziente/account.php");
   } else {
     echo 'There is some error in Database Connection';
   }
@@ -51,5 +57,4 @@ if(isset($_POST['submit'])){
 
   mysqli_close($conn);
 
-}
 ?>
