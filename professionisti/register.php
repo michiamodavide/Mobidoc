@@ -203,7 +203,6 @@ if(isset($_GET['admin'])){
 
                     echo $sql_new1;
                     exit();
-
                     $result_new1 = mysqli_query($conn, $sql_new1);
 
                     if ($result_new1 == 1){
@@ -245,7 +244,7 @@ if(isset($_GET['admin'])){
 
                   }
                   else {
-                    $error_text = 'Si prega di contattare l\'amministratore.';
+                    $error_text = 'Indirizzo email già registrato.';
                     $show_error = 1;
 
                   }
