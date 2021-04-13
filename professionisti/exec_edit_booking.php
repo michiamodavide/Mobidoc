@@ -24,7 +24,8 @@ if(isset($_POST['submit']))
   $opointment_time = $booking_res['apoint_time'];
 
   /*update booking data*/
-  $sql = "UPDATE `bookings` SET `refertatore_id` = '$refertatore_id', `apoint_time` = '$appoint_time' WHERE `booking_id` = $booking_id;";
+  $appt_time = date("Y/m/d", strtotime($appoint_time));
+  $sql = "UPDATE `bookings` SET `refertatore_id` = '$refertatore_id', `apoint_time` = '$appt_time' WHERE `booking_id` = $booking_id;";
   $result = mysqli_query($conn, $sql);
 
   if($result==1) {
@@ -34,7 +35,12 @@ if(isset($_POST['submit']))
     $ref_v_result22 = mysqli_query($conn, $ref_v_sql22);
     $ref_v_res22 = mysqli_fetch_array($ref_v_result22);
 
-    $patient_email = $ref_v_res22['email'];
+    /*get contact date*/
+    $ref_v_sql2210 = "select * from contact_profile where id ='" . $ref_v_res22['contact_id'] . "'";
+    $ref_v_result22100 = mysqli_query($conn, $ref_v_sql2210);
+    $ref_v_res22100 = mysqli_fetch_array($ref_v_result22100);
+    $patient_email = $ref_v_res22100['email'];
+
     $patient_name = $ref_v_res22['first_name'].' '.$ref_v_res22['last_name'];
     $fiscal = $ref_v_res22['fiscale'];
     $date_of_birth = date("d-m-Y", strtotime($ref_v_res22['dob']));

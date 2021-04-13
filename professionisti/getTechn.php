@@ -9,21 +9,19 @@ if($conn === false){
     die("ERROR database");
 }        
 
-$sql = "select * from doctor_visit where visit_name ='".$q."'";
+$sql = "SELECT doctor_id from listini where article_mobidoc_id ='".$q."'";
 $result = mysqli_query($conn, $sql);
 
-
 while($rows = mysqli_fetch_array($result)){
-    $doctor_email = $rows['doctor_email'];
-    $sql2 = "select * from doctor_profile where email ='".$doctor_email."'";
-    $result2 = mysqli_query($conn, $sql2);
-    $rows2 = mysqli_fetch_array($result2);
+  $doctor_id = $rows['doctor_id'];
+  $sql2 = "select * from doctor_profile where doctor_id ='".$doctor_id."' AND puo_refertare ='Y' ";
+  $result2 = mysqli_query($conn, $sql2);
+  $rows2 = mysqli_fetch_array($result2);
     $profile_image = "/professionisti/".$rows2['photo'];
     $name = $rows2['fname']." ".$rows2['lname'];
     $titile = ucwords($rows2['title']);
     $link = "/il-team/professionista.php?".$rows2['doctor_id'];
     $id = $rows2['doctor_id'];
-        if ($rows2['puo_refertare'] == 'Y') {
          if ($rows2['active'] == 'Y' && $rows2['email'] !== $_SESSION['doctor_email']){
      ?>
 
@@ -44,7 +42,7 @@ while($rows = mysqli_fetch_array($result)){
      </div>
 
       <?php
-    }}
+    }
 } mysqli_close($conn);
 
 ?>

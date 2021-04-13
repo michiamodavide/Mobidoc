@@ -136,8 +136,10 @@ $rows3 = mysqli_fetch_array($result3);
      include '../connect.php';
 
      if ($rows3['puo_refertare'] == 'Y'){
+       $cur_doctor = 0;
        $sql = "select * from bookings where refertatore_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
      }else{
+       $cur_doctor = 1;
       $sql = "select * from bookings where doctor_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
      }
 
@@ -198,6 +200,16 @@ $rows3 = mysqli_fetch_array($result3);
          $doctor_sql_result = mysqli_query($conn, $doctor_sql);
          $doctor_rows = mysqli_fetch_array($doctor_sql_result);
          $current_doc_name = $doctor_rows['fname'].' '.$doctor_rows['lname'];
+
+         //reporter data
+         $refreter_name = '';
+         if ($refertatore_id){
+           $ref_sql = "select * from doctor_profile where doctor_id ='" . $refertatore_id . "'";
+           $ref_sql_result = mysqli_query($conn, $ref_sql);
+           $ref_rows = mysqli_fetch_array($ref_sql_result);
+           $current_ref_name = $ref_rows['fname'].' '.$ref_rows['lname'];
+         }
+
          ?>
 
         <div class="appointment">
@@ -231,7 +243,20 @@ $rows3 = mysqli_fetch_array($result3);
 
           <div class="paziente_data_block">
            <div class="text-block-63">Professionista</div>
-           <div class="text-block-62"><?php echo $current_doc_name; ?></div>
+
+           <?php
+           if ($cur_doctor == 1) {
+             ?>
+
+            <div class="text-block-62"><?php echo $current_ref_name; ?></div>
+             <?php
+           }else {
+
+             ?>
+            <div class="text-block-62"><?php echo $current_doc_name; ?></div>
+             <?php
+           }
+             ?>
           </div>
 
           <div class="paziente_data_block">
@@ -248,7 +273,7 @@ $rows3 = mysqli_fetch_array($result3);
           <?php  if ($rows3['puo_refertare'] != 'Y'){?>
            <?php if ($rows['doctor_booking_status'] == 0) { ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
-            <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
+            <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" article-id="<?php echo $article_id; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
             <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>
            <?php } ?>
         <?php if ($rows['admin_book'] == 1){
@@ -282,12 +307,12 @@ $rows3 = mysqli_fetch_array($result3);
          </div>
          <div id="w-node-a7b9a3835c91-41f51898" class="div-block-60">
           <div class="paziente_data_block">
-           <div class="text-block-63">Email</div>
-           <div class="text-block-64"><?php echo $patient_rows['email']; ?></div>
+           <div class="text-block-63">Contatto Email</div>
+           <div class="text-block-64"><?php echo $contact_data_row['email']; ?></div>
           </div>
           <div class="paziente_data_block">
-           <div class="text-block-63">Telefono</div>
-           <div class="text-block-64"><?php echo $patient_rows['phone']; ?></div>
+           <div class="text-block-63">Contatto Telefono</div>
+           <div class="text-block-64"><?php echo $contact_data_row['phone']; ?></div>
           </div>
           <?php
           /*
@@ -405,8 +430,8 @@ $rows3 = mysqli_fetch_array($result3);
 
   $(".exam-share-btn").on("click", function (e) {
     e.preventDefault();
-    var get_visit_name = $(this).attr("visit-name");
-    $("#vis_name").val(get_visit_name);
+    var get_article_id = $(this).attr("article-id");
+    $("#vis_name").val($(this).attr("visit-name"));
     $("#book_id").val($(this).attr("data-id"));
     $("#doct_name").val($(this).attr("curr-doc-nam"));
     var xmlhttp2 = new XMLHttpRequest();
@@ -415,7 +440,7 @@ $rows3 = mysqli_fetch_array($result3);
         document.getElementById("load_doctors").innerHTML = this.responseText;
       }
     };
-    xmlhttp2.open("GET", "getTechn.php?q=" + get_visit_name, true);
+    xmlhttp2.open("GET", "getTechn.php?q=" + get_article_id, true);
     xmlhttp2.send();
 
     $(".select_doctor").attr("style", "display: flex;opacity: 1;");
