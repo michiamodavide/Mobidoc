@@ -182,17 +182,13 @@ if(isset($_GET['admin'])){
                     $market_mod = date("Y/m/d H:i:s");
                   }
 
-
+                  $dob = '1970-01-01';
                   if($admin == 0){
-                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$market_mod."', '".$description."')";
+                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description, dob) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$market_mod."', '".$description."', '".$dob."')";
                   } else {
                     $market_checkbox = 'Y';
-                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$dor."', '".$description."')";
+                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description, dob) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$dor."', '".$description."','".$dob."')";
                   }
-
-
-                  print_r($sql);
-                  exit();
 
                   $result = mysqli_query($conn, $sql); // or die(mysqli_error($conn));
 
