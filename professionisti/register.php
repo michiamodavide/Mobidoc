@@ -156,12 +156,6 @@ if(isset($_GET['admin'])){
                   $fname = $_POST['fname'];
                   $lname = $_POST['cognome'];
                   $email = $_POST['email'];
-                  echo $fname;
-                  echo '<br>';
-                  echo $lname;
-                  echo '<br>';
-                  echo $email;
-                  echo '<br>';
                   $description = mysqli_real_escape_string($conn, $_POST['description']);
                   $checkbox = mysqli_real_escape_string($conn, $_POST['checkbox']);
                   $cv_status = 'Y';
@@ -195,9 +189,6 @@ if(isset($_GET['admin'])){
                     $market_checkbox = 'Y';
                     $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description, dob) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$dor."', '".$description."','".$dob."')";
                   }
-
-                  echo $sql;
-                  exit();
 
                   $result = mysqli_query($conn, $sql); // or die(mysqli_error($conn));
 
