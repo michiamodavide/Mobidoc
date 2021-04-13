@@ -5,3 +5,4 @@ paziente/photo
 .idea/*
 .DS_Store
 *.DS_Store
+connect.php
