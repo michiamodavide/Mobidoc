@@ -10,7 +10,6 @@ if(isset($_GET['admin'])){
   $admin = 0;
 }
 
-echo '<br>';
 include '../connect.php';
 // Return name of current default database
 if ($result = $conn -> query("SELECT DATABASE()")) {
