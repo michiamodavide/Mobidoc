@@ -177,12 +177,9 @@ if(isset($_POST['submit'])){
 
           $last_booking_id = mysqli_insert_id($conn);
           $sql_new135 = "insert into booked_service (booking_id, article_id, price) values('".$last_booking_id."', '".$article_id."', '".$price."')";
-          echo $sql_new135;
-          exit();
-
           $result_new135 = mysqli_query($conn, $sql_new135);
 
-          if ($result_new135){
+          if ($result_new135 ==1){
             //email to doctor
             $to2 = $doctor_email; //doctor email
             $subject2 = 'Mobidoc Prestazione Prenotata';
