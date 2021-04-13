@@ -171,15 +171,15 @@ if(isset($_POST['submit'])){
         }
 
         $sql_booking = "insert into bookings (patient_id, doctor_id, refertatore_id, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book, gmap_coordinates, latitude, longitude) values('".$patient_id."', '".$doctor_id."', '".$referr_id."', '".$price."', '".$admin_note."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."','".$gmap_address."', '".$latitude."', '".$longtitude."')";
-
-        echo $sql_booking;
-        exit();
         $result_booking = mysqli_query($conn, $sql_booking);
 
         if ($result_booking == 1) {
 
           $last_booking_id = mysqli_insert_id($conn);
           $sql_new135 = "insert into booked_service (booking_id, article_id, price) values('".$last_booking_id."', '".$article_id."', '".$price."')";
+          echo $sql_new135;
+          exit();
+
           $result_new135 = mysqli_query($conn, $sql_new135);
 
           if ($result_new135){
