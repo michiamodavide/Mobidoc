@@ -208,9 +208,6 @@ JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
 WHERE ms.status='Y' AND ls.doctor_id='".$doctor_id."' AND (am.home = 'Y' OR am.tele = 'Y')";
 
-                      echo $sql;
-                      exit();
-
                       $result = mysqli_query($conn, $sql);
 					  $i=1;
                       while($rows = mysqli_fetch_array($result)){
