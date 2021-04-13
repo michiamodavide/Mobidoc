@@ -55,11 +55,6 @@ if(isset($_POST['submit'])){
       $longtitude = $lat_lang1[1];
     }
 
-    echo $latitude;
-    echo '<br>';
-  echo $longtitude;
-  echo '<br>';
-
     $profile_img = '../images/Group-556.jpg';
     $cap = 1;
 
@@ -176,10 +171,6 @@ if(isset($_POST['submit'])){
         }
 
         $sql_booking = "insert into bookings (patient_id, doctor_id, refertatore_id, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book, gmap_coordinates, latitude, longitude) values('".$patient_id."', '".$doctor_id."', '".$referr_id."', '".$price."', '".$admin_note."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."','".$gmap_address."', '".$latitude."', '".$longtitude."')";
-
-        echo $sql_booking;
-        exit();
-
         $result_booking = mysqli_query($conn, $sql_booking);
 
         if ($result_booking == 1) {
