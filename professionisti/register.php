@@ -1,22 +1,11 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 if(isset($_GET['admin'])){
   $admin = 1;
 } else {
   $admin = 0;
 }
 
-include '../connect.php';
-// Return name of current default database
-if ($result = $conn -> query("SELECT DATABASE()")) {
-  $row = $result -> fetch_row();
-  echo "Default database is " . $row[0];
-  $result -> close();
-}
 ?>
 <!DOCTYPE html>
 <html data-wf-page="5daa262de3e3f0ae581af321" data-wf-site="5d8cfd454ebd737ac1a48727">
