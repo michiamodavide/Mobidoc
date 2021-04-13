@@ -52,12 +52,15 @@
             include ("../recapctha.php");
                   if(isset($_POST['submit']) && $_POST['Email-register'] == $_POST['confirm-email-register'] && $_POST['pwrd'] == $_POST['cnfirm_pwrd'])
                   {
+
                     include '../connect.php';
 
                     $_SESSION['paziente_email']=$_POST['Email-register'];
                     $email = mysqli_real_escape_string($conn, $_POST['Email-register']);
 
                     $sql_1 = "select * from contact_profile";
+                    echo $sql_1;
+                    echo '<br>';
                     $result_1 = mysqli_query($conn, $sql_1);
 
                     while($rows_1 = mysqli_fetch_array($result_1))
@@ -91,6 +94,8 @@
 
                           //$sql = "insert into paziente_profile (first_name, last_name, password, email, photo, dor) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$profile_img."', '".$dor."')";
                           $sql = "insert into contact_profile (name, surname, password, email, phone, privacy_consent, lastDatePrivacyConsent) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$phone."', '".$privacy_consent."', '".$privacy_consent_date."')";
+                         echo $sql;
+                         exit();
                           $result = mysqli_query($conn, $sql);
                           mysqli_close($conn);
                           if($result==1)
@@ -102,12 +107,13 @@
                       }
                     }
 	                 }
-
 	                 if ($show_error == 1){
 	                 ?>
 
          <div class="error">
-          <div><?=$error_text?></div>
+          <div><?=$error_text;
+            exit();
+            ?></div>
          </div>
          <?php }?>
 
