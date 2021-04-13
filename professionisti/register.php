@@ -136,6 +136,7 @@ if(isset($_GET['admin'])){
                   if(isset($_POST['submit']) && $_POST['email'] == $_POST['confirm-email'])
                   {
 
+                    include '../connect.php';
                     $recaptcha = $_POST['g-recaptcha-response'];
                     $res = reCaptcha($recaptcha);
 
@@ -152,10 +153,15 @@ if(isset($_GET['admin'])){
                     }
                   }
 
-                  include '../connect.php';
-                  $fname = mysqli_real_escape_string($conn, $_POST['fname']);
-                  $lname = mysqli_real_escape_string($conn, $_POST['cognome']);
-                  $email = mysqli_real_escape_string($conn, $_POST['email']);
+                  $fname = $_POST['fname'];
+                  $lname = $_POST['cognome'];
+                  $email = $_POST['email'];
+                  echo $fname;
+                  echo '<br>';
+                  echo $lname;
+                  echo '<br>';
+                  echo $email;
+                  echo '<br>';
                   $description = mysqli_real_escape_string($conn, $_POST['description']);
                   $checkbox = mysqli_real_escape_string($conn, $_POST['checkbox']);
                   $cv_status = 'Y';
