@@ -46,8 +46,8 @@ if(isset($_POST['submit'])){
     $admin_note = mysqli_real_escape_string($conn, $_POST['admin_note']);
     $check = mysqli_real_escape_string($conn, $_POST['privacy_check']);
 
-    $latitude = '0.000000';
-    $longtitude = '0.000000';
+    $latitude = "0.000000";
+    $longtitude = "0.000000";
     $lat_lang = trim($_POST['lat_log']);
     if ($lat_lang){
       $lat_lang1 = explode(",",$lat_lang);
