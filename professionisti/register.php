@@ -190,6 +190,10 @@ if(isset($_GET['admin'])){
                     $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$dor."', '".$description."')";
                   }
 
+
+                  print_r($sql);
+                  exit();
+
                   $result = mysqli_query($conn, $sql); // or die(mysqli_error($conn));
 
                   if($result==1)
