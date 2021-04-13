@@ -44,7 +44,6 @@
 	
 		$result = mysqli_query($conn, $sql);
 		if($result==1){
-			echo "Record inserted1";
 			
 			$to = 'info@mobidoc.it';
             $subject = 'Nuova Candidatura';

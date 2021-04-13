@@ -898,7 +898,6 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
       data: {paziente_id:paziente_id,contact_id:contact_id,search_name:2},
       dataType: "json",
       success: function (response) {
-        console.log(response);
         if (response == 'true'){
           document.getElementById("fiscal_code").readOnly = false;
           $("#email, #first_name, #dob, #fiscal_code, #address_search, .lat_log, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
@@ -927,8 +926,7 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
     });
   });
 
-
-</script> 
+</script>
 <script>
   /* script */
   function initialize() {
