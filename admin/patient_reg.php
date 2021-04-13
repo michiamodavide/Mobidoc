@@ -54,6 +54,10 @@ if(isset($_POST['submit'])){
       $longtitude = $lat_lang[1];
     }
 
+    echo $latitude;
+    echo '<br>';
+  echo $longtitude;
+  echo '<br>';
 
     $profile_img = '../images/Group-556.jpg';
     $cap = 1;
