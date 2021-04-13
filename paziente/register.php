@@ -58,58 +58,43 @@
                     $_SESSION['paziente_email']=$_POST['Email-register'];
                     $email = mysqli_real_escape_string($conn, $_POST['Email-register']);
 
-                    $sql_1 = "select * from contact_profile";
-                    echo $sql_1;
-                    echo '<br>';
-                    $result_1 = mysqli_query($conn, $sql_1);
-
-                    while($rows_1 = mysqli_fetch_array($result_1))
-                    {
-                      if($email==$rows_1['email'])
-                      {
+                    $sql_1 = "select email from contact_profile where email ='".$email."'";
+                    $sql1_result = mysqli_query($conn, $sql_1);
+                    if (mysqli_num_rows($sql1_result) > 0) {
+                      $show_error = 1;
+                      $error_text = 'Email già registrata.';
+                    }else{
+                      $recaptcha = $_POST['g-recaptcha-response'];
+                      $res = reCaptcha($recaptcha);
+                      if(!$res['success']){
                         $show_error = 1;
-                       $error_text = 'Email già registrata.';
-                       echo $error_text;
-                       exit();
+                        $error_text = 'Si prega di compilare recaptcha.';
 
                       }else{
+                        $fname = mysqli_real_escape_string($conn, $_POST['First_Name']);
+                        $lname = mysqli_real_escape_string($conn, $_POST['Last_Name']);
+                        $pwrds = mysqli_real_escape_string($conn, $_POST['pwrd']);
+                        $phone = mysqli_real_escape_string($conn, $_POST['tele']);
+                        //$profile_img = '../images/Group-556.jpg';
+                        $pwrd = password_hash($pwrds, PASSWORD_DEFAULT);
 
-                        $recaptcha = $_POST['g-recaptcha-response'];
-                        $res = reCaptcha($recaptcha);
-                        if(!$res['success']){
-                          $show_error = 1;
-                          $error_text = 'Si prega di compilare recaptcha.';
-
-                          echo $error_text;
-                          exit();
-                        }else{
-                          $fname = mysqli_real_escape_string($conn, $_POST['First_Name']);
-                          $lname = mysqli_real_escape_string($conn, $_POST['Last_Name']);
-                          $pwrds = mysqli_real_escape_string($conn, $_POST['pwrd']);
-                          $phone = mysqli_real_escape_string($conn, $_POST['tele']);
-                          //$profile_img = '../images/Group-556.jpg';
-                          $pwrd = password_hash($pwrds, PASSWORD_DEFAULT);
-
-                          $privacy_consent = 'N';
-                          if ($_POST['checkbox'] == 'on'){
-                            $privacy_consent = 'Y';
-                          }
-
-                          date_default_timezone_set("Europe/Rome");
-                          $privacy_consent_date = date("Y/m/d");
-
-                          //$sql = "insert into paziente_profile (first_name, last_name, password, email, photo, dor) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$profile_img."', '".$dor."')";
-                          $sql = "insert into contact_profile (name, surname, password, email, phone, privacy_consent, lastDatePrivacyConsent) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$phone."', '".$privacy_consent."', '".$privacy_consent_date."')";
-                         echo $sql;
-                         exit();
-                          $result = mysqli_query($conn, $sql);
-                          mysqli_close($conn);
-                          if($result==1)
-                          {
-                            echo "<script>window.location = 'account.php'</script>";
-                          }
-
+                        $privacy_consent = 'N';
+                        if ($_POST['checkbox'] == 'on'){
+                          $privacy_consent = 'Y';
                         }
+
+                        date_default_timezone_set("Europe/Rome");
+                        $privacy_consent_date = date("Y/m/d");
+
+                        //$sql = "insert into paziente_profile (first_name, last_name, password, email, photo, dor) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$profile_img."', '".$dor."')";
+                        $sql = "insert into contact_profile (name, surname, password, email, phone, privacy_consent, lastDatePrivacyConsent) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$phone."', '".$privacy_consent."', '".$privacy_consent_date."')";
+                        $result = mysqli_query($conn, $sql);
+                        mysqli_close($conn);
+                        if($result==1)
+                        {
+                          echo "<script>window.location = 'account.php'</script>";
+                        }
+
                       }
                     }
 	                 }
@@ -117,9 +102,7 @@
 	                 ?>
 
          <div class="error">
-          <div><?=$error_text;
-            exit();
-            ?></div>
+          <div><?=$error_text; ?></div>
          </div>
          <?php }?>
 
