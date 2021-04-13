@@ -46,8 +46,8 @@ if(isset($_POST['submit'])){
     $admin_note = mysqli_real_escape_string($conn, $_POST['admin_note']);
     $check = mysqli_real_escape_string($conn, $_POST['privacy_check']);
 
-    $latitude = '';
-    $longtitude = '';
+    $latitude = '0.000000';
+    $longtitude = '0.000000';
     if ($_POST['lat_log']){
       $lat_lang = explode(",",$_POST['lat_log']);
       $latitude = $lat_lang[0];
@@ -170,8 +170,8 @@ if(isset($_POST['submit'])){
           $referr_id = $refertatore_id;
         }
 
-        $reportTo = 'C';
-        $sql_booking = "insert into bookings (patient_id, doctor_id, refertatore_id, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book,reportTo, gmap_coordinates, latitude, longitude) values('".$patient_id."', '".$doctor_id."', '".$referr_id."', '".$price."', '".$admin_note."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."','".$reportTo."', '".$gmap_address."', '".$latitude."', '".$longtitude."')";
+        $sql_booking = "insert into bookings (patient_id, doctor_id, refertatore_id, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book, gmap_coordinates, latitude, longitude) values('".$patient_id."', '".$doctor_id."', '".$referr_id."', '".$price."', '".$admin_note."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."','".$gmap_address."', '".$latitude."', '".$longtitude."')";
+
         $result_booking = mysqli_query($conn, $sql_booking);
 
         if ($result_booking == 1) {
