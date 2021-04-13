@@ -203,7 +203,7 @@ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
 
                       $sql = "SELECT DISTINCT am.id AS article_id, descrizione, ls.visit_home_price, ls.visit_tele_price
 FROM listini ls
-JOIN articlesmobidoc as am ON ls.article_mobidoc_id = am.id
+JOIN articlesMobidoc as am ON ls.article_mobidoc_id = am.id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
 WHERE ms.status='Y' AND ls.doctor_id='".$doctor_id."' AND (am.home = 'Y' OR am.tele = 'Y')";
