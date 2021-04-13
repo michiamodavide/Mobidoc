@@ -298,10 +298,14 @@ include '../connect.php';
     $fname = $sql_get_tmp_data['first_name'];
     $lname = $sql_get_tmp_data['last_name'];
     $admin_note = $sql_get_tmp_data['admin_note'];
-    $dobb = date("m-d-Y H:i", strtotime($sql_get_tmp_data['dob']));;
+    $dobb = date("m-d-Y H:i", strtotime($sql_get_tmp_data['dob']));
 
     $address = $sql_get_tmp_data['address'];
-    $visit_name1 = $sql_get_tmp_data['visit_name'];
+    $article_idd = $sql_get_tmp_data['visit_name'];
+    $get_article_desc = "SELECT descrizione FROM articlesmobidoc WHERE id = '".$article_idd."'";
+    $get_article_result = mysqli_query($conn, $get_article_desc);
+    $get_article_row = mysqli_fetch_array($get_article_result);
+    $visit_name1 = $get_article_row['descrizione'];
 
     $apoint_time = '';
     if ($sql_get_tmp_data['appoint_time']){
@@ -426,18 +430,22 @@ include '../connect.php';
                           <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
                             <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" onchange="getVisitDoc()">
                               <option value="">Seleziona Prestazione</option>
-                             <option selected value="<?PHP echo $visit_name1;?>"><?PHP echo $visit_name1;?></option>
+                             <option selected value="<?PHP echo $article_idd;?>"><?PHP echo $visit_name1;?></option>
                               <?php
                   include '../connect.php';
-                 /* $visit_sql = "select * from doctor_visit order by visit_name";*/
-                  $visit_sql = "select DISTINCT visit_name from doctor_visit
-  INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where doctor_profile.puo_refertare='N' AND doctor_profile.active = 'Y'";
+                              $visit_sql = "SELECT DISTINCT am.id AS article_id, ls.doctor_id AS ls_doctor_id, am.descrizione  
+FROM listini ls
+JOIN doctor_profile as dp ON dp.doctor_id = ls.doctor_id
+JOIN articlesMobidoc as am ON ls.article_mobidoc_id = am.id
+JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
+WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
                   $visit_result = mysqli_query($conn, $visit_sql);
                   while($visit_rows = mysqli_fetch_array($visit_result)){
-                    $visit_types = $visit_rows['visit_name'];
+                    $visit_types = $visit_rows['descrizione'];
+                    $article_id = $visit_rows['article_id'];
                     ?>
-                              <option value="<?PHP echo $visit_types;?>"><?PHP echo $visit_types;?></option>
+                              <option value="<?PHP echo $article_id;?>"><?PHP echo $visit_types;?></option>
                               <?php } mysqli_close($conn);?>
                             </select>
                             <script>
@@ -520,15 +528,15 @@ include '../connect.php';
                       </div>
                     </div>
                   </div>
-                  <input type="text" name="privacy_check" id="privacy_check" checked value="1" style="display:none;">
+                  <input type="text" name="privacy_check" id="privacy_check" checked value="Y" style="display:none;">
                   <script>
               jQuery(document).ready(function() {
                 jQuery('#checkbox').change(function() {
                   if ($(this).prop('checked')) {
-                    $('#privacy_check').val('1');
+                    $('#privacy_check').val('Y');
                   }
                   else {
-                    $('#privacy_check').val('0');
+                    $('#privacy_check').val('N');
                   }
                 });
               });
@@ -537,7 +545,7 @@ include '../connect.php';
                     <div class="form_section_heading">Consenso privacy</div>
                     <label class="w-checkbox checkbox-field-2">
                     <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked"></div>
-                    <input type="checkbox" id="checkbox" name="checkbox" checked value="1" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1">
+                    <input type="checkbox" id="checkbox" name="checkbox" checked value="Y" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1">
                     <span class="checkbox-label-2 w-form-label">Esprimo il consenso in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di marketing</span>
                     </label>
                   </div>
@@ -696,6 +704,8 @@ include '../connect.php';
   opacity: 0.6;
  }
 </style>
+<script src="/paziente/date_pic.js?v=2"></script>
+<script src="/paziente/dist/js/i18n/datepicker.en.js?v=2"></script>
 <script>
 
   var icp_param = '<?php echo $icp_param?>';
@@ -834,12 +844,12 @@ include '../connect.php';
         checkFisical(fis_val);
       }else {
         $("#email").val('');
-        $("#first_name").val('');
-        $("#last_name").val('');
         $("#dob").val('');
         $("#caller_first_name").val('');
         $("#caller_last_name").val('');
         $("#tele").val('');
+        $("#email, #dob, #address_search, .lat_log, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
+
       }
   });
 
@@ -853,7 +863,7 @@ include '../connect.php';
   $('#last_name').keyup(function(eev) {
     eev.preventDefault();
     var lname_val = $(this).val();
-    if (lname_val.length > 1) {
+    if (lname_val.length >= 1) {
       $.ajax({
         url: "get_patient.php",
         type: "post",
@@ -863,6 +873,9 @@ include '../connect.php';
           $(".patient_names ol strong").remove();
           if (response == 'true'){
             $(".patient_names ol strong").remove();
+            $("#email, #first_name, #dob, #fiscal_code, #address_search, .lat_log, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
+            document.getElementById("fiscal_code").readOnly = false;
+            $('.patiend_idd').remove();
           } else {
             $.each(response, function(key, value ) {
               $(".patient_names ol").append("<strong><li class='data-list' style='cursor: pointer;' contact-id='"+response[key].contact_id+"' data-id='"+response[key].paziente_id+"'>"+response[key].fname+' '+response[key].lname+"</li></strong>");
@@ -873,14 +886,6 @@ include '../connect.php';
           console.log(textStatus, errorThrown);
         }
       });
-    }else {
-      $("#email").val('');
-      $("#first_name").val('');
-      $("#last_name").val('');
-      $("#dob").val('');
-      $("#caller_first_name").val('');
-      $("#caller_last_name").val('');
-      $("#tele").val('');
     }
   });
 
@@ -895,21 +900,25 @@ include '../connect.php';
       success: function (response) {
         console.log(response);
         if (response == 'true'){
-          $("#email").val('');
-          $("#first_name").val('');
-          $("#last_name").val('');
-          $("#dob").val('');
-          $("#caller_first_name").val('');
-          $("#caller_last_name").val('');
-          $("#tele").val('');
+          document.getElementById("fiscal_code").readOnly = false;
+          $("#email, #first_name, #dob, #fiscal_code, #address_search, .lat_log, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
+          $('.patiend_idd').remove();
         } else {
+          $('.patiend_idd').remove();
+          $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="'+response[0].paziente_id+'">');
+
+          $(".patient_names ol strong").remove();
           $("#first_name").val(response[0].fname);
-          $("#last_name").val('');
-          $("#dob").val('');
+          $("#dob").val(response[0].dob);
+          $("#fiscal_code").val(response[0].fiscale);
+          document.getElementById("fiscal_code").readOnly = true;
+          $("#address_search").val(response[0].address);
+          $(".lat_log").val(response[0].lat_lang);
+          $(".gmap_adress").val(response[0].gmap_address);
           $("#email").val(response[1].contact_email);
-          $("#caller_first_name").val('');
-          $("#caller_last_name").val('');
-          $("#tele").val('');
+          $("#caller_first_name").val(response[1].contact_name);
+          $("#caller_last_name").val(response[1].contact_surname);
+          $("#tele").val(response[1].contact_phone);
         }
       },
       error: function(jqXHR, textStatus, errorThrown) {
@@ -994,8 +1003,7 @@ include '../connect.php';
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script> 
-<script src="/paziente/date_pic.js?v=2"></script>
-<script src="/paziente/dist/js/i18n/datepicker.en.js?v=2"></script>
+
 <script type="text/javascript">
 
  $(".appoint_time").keyup(function(){
