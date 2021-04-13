@@ -69,6 +69,9 @@
                       {
                         $show_error = 1;
                        $error_text = 'Email già registrata.';
+                       echo $error_text;
+                       exit();
+
                       }else{
 
                         $recaptcha = $_POST['g-recaptcha-response'];
@@ -76,6 +79,9 @@
                         if(!$res['success']){
                           $show_error = 1;
                           $error_text = 'Si prega di compilare recaptcha.';
+
+                          echo $error_text;
+                          exit();
                         }else{
                           $fname = mysqli_real_escape_string($conn, $_POST['First_Name']);
                           $lname = mysqli_real_escape_string($conn, $_POST['Last_Name']);
