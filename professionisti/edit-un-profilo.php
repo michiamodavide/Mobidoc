@@ -176,6 +176,9 @@ JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '".$erid."'=ams.specialtyMobidoc
 WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
 
+                       echo $sql2;
+                       exit();
+
                        $result2 = mysqli_query($conn, $sql2);
                        while ($rows2 = mysqli_fetch_array($result2)) {
                          $visit_type_name = trim($rows2['descrizione']);
