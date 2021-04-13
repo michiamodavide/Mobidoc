@@ -28,10 +28,9 @@ if (mysqli_num_rows($result) > 0) {
         'fname' => $row['first_name'],
         'lname' => $row['last_name'],
         'fiscale' => $row['fiscale'],
-        'dob' => $row['dob'],
+        'dob' => date("m-d-Y", strtotime($row['dob'])),
         'address' => $row['address'],
-        'latitude' => $row['latitude'],
-        'longitude' => $row['longitude'],
+        'lat_lang' => $row['latitude'].','.$row['longitude'],
         'gmap_address' => $row['gmap_address'],
         'contact_id' => $row['contact_id'],
       ]
