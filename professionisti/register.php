@@ -9,6 +9,15 @@ if(isset($_GET['admin'])){
 } else {
   $admin = 0;
 }
+
+echo '<br>';
+include '../connect.php';
+// Return name of current default database
+if ($result = $conn -> query("SELECT DATABASE()")) {
+  $row = $result -> fetch_row();
+  echo "Default database is " . $row[0];
+  $result -> close();
+}
 ?>
 <!DOCTYPE html>
 <html data-wf-page="5daa262de3e3f0ae581af321" data-wf-site="5d8cfd454ebd737ac1a48727">
@@ -141,7 +150,6 @@ if(isset($_GET['admin'])){
                   if(isset($_POST['submit']) && $_POST['email'] == $_POST['confirm-email'])
                   {
 
-                    include '../connect.php';
                     $recaptcha = $_POST['g-recaptcha-response'];
                     $res = reCaptcha($recaptcha);
 
@@ -158,11 +166,13 @@ if(isset($_GET['admin'])){
                     }
                   }
 
+                  include '../connect.php';
+
                   $fname = $_POST['fname'];
                   $lname = $_POST['cognome'];
                   $email = $_POST['email'];
-                  $description = mysqli_real_escape_string($conn, $_POST['description']);
-                  $checkbox = mysqli_real_escape_string($conn, $_POST['checkbox']);
+                  $description = $_POST['description'];
+                  $checkbox = $_POST['checkbox'];
                   $cv_status = 'Y';
                   if($admin == 1){
                     $cv = "cv/default_cv.pdf";
