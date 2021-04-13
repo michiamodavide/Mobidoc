@@ -48,10 +48,11 @@ if(isset($_POST['submit'])){
 
     $latitude = '0.000000';
     $longtitude = '0.000000';
-    if (isset($_POST['lat_log']) && !empty($_POST['lat_log'])){
-      $lat_lang = explode(",",$_POST['lat_log']);
-      $latitude = $lat_lang[0];
-      $longtitude = $lat_lang[1];
+    $lat_lang = $_POST['lat_log'];
+    if ($lat_lang){
+      $lat_lang1 = explode(",",$_POST['lat_log']);
+      $latitude = $lat_lang1[0];
+      $longtitude = $lat_lang1[1];
     }
 
     echo $latitude;
