@@ -166,7 +166,18 @@ $rows3 = mysqli_fetch_array($result3);
          if ($payment_status == 1) {
            $payment_status = "Authorized, Payment Captured";
          }
-         $visit_name = $rows['visit_name'];
+
+
+         $booked_service_query = "select article_id from booked_service where booking_id='" . $booking_id . "'";
+         $booked_service_result = mysqli_query($conn, $booked_service_query);
+         $booked_service_row = mysqli_fetch_array($booked_service_result);
+
+         $article_id = $booked_service_row['article_id'];
+         $get_visit_query = "select descrizione from articlesmobidoc where id='" . $article_id . "'";
+         $get_visit_result = mysqli_query($conn, $get_visit_query);
+         $get_visit_row = mysqli_fetch_array($get_visit_result);
+
+         $visit_name = $get_visit_row['descrizione'];
          $message = $rows['message'];
          $date_of_booking = $rows['date_of_booking'];
          $date_of_booking_string = "'" . $date_of_booking . "'";
@@ -175,6 +186,11 @@ $rows3 = mysqli_fetch_array($result3);
          $patient_sql = "select * from paziente_profile where paziente_id ='" . $patient_id . "'";
          $patient_sql_result = mysqli_query($conn, $patient_sql);
          $patient_rows = mysqli_fetch_array($patient_sql_result);
+
+         /*get contact data*/
+         $contact_data_query = "select * from contact_profile where id='" . $patient_rows['contact_id'] . "'";
+         $contact_data_result = mysqli_query($conn, $contact_data_query);
+         $contact_data_row = mysqli_fetch_array($contact_data_result);
 
          //Doctor Rows
          $doctor_id = $rows['doctor_id'];
@@ -220,14 +236,13 @@ $rows3 = mysqli_fetch_array($result3);
 
           <div class="paziente_data_block">
            <div class="text-block-63">Indirizzo</div>
-           <div class="text-block-64"><?php echo $patient_rows['via']; ?>
-            <br><?php echo $patient_rows['civico'] . ", " . $patient_rows['comune']; ?>
-            <br><?php echo $patient_rows['province'] . " " . $patient_rows['cap']; ?></div>
+           <div class="text-block-64"><?php echo $patient_rows['address']; ?>
+           </div>
           </div>
          </div>
 
          <div class="appoint_buttons_container book_btn_<?php echo $rows['booking_id']?>">
-          <a href="tel:<?php echo $patient_rows['phone']; ?>" class="button-5 w-button">Chiama Paziente</a>
+          <a href="tel:<?php echo $contact_data_row['phone']; ?>" class="button-5 w-button">Chiama contatto</a>
           <a href="#" class="button-5 faded diff w-button view_details_button">Vedi Dettagli Visita</a>
 
           <?php  if ($rows3['puo_refertare'] != 'Y'){?>
