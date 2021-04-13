@@ -3,9 +3,6 @@ include '../connect.php';
 
 if(isset($_POST['submit'])){
 
-  print_r($_POST);
-  echo '<br>';
-  echo '<br>';
  /*
   $form_data_array = array('fiscal_code','email','call_first_name','call_last_name','tele','first_name','last_name', 'dob','address','admin_note','vist_name','doc_id');
   $verified = 1;
