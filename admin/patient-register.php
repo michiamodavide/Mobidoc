@@ -848,7 +848,7 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
         $("#caller_first_name").val('');
         $("#caller_last_name").val('');
         $("#tele").val('');
-        $("#email, #dob, #address_search, .lat_log, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
+        $("#email, #dob, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
 
       }
   });
@@ -873,7 +873,7 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
           $(".patient_names ol strong").remove();
           if (response == 'true'){
             $(".patient_names ol strong").remove();
-            $("#email, #first_name, #dob, #fiscal_code, #address_search, .lat_log, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
+            $("#email, #first_name, #dob, #fiscal_code, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
             document.getElementById("fiscal_code").readOnly = false;
             $('.patiend_idd').remove();
           } else {
@@ -900,7 +900,7 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
       success: function (response) {
         if (response == 'true'){
           document.getElementById("fiscal_code").readOnly = false;
-          $("#email, #first_name, #dob, #fiscal_code, #address_search, .lat_log, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
+          $("#email, #first_name, #dob, #fiscal_code, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
           $('.patiend_idd').remove();
         } else {
           $('.patiend_idd').remove();
