@@ -36,8 +36,6 @@
 
 		$sql3 = "insert into password_reset (email,reset_code, reset_status) values('".$email."', '".$code."',0)";
 
-		echo $sql3;
-		exit();
 		$result3 = mysqli_query($conn, $sql3);
 
 		$reset_link = 'www.mobidoc.it/paziente/change-password.php?reset_code='.$code;
