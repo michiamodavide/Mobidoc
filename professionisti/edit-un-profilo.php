@@ -232,7 +232,7 @@ WHERE ms.status='Y' AND ls.doctor_id='".$doctor_id."' AND (am.home = 'Y' OR am.t
                         </div>
                        <div class="price_input" style="margin-left: 5px">
                         <div>€</div>
-                        <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_tele_name; ?>" min="1" data-name="Field" value="<?php echo $tele_price; ?>" id="field"/>
+                        <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_tele_name; ?>" data-name="Field" value="<?php echo $tele_price; ?>" id="field"/>
                        </div>
                         <img src="../images/minus_1.svg" class="image-14" onclick="service_remove(this)">
                       </div>
@@ -395,7 +395,7 @@ WHERE ms.status='Y' AND ls.doctor_id='".$doctor_id."' AND (am.home = 'Y' OR am.t
     var visit_type_array = <?php echo json_encode($cam_array); ?>;
   </script>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
-  <script src="../js/crea_un_profilo.js?v=10" type="text/javascript"></script>
+  <script src="../js/crea_un_profilo.js?v=11" type="text/javascript"></script>
   <script src="../js/validations.js?v=9" type="text/javascript"></script>
 
   <style>
