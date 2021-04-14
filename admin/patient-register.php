@@ -724,8 +724,7 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
         success: function (response) {
           $.each(response, function(index) {
             var puo_refertare = response[index].puo_refertare;
-            var is_active_doc = response[index].active;
-            if (is_active_doc == 'Y'){
+            // var is_active_doc = response[index].active;
               if (puo_refertare == 'N'){
                 $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
                 doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
@@ -734,7 +733,7 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
                 $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
                 ref_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
               }
-            }
+
           });
 
           doc_select.setValue(executor_selected);
@@ -765,8 +764,7 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
       success: function (response) {
         $.each(response, function(index) {
           var puo_refertare = response[index].puo_refertare;
-          var is_active_doc = response[index].active;
-          if (is_active_doc == 'Y'){
+          // var is_active_doc = response[index].active;
             if (puo_refertare == 'N'){
               $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
               doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
@@ -774,7 +772,7 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
               $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
               ref_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
             }
-          }
+
         });
 
         doc_select.refreshOptions();

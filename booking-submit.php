@@ -118,7 +118,7 @@
           mail($to3, $subject3, $message3, $headers3);
 
 
-          header("location: /paziente/booking-completed.php");
+          header("location: /paziente/account.php");
 
 				}else{
           echo "Unable to insert record in booked_service table";

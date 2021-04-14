@@ -63,6 +63,9 @@ $rows3 = mysqli_fetch_array($result3);
     display: none !important;
    }
   }
+  .no_active_btn:hover, .active_btn:hover{
+   opacity: .7 !important;
+  }
  </style>
  <script>
    function complete_visit(value, value2, value3, value4) {
@@ -121,7 +124,16 @@ $rows3 = mysqli_fetch_array($result3);
     <div class="text-block-61"><?PHP echo $title; ?></div>
    </div>
   </div>
-  <div class="cover_section_buttons_container"><a href="logout.php" class="button-9 stroked cover_btns logout w-button">Esci</a>
+  <div class="cover_section_buttons_container">
+    <?PHP
+    if($rows3['active'] =='Y'){
+      ?>
+     <a href="doc_active.php?a=N&email=<?php echo urlencode($rows3['email']);?>" class="button-9 stroked cover_btns w-button active_btn" style="margin-top: 10px;background-color: #00800052;">Attivo</a>
+    <?php }else{?>
+
+     <a href="doc_active.php?a=Y&email=<?php echo urlencode($rows3['email']);?>" class="button-9 stroked cover_btns w-button no_active_btn" style="margin-top: 10px;background-color: #ff0000b5;">Non Attivo</a>
+    <?php }?>
+   <a href="logout.php" class="button-9 stroked cover_btns logout w-button">Esci</a>
   </div>
  </div>
 </div>
