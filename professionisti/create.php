@@ -90,8 +90,8 @@
 			if(isset($_POST[$v1])){
 				$v3 = mysqli_real_escape_string($conn, $_POST[$v1]);
 				$v4 = mysqli_real_escape_string($conn, $_POST[$v2]);
-        $v6 = '00';
-        if ($v5){
+        $v6 = '0.0';
+        if ($v5 >=1){
           $v6 = mysqli_real_escape_string($conn, $_POST[$v5]);
         }
 				$sql3 = "insert into listini (doctor_id, article_mobidoc_id, visit_home_price, visit_tele_price) values('".$doctor_id."','".$v3."', '".$v4."', '".$v6."')";
