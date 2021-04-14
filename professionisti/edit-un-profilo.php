@@ -84,9 +84,11 @@ function readURL(input) {
 		$fiscale = $rows['fiscale'];
 		$vat_number = $rows['vat_number'];
 		$title = $rows['title'];
-		$description = $rows['description'];
+		$profile_description = $rows['profile_description'];
+	/*
 		$education = $rows['education'];
 		$experience = $rows['experience'];
+	*/
 		$photo = "/professionisti/".$rows['photo'];
 		$photo2 = $rows['photo'];
 		$phone = $rows['phone'];
@@ -112,9 +114,17 @@ function readURL(input) {
               </div>
               <div class="form_section">
                 <div class="form_section_heading">Descrizione Profilo</div>
-                <textarea placeholder="Educazione:" maxlength="10000" id="educazione" name="personal_description-3" data-name="Personal Description 3" class="text_area_profile education w-input"><?PHP echo $education;?></textarea>
+               <input type="text" class="inputs proff w-input" name="p_description" minlength="2" data-name="p_description"
+                      placeholder="Descrizione Profilo *" value="<?PHP echo $profile_description;?>" id="p_description" required>
+              <?php
+              /*
+
+               <textarea placeholder="Educazione:" maxlength="10000" id="educazione" name="personal_description-3" data-name="Personal Description 3" class="text_area_profile education w-input"><?PHP echo $education;?></textarea>
                 <textarea placeholder="Esperienze Professionali:" maxlength="10000" id="esperienze_professionali-2" name="personal_description-2" data-name="Personal Description 2" class="text_area_profile w-input"><?PHP echo $experience;?></textarea>
-                </div>
+
+              */
+              ?>
+              </div>
               </div>
 
             <div class="div-block-34">
