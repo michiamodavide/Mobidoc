@@ -401,6 +401,8 @@ include '../connect.php';
                    <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" value="<?php echo $phone?>" id="tele">
 
                   </div>
+                  <style>.show_contact_msg{margin-top: -20px;margin-bottom: -10px;color: green;display: none}</style>
+                  <p class="show_contact_msg">Contatto già registrato.</p>
                  </div>
                   <div class="form_section">
                     <div class="form_section_heading">Informazioni Paziente</div>
@@ -860,26 +862,53 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
     }
   });
 
-  $('#last_name').keyup(function(eev) {
+  $('#last_name, #email').keyup(function(eev) {
     eev.preventDefault();
-    var lname_val = $(this).val();
-    if (lname_val.length >= 1) {
+   var name_attr = $(this).attr("name");
+   if (name_attr == 'email'){
+     var search_value = $(this).val();
+     var search_type = 3;
+   } else {
+     var search_value = $(this).val();
+     var search_type = 1;
+   }
+    if (search_value.length >= 1) {
       $.ajax({
         url: "get_patient.php",
         type: "post",
-        data: {lname:lname_val, search_name:1},
+        data: {search_value:search_value, search_type:search_type},
         dataType: "json",
         success: function (response) {
-          $(".patient_names ol strong").remove();
+          console.log(response);
           if (response == 'true'){
-            $(".patient_names ol strong").remove();
-            $("#email, #first_name, #dob, #fiscal_code, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
-            document.getElementById("fiscal_code").readOnly = false;
-            $('.patiend_idd').remove();
+            if (name_attr == 'email'){
+                if($('.contact_id').length && $('.contact_id').val().length){
+                $("#caller_first_name, #caller_last_name, #tele").val('');
+              }
+              $('.contact_id').remove();
+              $(".show_contact_msg").css("display", "none");
+            }else {
+              $(".patient_names ol strong").remove();
+              $("#email, #first_name, #dob, #fiscal_code, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
+              document.getElementById("fiscal_code").readOnly = false;
+              $('.patiend_idd').remove();
+            }
+
           } else {
-            $.each(response, function(key, value ) {
-              $(".patient_names ol").append("<strong><li class='data-list' style='cursor: pointer;' contact-id='"+response[key].contact_id+"' data-id='"+response[key].paziente_id+"'>"+response[key].fname+' '+response[key].lname+"</li></strong>");
-            });
+
+            if (name_attr == 'email'){
+              $('.contact_id').remove();
+              $("#email-form").append('<input type="hidden" class="contact_id" name="contact_id" value="'+response[0].contact_id+'">');
+              $("#caller_first_name").val(response[0].contact_name);
+              $("#caller_last_name").val(response[0].contact_surname);
+              $("#tele").val(response[0].contact_phone);
+              $(".show_contact_msg").css("display", "block");
+            }else {
+              $(".patient_names ol strong").remove();
+              $.each(response, function(key, value ) {
+                $(".patient_names ol").append("<strong><li class='data-list' style='cursor: pointer;' contact-id='"+response[key].contact_id+"' data-id='"+response[key].paziente_id+"'>"+response[key].fname+' '+response[key].lname+"</li></strong>");
+              });
+            }
           }
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -895,7 +924,7 @@ WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y
     $.ajax({
       url: "get_patient.php",
       type: "post",
-      data: {paziente_id:paziente_id,contact_id:contact_id,search_name:2},
+      data: {paziente_id:paziente_id,contact_id:contact_id,search_type:2},
       dataType: "json",
       success: function (response) {
         if (response == 'true'){
