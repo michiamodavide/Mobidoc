@@ -123,11 +123,16 @@ if (isset($_GET['email'])) {
 
       <div class="form_section">
        <div class="form_section_heading">Descrizione Profilo</div>
+
+      <?php
+      /*
        <textarea placeholder="Educazione *" maxlength="10000" id="educazione" name="personal_description-3"
                  data-name="Personal Description 3" class="text_area_profile education w-input" required></textarea>
        <textarea placeholder="Esperienze Professionali *" maxlength="10000" id="esperienze_professionali-2"
                  name="personal_description-2" data-name="Personal Description 2" class="text_area_profile w-input"
                  required></textarea>
+      */
+      ?>
       </div>
      </div>
      <div class="div-block-34">
