@@ -265,10 +265,10 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                <?PHP
                    if($user_active=='Y'){
                      ?>
-                    <a href="doc_active.php?a=N&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attivo</a>
+                    <a href="javascript:;" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attivo</a>
                    <?php }else{?>
 
-                    <a href="doc_active.php?a=Y&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non Attivo</a>
+                    <a href="javascript:;" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non Attivo</a>
                    <?php }?>
 
              </div>
