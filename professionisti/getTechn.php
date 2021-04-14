@@ -9,14 +9,16 @@ if($conn === false){
     die("ERROR database");
 }        
 
-$sql = "SELECT doctor_id from listini where article_mobidoc_id ='".$q."'";
+$sql = "SELECT dp.doctor_id, dp.photo, dp.fname, dp.lname, dp.title, dp.email  from listini ls
+ JOIN doctor_profile as dp on ls.doctor_id=dp.doctor_id
+ where ls.article_mobidoc_id ='".$q."' AND dp.puo_refertare ='Y'";
 $result = mysqli_query($conn, $sql);
 
-while($rows = mysqli_fetch_array($result)){
-  $doctor_id = $rows['doctor_id'];
-  $sql2 = "select * from doctor_profile where doctor_id ='".$doctor_id."' AND puo_refertare ='Y' ";
-  $result2 = mysqli_query($conn, $sql2);
-  $rows2 = mysqli_fetch_array($result2);
+while($rows2 = mysqli_fetch_array($result)){
+//  $doctor_id = $rows2['doctor_id'];
+//  $sql2 = "select * from doctor_profile where doctor_id ='".$doctor_id."' AND puo_refertare ='Y' ";
+//  $result2 = mysqli_query($conn, $sql2);
+//  $rows2 = mysqli_fetch_array($result2);
     $profile_image = "/professionisti/".$rows2['photo'];
     $name = $rows2['fname']." ".$rows2['lname'];
     $titile = ucwords($rows2['title']);

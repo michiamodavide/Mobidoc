@@ -124,6 +124,8 @@ if (isset($_GET['email'])) {
       <div class="form_section">
        <div class="form_section_heading">Descrizione Profilo</div>
 
+       <input type="text" class="inputs proff w-input" name="p_description" minlength="2" data-name="p_description"
+              placeholder="Descrizione Profilo *" id="p_description" required>
       <?php
       /*
        <textarea placeholder="Educazione *" maxlength="10000" id="educazione" name="personal_description-3"
