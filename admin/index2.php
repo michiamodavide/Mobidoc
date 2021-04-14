@@ -30,11 +30,12 @@ if ($is_first ==1 && $result==1){
 }
 
 
-	$sql2 = "select fname, lname from doctor_profile where doctor_id='".$doct_id."'";
+	$sql2 = "select * from doctor_profile where doctor_id='".$doct_id."'";
 	$result2 = mysqli_query($conn, $sql2);
 	$rows = mysqli_fetch_array($result2);
 	$doctor_fname = $rows['fname'];
 	$doctor_lname = $rows['lname'];
+  $email = $rows['email'];
 
 	$doctor_name =  $doctor_fname." ".$doctor_lname;
 	
@@ -59,7 +60,7 @@ if ($is_first ==1 && $result==1){
         mail($to, $subject, $message, $headers);
         // Sending email            
 						
-		header("Location: index.php"); 
+		  header("Location: index.php");
 
 		echo "link sent on doctor email id: <br> www.mobidoc.it/professionisti/crea-un-profilo.php?email=$email";
 
