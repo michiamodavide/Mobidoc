@@ -113,7 +113,7 @@ if(isset($_POST['submit'])){
     $sql = "insert into paziente_profile (contact_id, first_name, last_name, dob, fiscale,address, latitude, longitude, gmap_address, privacy_consent, lastDatePrivacyConsent, dor) values('".$contact_id."', '".ucwords($first_name)."', '".ucwords($last_name)."', '".$dob."', '".$fiscal."', '".$address."',  '".$latitude."',  '".$longtitude."', '".$gmap_address."','".$check."','".$dor."','".$dor."')";
     $result = mysqli_query($conn, $sql);
   }
-  
+
     if ($result == 1) {
 
       /*delete temporary patients*/
