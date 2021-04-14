@@ -62,44 +62,58 @@ if(isset($_POST['submit'])){
    date_default_timezone_set("Europe/Rome");
    $dor = date("Y/m/d H:i:s");
 
+
+  $sql_email = "select * from contact_profile where email ='".$email."'";
+  $result_email = mysqli_query($conn, $sql_email);
+
+   if ((isset($_POST['contact_id'])) && (!empty($_POST['contact_id'])) || mysqli_num_rows($result_email) > 0){
+     if (mysqli_num_rows($result_email) > 0){
+       $search_column = 'email';
+       $search_data = $email;
+     }else
+     {
+       $search_column = 'id';
+       $search_data = $_POST['contact_id'];
+     }
+     $sql1_nnn = "UPDATE `contact_profile` SET `email` = '$email', `name` = '$caller_fname', `surname` = '$caller_lname',`phone` = '$tel',`privacy_consent` = '$check', `lastDatePrivacyConsent` = '$dor' WHERE `$search_column` = '$search_data'";
+     $result_nnn = mysqli_query($conn, $sql1_nnn);
+     if ($result_nnn){
+//        not show anything
+     }else{
+       echo 'record2 not added';
+     }
+   }else{
+       $sql_n12 = "insert into contact_profile (email, password, phone, name, surname,privacy_consent, lastDatePrivacyConsent) values('".$email."', '".$pwrd."', '".$tel."', '".$caller_fname."', '".$caller_lname."',  '".$check."',  '".$dor."')";
+       $result_n12 = mysqli_query($conn, $sql_n12);
+
+       if ($result_n12 == 1){
+         $contact_id = mysqli_insert_id($conn);
+     }else{
+       echo 'record3 not added';
+     }
+
+   }
+
   $sql_fisical = "select * from paziente_profile where fiscale ='".$fiscal."'";
   $result_fisical = mysqli_query($conn, $sql_fisical);
   if (mysqli_num_rows($result_fisical) > 0) {
     $sql = "UPDATE `paziente_profile` SET `first_name` = '$first_name', `last_name` = '$last_name', `dob` = '$dob',`address` = '$address',`latitude` = '$latitude', `longitude` = '$longtitude',  `gmap_address` = '$gmap_address', `privacy_consent` = '$check', `lastDatePrivacyConsent` = '$dor', `dor` = '$dor' WHERE `fiscale` = '$fiscal'";
     $result = mysqli_query($conn, $sql);
     if ($result == 1){
-      $result_patient_new = mysqli_fetch_array($result_fisical);
-      $contact_id = $result_patient_new['contact_id'];
-      $sql1_nnn = "UPDATE `contact_profile` SET `email` = '$email', `name` = '$caller_fname', `surname` = '$caller_lname',`phone` = '$tel',`privacy_consent` = '$check', `lastDatePrivacyConsent` = '$dor' WHERE `id` = '$contact_id'";
-      $result_nnn = mysqli_query($conn, $sql1_nnn);
-      if ($result_nnn){
-//        not show anything
-      }else{
-        echo 'record2 not added';
-      }
+//      not show anyting
     }else{
       echo 'record1 not added';
     }
   }else{
 
-      $sql_email = "select * from contact_profile where email ='".$email."'";
-  $result_email = mysqli_query($conn, $sql_email);
-  if (mysqli_num_rows($result_email) > 0) {
-    header("location: /admin/patient-register.php?err=1");
-  }else{
-    $sql_n12 = "insert into contact_profile (email, password, phone, name, surname,privacy_consent, lastDatePrivacyConsent) values('".$email."', '".$pwrd."', '".$tel."', '".$caller_fname."', '".$caller_lname."',  '".$check."',  '".$dor."')";
-    $result_n12 = mysqli_query($conn, $sql_n12);
-    if ($result_n12 == 1){
-      $contact_id = mysqli_insert_id($conn);
-      $sql = "insert into paziente_profile (contact_id, first_name, last_name, dob, fiscale,address, latitude, longitude, gmap_address, privacy_consent, lastDatePrivacyConsent, dor) values('".$contact_id."', '".ucwords($first_name)."', '".ucwords($last_name)."', '".$dob."', '".$fiscal."', '".$address."',  '".$latitude."',  '".$longtitude."', '".$gmap_address."','".$check."','".$dor."','".$dor."')";
-      $result = mysqli_query($conn, $sql);
-    }else{
-      echo 'record3 not added';
+    if ((isset($_POST['contact_id'])) && (!empty($_POST['contact_id']))) {
+      $contact_id = $_POST['contact_id'];
     }
-  }
 
+    $sql = "insert into paziente_profile (contact_id, first_name, last_name, dob, fiscale,address, latitude, longitude, gmap_address, privacy_consent, lastDatePrivacyConsent, dor) values('".$contact_id."', '".ucwords($first_name)."', '".ucwords($last_name)."', '".$dob."', '".$fiscal."', '".$address."',  '".$latitude."',  '".$longtitude."', '".$gmap_address."','".$check."','".$dor."','".$dor."')";
+    $result = mysqli_query($conn, $sql);
   }
-
+  
     if ($result == 1) {
 
       /*delete temporary patients*/
