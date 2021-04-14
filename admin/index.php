@@ -125,8 +125,6 @@
 FROM doctor_profile dp
 JOIN doctor_register as dr ON dp.doctor_id = dr.id
 WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
-        echo $sql;
-        exit();
         $result = mysqli_query($conn, $sql);
         while($rows = mysqli_fetch_array($result)){
           $name = $rows['fname'];
