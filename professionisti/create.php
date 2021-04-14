@@ -20,9 +20,12 @@
 		/*$title = mysqli_real_escape_string($conn, $_POST['title']);
 		$p_type = mysqli_real_escape_string($conn, $_POST['p_type']);
 			$description = mysqli_real_escape_string($conn, $_POST['personal_description']);
-		*/
-		$education = mysqli_real_escape_string($conn, $_POST['personal_description-3']);
+			$education = mysqli_real_escape_string($conn, $_POST['personal_description-3']);
 		$experience = mysqli_real_escape_string($conn, $_POST['personal_description-2']);
+		*/
+
+		$profile_description = mysqli_real_escape_string($conn, $_POST['p_description']);
+
 		$tel = mysqli_real_escape_string($conn, $_POST['tele']);
 		$street_name = mysqli_real_escape_string($conn, $_POST['Via']);
 		$street_no = mysqli_real_escape_string($conn, $_POST['Civico']);
@@ -48,8 +51,7 @@
 		date_default_timezone_set("Europe/Rome");
 		$dor = date("Y/m/d");
 
-    $sql = "update doctor_profile set fname = '".$fname."', lname= '".$lname."', password= '".$password."', dob= '".$dob."', photo= '".$photo."', fiscale= '".strtoupper($fiscal)."', vat_number= '".$vat."', education= '".$education."', experience= '".$experience."', phone= '".$tel."', street_name= '".$street_name."', street_no= '".$street_no."', comune= '".$comune."' , province= '".$province."', cap= '".$cap."', deontological_consent= '".$checkbox."', deontologicalAcceptDate= '".$dor."', dor= '".$dor."' where email='".$email."'";
-
+    $sql = "update doctor_profile set fname = '".$fname."', lname= '".$lname."', password= '".$password."', dob= '".$dob."', photo= '".$photo."', fiscale= '".strtoupper($fiscal)."', vat_number= '".$vat."', profile_description= '".$profile_description."', phone= '".$tel."', street_name= '".$street_name."', street_no= '".$street_no."', comune= '".$comune."' , province= '".$province."', cap= '".$cap."', deontological_consent= '".$checkbox."', deontologicalAcceptDate= '".$dor."', dor= '".$dor."' where email='".$email."'";
 
 		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
 
