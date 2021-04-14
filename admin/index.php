@@ -121,11 +121,12 @@
         <?php
         include '../connect.php';
 
-//        $sql = "select * from doctor_register order by id desc";
-        $sql = "SELECT DISTINCT dp.fname, dp.lname, dp.email, dp.description, dr.cv, dr.dor, dr.status, dr.tick 
+        $sql = "SELECT dp.doctor_id, dp.fname, dp.lname, dp.email, dp.description, dr.cv, dr.dor, dr.status, dr.tick 
 FROM doctor_profile dp
 JOIN doctor_register as dr ON dp.doctor_id = dr.id
-WHERE dr.remove=0 ORDER BY dp.doctor_id desc";
+WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
+        echo $sql;
+        exit();
         $result = mysqli_query($conn, $sql);
         while($rows = mysqli_fetch_array($result)){
           $name = $rows['fname'];
