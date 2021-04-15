@@ -14,7 +14,7 @@
   <meta content="Webflow" name="generator">
   <link href="../css/admin/normalize.css" rel="stylesheet" type="text/css">
   <link href="../css/admin/webflow.css" rel="stylesheet" type="text/css">
-  <link href="../css/admin/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
+  <link href="../css/admin/mobidoc.webflow.css?v=2" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -130,7 +130,6 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
           $name = $rows['fname'];
           $cogname = $rows['lname'];
           $email = $rows['email'];
-          $description = $rows['description'];
           $cv = "/professionisti/".$rows['cv'];
           $dor = strtotime($rows['dor']);
 		      $status = $rows['status'];
@@ -138,7 +137,7 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
         ?>
 
         <?php 
-          $sql2 = "select * from doctor_profile where email = '".$email."'";        
+          $sql2 = "select * from doctor_profile where email = '".$email."'";
           $result2 = mysqli_query($conn, $sql2);
           $rows2 = mysqli_fetch_array($result2);
           $doct_id = $rows2['doctor_id'];
@@ -219,9 +218,6 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                     <div class="text-block-69">Una volta approvata la candidatura, un link per la registrazione verrà inviato alla casella mail del Professionista, il quale, effettuata la registrazione, potrà unirsi al team.<br></div>
 
                    <div class="w-form" data-id="1">
-                    <div class="text-block-69">
-                     <p><strong><?=$description?></strong></p>
-                    </div>
                     <form action="index2.php" method="post" enctype="multipart/form-data">
                      <input type="hidden" name="doctor-id" value="<?php echo urlencode($doct_id);?>">
                      <input type="hidden" name="status" value="1">
@@ -229,17 +225,17 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
 
                       <select id="medical_speciality" name="medical_speciality">
                        <option value="">Seleziona Specialità medica</option>
-                       <?php
-                       $get_speciality_sql = "select * from medical_specialty where status='Y'";
-                       $get_speciality_result = mysqli_query($conn, $get_speciality_sql);
+                        <?php
+                        $get_speciality_sql = "select * from medical_specialty where status='Y'";
+                        $get_speciality_result = mysqli_query($conn, $get_speciality_sql);
 
-                       while($speciality_result_row = mysqli_fetch_array($get_speciality_result)) {
-                        $speciality_name = $speciality_result_row['name'];
+                        while($speciality_result_row = mysqli_fetch_array($get_speciality_result)) {
+                          $speciality_name = $speciality_result_row['name'];
+                          ?>
+                         <option value="<?=$speciality_name?>" data-mds="<?=$speciality_result_row['ERid']?>"><?=$speciality_name?></option>
+                          <?php
+                        }
                         ?>
-                        <option value="<?=$speciality_name?>"><?=$speciality_name?></option>
-                         <?php
-                       }
-                       ?>
                       </select>
 
                       <select id="puo_refertare" name="puo_refertare">
@@ -247,7 +243,51 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                        <option value="Y">Y</option>
                       </select>
                      </div>
-
+                     <div class="form_section">
+                      <div class="visit_selector_grid">
+                       <div class="slectors">
+                        <div class="visits_selector_container">
+                         <!--start-->
+                          <?php
+                          include '../connect.php';
+                          $sql3 = "SELECT ERid, name from medical_specialty WHERE status='Y' order by name asc";
+                          $result13 = mysqli_query($conn, $sql3);
+                          while($rows13 = mysqli_fetch_array($result13)){
+                            $erid = $rows13['ERid'];
+                            $spaciality_name = $rows13['name'];
+                            ?>
+                           <div class="visit mds-<?php echo $erid?>" style="display: none">
+                            <input type="hidden" class="doc_spaciality" name="doc_spaciality" value="">
+                            <div class="visit_heading">
+                             <div class="text-block-42"><?php echo $spaciality_name;?></div><img src="../images/arrow.svg" alt="" class="image-13"></div>
+                            <div class="visit_subitem_container_new" style="width: 488.391px;height: auto">
+                              <?php
+                              $sql23 = "SELECT DISTINCT am.id AS article_id, descrizione
+FROM articlesMobidoc am
+JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+JOIN medical_specialty as ms ON '".$erid."'=ams.specialtyMobidoc
+WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
+                              $result23 = mysqli_query($conn, $sql23);
+                              while($rows2 = mysqli_fetch_array($result23)){
+                                $visit_type_name = trim($rows2['descrizione']);
+                                $article_id = trim($rows2['article_id']);
+                                ?>
+                               <div class="visit_subitem" data-item="<?php echo $visit_type_name?>" data-id="<?php echo $article_id ?>">
+                                <div class="text-block-43">
+                                  <?php echo $visit_type_name;?>
+                                </div>
+                                <img src="../images/Path-175.svg" alt="" class="image-12"></div>
+                              <?php } ?>
+                            </div>
+                           </div>
+                          <?php } mysqli_close($conn);?>
+                         <!--end-->
+                        </div>
+                       </div>
+                       <div class="selecteds" id="visits">
+                       </div>
+                      </div>
+                     </div>
                      <div class="div-block-63">
                       <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70333" href="#" class="button-5 no w-button">Cancella</a>
                       <button type="submit" name="update-status" class="button-5 yes w-button update-status">Si</button>
@@ -373,9 +413,68 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
 </script>
     </div>
   </div>
+  <style>
+   .slectors, .selecteds{
+    height: 350px;
+   }
+  </style>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="../js/admin/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+  <script type="text/javascript">
+
+    $('#medical_speciality').on('change', function() {
+      var get_erd_code = $('option:selected', this).attr('data-mds');
+      $(".visits_selector_container .visit").css("display", "none");
+      $(".visits_selector_container .visit.mds-"+get_erd_code).css("display", "block");
+      $(".doc_spaciality").val(get_erd_code);
+    });
+    $(document).ready(function(){
+      selected_visit_counter = 0;
+      $(".visits_selector_container .visit:last-child").addClass("last");
+      $('.visit_subitem_container_new > .visit_subitem').click(function(){
+
+        $('.error_message.visit').removeClass("error_show");
+        selected_visit_counter += 1;
+        // var se_name = $(this).children('.text-block-43').text();
+
+        var current_visit_type = $(this).attr("data-item");
+        var current_article_id = $(this).attr("data-id");
+        // console.log(se_name);
+
+        // console.log(visit_type_array[0]);
+        var service_add = "<div class='visit_subitem selected'><div style=' width:65%;'><input type='checkbox' style='display:none;' checked class='text-block-44' value='"+current_article_id+"' name='service_name"+selected_visit_counter+"'>"+current_visit_type+"</div><div class='price_n_remove'><div class='price_input'><div>€</div><input type='number' placeholder='Casa' class='input_num w-input' maxlength='256' name='service_price"+selected_visit_counter+"'  min='1' data-name='Field' id='field' required=''></div><img src='../images/minus_1.svg' class='image-14' onClick='service_remove(this)'></div></div>";
+        $(".selecteds").append(service_add);
+        $(this).hide();
+
+        var visit_attr_appender;
+        $(".text-block-44").each(function(index) {
+          var visit_attr = $(this).attr("name");
+          var price_attr = $(this).siblings(".price_n_remove").children('.price_input').children('input').attr("name");
+          visit_attr_appender =  visit_attr +","+price_attr+"|";
+        });
+        var visit_selector = $('.visit_name_attr');
+        visit_selector.val( visit_selector.val() + visit_attr_appender);
+
+      });
+    });
+
+    function service_remove(e){
+      $(e).parent().parent().remove();
+      var this_name = ($(e).parent().siblings('.text-block-44').val()).trim();
+      var slector = ".text-block-43:contains("+this_name+")";
+      $(slector).parent().show();
+      var service_name_attr = $(e).parent().siblings("input").attr("name");
+      var service_price_attr = $(e).siblings(".price_input").children('input').attr("name");
+
+      var get_visit_attr_text = $('.visit_name_attr').val();
+      var service_attribute_remover = service_name_attr+","+service_price_attr+"|";
+
+      get_visit_attr_text = get_visit_attr_text.replace(service_attribute_remover,'');
+      $('.visit_name_attr').val(get_visit_attr_text);
+    }
+  </script>
+
   <div id="fb-root"></div>
   <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
 </body>

@@ -180,7 +180,10 @@ if (isset($_GET['email'])) {
        </script>
       </div>
      </div>
+
      <div id="w-node-a51d9beef4d6-b91af322" class="div-block-42">
+    <?php
+    /*
       <div class="form_section">
        <div class="form_section_heading">Visite ed Esami</div>
        <div class="paragraph-10">Seleziona il tipo di servizi che i pazienti possono prenotare e inserisci il prezzo
@@ -230,6 +233,8 @@ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
         </div>
        </div>
       </div>
+    */
+    ?>
       <div id="w-node-67641905fe38-b91af322" class="cap_selecteors" id="capi">
        <div class="form_section_heading">Aggiungi città</div>
        <div class="paragraph-10">Aggiungi i Comuni sui quali opererai:</div>
@@ -262,6 +267,7 @@ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
        <div class="cap_selected"></div>
       </div>
      </div>
+
      <div>
 
       <div class="form_section">
