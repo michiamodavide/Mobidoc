@@ -6,9 +6,10 @@ if($conn === false){
   die("ERROR database");
 }
 
-$doctor_sql = "SELECT doctor_id FROM listini WHERE article_mobidoc_id = '".$select_visit."'";
+$doctor_sql = "SELECT ls.doctor_id FROM listini ls
+ JOIN doctor_register dg ON ls.doctor_id=dg.id
+ WHERE ls.article_mobidoc_id = '".$select_visit."' AND dg.tick = 1";
 $doc_result = mysqli_query($conn, $doctor_sql);
-
 
 $doc_data_array = array();
 while($doc_rows = mysqli_fetch_array($doc_result)){

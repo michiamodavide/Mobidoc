@@ -3,7 +3,6 @@
 	if(isset($_POST['submit']))
 	{
 
-
 		$_SESSION['doctor_email']=$_POST['email'];
 		include '../connect.php';
 		$email = $_SESSION['doctor_email'];
@@ -51,7 +50,7 @@
 		date_default_timezone_set("Europe/Rome");
 		$dor = date("Y/m/d");
 
-    $sql = "update doctor_profile set fname = '".$fname."', lname= '".$lname."', password= '".$password."', dob= '".$dob."', photo= '".$photo."', fiscale= '".strtoupper($fiscal)."', vat_number= '".$vat."', profile_description= '".$profile_description."', phone= '".$tel."', street_name= '".$street_name."', street_no= '".$street_no."', comune= '".$comune."' , province= '".$province."', cap= '".$cap."', deontological_consent= '".$checkbox."', deontologicalAcceptDate= '".$dor."', dor= '".$dor."' where email='".$email."'";
+    $sql = "update doctor_profile set fname = '".$fname."', lname= '".$lname."', password= '".$password."', dob= '".$dob."', photo= '".$photo."', fiscale= '".strtoupper($fiscal)."', vat_number= '".$vat."', description= '".$profile_description."', phone= '".$tel."', street_name= '".$street_name."', street_no= '".$street_no."', comune= '".$comune."' , province= '".$province."', cap= '".$cap."', deontological_consent= '".$checkbox."', deontologicalAcceptDate= '".$dor."', dor= '".$dor."' where email='".$email."'";
 
 		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
 
@@ -83,6 +82,7 @@
 			}
 		}
 
+	/*
 		$i=0;
 		for($i=1;$i<=100;$i++)
 		{
@@ -105,13 +105,15 @@
 			}
 		}
 
-    $sql3_new = "insert into doctor_specialty (doctor_id, specialty) values('".$doctor_id."','".$_POST['doc_spaciality']."')";
+	   $sql3_new = "insert into doctor_specialty (doctor_id, specialty) values('".$doctor_id."','".$_POST['doc_spaciality']."')";
     $result3_new = mysqli_query($conn, $sql3_new);
     if($result==1) {
       echo "Record inserted45";
     }else {
       echo "Unable to insert record45";
     }
+	*/
+
 
     $sql3 = "update doctor_register set tick = 1 where id = '".$doctor_id."' ";
 		$result = mysqli_query($conn, $sql3);

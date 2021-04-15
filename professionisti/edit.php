@@ -51,7 +51,7 @@
 		date_default_timezone_set("Europe/Rome");
 		$dor = date("Y/m/d H:i:s");
 		
-		$sql = "update doctor_profile set fname='$fname', lname='$lname', dob='$dob', photo='$photo', fiscale='$fiscal', vat_number='$vat', profile_description='$profile_description', phone='$tel', street_name='$street_name', street_no='$street_no', comune='$comune', province='$province', cap='$cap', dor='$dor', lastDatePrivacyConsent='$dor' where email = '$email'";
+		$sql = "update doctor_profile set fname='$fname', lname='$lname', dob='$dob', photo='$photo', fiscale='$fiscal', vat_number='$vat', description='$profile_description', phone='$tel', street_name='$street_name', street_no='$street_no', comune='$comune', province='$province', cap='$cap', dor='$dor', lastDatePrivacyConsent='$dor' where email = '$email'";
 		
 		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
 	
@@ -105,6 +105,7 @@
 			}
 		}
 		
+	/*
 		$sql = "delete from listini where doctor_id='$doctor_id'";
 		$result = mysqli_query($conn, $sql);
 		$i=0;
@@ -126,10 +127,10 @@
 				if($result==1)
 					echo " ";//"Record inserted3";
 				else
-					echo "Unable to insert record3"; 
+					echo "Unable to insert record3";
 			}
 		}
-		
+
 		for($i=1;$i<=100;$i++)
 		{
 			$v11='service_name_pre'.$i;
@@ -153,6 +154,7 @@
 				}
 			}
 		}
+	*/
 		mysqli_close($conn);
 	}
 	

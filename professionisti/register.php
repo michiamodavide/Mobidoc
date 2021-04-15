@@ -69,12 +69,11 @@ if(isset($_GET['admin'])){
 
               <form name="email-form" id="regist_form" class="form-4" action="<?php if($admin == 1){echo 'register.php?admin';}else{echo 'register.php';}?>" method="post" enctype="multipart/form-data">
                 <div class="dual_container proff">
-                  <input type="text" class="text-field-3 proff w-input" name="fname" data-name="First Name" placeholder="Nome di battesimo" id="Name"  pattern="[A-Z][a-z]*" title="Il nome deve essere in lettere e la prima lettera deve essere maiuscola" required=""  autocomplete="off" >
+                  <input type="text" class="text-field-3 proff w-input" name="fname" data-name="First Name" placeholder="Nome" id="Name"  pattern="[A-Z][a-z]*" title="Il nome deve essere in lettere e la prima lettera deve essere maiuscola" required=""  autocomplete="off" >
                   <input type="text" class="text-field-3 proff w-input" name="cognome" data-name="Cognome" placeholder="Cognome" id="Cognome" required="" pattern="[A-Z][a-z]*" title="Il nome deve essere in lettere e la prima lettera deve essere maiuscola" autocomplete="off">
                 </div>
                 <input type="email" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="email" data-name="email" placeholder="Email" id="email" required="">
                 <input type="email" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="confirm-email" data-name="confirm-email" placeholder="Conferma Email" id="confirm-email" required="">
-               <input type="text" class="text-field-3 proff w-input" autocomplete="off" maxlength="50" name="description" placeholder="Descrivi la tua specialità" id="confirm-email" required="">
 
                <?php
                /*
@@ -159,7 +158,6 @@ if(isset($_GET['admin'])){
                   $fname = $_POST['fname'];
                   $lname = $_POST['cognome'];
                   $email = $_POST['email'];
-                  $description = $_POST['description'];
                   $checkbox = $_POST['checkbox'];
                   $cv_status = 'Y';
                   if($admin == 1){
@@ -187,10 +185,10 @@ if(isset($_GET['admin'])){
 
                   $dob = '1970-01-01';
                   if($admin == 0){
-                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description, dob) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$market_mod."', '".$description."', '".$dob."')";
+                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, dob) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$market_mod."', '".$dob."')";
                   } else {
                     $market_checkbox = 'Y';
-                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, description, dob) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$dor."', '".$description."','".$dob."')";
+                    $sql = "insert into doctor_profile (fname, lname, email, cv, privacy_consent, lastDatePrivacyConsent, marketing_consent, lastDateMarketingConsent, dob) values('".$fname."', '".$lname."', '".$email."', '".$cv_status."', '".$privacy_checkbox."', '".$dor."', '".$market_checkbox."', '".$dor."', '".$dob."')";
                   }
 
                   $result = mysqli_query($conn, $sql); // or die(mysqli_error($conn));

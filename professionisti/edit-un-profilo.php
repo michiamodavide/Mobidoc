@@ -84,7 +84,7 @@ function readURL(input) {
 		$fiscale = $rows['fiscale'];
 		$vat_number = $rows['vat_number'];
 		$title = $rows['title'];
-		$profile_description = $rows['profile_description'];
+		$profile_description = $rows['description'];
 	/*
 		$education = $rows['education'];
 		$experience = $rows['experience'];
@@ -160,6 +160,8 @@ function readURL(input) {
             </div>
 
             <div id="w-node-a51d9beef4d6-b91af322" class="div-block-42">
+             <?php
+             /*
               <div class="form_section">
                 <div class="form_section_heading">Visite ed Esami</div>
                 <div class="paragraph-10">Seleziona il tipo di servizi che i pazienti possono prenotare e inserisci il prezzo rispettivamente:</div>
@@ -229,7 +231,7 @@ WHERE ms.status='Y' AND ls.doctor_id='".$doctor_id."' AND (am.home = 'Y' OR am.t
 					  $price_name = "service_price_pre".$i++;
 					  $price_tele_name = "service_price_pre_tele".$i++;
                     ?>
-	
+
 					<div class="visit_subitem selected">
                       <div style=' width:65%;'>
                         <input type='checkbox' style='display:none;' checked class='text-block-44' value='<?php echo $article_id; ?>' name='<?php echo $service_name; ?>'>
@@ -252,6 +254,8 @@ WHERE ms.status='Y' AND ls.doctor_id='".$doctor_id."' AND (am.home = 'Y' OR am.t
 
                 </div>
               </div>
+             */
+             ?>
             </div>
             
             <div id="w-node-67641905fe38-b91af322" class="cap_selecteors" id="capi">
