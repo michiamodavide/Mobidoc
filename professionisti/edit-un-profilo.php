@@ -159,104 +159,108 @@ function readURL(input) {
               </div>
             </div>
 
+          <?php
+          /*
             <div id="w-node-a51d9beef4d6-b91af322" class="div-block-42">
-             <?php
-             /*
-              <div class="form_section">
-                <div class="form_section_heading">Visite ed Esami</div>
-                <div class="paragraph-10">Seleziona il tipo di servizi che i pazienti possono prenotare e inserisci il prezzo rispettivamente:</div>
-                <div class="visit_selector_grid">
-                  <div class="slectors">
 
-                   <div class="visits_selector_container">
-                    <!--start-->
-                    <div class="visit">
-                     <div class="visit_heading">
-                      <div class="text-block-42"><?php echo trim($title); ?></div>
-                     </div>
-                     <div class="visit_subitem_container_new" style="width: 488.391px;height: auto">
-                       <?php
-                       include '../connect.php';
-                       $get_medical_spec = "SELECT ERid from medical_specialty WHERE name='".trim($title)."'";
-                       $get_medical_result = mysqli_query($conn, $get_medical_spec);
-                       $get_medical_row = mysqli_fetch_array($get_medical_result);
-                       $erid = $get_medical_row['ERid'];
 
-                       $sql2 = "SELECT DISTINCT am.id AS article_id, descrizione
+             <div class="form_section">
+              <div class="form_section_heading">Visite ed Esami</div>
+              <div class="paragraph-10">Seleziona il tipo di servizi che i pazienti possono prenotare e inserisci il prezzo rispettivamente:</div>
+              <div class="visit_selector_grid">
+               <div class="slectors">
+
+                <div class="visits_selector_container">
+                 <!--start-->
+                 <div class="visit">
+                  <div class="visit_heading">
+                   <div class="text-block-42"><?php echo trim($title); ?></div>
+                  </div>
+                  <div class="visit_subitem_container_new" style="width: 488.391px;height: auto">
+                    <?php
+                    include '../connect.php';
+                    $get_medical_spec = "SELECT ERid from medical_specialty WHERE name='".trim($title)."'";
+                    $get_medical_result = mysqli_query($conn, $get_medical_spec);
+                    $get_medical_row = mysqli_fetch_array($get_medical_result);
+                    $erid = $get_medical_row['ERid'];
+
+                    $sql2 = "SELECT DISTINCT am.id AS article_id, descrizione
 FROM articlesMobidoc am
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '".$erid."'=ams.specialtyMobidoc
 WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
 
-                       $result2 = mysqli_query($conn, $sql2);
-                       while ($rows2 = mysqli_fetch_array($result2)) {
-                         $visit_type_name = trim($rows2['descrizione']);
-                         $article_id = trim($rows2['article_id']);
-                         ?>
-                        <div class="visit_subitem" data-item="<?php echo $visit_type_name ?>" data-id="<?php echo $article_id ?>">
-                         <div class="text-block-43">
-                           <?php echo $visit_type_name; ?>
-                         </div>
-                         <img src="../images/Path-175.svg" alt="" class="image-12"></div>
-                       <?php }
-                       mysqli_close($conn); ?>
-                     </div>
-                     <input type="hidden" name="doc_spaciality" value="<?php echo $erid?>">
-                    </div>
-                    <!--end-->
-                   </div>
-
+                    $result2 = mysqli_query($conn, $sql2);
+                    while ($rows2 = mysqli_fetch_array($result2)) {
+                      $visit_type_name = trim($rows2['descrizione']);
+                      $article_id = trim($rows2['article_id']);
+                      ?>
+                     <div class="visit_subitem" data-item="<?php echo $visit_type_name ?>" data-id="<?php echo $article_id ?>">
+                      <div class="text-block-43">
+                        <?php echo $visit_type_name; ?>
+                      </div>
+                      <img src="../images/Path-175.svg" alt="" class="image-12"></div>
+                    <?php }
+                    mysqli_close($conn); ?>
                   </div>
+                  <input type="hidden" name="doc_spaciality" value="<?php echo $erid?>">
+                 </div>
+                 <!--end-->
+                </div>
 
-                  <div class="selecteds" id="visits">
-                    <!--start-->
-                    <?php
-                      include '../connect.php';
+               </div>
 
-                      $sql = "SELECT DISTINCT am.id AS article_id, descrizione, ls.visit_home_price, ls.visit_tele_price
+               <div class="selecteds" id="visits">
+                <!--start-->
+                 <?php
+                 include '../connect.php';
+
+                 $sql = "SELECT DISTINCT am.id AS article_id, descrizione, ls.visit_home_price, ls.visit_tele_price
 FROM listini ls
 JOIN articlesMobidoc as am ON ls.article_mobidoc_id = am.id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
 WHERE ms.status='Y' AND ls.doctor_id='".$doctor_id."' AND (am.home = 'Y' OR am.tele = 'Y')";
 
-                      $result = mysqli_query($conn, $sql);
-					  $i=1;
-                      while($rows = mysqli_fetch_array($result)){
-                      $visit_name = $rows['descrizione'];
-                      $article_id = $rows['article_id'];
-                      $price = $rows['visit_home_price'];
-                      $tele_price = $rows['visit_tele_price'];
-					  $service_name = "service_name_pre".$i;
-					  $price_name = "service_price_pre".$i++;
-					  $price_tele_name = "service_price_pre_tele".$i++;
-                    ?>
+                 $result = mysqli_query($conn, $sql);
+                 $i=1;
+                 while($rows = mysqli_fetch_array($result)){
+                   $visit_name = $rows['descrizione'];
+                   $article_id = $rows['article_id'];
+                   $price = $rows['visit_home_price'];
+                   $tele_price = $rows['visit_tele_price'];
+                   $service_name = "service_name_pre".$i;
+                   $price_name = "service_price_pre".$i++;
+                   $price_tele_name = "service_price_pre_tele".$i++;
+                   ?>
 
-					<div class="visit_subitem selected">
-                      <div style=' width:65%;'>
-                        <input type='checkbox' style='display:none;' checked class='text-block-44' value='<?php echo $article_id; ?>' name='<?php echo $service_name; ?>'>
-                       <?php echo $visit_name; ?>
-                      </div>
-                      <div class="price_n_remove">
-                        <div class="price_input">
-                          <div>€</div>
-                          <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_name; ?>" min="1" data-name="Field" value="<?php echo $price; ?>" id="field" required=""/>
-                        </div>
-                       <div class="price_input" style="margin-left: 5px">
-                        <div>€</div>
-                        <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_tele_name; ?>" data-name="Field" value="<?php echo $tele_price; ?>" id="field"/>
-                       </div>
-                        <img src="../images/minus_1.svg" class="image-14" onclick="service_remove(this)">
-                      </div>
+                  <div class="visit_subitem selected">
+                   <div style=' width:65%;'>
+                    <input type='checkbox' style='display:none;' checked class='text-block-44' value='<?php echo $article_id; ?>' name='<?php echo $service_name; ?>'>
+                     <?php echo $visit_name; ?>
+                   </div>
+                   <div class="price_n_remove">
+                    <div class="price_input">
+                     <div>€</div>
+                     <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_name; ?>" min="1" data-name="Field" value="<?php echo $price; ?>" id="field" required=""/>
                     </div>
-					<?php } mysqli_close($conn);?>
+                    <div class="price_input" style="margin-left: 5px">
+                     <div>€</div>
+                     <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_tele_name; ?>" data-name="Field" value="<?php echo $tele_price; ?>" id="field"/>
+                    </div>
+                    <img src="../images/minus_1.svg" class="image-14" onclick="service_remove(this)">
+                   </div>
                   </div>
+                 <?php } mysqli_close($conn);?>
+               </div>
 
-                </div>
               </div>
-             */
-             ?>
+             </div>
+
+
             </div>
+          */
+          ?>
             
             <div id="w-node-67641905fe38-b91af322" class="cap_selecteors" id="capi">
               <div class="form_section_heading">Aggiungi città</div>

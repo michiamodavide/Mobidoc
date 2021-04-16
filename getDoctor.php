@@ -24,7 +24,7 @@ JOIN listini lis ON am.id=lis.article_mobidoc_id
 JOIN articlesMobidoc_specialty ams ON am.id=ams.id
 JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
 JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
-WHERE am.`descrizione`='$visit_name' AND dp.`active`='Y' AND dp.`puo_refertare`='N' AND (am.home='Y' OR am.tele='Y')";
+WHERE am.`descrizione`='$visit_name' AND dp.`active`='Y' AND dp.`admin_active`='Y' AND dp.`puo_refertare`='N' AND (am.home='Y' OR am.tele='Y')";
   }
 
     $result2 = mysqli_query($conn, $sql2);

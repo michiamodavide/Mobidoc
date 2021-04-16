@@ -14,7 +14,7 @@
   <meta content="Webflow" name="generator">
   <link href="../css/admin/normalize.css" rel="stylesheet" type="text/css">
   <link href="../css/admin/webflow.css" rel="stylesheet" type="text/css">
-  <link href="../css/admin/mobidoc.webflow.css?v=2" rel="stylesheet" type="text/css">
+  <link href="../css/admin/mobidoc.webflow.css?v=3" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -25,6 +25,39 @@
  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
  <style>
+	 
+	 .list-style-new{
+		 width: 100%;
+    border-bottom:1px solid rgba(12, 217, 237, 0.7);
+    background-color: rgba(211, 251, 255, 0.48);
+    font-family: Poppins, sans-serif;
+	 padding: 15px 15px;
+	 border-top:none;
+	 border-right:none;
+	 border-left:none;
+	     border-radius: 5px;
+	 }	 
+	 .active{
+		 margin-left:20px;
+		 font-weight: bold;
+		 border-bottom:1px solid rgba(12, 217, 237, 0.7);
+		  background-color: rgba(211, 251, 255, 0.48);
+		 padding: 10px 10px;
+		 border-top:none;
+	 border-right:none;
+	 border-left:none;
+	     border-radius: 5px;
+	 }
+	 
+	 .inactive{
+		     background-color: #f8dbdb;
+		 border-bottom:1px solid rgba(255, 117, 117, 0.7);
+	 }
+	 .width-1{
+		 width: 370px;height: auto}
+	 .pop-width{
+		 width: 60%;
+	 }
 ::-webkit-scrollbar {
   width: 0px;
   height:0px;
@@ -59,6 +92,28 @@
     margin-right: 10px;
 	margin-top:7px;
 }
+	  @media screen and (max-width: 1536px){
+		 .width-1 {
+    width: 300px;
+}
+	 }
+ @media screen and (max-width: 1440px){
+		 .width-1 {
+    width: 290px;
+}
+	 } 	 
+	 
+ @media screen and (max-width: 1366px){
+		 .width-1 {
+    width: 280px;
+}
+	 } 	 
+	 
+	 @media screen and (max-width: 1280px){
+		 .width-1 {
+    width: 270px;
+}
+	 } 
 @media screen and (max-width: 767px){
  .admin_main_section .admin_section_header{
   display: inline-block;
@@ -72,6 +127,15 @@
     padding: 23px 10px;
     
 } 
+	 .width-1 {
+    width: 100%;
+}
+	.pop-width{
+		 width: 100%;
+	 }
+	.grid-c{
+		    grid-template-columns: 1fr;
+	}
 }
 @media screen and (max-width: 400px){
  #add .button-10{
@@ -127,191 +191,259 @@ JOIN doctor_register as dr ON dp.doctor_id = dr.id
 WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
         $result = mysqli_query($conn, $sql);
         while($rows = mysqli_fetch_array($result)){
-          $name = $rows['fname'];
-          $cogname = $rows['lname'];
-          $email = $rows['email'];
-          $cv = "/professionisti/".$rows['cv'];
-          $dor = strtotime($rows['dor']);
-		      $status = $rows['status'];
-		      $tick = $rows['tick'];
+        $name = $rows['fname'];
+        $cogname = $rows['lname'];
+        $email = $rows['email'];
+        $cv = "/professionisti/" . $rows['cv'];
+        $dor = strtotime($rows['dor']);
+        $status = $rows['status'];
+        $tick = $rows['tick'];
         ?>
 
-        <?php 
-          $sql2 = "select * from doctor_profile where email = '".$email."'";
+          <?php
+          $sql2 = "select * from doctor_profile where email = '" . $email . "'";
           $result2 = mysqli_query($conn, $sql2);
           $rows2 = mysqli_fetch_array($result2);
           $doct_id = $rows2['doctor_id'];
+          $doct_title = trim($rows2['title']);
           $doct_photo = $rows2['photo'];
-          $user_active= $rows2['active'];
+          $user_active = $rows2['active'];
+          $admin_active = $rows2['admin_active'];
           $puo_refertare = $rows2['puo_refertare'];
 
-          if(isset($doct_id)){
-            $link = "/il-team/professionista.php?".$doct_id;  
+          if (isset($doct_id)) {
+            $link = "/il-team/professionista.php?" . $doct_id;
           } else {
             $link = "/il-team/professionista.php?0";
-          }      
-          if(isset($doct_photo)){
-            $photo_link = "/professionisti/".$doct_photo;
+          }
+          if (isset($doct_photo)) {
+            $photo_link = "/professionisti/" . $doct_photo;
           } else {
             $photo_link = "../images/Group-563.jpg";
           }
 
-         /* $prof_type_array = array('','Esecutore','Refertatore');*/
-        ?>
-          <div class="regi_doctor_card regi_doctor_card<?php echo $doct_id?>">
-            <div class="regi_doctor_image"><img src="<?PHP echo $photo_link ?>" alt="" class="image-24"></div>
-            <div class="div-block-65">
-              <div id="w-node-cf99e8f702f8-80dd982b" class="regi_name_block">
-                <div class="text-block-68"><?PHP echo ucwords($name)." ".ucwords($cogname); ?></div>
-                <?PHP if($tick){?>
-                <div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div>
-                <?php }?>
+          /* $prof_type_array = array('','Esecutore','Refertatore');*/
+          ?>
+         <div class="regi_doctor_card regi_doctor_card<?php echo $doct_id ?>" data-title="<?php echo $doct_title?>">
+          <div class="regi_doctor_image"><img src="<?PHP echo $photo_link ?>" alt="" class="image-24"></div>
+          <div class="div-block-65">
+           <div id="w-node-cf99e8f702f8-80dd982b" class="regi_name_block">
+            <div class="text-block-68"><?PHP echo ucwords($name) . " " . ucwords($cogname); ?></div>
+             <?PHP if ($tick) { ?>
+              <div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div>
+             <?php } ?>
+
+
+             <?PHP
+             if($user_active=='Y'){
+               ?>
+              <div class="active">Attivo</div>
+             <?php }else{?>
+              <div class="active inactive">Non Attivo</div>
+             <?php }?>
+
+			   
+           </div>
+           <div class="div-block-66">
+            <div class="regi_data">Email</div>
+            <div class="regi_value"><?PHP echo $email; ?></div>
+           </div>
+           <div class="div-block-67">
+            <div class="regi_data">Data Registrazione</div>
+            <div class="regi_value"><?php echo date("d F Y", $dor); ?></div>
+           </div>
+          </div>
+          <div id="w-node-cf99e8f70307-80dd982b" class="regi_button_container">
+           <div id="w-node-cf99e8f70308-80dd982b"><a href="<?PHP echo $cv; ?>" download class="button-10 w-button">Scarica
+             CV</a></div>
+           <div class="div-block-75">
+             <?PHP if ($status == 0) { ?>
+              <a href="#" class="button-10 reject w-button">Rifiuta</a>
+             <?php } else { ?>
+              <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f7030e" href="#" class="button-10 remove w-button">Rimuovi<br></a>
+             <?php
+             if($admin_active=='Y'){
+               ?>
+               <br>
+              <a href="doc_active.php?a=N&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="background-color: #00800052;">Visibile</a>
+             <?php }else{?>
+
+              <a href="doc_active.php?a=Y&email=<?php echo urlencode($email);?>" class="button-10 w-button" style="margin-top: 18px;background-color: #ff0000b5;">Non Visibile</a>
+             <?php } }?>
+
+            <div class="reject_confirm">
+             <div data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70312" class="closer diff"></div>
+             <div class="reject_container">
+              <div class="text-block-66">Sei sicuro di voler rifiutare questa candidatura?</div>
+              <div class="div-block-63">
+               <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70317" href="#" class="button-5 no w-button">Cancella</a>
+               <a href="index2.php?s=0&id=<?php echo urlencode($doct_id); ?>" class="button-5 yes w-button">Conferma</a>
               </div>
-              <div class="div-block-66">
-                <div class="regi_data">Email</div>
-                <div class="regi_value"><?PHP echo $email; ?></div>
-              </div>
-              <div class="div-block-67">
-                <div class="regi_data">Data Registrazione</div>
-                <div class="regi_value"><?php echo date("d F Y", $dor);?></div>
-              </div>
+             </div>
             </div>
-            <div id="w-node-cf99e8f70307-80dd982b" class="regi_button_container">
-              <div id="w-node-cf99e8f70308-80dd982b"><a href="<?PHP echo $cv; ?>" download class="button-10 w-button">Scarica CV</a></div>
-              <div class="div-block-75">
-                <?PHP if($status==0){ ?>
-                <a href="#" class="button-10 reject w-button">Rifiuta</a>
-                <?php } else {?>
-                <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f7030e" href="#" class="button-10 remove w-button">Rimuovi<br></a>
-                <?php }?>
-                <div class="reject_confirm">
-                  <div data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70312" class="closer diff"></div>
-                  <div class="reject_container">
-                    <div class="text-block-66">Sei sicuro di voler rifiutare questa candidatura?</div>
-                    <div class="div-block-63">
-                      <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70317" href="#" class="button-5 no w-button">Cancella</a>
-                      <a href="index2.php?s=0&id=<?php echo urlencode($doct_id);?>" class="button-5 yes w-button">Conferma</a>
-                    </div>
-                  </div>
-                </div>
-                <div style="opacity:0;display:none" class="remove_confirm">
-                  <div style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="reject_container removecontainer">
-                    <div class="text-block-66">Sei sicuro di voler rimuovere questa candidatura?</div>
-                    <div class="div-block-63">
-                      <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70320" href="#" class="button-5 no w-button">Cancella</a>
-                      <a href="remove.php?id=<?php echo urldecode($doct_id);?>" class="button-5 yes w-button">Conferma</a>
-                    </div>
-                  </div>
-                  <div data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70324" class="closer"></div>
-                </div>
+            <div style="opacity:0;display:none" class="remove_confirm">
+             <div
+              style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0"
+              class="reject_container removecontainer">
+              <div class="text-block-66">Sei sicuro di voler rimuovere questa candidatura?</div>
+              <div class="div-block-63">
+               <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70320" href="#" class="button-5 no w-button">Cancella</a>
+               <a href="remove.php?id=<?php echo urldecode($doct_id); ?>" class="button-5 yes w-button">Conferma</a>
               </div>
-              <div class="div-block-74">
-              <?PHP if($status==0){ ?>
-                <a href="#" class="button-10 approve w-button">Approva</a>
-                <?php } else {?> 
-                <a href="<?php echo $link?>" target="_blank" class="button-10 open_profile w-button">Vedi Profilo</a>
-              <?php }?>
-                <div class="approve_confirm">
-                  <div data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f7032b" class="closer"></div>
-                  <div class="approve_confirm_container">
-                    <div class="text-block-66 diff">Sei sicuro di voler approvare?</div>
-                    <div class="text-block-69">Una volta approvata la candidatura, un link per la registrazione verrà inviato alla casella mail del Professionista, il quale, effettuata la registrazione, potrà unirsi al team.<br></div>
+             </div>
+             <div data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70324" class="closer"></div>
+            </div>
+           </div>
+           <div class="div-block-74">
+             <?PHP if ($status == 0) { ?>
+              <a href="#" class="button-10 approve w-button">Approva</a>
+             <?php } else { ?>
+              <a href="<?php echo $link ?>" target="_blank" class="button-10 open_profile w-button">Vedi Profilo</a>
 
-                   <div class="w-form" data-id="1">
-                    <form action="index2.php" method="post" enctype="multipart/form-data">
-                     <input type="hidden" name="doctor-id" value="<?php echo urlencode($doct_id);?>">
-                     <input type="hidden" name="status" value="1">
-                     <div class="input_fields">
+              <br>
+              <a href="#" class="button-10 approve w-button modi_btn" style="background-color: #ccc;">Modifica</a>
+             <?php } ?>
+            <div class="approve_confirm">
+             <div data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f7032b" class="closer"></div>
+             <div class="approve_confirm_container pop-width">
+              <div class="text-block-66 diff">Sei sicuro di voler approvare?</div>
+              <div class="text-block-100">Una volta approvata la candidatura, un link per la registrazione verrà inviato
+               alla casella mail del Professionista, il quale, effettuata la registrazione, potrà unirsi al team.<br>
+              </div>
 
-                      <select id="medical_speciality" name="medical_speciality">
-                       <option value="">Seleziona Specialità medica</option>
+              <div class="w-form" data-id="1">
+               <form action="index2.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="doctor-id" value="<?php echo urlencode($doct_id); ?>">
+                <input type="hidden" name="status" value="1">
+                 <?php if (empty($doct_title)){ ?>
+                <div class="input_fields">
+
+					<div class="visit_selector_grid">
+					<select id="medical_speciality" class="list-style-new" name="medical_speciality">
+                  <option value="">Seleziona Specialità medica</option>
+                   <?php
+                   $get_speciality_sql = "select * from medical_specialty where status='Y'";
+                   $get_speciality_result = mysqli_query($conn, $get_speciality_sql);
+
+                   while ($speciality_result_row = mysqli_fetch_array($get_speciality_result)) {
+                     $speciality_name = $speciality_result_row['name'];
+                     ?>
+                    <option value="<?= $speciality_name ?>"
+                            data-mds="<?= $speciality_result_row['ERid'] ?>"><?= $speciality_name ?></option>
+                     <?php
+                   }
+                   ?>
+                 </select>
+      <div class="glance_details_title" style="font-size: 14px;padding-top: 12px;">
+       <input type="checkbox" class="lable2" id="puo_refertare_pop" name="puo_refertare_pop">
+       <label for="puo_refertare_pop">puo refertare </label>
+      </div>
+					</div>
+					
+                </div>
+                 <?php
+                 }
+                   ?>
+                   <div class="form_section">
+                    <div class="visit_selector_grid grid-c">
+                     <div class="slectors">
+                      <div class="visits_selector_container">
+                       <!--start-->
                         <?php
-                        $get_speciality_sql = "select * from medical_specialty where status='Y'";
-                        $get_speciality_result = mysqli_query($conn, $get_speciality_sql);
+                        //include '../connect.php';
+                        $sql3 = "SELECT ERid, name from medical_specialty WHERE status='Y' order by name asc";
+                        $result13 = mysqli_query($conn, $sql3);
+                        while($rows13 = mysqli_fetch_array($result13)){
+                          $erid = $rows13['ERid'];
+                          $spaciality_name = $rows13['name'];
 
-                        while($speciality_result_row = mysqli_fetch_array($get_speciality_result)) {
-                          $speciality_name = $speciality_result_row['name'];
+                          $div_style = 'display: none';
+                          if (!empty($doct_title) && $doct_title == trim($spaciality_name)){
+                            $div_style = 'display: block';
+                          }
                           ?>
-                         <option value="<?=$speciality_name?>" data-mds="<?=$speciality_result_row['ERid']?>"><?=$speciality_name?></option>
-                          <?php
-                        }
-                        ?>
-                      </select>
-
-                      <select id="puo_refertare" name="puo_refertare">
-                       <option value="N">N</option>
-                       <option value="Y">Y</option>
-                      </select>
-                     </div>
-                     <div class="form_section">
-                      <div class="visit_selector_grid">
-                       <div class="slectors">
-                        <div class="visits_selector_container">
-                         <!--start-->
-                          <?php
-                          include '../connect.php';
-                          $sql3 = "SELECT ERid, name from medical_specialty WHERE status='Y' order by name asc";
-                          $result13 = mysqli_query($conn, $sql3);
-                          while($rows13 = mysqli_fetch_array($result13)){
-                            $erid = $rows13['ERid'];
-                            $spaciality_name = $rows13['name'];
-                            ?>
-                           <div class="visit mds-<?php echo $erid?>" style="display: none">
-                            <input type="hidden" class="doc_spaciality" name="doc_spaciality" value="">
-                            <div class="visit_heading">
-                             <div class="text-block-42"><?php echo $spaciality_name;?></div><img src="../images/arrow.svg" alt="" class="image-13"></div>
-                            <div class="visit_subitem_container_new" style="width: 488.391px;height: auto">
-                              <?php
-                              $sql23 = "SELECT DISTINCT am.id AS article_id, descrizione
+                         <div class="visit mds-<?php echo $erid?>" style="<?php echo $div_style?>">
+                          <input type="hidden" class="doc_spaciality" name="doc_spaciality" value="">
+                          <div class="visit_heading">
+                           <div class="text-block-42"><?php echo $spaciality_name;?></div></div>
+                          <div class="visit_subitem_container_new width-1" style="width: 100%">
+                            <?php
+                            $sql23 = "SELECT DISTINCT am.id AS article_id, descrizione
 FROM articlesMobidoc am
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '".$erid."'=ams.specialtyMobidoc
 WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
-                              $result23 = mysqli_query($conn, $sql23);
-                              while($rows2 = mysqli_fetch_array($result23)){
-                                $visit_type_name = trim($rows2['descrizione']);
-                                $article_id = trim($rows2['article_id']);
-                                ?>
-                               <div class="visit_subitem" data-item="<?php echo $visit_type_name?>" data-id="<?php echo $article_id ?>">
-                                <div class="text-block-43">
-                                  <?php echo $visit_type_name;?>
-                                </div>
-                                <img src="../images/Path-175.svg" alt="" class="image-12"></div>
-                              <?php } ?>
-                            </div>
-                           </div>
-                          <?php } mysqli_close($conn);?>
-                         <!--end-->
-                        </div>
-                       </div>
-                       <div class="selecteds" id="visits">
-                       </div>
+                            $result23 = mysqli_query($conn, $sql23);
+                            while($rows2 = mysqli_fetch_array($result23)){
+                              $visit_type_name = trim($rows2['descrizione']);
+                              $article_id = trim($rows2['article_id']);
+                              ?>
+                             <div class="visit_subitem" data-item="<?php echo $visit_type_name?>" data-id="<?php echo $article_id ?>">
+                              <div class="text-block-43">
+                                <?php echo $visit_type_name;?>
+                              </div>
+                              <img src="../images/Path-175.svg" alt="" class="image-12"></div>
+                            <?php } ?>
+                          </div>
+                         </div>
+                        <?php } //mysqli_close($conn);?>
+                       <!--end-->
                       </div>
                      </div>
-                     <div class="div-block-63">
-                      <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70333" href="#" class="button-5 no w-button">Cancella</a>
-                      <button type="submit" name="update-status" class="button-5 yes w-button update-status">Si</button>
-                     </div>
-                    </form>
-                   </div>
-                  </div>
+                     <div class="selecteds" id="visits">
+                      <!--start-->
+                       <?php
+                      // include '../connect.php';
 
+                       if (!empty($doct_title)){
+                       $sql150 = "SELECT DISTINCT am.id AS article_id, descrizione, ls.visit_home_price, ls.visit_tele_price
+FROM listini ls
+JOIN articlesMobidoc as am ON ls.article_mobidoc_id = am.id
+JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
+WHERE ms.status='Y' AND ls.doctor_id='".$doct_id."' AND (am.home = 'Y' OR am.tele = 'Y')";
+
+                       $result150 = mysqli_query($conn, $sql150);
+                       $i=1;
+                       while($rows150 = mysqli_fetch_array($result150)){
+                         $visit_name1 = $rows150['descrizione'];
+                         $article_id1 = $rows150['article_id'];
+                         $price = $rows150['visit_home_price'];
+                         $service_name = "service_name_pre".$i;
+                         $price_name = "service_price_pre".$i++;
+                         ?>
+
+                        <div class="visit_subitem selected">
+                         <div style=' width:65%;'>
+                          <input type='checkbox' style='display:none;' checked class='text-block-44' value='<?php echo $article_id1; ?>' name='<?php echo $service_name; ?>'>
+                           <?php echo $visit_name1; ?>
+                         </div>
+                         <div class="price_n_remove">
+                          <div class="price_input">
+                           <div>€</div>
+                           <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_name; ?>" min="1" data-name="Field" value="<?php echo $price; ?>" id="field" required=""/>
+                          </div>
+                          <img src="../images/minus_1.svg" class="image-14" onclick="service_remove(this)">
+                         </div>
+                        </div>
+                       <?php }} ?>
+                     </div>
+                    </div>
+                   </div>
+                   <div class="div-block-63" style="text-align: center;">
+                    <a data-w-id="293fdba6-5dda-9f43-9d25-cf99e8f70333" href="#" class="button-5 no w-button">Cancella</a>
+                    <button type="submit" name="update-status" class="button-5 yes w-button update-status">Si</button>
+                   </div>
+                  </form>
+                 </div>
                 </div>
+
+               </div>
+
               </div>
               <?PHP if($status==1){ ?>
                 <?php if(isset($doct_id)){
              ?>
-             <div class="div-block-74">
-               <?PHP
-                   if($user_active=='Y'){
-                     ?>
-                    <a href="javascript:;" class="button-10 w-button" style="margin-top: 10px;background-color: #00800052;">Attivo</a>
-                   <?php }else{?>
-
-                    <a href="javascript:;" class="button-10 w-button" style="margin-top: 10px;background-color: #ff0000b5;">Non Attivo</a>
-                   <?php }?>
-
-             </div>
              <div class="div-block-74">
                <?php
                if ($puo_refertare == 'Y'){
@@ -320,29 +452,12 @@ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
                  $is_check = '';
                }
                ?>
-              <div class="glance_details_title" style="font-size: 14px">
+              <div class="glance_details_title" style="font-size: 14px;margin-left: 15px;">
                <input type="checkbox" <?php echo $is_check?> class="puo_refertare lable2" id="puo_refertare" name="puo_refertare" data-id="<?php echo $doct_id?>" value="<?php echo $puo_refertare?>">
                <label for="puo_refertare">puo refertare </label>
                <p class="gen_errr" style="display: none">Database Error</p>
               </div>
               <br>
-            <?php
-            /*
-               <?PHP if($tick){?>
-                 <?php
-                 if(isset($p_type)){
-                   $prof_type = $p_type;
-                 }else{
-                   $prof_type = '0';
-                 }?>
-                <select style="margin-left: 10px;width: 100px;outline: inherit;border: 1px solid;" name="pro_type" class="pro_type" data-item="<?php echo $doct_id?>">
-                 <option value="<?PHP echo $prof_type;?>"><?php echo $prof_type_array[$prof_type]?></option>
-                 <option value="1">Esecutore</option>
-                 <option value="2">Refertatore</option>
-                </select>
-               <?php }?>
-            */
-            ?>
              </div>
             <?php }}?>
 
@@ -361,11 +476,13 @@ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
     </div>
     <div class="menu_current w-embed w-script">
      <script type="text/javascript">
+
        $(document).ready(function(){
          $('.update-status').click(function(){
            var get_parent_div = $(this).parent().parent();
            var get_option_val = $("#medical_speciality", get_parent_div).val();
-           if (get_option_val){
+           var get_parent_div1 = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('data-title');
+           if (get_option_val || get_parent_div1){
              return true;
            } else {
              alert("Seleziona Specialità medica");
