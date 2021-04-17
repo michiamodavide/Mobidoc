@@ -398,7 +398,9 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                            <div class="text-block-42"><?php echo $spaciality_name;?></div></div>
                           <div class="visit_subitem_container_new width-1" style="width: 100%">
                             <?php
-                            $sql23 = "SELECT DISTINCT am.id As article_id, am.descrizione
+                            $sql23 = "
+SET sql_mode = '';
+SELECT DISTINCT am.id As article_id, descrizione
 FROM articlesMobidoc am
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '".$erid."'=ams.specialtyMobidoc

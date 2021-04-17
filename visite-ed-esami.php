@@ -271,7 +271,9 @@
         <div class="text-block-7"><span class="service_text_underline"><?php echo $visit_name;?></span></div>
         <div class="type_of-service_grid">      	
 		<?php
-  $sql2 = "SELECT DISTINCT am.id AS article_id, g.detailName, home, tele, descrizione, attributo
+  $sql2 = "
+SET sql_mode = '';
+SELECT DISTINCT am.descrizione, am.id AS article_id, g.detailName, home, tele, descrizione, attributo
  FROM articlesMobidoc am
  JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
  JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
