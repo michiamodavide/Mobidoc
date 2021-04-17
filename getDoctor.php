@@ -2,8 +2,6 @@
 session_start();
 
 $visit_name = trim($_REQUEST["q"]);
-echo $visit_name;
-exit();
 
 include 'connect.php';
         
