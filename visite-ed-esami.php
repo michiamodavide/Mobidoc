@@ -271,6 +271,8 @@
         <div class="text-block-7"><span class="service_text_underline"><?php echo $visit_name;?></span></div>
         <div class="type_of-service_grid">      	
 		<?php
+
+  mysqli_query($conn, "SET GLOBAL sql_mode=''");
   $sql2 = "
 SELECT DISTINCT am.descrizione, am.id AS article_id, g.detailName, home, tele, descrizione, attributo
  FROM articlesMobidoc am
