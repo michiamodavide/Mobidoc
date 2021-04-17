@@ -39,17 +39,17 @@
 }
   </style>
 <script>
-  function getDoctors(value){
+  function getDoctors(value, article_id){
     $('#book_visit').val($.trim(value));
     $('#book_doctor').val('');
-    $('#article_id').val('');
+    $('#article_id').val(article_id);
     var xmlhttp2 = new XMLHttpRequest();
     xmlhttp2.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById("load_doctors").innerHTML = this.responseText;
       }
     };
-    xmlhttp2.open("GET", "getDoctor.php?q=" + value, true);
+    xmlhttp2.open("GET", "getDoctor.php?q=" + value+"&article_id="+article_id, true);
     xmlhttp2.send();
   }
   function setDoctor(val, art_id){
@@ -284,7 +284,8 @@ SELECT DISTINCT am.descrizione, am.id AS article_id, g.detailName, home, tele, d
 			while($rows2 = mysqli_fetch_array($result2)){
 			 if (trim($rows2['detailName']) == trim($visit_name)) {
       $visit_type_name = trim($rows2['descrizione'], " ");
-      $visit_name_2 = '"' . $visit_name . '", "' . $visit_type_name . '"';
+      $article_id = trim($rows2['article_id'], " ");
+      $visit_name_2 = '"' . $visit_name . '", "' . $visit_type_name . '", "' . $article_id . '"';
 
       echo "<div class='sub_service' onClick='get_visit_Doctors(" . $visit_name_2 . ");' >";
       echo "<div class='sub_service_text'>";
@@ -371,7 +372,7 @@ SELECT DISTINCT am.descrizione, am.id AS article_id, g.detailName, home, tele, d
   });
 </script>
 <script>
-  function get_visit_Doctors(str, visit_name) {
+  function get_visit_Doctors(str, visit_name, article_id) {
           $('#load_doctors').html('<div class="slect_visit_first"><span>Please select a visit first!</span></div>');
           if (str.length == 0) {
             document.getElementById("txtHint").innerHTML = "";
@@ -395,16 +396,16 @@ SELECT DISTINCT am.descrizione, am.id AS article_id, g.detailName, home, tele, d
                   $('.visite_list').css('display','block');
                   $('#book_visit').val(visit_name);
                   $('#book_doctor').val('');
-                  $('#article_id').val('');
+                  $('#article_id').val(article_id);
                 } else {
                   $('.visite').css('margin-bottom','0px');
                   $('.visite_list').css('display','grid');
                   $('#book_visit').val(visit_name);
                   $('#book_doctor').val('');
-                  $('#article_id').val('');
+                  $('#article_id').val(article_id);
                 }
               }, 100);
-              getDoctors(visit_name);
+              getDoctors(visit_name,article_id);
         }
 
 

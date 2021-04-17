@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-$visit_name = trim($_REQUEST["q"]);
+//$visit_name = trim($_REQUEST["q"]);
+$article_id = trim($_REQUEST["article_id"]);
 
 include 'connect.php';
         
@@ -10,23 +11,17 @@ if($conn === false){
 }
 
   if (isset($_SESSION['doctor_email'])) {
-    $sql2 = "SELECT DISTINCT am.id AS article_id, dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title 
-FROM articlesMobidoc am
-JOIN listini lis ON am.id=lis.article_mobidoc_id
-JOIN articlesMobidoc_specialty ams ON am.id=ams.id
-JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
-JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
-JOIN doctor_register dr ON dp.doctor_id=dr.id
-WHERE am.`descrizione`='$visit_name' AND (am.home='Y' OR am.tele='Y') AND dr.tick=1";
+    $sql2 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
+FROM doctor_profile dp
+JOIN listini ls ON dp.doctor_id=ls.doctor_id
+ JOIN doctor_register dg ON ls.doctor_id=dg.id
+ WHERE ls.article_mobidoc_id = '".$article_id."' AND dg.tick = 1";
   }else{
-    $sql2 = "SELECT DISTINCT am.id AS article_id, dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
-FROM articlesMobidoc am
-JOIN listini lis ON am.id=lis.article_mobidoc_id
-JOIN articlesMobidoc_specialty ams ON am.id=ams.id
-JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
-JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
-JOIN doctor_register dr ON dp.doctor_id=dr.id
-WHERE am.`descrizione`='$visit_name' AND dp.`active`='Y' AND dp.`admin_active`='Y' AND dp.`puo_refertare`='N' AND (am.home='Y' OR am.tele='Y') AND dr.tick=1";
+   $sql2 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
+FROM doctor_profile dp
+JOIN listini ls ON dp.doctor_id=ls.doctor_id
+ JOIN doctor_register dg ON ls.doctor_id=dg.id
+ WHERE ls.article_mobidoc_id = '".$article_id."' AND dp.`active`='Y' AND dp.`admin_active`='Y' AND dp.`puo_refertare`='N' AND dg.tick = 1";
   }
 
     $result2 = mysqli_query($conn, $sql2);
@@ -53,7 +48,7 @@ WHERE am.`descrizione`='$visit_name' AND dp.`active`='Y' AND dp.`admin_active`='
        <div class="preofessionist_name"><?php echo $name; ?></div>
        <div class="professionist_title"><?php echo $titile; ?></div>
        <div class="button_container">
-        <a href="#" class="button-3 gradient select_button w-button" doctor-id="<?php echo $id; ?>" article-id="<?php echo $rows2['article_id']; ?>"
+        <a href="#" class="button-3 gradient select_button w-button" doctor-id="<?php echo $id; ?>" article-id="<?php echo $article_id; ?>"
            onClick="setDoctor(this.getAttribute('doctor-id'), this.getAttribute('article-id')); $('.selected_tick').removeClass('selected_true'); $(this).parent().siblings('.professionist_image_container').children('.selected_tick').toggleClass('selected_true');">Seleziona</a>
         <a href="<?php echo $link; ?>" class="button-3 w-button" target="_blank">Esplora profilo</a>
        </div>
