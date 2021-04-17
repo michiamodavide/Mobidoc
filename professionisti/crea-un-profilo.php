@@ -14,7 +14,7 @@ if (isset($_GET['email'])) {
   $result = mysqli_query($conn, $sql);
   $result_row_new = mysqli_fetch_array($result);
 
-  if ($rowcount2 < 1 || $result_row_new['status'] == 0) {
+  if ($rowcount2 < 1 || $result_row_new['status'] == 0 || $result_row_new['tick'] == 1) {
     header("location: validate.php");
   }
 
