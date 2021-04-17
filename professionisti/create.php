@@ -51,6 +51,8 @@
 		$dor = date("Y/m/d");
 
     $sql = "update doctor_profile set fname = '".$fname."', lname= '".$lname."', password= '".$password."', dob= '".$dob."', photo= '".$photo."', fiscale= '".strtoupper($fiscal)."', vat_number= '".$vat."', description= '".$profile_description."', phone= '".$tel."', street_name= '".$street_name."', street_no= '".$street_no."', comune= '".$comune."' , province= '".$province."', cap= '".$cap."', deontological_consent= '".$checkbox."', deontologicalAcceptDate= '".$dor."', dor= '".$dor."' where email='".$email."'";
+    echo $sql;
+    echo '<br>';
 
 		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
 
@@ -74,6 +76,8 @@
 				$c5 = substr($c2, $c3+1, 2);
 				$c6 = substr($c2, $c3+6, 5);
 				$sql2 = "insert into doctor_cap (doctor_id, comune, province, cap) values('".$doctor_id."', '".$c4."', '".$c5."', '".$c6."')";
+        echo $sql2;
+        echo '<br>';
 				$result = mysqli_query($conn, $sql2);
 				if($result==1)
 					echo "Record inserted2";
@@ -81,6 +85,8 @@
 					echo "Unable to insert record2";
 			}
 		}
+
+
 
 	/*
 		$i=0;
@@ -104,7 +110,6 @@
 					echo "Unable to insert record3";
 			}
 		}
-
 	   $sql3_new = "insert into doctor_specialty (doctor_id, specialty) values('".$doctor_id."','".$_POST['doc_spaciality']."')";
     $result3_new = mysqli_query($conn, $sql3_new);
     if($result==1) {
@@ -116,10 +121,14 @@
 
 
     $sql3 = "update doctor_register set tick = 1 where id = '".$doctor_id."' ";
+    echo $sql3;
+    echo '<br>';
 		$result = mysqli_query($conn, $sql3);
 
 		mysqli_close($conn);
 	}
+
+	exit();
 
 	//header("location: application-sucessful.php");
 	$to = 'info@mobidoc.it';
