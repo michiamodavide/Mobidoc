@@ -1,7 +1,6 @@
 <?php session_start(); 
 include 'connect.php';
 
-
 $booking_name =  $_GET['book_visit'];
 $doctor_id = $_GET['book_doctor'];
 $article_id = $_GET['article_id'];
@@ -35,12 +34,11 @@ if (isset($_SESSION['pat_id'])){
    $pat_id = $_SESSION['pat_id'];
 }
 
-
 $sql132 = "select * from paziente_profile where paziente_id ='".$pat_id."'";
 $result132 = mysqli_query($conn, $sql132);
 $rows132 = mysqli_fetch_array($result132);
 if (!$rows132){
-  header('Location: /');
+  header('Location: /paziente/account.php');
 }
 
 $sql2 = "select * from doctor_profile where doctor_id ='".$doctor_id."'";
