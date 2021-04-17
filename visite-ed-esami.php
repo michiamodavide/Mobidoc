@@ -272,7 +272,6 @@
         <div class="type_of-service_grid">      	
 		<?php
   $sql2 = "
-SET sql_mode = '';
 SELECT DISTINCT am.descrizione, am.id AS article_id, g.detailName, home, tele, descrizione, attributo
  FROM articlesMobidoc am
  JOIN articlesMobidoc_specialty as ams ON am.id = ams.id

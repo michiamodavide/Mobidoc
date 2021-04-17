@@ -399,7 +399,6 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                           <div class="visit_subitem_container_new width-1" style="width: 100%">
                             <?php
                             $sql23 = "
-SET sql_mode = '';
 SELECT DISTINCT am.id As article_id, descrizione
 FROM articlesMobidoc am
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
