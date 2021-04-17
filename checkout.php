@@ -268,16 +268,13 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
       <div class="div-block-19">
         <div class="div-block-20">
         <?php
-
           include 'connect.php';
                   
-        $sql4 = "SELECT DISTINCT am.id AS article_id, dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
-FROM articlesMobidoc am
-JOIN listini lis ON am.id=lis.article_mobidoc_id
-JOIN articlesMobidoc_specialty ams ON am.id=ams.id
-JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
-JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
-WHERE am.`descrizione`='$booking_name' AND dp.`puo_refertare`='N' AND dp.`admin_active`='Y' AND dp.`active`='Y' AND (am.home='Y' OR am.tele='Y')";
+        $sql4 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
+FROM doctor_profile dp
+JOIN listini ls ON dp.doctor_id=ls.doctor_id
+ JOIN doctor_register dg ON ls.doctor_id=dg.id
+ WHERE ls.article_mobidoc_id = '".$article_id."' AND dp.`active`='Y' AND dp.`admin_active`='Y' AND dp.`puo_refertare`='N' AND dg.tick = 1";
           $result4 = mysqli_query($conn, $sql4);
           $row5_count = mysqli_num_rows($result4);
 
@@ -292,7 +289,6 @@ WHERE am.`descrizione`='$booking_name' AND dp.`puo_refertare`='N' AND dp.`admin_
               $titile = ucwords($rows5['title']);
               $link = "/il-team/professionista.php?".$rows5['doctor_id'];
               $id = $rows5['doctor_id'];
-              $article_id = $rows5['article_id'];
               $select_link = "/checkout.php?book_visit=".$booking_name."&book_doctor=".$id."&article_id=".$article_id;
              ?>
 
