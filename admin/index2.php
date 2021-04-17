@@ -1,5 +1,4 @@
 <?php
-
 $is_first = 0;
 if(isset($_POST['update-status'])){
   $is_first = 1;
@@ -42,7 +41,6 @@ if ($is_first ==1 && $result==1){
    if ($is_edit ==1){
      $sql_del = "delete from listini where doctor_id='$doct_id'";
      $result_del = mysqli_query($conn, $sql_del);
-
      $i=0;
      if($result_del==1) {
 
@@ -50,10 +48,15 @@ if ($is_first ==1 && $result==1){
        {
          $v11='service_name_pre'.$i;
          $v21='service_price_pre'.$i;
+         $v51='service_price_pre_tele'.$i;
          if(isset($_POST[$v11])){
            $v31 = mysqli_real_escape_string($conn, $_POST[$v11]);
            $v41 = mysqli_real_escape_string($conn, $_POST[$v21]);
-           $sql34 = "insert into listini (doctor_id, article_mobidoc_id, visit_home_price, visit_tele_price) values('".$doct_id."','".$v31."', '".$v41."', '".$v41."')";
+           $v61 = '0.0';
+           if ($_POST[$v51] >=1){
+             $v61 = mysqli_real_escape_string($conn, $_POST[$v51]);
+           }
+           $sql34 = "insert into listini (doctor_id, article_mobidoc_id, visit_home_price, visit_tele_price) values('".$doct_id."','".$v31."', '".$v41."', '".$v61."')";
            $result134 = mysqli_query($conn, $sql34);
            if($result134==1) {
 //            do not anything
@@ -72,10 +75,16 @@ if ($is_first ==1 && $result==1){
     {
       $v1='service_name'.$i;
       $v2='service_price'.$i;
+      $v5='service_price_tel'.$i;
       if(isset($_POST[$v1])){
         $v3 = mysqli_real_escape_string($conn, $_POST[$v1]);
         $v4 = mysqli_real_escape_string($conn, $_POST[$v2]);
-        $sql3 = "insert into listini (doctor_id, article_mobidoc_id, visit_home_price, visit_tele_price) values('".$doct_id."','".$v3."', '".$v4."', '".$v4."')";
+        $v6 = '0.0';
+        if ($_POST[$v5] >=1){
+          $v6 = mysqli_real_escape_string($conn, $_POST[$v5]);
+        }
+
+        $sql3 = "insert into listini (doctor_id, article_mobidoc_id, visit_home_price, visit_tele_price) values('".$doct_id."','".$v3."', '".$v4."', '".$v6."')";
         $result13 = mysqli_query($conn, $sql3);
         if($result13==1 && $is_edit != 1) {
 

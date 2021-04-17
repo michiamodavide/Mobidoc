@@ -107,42 +107,12 @@
 		 .width-1 {
     width: 280px;
 }
- .input_num {
-    width: 55px;
-    padding-left: 3px;
-			 font-size:14px
-
-}
-		 .image-14 {
-    margin-left: 7px;
-}
-		 .visit_subitem {
-
-    
-    padding: 18px 25px 18px 15px;
-}
-		 .price_input {padding: 2px 2px 2px 6px;}
 	 } 	 
 	 
 	 @media screen and (max-width: 1280px){
 		 .width-1 {
     width: 270px;
 }
-		 .input_num {
-    width: 55px;
-    padding-left: 3px;
-			 font-size:14px
-
-}
-		 .image-14 {
-    margin-left: 7px;
-}
-		 .visit_subitem {
-
-    
-    padding: 18px 25px 18px 15px;
-}
-		 .price_input {padding: 2px 2px 2px 6px;}
 	 } 
 @media screen and (max-width: 767px){
  .admin_main_section .admin_section_header{
@@ -349,7 +319,7 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                 <div class="input_fields">
 
 					<div class="visit_selector_grid">
-					<select id="medical_speciality" class="list-style-new" name="medical_speciality" doctor-id="<?php echo $doct_id?>">
+					<select id="medical_speciality" class="list-style-new" name="medical_speciality">
                   <option value="">Seleziona Specialità medica</option>
                    <?php
                    $get_speciality_sql = "select * from medical_specialty where status='Y'";
@@ -366,7 +336,7 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                  </select>
       <div class="glance_details_title" style="font-size: 14px;padding-top: 12px;">
        <input type="checkbox" class="lable2" id="puo_refertare_pop" name="puo_refertare_pop">
-       <label for="puo_refertare_pop">Puo Refertare </label>
+       <label for="puo_refertare_pop">puo refertare </label>
       </div>
 					</div>
 					
@@ -398,33 +368,29 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                            <div class="text-block-42"><?php echo $spaciality_name;?></div></div>
                           <div class="visit_subitem_container_new width-1" style="width: 100%">
                             <?php
-                            $sql23 = "SELECT DISTINCT am.id As article_id, am.descrizione
+                            $sql23 = "SELECT DISTINCT am.id AS article_id, descrizione
 FROM articlesMobidoc am
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '".$erid."'=ams.specialtyMobidoc
-WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y') group by am.descrizione";
+WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
                             $result23 = mysqli_query($conn, $sql23);
-
                             while($rows2 = mysqli_fetch_array($result23)){
                               $visit_type_name = trim($rows2['descrizione']);
                               $article_id = trim($rows2['article_id']);
                               ?>
-                             <div class="visit_subitem visit_show<?php echo $doct_id?>" doctor-id="<?php echo $doct_id?>" data-item="<?php echo $visit_type_name?>" data-id="<?php echo $article_id ?>">
+                             <div class="visit_subitem" data-item="<?php echo $visit_type_name?>" data-id="<?php echo $article_id ?>">
                               <div class="text-block-43">
                                 <?php echo $visit_type_name;?>
                               </div>
-                              <img src="../images/Path-175.svg" alt="" class="image-12">
-                             </div>
-                            <?php
-                            }
-                            ?>
+                              <img src="../images/Path-175.svg" alt="" class="image-12"></div>
+                            <?php } ?>
                           </div>
                          </div>
                         <?php } //mysqli_close($conn);?>
                        <!--end-->
                       </div>
                      </div>
-                     <div class="selecteds doc_visit<?php echo $doct_id?>" id="visits">
+                     <div class="selecteds" id="visits">
                       <!--start-->
                        <?php
                       // include '../connect.php';
@@ -438,15 +404,15 @@ JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
 WHERE ms.status='Y' AND ls.doctor_id='".$doct_id."' AND (am.home = 'Y' OR am.tele = 'Y')";
 
                        $result150 = mysqli_query($conn, $sql150);
-                       $j=1;
+                       $i=1;
                        while($rows150 = mysqli_fetch_array($result150)){
                          $visit_name1 = $rows150['descrizione'];
                          $article_id1 = $rows150['article_id'];
                          $price = $rows150['visit_home_price'];
                          $tele_price = $rows150['visit_tele_price'];
-                         $service_name = "service_name_pre".$j;
-                         $price_name = "service_price_pre".$j;
-                         $price_tele_name = "service_price_pre_tele".$j;
+                         $service_name = "service_name_pre".$i;
+                         $price_name = "service_price_pre".$i++;
+                         $price_tele_name = "service_price_pre_tele".$i++;
                          ?>
 
                         <div class="visit_subitem selected">
@@ -461,14 +427,12 @@ WHERE ms.status='Y' AND ls.doctor_id='".$doct_id."' AND (am.home = 'Y' OR am.tel
                           </div>
                           <div class="price_input" style="margin-left: 5px">
                            <div>€</div>
-                           <input type="number" class="input_num w-input" maxlength="10" min="0" name="<?php echo $price_tele_name; ?>" data-name="Field" value="<?php echo $tele_price; ?>" id="field"/>
+                           <input type="number" class="input_num w-input" maxlength="10" name="<?php echo $price_tele_name; ?>" min="0" data-name="Field" value="<?php echo $tele_price; ?>" id="field"/>
                           </div>
                           <img src="../images/minus_1.svg" class="image-14" onclick="service_remove(this)">
                          </div>
                         </div>
-                       <?php
-                         $j++;
-                       }} ?>
+                       <?php }} ?>
                      </div>
                     </div>
                    </div>
@@ -496,7 +460,7 @@ WHERE ms.status='Y' AND ls.doctor_id='".$doct_id."' AND (am.home = 'Y' OR am.tel
                ?>
               <div class="glance_details_title" style="font-size: 14px;margin-left: 15px;">
                <input type="checkbox" <?php echo $is_check?> class="puo_refertare lable2" id="puo_refertare" name="puo_refertare" data-id="<?php echo $doct_id?>" value="<?php echo $puo_refertare?>">
-               <label for="puo_refertare">Puo Refertare </label>
+               <label for="puo_refertare">puo refertare </label>
                <p class="gen_errr" style="display: none">Database Error</p>
               </div>
               <br>
@@ -583,13 +547,10 @@ WHERE ms.status='Y' AND ls.doctor_id='".$doct_id."' AND (am.home = 'Y' OR am.tel
   <script type="text/javascript">
 
     $('#medical_speciality').on('change', function() {
-      var doc_idd = $(this).attr("doctor-id");
       var get_erd_code = $('option:selected', this).attr('data-mds');
       $(".visits_selector_container .visit").css("display", "none");
       $(".visits_selector_container .visit.mds-"+get_erd_code).css("display", "block");
       $(".doc_spaciality").val(get_erd_code);
-      $(".selecteds.doc_visit"+doc_idd+" .visit_subitem.selected").remove();
-      $('.visit_subitem_container_new > .visit_subitem.visit_show'+doc_idd).show();
     });
     $(document).ready(function(){
       selected_visit_counter = 0;
@@ -605,9 +566,8 @@ WHERE ms.status='Y' AND ls.doctor_id='".$doct_id."' AND (am.home = 'Y' OR am.tel
         // console.log(se_name);
 
         // console.log(visit_type_array[0]);
-        var doctor_idd = $(this).attr("doctor-id");
-        var service_add = "<div class='visit_subitem selected'><div style=' width:65%;'><input type='checkbox' style='display:none;' checked class='text-block-44' value='"+current_article_id+"' name='service_name"+selected_visit_counter+"'>"+current_visit_type+"</div><div class='price_n_remove'><div class='price_input'><div>€</div><input type='number' placeholder='Casa' class='input_num w-input' maxlength='256' name='service_price"+selected_visit_counter+"'  min='1' data-name='Field' id='field' required=''></div><div class='price_input' style='margin-left: 2px;'><div>€</div><input placeholder='Tel' min='0' type='number' class='input_num w-input' maxlength='256' name='service_price_tel"+selected_visit_counter+"' data-name='Field' id='field'></div><img src='../images/minus_1.svg' class='image-14' onClick='service_remove(this)'></div></div>";
-        $(".selecteds.doc_visit"+doctor_idd).append(service_add);
+        var service_add = "<div class='visit_subitem selected'><div style=' width:65%;'><input type='checkbox' style='display:none;' checked class='text-block-44' value='"+current_article_id+"' name='service_name"+selected_visit_counter+"'>"+current_visit_type+"</div><div class='price_n_remove'><div class='price_input'><div>€</div><input type='number' placeholder='Casa' class='input_num w-input' maxlength='256' name='service_price"+selected_visit_counter+"'  min='1' data-name='Field' id='field' required=''></div><div class='price_input' style='margin-left: 2px;'><div>€</div><input placeholder='Tel' type='number' class='input_num w-input' maxlength='256' name='service_price_tel"+selected_visit_counter+"' data-name='Field' id='field'></div><img src='../images/minus_1.svg' class='image-14' onClick='service_remove(this)'></div></div>";
+        $(".selecteds").append(service_add);
         $(this).hide();
 
         var visit_attr_appender;
