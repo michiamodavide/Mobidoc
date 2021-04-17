@@ -5,10 +5,6 @@
   }
   $email_of_contact = $_SESSION['paziente_email'];
 
-  setcookie("Booking_name", "", time() + (86400 * 0.0416), "/");
-  setcookie("Booking_id", "", time() + (86400 * 0.0416), "/");
-  setcookie("article_id", "", time() + (86400 * 0.0416), "/");
-
   include '../connect.php';
   $sql3 = "select * from contact_profile where email ='".$email_of_contact."'";
   $result3 = mysqli_query($conn, $sql3);
