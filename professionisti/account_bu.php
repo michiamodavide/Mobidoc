@@ -11,32 +11,6 @@ $rows3 = mysqli_fetch_array($result3);
 ?>
 <!DOCTYPE html>
 <html data-wf-page="5daae10f508f046541f51898" data-wf-site="5d8cfd454ebd737ac1a48727">
-	<style>
-		 .active{
-		 margin-left:20px;
-		 font-weight: bold;
-		 border-bottom:1px solid rgba(12, 217, 237, 0.7);
-		  background-color: rgba(211, 251, 255, 0.48);
-		 padding: 10px 10px;
-		 border-top:none;
-	 border-right:none;
-	 border-left:none;
-	     border-radius: 5px;
-	 }
-		ul.list{
-			margin: 0;
-			padding: 0 0 0 20px !important;
-		}
-		ul.list li{
-			list-style: decimal;
-			text-align: left;
-			margin-bottom: 10px;
-			font-size: 14px;
-    font-weight: 400;
-			color: #00285c;
-			    padding-left: 10px;
-		}
-	</style>
 <head>
  <meta charset="utf-8">
  <title>Profile</title>
@@ -405,30 +379,30 @@ $rows3 = mysqli_fetch_array($result3);
     <a href="edit-un-profilo.php?email=<?php echo urlencode($email); ?>" class="button-5 faded w-button">Modifica
      Profilo</a>
     <a href="<?php echo $doctor_id_link; ?>" target="_blank" class="button-5 faded w-button">Vedi Profilo</a>
+    <!--<a href="#" class="button-5 faded w-button">Cambia Password</a>-->
    </div>
 
-   <br>
-   <div class="active">
-    <h2 class="heading-20 diff" style="margin-top: 10px;">Le mie visite</h2>
-	   <ul class="list">
-      <?php
-      include '../connect.php';
+   <div>
+    <h1>hello test</h1>
+    <?php
+    include '../connect.php';
 
-      $sql152 = "SELECT DISTINCT am.id AS article_id, descrizione, ls.visit_home_price, ls.visit_tele_price
+    $sql152 = "SELECT DISTINCT am.id AS article_id, descrizione, ls.visit_home_price, ls.visit_tele_price
 FROM listini ls
 JOIN articlesMobidoc as am ON ls.article_mobidoc_id = am.id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
 WHERE ms.status='Y' AND ls.doctor_id='".$rows3['doctor_id']."' AND (am.home = 'Y' OR am.tele = 'Y')";
 
-      $result152 = mysqli_query($conn, $sql152);
-      while($rows152 = mysqli_fetch_array($result152)){
-      $visit_name12 = $rows152['descrizione'];
-      ?>
-	   		<li><?=$visit_name12?></li>
-      <?php } mysqli_close($conn);?>
-	   </ul>
+    $result152 = mysqli_query($conn, $sql152);
+    while($rows152 = mysqli_fetch_array($result152)){
+    $visit_name12 = $rows152['descrizione'];
+    ?>
+    <p>1.<?=$visit_name12?></p>
+    <?php } mysqli_close($conn);?>
    </div>
+
+
   </div>
  </div>
 </section>

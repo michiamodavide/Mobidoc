@@ -441,7 +441,7 @@ JOIN doctor_profile as dp ON dp.doctor_id = ls.doctor_id
 JOIN articlesMobidoc as am ON ls.article_mobidoc_id = am.id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
-WHERE dp.active='Y' AND dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
+WHERE dp.puo_refertare='N' AND ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
                   $visit_result = mysqli_query($conn, $visit_sql);
                   while($visit_rows = mysqli_fetch_array($visit_result)){
                     $visit_types = $visit_rows['descrizione'];

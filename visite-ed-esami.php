@@ -276,7 +276,7 @@
  JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
  JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
  LEFT JOIN groups g ON g.id=am.gruppo
- WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y')";
+ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y') group by am.descrizione";
 
   $result2 = mysqli_query($conn, $sql2);
       
