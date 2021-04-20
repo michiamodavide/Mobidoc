@@ -151,14 +151,15 @@ $rows3 = mysqli_fetch_array($result3);
    </div>
   </div>
   <div class="cover_section_buttons_container">
-    <?PHP
+    <?php
+    /*
     if($rows3['active'] =='Y'){
       ?>
      <a href="doc_active.php?a=N&email=<?php echo urlencode($rows3['email']);?>" class="button-9 stroked cover_btns w-button active_btn" style="margin-top: 10px;background-color: #00800052;">Attivo</a>
     <?php }else{?>
 
      <a href="doc_active.php?a=Y&email=<?php echo urlencode($rows3['email']);?>" class="button-9 stroked cover_btns w-button no_active_btn" style="margin-top: 10px;background-color: #ff0000b5;">Non Attivo</a>
-    <?php }?>
+    <?php } */?>
    <a href="logout.php" class="button-9 stroked cover_btns logout w-button">Esci</a>
   </div>
  </div>
