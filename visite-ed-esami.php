@@ -371,7 +371,7 @@ SELECT DISTINCT am.descrizione, am.id AS article_id, g.detailName, home, tele, d
    });
   });
 </script>
-<script>
+<script type="application/javascript">
   function get_visit_Doctors(str, visit_name, article_id) {
           $('#load_doctors').html('<div class="slect_visit_first"><span>Please select a visit first!</span></div>');
           if (str.length == 0) {

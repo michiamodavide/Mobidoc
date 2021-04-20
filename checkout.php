@@ -274,7 +274,7 @@ $_SESSION['doctor_main_email'] = $rows2['email'];
 FROM doctor_profile dp
 JOIN listini ls ON dp.doctor_id=ls.doctor_id
  JOIN doctor_register dg ON ls.doctor_id=dg.id
- WHERE ls.article_mobidoc_id = '".$article_id."' AND dp.`active`='Y' AND dp.`admin_active`='Y' AND dp.`puo_refertare`='N' AND dg.tick = 1";
+ WHERE ls.article_mobidoc_id = '".$article_id."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='N' AND dg.tick = 1";
           $result4 = mysqli_query($conn, $sql4);
           $row5_count = mysqli_num_rows($result4);
 

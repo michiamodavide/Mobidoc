@@ -15,13 +15,13 @@ if($conn === false){
 FROM doctor_profile dp
 JOIN listini ls ON dp.doctor_id=ls.doctor_id
  JOIN doctor_register dg ON ls.doctor_id=dg.id
- WHERE ls.article_mobidoc_id = '".$article_id."' AND dg.tick = 1";
+ WHERE ls.article_mobidoc_id = '".$article_id."' AND dg.tick = 1 AND dp.`active`='Y'";
   }else{
    $sql2 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
 FROM doctor_profile dp
 JOIN listini ls ON dp.doctor_id=ls.doctor_id
  JOIN doctor_register dg ON ls.doctor_id=dg.id
- WHERE ls.article_mobidoc_id = '".$article_id."' AND dp.`active`='Y' AND dp.`admin_active`='Y' AND dp.`puo_refertare`='N' AND dg.tick = 1";
+ WHERE ls.article_mobidoc_id = '".$article_id."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='N' AND dg.tick = 1";
   }
 
     $result2 = mysqli_query($conn, $sql2);

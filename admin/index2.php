@@ -1,4 +1,5 @@
 <?php
+
 $is_first = 0;
 if(isset($_POST['update-status'])){
   $is_first = 1;
@@ -12,6 +13,13 @@ if(isset($_POST['update-status'])){
     }else{
       $puo_refertare = 'N';
     }
+
+      if (!empty($_POST['prof_active']) && $_POST['prof_active'] == 'on'){
+          $prof_active = 'Y';
+      }else{
+          $prof_active = 'N';
+      }
+
   }
   $is_edit = 1;
   if (!empty($doc_spaciality)){
@@ -21,8 +29,6 @@ if(isset($_POST['update-status'])){
   $status = $_GET['s'];
   $doct_id = $_GET['id'];
 }
-
-
 	include '../connect.php';
 
 $sql = "update doctor_register set status = ".$status." where id='".$doct_id."'";
@@ -31,7 +37,7 @@ $result = mysqli_query($conn, $sql);
 
 if ($is_first ==1 && $result==1){
  if ($is_edit != 1) {
-   $sql1 = "update doctor_profile set puo_refertare = '" . $puo_refertare . "', title= '" . $med_speciality . "' where doctor_id='" . $doct_id . "'";
+   $sql1 = "update doctor_profile set puo_refertare = '" . $puo_refertare . "', title= '" . $med_speciality . "', active= '" . $prof_active . "' where doctor_id='" . $doct_id . "'";
    $result1 = mysqli_query($conn, $sql1);
  }else{
    $result1 = 0;

@@ -11,7 +11,7 @@ if($conn === false){
 
 $sql = "SELECT dp.doctor_id, dp.photo, dp.fname, dp.lname, dp.title, dp.email  from listini ls
  JOIN doctor_profile as dp on ls.doctor_id=dp.doctor_id
- where ls.article_mobidoc_id ='".$q."' AND dp.puo_refertare ='Y'";
+ where ls.article_mobidoc_id ='".$q."' AND dp.puo_refertare ='Y' AND dg.tick = 1 AND dp.`active`='Y'";
 $result = mysqli_query($conn, $sql);
 
 while($rows2 = mysqli_fetch_array($result)){
