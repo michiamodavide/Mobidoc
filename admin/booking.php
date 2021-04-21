@@ -268,7 +268,14 @@
         $result = mysqli_query($conn, $sql);
         while($rows = mysqli_fetch_array($result)){
          $bbb_id = $rows['booking_id'];
-          $visit_name = $rows['visit_name'];
+            $get_visit_sql = "SELECT DISTINCT ms.id AS arti_id, ms.descrizione
+  FROM articlesmobidoc ms
+  JOIN booked_service bs ON ms.id=bs.article_id
+ WHERE bs.booking_id = '".$bbb_id."'";
+            $get_visit_result = mysqli_query($conn, $get_visit_sql);
+            $get_visit_row = mysqli_fetch_array($get_visit_result);
+
+            $visit_name = $get_visit_row['descrizione'];
           $price = $rows['price'];
           $payment_mode = $rows['payment_mode'];
           $dateBooking = $rows['date_of_booking'];
@@ -283,12 +290,15 @@
           $result2 = mysqli_query($conn, $sql2);
           $rows2 = mysqli_fetch_array($result2);
           $patient_name = $rows2['first_name']." ".$rows2['last_name'];
+          /*
           if($rows2['photo'] == "../images/Group-556.jpg"){
             $patient_pic = '../images/Group-563.jpg';
           } else {
             $patient_pic = "/paziente/".$rows2['photo'];
           }
+          */
 
+            $patient_pic = '../images/Group-563.jpg';
           $sql3 = "select * from doctor_profile where doctor_id = '".$doctor_id."'";
           $result3 = mysqli_query($conn, $sql3);
           $rows3 = mysqli_fetch_array($result3);

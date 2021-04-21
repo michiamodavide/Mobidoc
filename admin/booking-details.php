@@ -9,14 +9,22 @@
   $sql = "select * from bookings where booking_id = ".$_GET['id']."";
   $result = mysqli_query($conn, $sql);
   $rows = mysqli_fetch_array($result);
-  $visit_name = $rows['visit_name'];
+
+  $get_visit_sql = "SELECT DISTINCT ms.id AS arti_id, ms.descrizione
+  FROM articlesmobidoc ms
+  JOIN booked_service bs ON ms.id=bs.article_id
+ WHERE bs.booking_id = '".$_GET['id']."'";
+   $get_visit_result = mysqli_query($conn, $get_visit_sql);
+   $get_visit_row = mysqli_fetch_array($get_visit_result);
+
+ $visit_name = $get_visit_row['descrizione'];
   $dateBooking = $rows['date_of_booking'];
   $price = '€'.$rows['price'];
   $payment_mode = $rows['payment_mode'];
   $pateint_id = $rows['patient_id'];
   $doctor_id = $rows['doctor_id'];          
   $booking_status = $rows['booking_status'];          
-  $fattura = $rows['fattura'];          
+  //$fattura = $rows['fattura'];
   $opointment_time = $rows['apoint_time'];
   if($booking_status == 1){
     $state = 'Eseguito';          
@@ -28,19 +36,25 @@
   $result2 = mysqli_query($conn, $sql2);
   $rows2 = mysqli_fetch_array($result2);
   $patient_name = $rows2['first_name']." ".$rows2['last_name'];
+ /*
   if($rows2['photo'] == "../images/Group-556.jpg"){
     $patient_pic = '../images/Group-563.jpg';
   } else {
     $patient_pic = "/paziente/".$rows2['photo'];
   }
+ */
+
+  $patient_pic = '../images/Group-563.jpg';
   $patient_email = $rows2['email'];
   $patient_fiscale = $rows2['fiscale'];
-  $patient_phone = $rows2['phone'];
-  $patient_via = $rows2['via'];
+  //$patient_phone = $rows2['phone'];
+  $patient_via = $rows2['address'];
+ /*
   $patient_civico = $rows2['civico'];
   $patient_province = $rows2['province'];
   $patient_comune = $rows2['comune'];
   $patient_cap = $rows2['cap'];
+ */
   $patient_dob = $rows2['dob'];
 
   $sql3 = "select * from doctor_profile where doctor_id = '".$doctor_id."'";
@@ -166,21 +180,25 @@
               <div class="glance_details_title">Stato prenotazione</div>
               <div class="glance_details_value"><?php echo $state;?></div>
             </div>
+          <?php
+          /*
             <div class="glance_details diff" style="position:relative;">
               <div class="glance_details_title">Fattura</div>
               <div class="glance_details_value">
                   <span style="visibility:hidden;">Fattura</span>
-                  <label class="w-checkbox checkbox-field">                      
+                  <label class="w-checkbox checkbox-field">
                     <?php if($fattura == 1){ ?>
                       <div id="checky" class="w-checkbox-input w-checkbox-input--inputType-custom checkbox proff w--redirected-checked" style="height:30px; width:30px; position:absolute; top:40px; left:20px;"></div>
                       <input type="checkbox" id="checkbox" name="checkbox" checked data-name="Checkbox" required="" style="display:none; opacity:0;">
                     <?php } else { ?>
                       <div id="checky" class="w-checkbox-input w-checkbox-input--inputType-custom checkbox proff" style="height:30px; width:30px; position:absolute; top:40px; left:20px;"></div>
                       <input type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" required="" style="display:none; opacity:0;">
-                    <?php } ?> 
+                    <?php } ?>
                   </label>
               </div>
             </div>
+          */
+          ?>
           </div>
         </div>
         <div data-w-id="afc83dfc-904a-ccd3-b55b-56461dd04c4d" style="-webkit-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-moz-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-ms-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);opacity:0" class="details_card">
@@ -196,17 +214,21 @@
               <div id="w-node-d85ee62611c9-18b84271" class="text-block-80">Codice Fiscale</div>
               <div class="text-block-79"><?php echo $patient_fiscale?></div>
             </div>
+          <?php
+          /*
             <div class="pateint_bottom_item">
               <div id="w-node-c1c619d0275b-18b84271" class="text-block-80">Telefono</div>
               <div class="text-block-79"><?php echo $patient_phone?></div>
             </div>
+          */
+          ?>
             <div class="pateint_bottom_item">
               <div id="w-node-2e10e3ab0c86-18b84271" class="text-block-80">Data di Nascita</div>
               <div class="text-block-79"><?php echo $patient_dob?></div>
             </div>
             <div class="pateint_bottom_item">
               <div id="w-node-c9a4310b646b-18b84271" class="text-block-80">Indirizzo</div>
-              <div class="text-block-79"><?php echo $patient_via?> <br><?php echo $patient_civico?>, <?php echo $patient_comune?><br><?php echo $patient_province?> <?php echo $patient_cap?></div>
+              <div class="text-block-79"><?php echo $patient_via?></div>
             </div>
           </div>
         </div>
