@@ -1,4 +1,37 @@
-<?php session_start(); ?>
+<?php
+session_start();
+
+$last_selected_article_id = '';
+$article_ids_array = array();
+if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empty($_GET['pid'])){
+    if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
+        $book_visit_details = $_SESSION['book_visits'];
+//    print_r($book_visit_details);
+        foreach($book_visit_details as $key => $cookie_book_visit) {
+            if ($key === array_key_last($book_visit_details) && !empty($cookie_book_visit['book_patient_id'])){
+                $last_selected_article_id = $cookie_book_visit['article_id'];
+                array_push($article_ids_array, $cookie_book_visit['article_id']);
+            }else{
+                if (empty($cookie_book_visit['book_patient_id'])){
+                    unset($book_visit_details[$key]);
+                }else{
+                    array_push($article_ids_array, $cookie_book_visit['article_id']);
+                }
+            }
+        }
+        // Reset the index
+        $book_visit_details = array_values($book_visit_details);
+        $_SESSION['book_visits'] = $book_visit_details;
+        //print_r($book_visit_details);
+    }
+
+}else{
+
+    unset($_SESSION['book_visits']);
+    unset($_SESSION['pat_id']);
+
+}
+?>
 <!DOCTYPE html>
 <html data-wf-page="5daa262de3e3f012851af311" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
@@ -230,11 +263,22 @@
 	<!--start-->
 	<?php
 	include 'connect.php';
-	
+
 	if($conn === false){
 		die("ERROR database");
 	}
 
+    $last_selected_article_name = '';
+	if ($last_selected_article_id){
+        $get_group_sql = "
+SELECT DISTINCT am.gruppo, gp.detailName
+ FROM groups gp
+ JOIN articlesMobidoc as am ON $last_selected_article_id = am.id
+WHERE am.gruppo=gp.id";
+        $get_group_result = mysqli_query($conn, $get_group_sql);
+        $get_group_row= mysqli_fetch_array($get_group_result);
+        $last_selected_article_name = $get_group_row['detailName'];
+    }
 
  $sql = "SELECT * FROM groups";
   $result = mysqli_query($conn, $sql);
@@ -247,13 +291,19 @@
   if($row_count){
    $expl_visit_name = explode(" ", $visit_name);
 
+   if ($last_selected_article_id){
+       $expl_visit1 = explode(" ", $last_selected_article_name);
+       $selector_div_css = trim(strtolower($expl_visit1[0]));
+      echo '<style>.service_container{display: none}.service_container.'.$selector_div_css.'{display: grid}</style>';
+   }
+
    $tm2_class = '';
    if (strlen($visit_name) < 20)
     $tm2_class = 'fet_tm2';
 
   ?>
 
-   <div class="service_container">
+   <div class="service_container <?php echo trim(strtolower($expl_visit_name[0]))?>">
       <div id="w-node-9ebfabc602d8-851af311" class="service_maine_card">
 		  <!-- New HTML-Code --->
 		  <div class="feature diff">
@@ -287,12 +337,17 @@ SELECT DISTINCT am.descrizione, am.id AS article_id, g.detailName, home, tele, d
       $article_id = trim($rows2['article_id'], " ");
       $visit_name_2 = '"' . $visit_name . '", "' . $visit_type_name . '", "' . $article_id . '"';
 
-      echo "<div class='sub_service' onClick='get_visit_Doctors(" . $visit_name_2 . ");' >";
-      echo "<div class='sub_service_text'>";
+      if (!empty($last_selected_article_id) && in_array($article_id, $article_ids_array)){
+          //do not add visit
+      }else{
+          echo "<div class='sub_service' onClick='get_visit_Doctors(" . $visit_name_2 . ");' >";
+          echo "<div class='sub_service_text'>";
 
-      echo $visit_type_name;
-      echo "</div>";
-      echo "</div>";
+          echo $visit_type_name;
+          echo "</div>";
+          echo "</div>";
+      }
+
     }
 			}
         ?>

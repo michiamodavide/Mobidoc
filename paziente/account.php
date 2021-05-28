@@ -1,17 +1,23 @@
 <?php session_start();
+
 	if(!isset($_SESSION['paziente_email']))
 	{
 		header("Location: login.php");
   }
+	if (isset($_GET['pnc']) && !empty($_GET['pnc'])){
+        $_SESSION['pat_id']=$_GET['pnc'];
+        $redirect_url = '/paziente/patient-account.php?pid='.$_GET['pnc'];
+        header('Location:'.$redirect_url);
+    }
+
   $email_of_contact = $_SESSION['paziente_email'];
 
   include '../connect.php';
   $sql3 = "select * from contact_profile where email ='".$email_of_contact."'";
   $result3 = mysqli_query($conn, $sql3);
   $rows3 = mysqli_fetch_array($result3);
-  
-
 ?>
+
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Sun Oct 20 2019 06:38:26 GMT+0000 (UTC)  -->

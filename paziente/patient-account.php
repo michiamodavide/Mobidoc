@@ -5,16 +5,25 @@
   }
 
   $pat_id = '';
+   $visit_page_param = '';
   if (!empty($_GET['pid'])){
     $_SESSION['pat_id']=$_GET['pid'];
     $pat_id = $_GET['pid'];
+    $visit_page_param = '?pid='.$pat_id;
   }
 
-  $contact_email = $_SESSION['paziente_email'];
+if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
+    $book_visit_details = $_SESSION['book_visits'];
+    foreach($book_visit_details as $key => $cookie_book_visit) {
+        if ($key === array_key_last($book_visit_details) && empty($cookie_book_visit['book_patient_id'])){
+            $cookie_book_visit['book_patient_id']=$pat_id;
+            $redirect_url = '/checkout.php?book_visit='.$cookie_book_visit['Booking_name'].'&book_doctor='.$cookie_book_visit['book_doctor'].'&article_id='.$cookie_book_visit['article_id'].'&pati_id='.$pat_id;
+            header('Location:'.$redirect_url);
+        }
+    }
+}
 
-  setcookie("Booking_name", "", time() + (86400 * 0.0416), "/");
-  setcookie("Booking_id", "", time() + (86400 * 0.0416), "/");
-  setcookie("article_id", "", time() + (86400 * 0.0416), "/");
+  $contact_email = $_SESSION['paziente_email'];
 
   include '../connect.php';
   $sql3 = "select * from paziente_profile where paziente_id ='".$pat_id."'";
@@ -98,7 +107,7 @@
       <div class="my_bookings">
         <div class="no_booking_prompt" style="display:none;">
           <h2 class="heading-19">Al momento non hai nessuna prenotazione da visualizzare.</h2>
-          <div class="div-block-57"><a href="../visite-ed-esami.php" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
+          <div class="div-block-57"><a href="../visite-ed-esami.php<?=$visit_page_param?>" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
         </div>
 
 
@@ -118,7 +127,7 @@
 
         <div class="no_booking_prompt" style="display:flex;">
           <h2 class="heading-19">Al momento non hai nessuna prenotazione da visualizzare.</h2>
-          <div class="div-block-57"><a href="../visite-ed-esami.php" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
+          <div class="div-block-57"><a href="../visite-ed-esami.php<?=$visit_page_param?>" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
         </div>
 
       <?php } else {
@@ -134,7 +143,7 @@
          ?>
        <div class="no_booking_prompt" style="display:flex;">
         <h2 class="heading-19">Al momento non hai nessuna prenotazione da visualizzare.</h2>
-        <div class="div-block-57"><a href="../visite-ed-esami.php" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
+        <div class="div-block-57"><a href="../visite-ed-esami.php<?=$visit_page_param?>" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
        </div>
         <?php }else{?>
 
@@ -311,7 +320,7 @@ JOIN articlesmobidoc as am ON am.id=bs.article_id";
           </a>
          */
          ?>
-         <a href="../visite-ed-esami.php" class="list_item diff w-inline-block">
+         <a href="/visite-ed-esami.php<?=$visit_page_param?>" class="list_item diff w-inline-block">
           <div class="blue_bulet"></div>
           <div class="text-block-58">Visite ed Esami</div>
          </a>

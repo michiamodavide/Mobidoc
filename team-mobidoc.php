@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php session_start();
+unset($_SESSION['book_visits']);
+unset($_SESSION['pat_id']);
+?>
 
 <!DOCTYPE html>
 <html data-wf-page="5daa262de3e3f057961af312" data-wf-site="5d8cfd454ebd737ac1a48727">
