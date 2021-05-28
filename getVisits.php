@@ -1,5 +1,4 @@
 <?php
-
 $visit_name = trim($_REQUEST["q"]);
 include 'connect.php';
 //include 'cam_visit.php';

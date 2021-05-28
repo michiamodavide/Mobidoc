@@ -1,3 +1,7 @@
+<?php session_start();
+unset($_SESSION['book_visits']);
+unset($_SESSION['pat_id']);
+?>
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Wed Jan 08 2020 18:01:51 GMT+0000 (Coordinated Universal Time)  -->

@@ -54,7 +54,7 @@
                   if(isset($_POST['submit']) && $_POST['Email-register'] == $_POST['confirm-email-register'] && $_POST['pwrd'] == $_POST['cnfirm_pwrd'])
                   {
 
-                    include '../connect.php';
+                      include '../connect.php';
 
                     $_SESSION['paziente_email']=$_POST['Email-register'];
                     $email = mysqli_real_escape_string($conn, $_POST['Email-register']);
@@ -85,11 +85,18 @@
                           $privacy_consent = 'Y';
                         }
 
+                          $marketing_consent = 'N';
+                          if (isset($_POST['checkbox-3']) && $_POST['checkbox-3'] == 'on'){
+                              $marketing_consent = 'Y';
+                          }
+
+
                         date_default_timezone_set("Europe/Rome");
                         $privacy_consent_date = date("Y/m/d");
 
                         //$sql = "insert into paziente_profile (first_name, last_name, password, email, photo, dor) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$profile_img."', '".$dor."')";
-                        $sql = "insert into contact_profile (name, surname, password, email, phone, privacy_consent, lastDatePrivacyConsent) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$phone."', '".$privacy_consent."', '".$privacy_consent_date."')";
+                        $sql = "insert into contact_profile (name, surname, password, email, phone, privacy_consent, lastDatePrivacyConsent,marketing_consent,lastDateMarketingConsent) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$phone."', '".$privacy_consent."', '".$privacy_consent_date."', '".$marketing_consent."', '".$privacy_consent_date."')";
+
                         $result = mysqli_query($conn, $sql);
                         mysqli_close($conn);
                         if($result==1)
@@ -152,34 +159,49 @@
             <label class="w-checkbox checkbox-field custom">
               <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
               <input type="checkbox" id="checkbox2" name="checkbox" data-name="Checkbox" required="" style="opacity:0;position:absolute;z-index:-1">
-              <span class="checkbox-label w-form-label">
+              <span class="checkbox-label w-form-label" style="margin-top: 15px;">
                 <span class="legal_consent">
-	Dichiaro d'aver letto, chiaramente compreso e preso atto dell'<a href="/informativaprivacy.html" target="_blank">informativa</a>, nonché dei miei diritti in qualità di interessato al trattamento, d'aver riconosciuto le esigenze funzionali rappresentate e, premendo su "Sì" o "No", esprimo la mia volontà in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di gestione della prenotazione ed erogazione del servizio richiesto alla società Tekamed S.r.l.. 
+                    Ho letto e compreso l’<a href="/informativaprivacy.html" target="_blank">informativa privacy</a>.
+                    <?php
+                    /*
+                    Dichiaro d'aver letto, chiaramente compreso e preso atto dell'<a href="/informativaprivacy.html" target="_blank">informativa</a>, nonché dei miei diritti in qualità di interessato al trattamento, d'aver riconosciuto le esigenze funzionali rappresentate e, premendo su "Sì" o "No", esprimo la mia volontà in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di gestione della prenotazione ed erogazione del servizio richiesto alla società Tekamed S.r.l..
 Il consenso qui espresso potrà essere revocato con le medesime modalità.
-		</span>
+                    */
+                    ?>
+
+                </span>
               </span>
             </label>
             <label class="w-checkbox checkbox-field custom">
               <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
-              <input type="checkbox" id="checkbox-3" name="checkbox-3" data-name="Checkbox 3" style="opacity:0;position:absolute;z-index:-1" required="">
+              <input type="checkbox" id="checkbox-3" name="checkbox-3" data-name="Checkbox 3" style="opacity:0;position:absolute;z-index:-1">
               <span class="checkbox-label w-form-label">
                 <span class="legal_consent">
-Dichiaro d'aver letto, chiaramente compreso e preso atto dell'<a href="/informativaprivacy.html" target="_blank">informativa</a>, nonché dei miei diritti in qualità di interessato al trattamento, d'aver riconosciuto le esigenze funzionali rappresentate e, premendo su "Sì" o "No", esprimo la mia volontà in merito al trattamento e alla comunicazione a terzi dei miei dati personali, con specifico riguardo a quelli idonei a rivelare lo stato di salute (appartenenti a particolari categorie ai sensi degli art. 9 e seguenti del Regolamento U.E. n. 679/2016) per finalità di erogazione delle prestazioni e degli interventi di prevenzione, diagnosi e cura (ivi incluse le attività di follow-up a fini di cura e/o le visite specialistiche e/o le prestazioni ambulatoriali eventualmente da me richiesti). 
+                    Consenso al Trattamento di Dati Personali: Letta e compresa l’informativa privacy, premendo su “Presto il consenso” o “Nego il consenso”, esprimo la mia volontà in merito al trattamento dei miei dati personali per finalità di marketing: invio di comunicazioni di carattere commerciale, informativo e promo-pubblicitario su prodotti, servizi ed attività di Tekamed S.r.l., con modalità automatizzate di contatto o comunicazioni elettroniche mediante l’utilizzo di posta elettronica e messaggi del tipo SMS, IM, MMS, notifiche push; compimento di indagini di mercato e rilevazione del gradimento e della soddisfazione sui servizi resi agli interessati. Comunicazioni informative, commerciali e pubblicitarie che acconsento a ricevere anche tramite posta cartacea o chiamate telefoniche. Questo consenso potrà essere revocato nello stesso modo.
+      <?php
+      /*
+      Dichiaro d'aver letto, chiaramente compreso e preso atto dell'<a href="/informativaprivacy.html" target="_blank">informativa</a>, nonché dei miei diritti in qualità di interessato al trattamento, d'aver riconosciuto le esigenze funzionali rappresentate e, premendo su "Sì" o "No", esprimo la mia volontà in merito al trattamento e alla comunicazione a terzi dei miei dati personali, con specifico riguardo a quelli idonei a rivelare lo stato di salute (appartenenti a particolari categorie ai sensi degli art. 9 e seguenti del Regolamento U.E. n. 679/2016) per finalità di erogazione delle prestazioni e degli interventi di prevenzione, diagnosi e cura (ivi incluse le attività di follow-up a fini di cura e/o le visite specialistiche e/o le prestazioni ambulatoriali eventualmente da me richiesti).
 Il consenso qui espresso potrà essere revocato con le medesime modalità.
+      */
+      ?>
 		</span>
               </span>
             </label>
-	   <div class="text-block-32">Leggi l'<a href="/informativaprivacy.html" target="_blank">informativa privacy completa</a>.</div>
-            <!--
+	 <?php
+     /*
+       <div class="text-block-32">Leggi l'<a href="/informativaprivacy.html" target="_blank">informativa privacy completa</a>.</div>
+
             <label class="w-checkbox checkbox-field custom">
               <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
               <input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" style="opacity:0;position:absolute;z-index:-1">
-              <span class="checkbox-label w-form-label">  
+              <span class="checkbox-label w-form-label">
                 <span class="legal_consent">Opzionale: esprimo il consenso per finalità di marketing ed attività di comunicazione di carattere commerciale, informativa e promo-pubblicitaria (finalità e) indicata dall’informativa di trattamento).</span>
               </span>
-            </label>-->
+            </label>
             <div class="text-block-32">In questo modulo puoi inserire e modificare i tuoi dati. Seleziona con cura il tuo comune di residenza ed il CAP, specie se il tuo comune ne prevede più di uno, perché è in base ad esso che cambierà la lista delle visite/esami disponibili</div>
 
+     */
+     ?>
            <div class="g-recaptcha brochure__form__captcha" data-sitekey="6LdyDJwaAAAAABFuvH-xSQDxaX0I16shCUMw8jCe" aria-required="true"></div>
            <br>
            <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn" style="margin-bottom:30px;">

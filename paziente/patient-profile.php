@@ -253,7 +253,7 @@ if (isset($_GET['pid'])) {
         type: "post",
         data: data,
         success: function (response) {
-          console.log(response);
+          // console.log(response);
           if (response == 'done'){
             window.location.href = "/paziente/account.php";
           }
@@ -282,8 +282,8 @@ if (isset($_GET['pid'])) {
                 data: data,
                 success: function (response) {
                   console.log(response);
-                  if (response == 'done'){
-                    window.location.href = "/paziente/account.php";
+                  if (response){
+                    window.location.href = "/paziente/account.php?pnc="+response;
                   }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

@@ -35,6 +35,7 @@ include '../connect.php';
   date_default_timezone_set("Europe/Rome");
   $dor = date("Y/m/d H:i:s");
 
+  $insert_new_contact = 0;
   if ($fesic_code == 1 && !empty($fiscal) || isset($_POST['patient_id'])) {
     if ($fesic_code == 1){
       $sql = "update paziente_profile set first_name = '" . $first_name . "', last_name = '" . $last_name . "', fiscale = '" . $fiscal . "', dor = '" . $dor . "', dob = '" . $dob . "', email = '" . $email . "', address = '" . $address . "', gmap_address = '" . $gmap_addr . "', latitude = '" . $latitude . "', longitude = '" . $long . "' where  fiscale='" . $fiscal . "'";
@@ -43,12 +44,18 @@ include '../connect.php';
     }
   } else {
     $sql = "insert into paziente_profile (contact_id, first_name, last_name, dob, fiscale, address, email, dor, gmap_address, latitude, longitude) values('".$contact_id."', '".ucwords($first_name)."', '".ucwords($last_name)."', '".$dob."', '".$fiscal."', '".$address."', '".$email."', '".$dor."', '".$gmap_addr."', '".$latitude."', '".$long."')";
+    $insert_new_contact = 1;
   }
-
 
   $result = mysqli_query($conn, $sql);
   if ($result == 1) {
-    echo 'done';
+    if ($insert_new_contact == 1){
+      $last_patient_id = mysqli_insert_id($conn);
+      echo $last_patient_id;
+    }else{
+      echo 'done';
+    }
+
 //    header("location: /paziente/account.php");
   } else {
     echo 'There is some error in Database Connection';

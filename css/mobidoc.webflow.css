@@ -10703,7 +10703,7 @@
 	.hide{
 	display:none;
 }
-  .select_payment_method {
+  .select_payment_method, .select_payment_method_new {
     display: none;
   }
   .pay_method_item {
@@ -13883,7 +13883,7 @@
   background-color: #f9f9f9;
 }
 
-.select_payment_method {
+.select_payment_method, .select_payment_method_new {
   position: fixed;
   left: 0%;
   top: 0%;
