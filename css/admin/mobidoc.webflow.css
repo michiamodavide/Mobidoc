@@ -8677,7 +8677,7 @@
   position: absolute;
 }
 
-.approve_confirm {
+.approve_confirm, .view_visits {
   position: fixed;
   left: 0%;
   top: 0%;
@@ -8706,7 +8706,7 @@
   text-align: left;
 }
 
-.approve_confirm_container {
+.approve_confirm_container, .view_visits_container {
   position: relative;
   z-index: 2;
   padding: 34px 34px 14px;
@@ -14407,10 +14407,10 @@
     padding-right: 25px;
     padding-left: 25px;
   }
-  .approve_confirm {
+  .approve_confirm, .view_visits {
     display: none;
   }
-  .approve_confirm_container {
+  .approve_confirm_container, .view_visits_container {
     width: 100%;
     margin: 19px;
     padding: 20px 27px 15px;

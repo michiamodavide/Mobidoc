@@ -79,6 +79,46 @@ opacity:1;
   color: #c5faff;
 }
 </style>
+
+    <style>
+
+        @media (min-width: 1600px) and (max-width: 2000px){
+            .navig.pl-navig .navig__btn button {
+                margin-bottom: 7px
+            }
+            .navig.pl-navig .navig__btn{
+                margin-top: -25px;
+            }
+            .navig.pl-navig .navig__btn button {
+                margin-bottom: 10px
+            }
+            .question__footer{
+                bottom: 2.5rem;
+            }
+            .step__wrapper {
+                min-height: 77.5rem;
+            }
+        }
+
+        .navig.pl-navig .navig__btn button {
+            margin-bottom: 7px
+        }
+        @media (min-width: 1600px) and (max-width: 2000px){
+            .navig.pl-navig .navig__btn{
+                margin-top: -25px;
+            }
+            .navig.pl-navig .navig__btn button {
+                margin-bottom: 10px
+            }
+            .question__footer{
+                bottom: 2.5rem;
+            }
+            .step__wrapper {
+                min-height: 77.5rem;
+            }
+        }
+    </style>
+
 </head>
 <body class="body-7">
   <?php include 'header.php';?>

@@ -98,7 +98,6 @@
                         $sql = "insert into contact_profile (name, surname, password, email, phone, privacy_consent, lastDatePrivacyConsent,marketing_consent,lastDateMarketingConsent) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$phone."', '".$privacy_consent."', '".$privacy_consent_date."', '".$marketing_consent."', '".$privacy_consent_date."')";
 
                         $result = mysqli_query($conn, $sql);
-                        mysqli_close($conn);
                         if($result==1)
                         {
 
@@ -125,6 +124,7 @@
 
                       }
                     }
+                      mysqli_close($conn);
 	                 }
 	                 if ($show_error == 1){
 	                 ?>
