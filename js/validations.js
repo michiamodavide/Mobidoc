@@ -181,7 +181,7 @@ $(document).ready(function(){
      return true;
    } else {
      var image_path = $('.upload_image').val();
-     console.log(image_path);
+     // console.log(image_path);
      if(image_path){
        var img_size = $('.upload_image')[0].files[0].size;
        if (img_size > 2000000) {

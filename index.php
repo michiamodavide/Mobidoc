@@ -223,13 +223,13 @@
       $x_num=0;
       echo "<div class=\"feature_container\">";
 
-      $sql_get_result1 = "SELECT * FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+      $sql_get_result1 = "SELECT v.visit_id, v.visit_name, v.body_text, v.image FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
       $get_result1 = mysqli_query($conn, $sql_get_result1);
       $row_count1 = mysqli_num_rows($get_result1);
 
       while($visit_doc_rows = mysqli_fetch_array($get_result1)){
       $visit_name1 = $visit_doc_rows['visit_name'];
-        $link1 = $visit_doc_rows['link'];
+        $link1 = '/visite-ed-esame/landing-page.php?mds='.$visit_name1;
         $image1 = $visit_doc_rows['image'];
       if($row_count1){
         if($x_num!=0 && $x_num%3==0){
@@ -240,35 +240,14 @@
         if (strlen($visit_name1) < 20)
           $tm21_class = 'm-t-14';
       ?>
-          <div class="feature diff"> <a href="/<?php echo $link1?>" target="_blank">
+          <div class="feature diff"> <a href="<?php echo $link1?>" target="_blank">
             <div class="feature_label <?php echo $tm21_class?>"><?php echo wordwrap($visit_name1,20,"<br>\n");?> <img src="images/arrow.png" alt="" > </div>
-            <img src="images/<?php echo strtolower($image1)?>?v=1" alt=""> </a> </div>
+            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=2" style="width: 550px;height: 300px" alt=""> </a> </div>
           <?php
           ++$x_num;
         }}
+          echo "</div>";
           ?>
-          <?php
-      if ($x_num == "2" || $x_num == "5" || $x_num == "8" || $x_num == "11"){
-        ?>
-          <div class="feature diff extra_card" style="display: none"> <a href="/<?php echo $link1?>" target="_blank">
-            <div class="feature_label <?php echo $tm21_class?>"><?php echo wordwrap($visit_name1,20,"<br>\n");?> <img src="images/arrow.png" alt="" > </div>
-            <img src="images/<?php echo strtolower($image1)?>?v=1" alt=""> </a> </div>
-          <?php
-      }else if ($x_num == "1" || $x_num == "4" || $x_num == "7" || $x_num == "10") {
-        ?>
-          <div class="feature diff extra_card" style="display: none"> <a href="/<?php echo $link1 ?>" target="_blank">
-            <div class="feature_label <?php echo $tm21_class ?>"><?php echo wordwrap($visit_name1, 20, "<br>\n"); ?> <img
-           src="images/arrow.png" alt=""></div>
-            <img src="images/<?php echo strtolower($image1) ?>?v=1" alt=""> </a> </div>
-          <div class="feature diff extra_card" style="display: none"> <a href="/<?php echo $link1 ?>" target="_blank">
-            <div class="feature_label <?php echo $tm21_class ?>"><?php echo wordwrap($visit_name1, 20, "<br>\n"); ?> <img
-           src="images/arrow.png" alt=""></div>
-            <img src="images/<?php echo strtolower($image1) ?>?v=1" alt=""> </a> </div>
-          <?php
-        }
-      echo "</div>";
-
-      ?>
         </div>
   </section>
     </div>

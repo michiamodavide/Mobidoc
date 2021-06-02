@@ -137,6 +137,9 @@ if(!isset($_SESSION['adminlogin']))
 
             }
         }
+        .booking_patent_image{
+            border-radius: 0px !important;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <style>
@@ -159,84 +162,12 @@ if(!isset($_SESSION['adminlogin']))
     <div data-w-id="671d7027-6f87-1c3f-c474-3b17f4b83b06" style="opacity:1" class="admin_section_header">
         <h1 class="admin_section_heading">Landing Pages</h1>
         <div class="div-block-70">
-            <?php
-            $filters = array("Default", "Data Prenotazione", "Professionista", "Contanti", "Online", "Prezzo High", "Prezzo Low");
-
-            if(isset($_GET['filter'])) {
-                $filter_request = $_GET['filter'];
-            } else {
-                $filter_request = '';
-            }
-
-
-            if(in_array($filter_request, $filters)){
-                $filter_request = $filter_request;
-            } else {
-                if(isset($_GET['filter'])){
-                    echo '<script>window.location.href="booking.php";</script>';
-                } else {
-                    $filter_request = 'Più recenti';
-                }
-            }
-
-            $order_by = 'booking_id desc';
-
-            switch ($filter_request) {
-                case "Più recenti":
-                    $order_by = 'booking_id desc';
-                    break;
-                case "Data Prenotazione":
-                    $order_by = 'date_of_booking';
-                    break;
-                case "Professionista":
-                    $order_by = 'doctor_id';
-                    break;
-                case "Contanti":
-                    $order_by = 'payment_mode';
-                    break;
-                case "Online":
-                    $order_by = 'payment_mode desc';
-                    break;
-                case "Prezzo High":
-                    $order_by = 'price desc';
-                    break;
-                case "Prezzo Low":
-                    $order_by = 'price';
-                    break;
-                default:
-                    $order_by = 'booking_id desc';
-            }
-            ?>
             <div class="filter">
                 <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button">
-                    <div class="text-block-78">Filtra</div>
-                    <div class="filter_selected"><?php echo $filter_request?></div>
+                    <div class="text-block-78">
+                        <a href="create-lp.php">Add New Page</a>
+                    </div>
                 </div>
-                <div style="-webkit-transform:translate3d(0, -10%, 0) scale3d(0.8, 0.8, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, -10%, 0) scale3d(0.8, 0.8, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, -10%, 0) scale3d(0.8, 0.8, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, -10%, 0) scale3d(0.8, 0.8, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0;display:none" class="filter_options"> <a href="booking.php">
-                        <div class="filter_select_option">
-                            <div class="optien_text">Recenti (Default)</div>
-                        </div>
-                    </a> <a href="booking.php?filter=Professionista">
-                        <div class="filter_select_option">
-                            <div class="optien_text">Professionista</div>
-                        </div>
-                    </a> <a href="booking.php?filter=Contanti">
-                        <div class="filter_select_option">
-                            <div class="optien_text">Contanti</div>
-                        </div>
-                    </a> <a href="booking.php?filter=Online">
-                        <div class="filter_select_option">
-                            <div class="optien_text">Online</div>
-                        </div>
-                    </a> <a href="booking.php?filter=Prezzo High">
-                        <div class="filter_select_option">
-                            <div class="optien_text">Prezzo High</div>
-                        </div>
-                    </a> <a href="booking.php?filter=Prezzo Low">
-                        <div class="filter_select_option">
-                            <div class="optien_text">Prezzo Low</div>
-                        </div>
-                    </a> </div>
             </div>
             <a href="logout.php" class="admin_logout w-button"></a></div>
     </div>
@@ -246,18 +177,22 @@ if(!isset($_SESSION['adminlogin']))
 
             include '../connect.php';
 
-            $sql = "SELECT visit_name, body_text, body_text, image, ms.status
+            $sql = "SELECT ms.id as medical_sid, visit_name, body_text, image, ms.status, ms.name
   FROM visit vs
   JOIN medical_specialty ms ON vs.specialty_id=ms.id";
             $result = mysqli_query($conn, $sql);
             while($rows = mysqli_fetch_array($result)){
-                $visit_pic = '../images/Group-563.jpg';
-                $visit_name = $rows['visit_name'];
+                $medical_sid = $rows['medical_sid'];
+                $visit_name = $rows['name'];
                 $mds_status = $rows['status'];
 
+                $visit_pic = 'Group-563.jpg';
+                if (!empty($rows['image'])){
+                    $visit_pic = $rows['image'];
+                }
                 ?>
                 <div style="-webkit-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-moz-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-ms-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);opacity:0" class="bookingcard">
-                    <div class="booking_patent_image" style=" background-image: url('<?PHP echo $patient_pic; ?>'); overflow:hidden; position:relative;"></div>
+                    <div class="booking_patent_image" style=" background-image: url('/assets/visit_images/<?PHP echo $visit_pic; ?>?v=1'); overflow:hidden; position:relative;"></div>
                     <div class="booking_details">
                         <div class="top">
                             <h1 class="heading-24"><?PHP echo $visit_name; ?></h1>
@@ -267,7 +202,7 @@ if(!isset($_SESSION['adminlogin']))
                             <div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div>
                            <?php }?>
                             <div class="div">
-                                <a href="/admin/edit-booking.php?id=<?php echo $bbb_id;?>" class="open_booking w-button bg-color">Modifica</a>
+                                <a href="/admin/create-lp.php?mdsid=<?php echo $medical_sid;?>" class="open_booking w-button bg-color">Modifica</a>
                                 <a href="<?php echo $booking_id;?>" class="open_booking w-button">Vedi dettagli</a>
                             </div>
                         </div>
