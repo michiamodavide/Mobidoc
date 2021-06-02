@@ -42,7 +42,7 @@ JOIN listini ls ON dp.doctor_id=ls.doctor_id
        <div class="professionist_image_container">
         <img src="<?php echo $profile_image; ?>" alt="" class="professionist_image">
         <div class="selected_tick">
-         <img src="images/Path-107.svg" width="55" alt="" class="image-4">
+         <img src="/images/Path-107.svg" width="55" alt="" class="image-4">
         </div>
        </div>
        <div class="preofessionist_name"><?php echo $name; ?></div>
