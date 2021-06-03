@@ -280,15 +280,13 @@ WHERE am.gruppo=gp.id";
         $last_selected_article_name = $get_group_row['detailName'];
     }
 
- $sql = "SELECT v.visit_id, v.visit_name, v.body_text, v.image, ms.ERid FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+ $sql = "SELECT * FROM groups";
   $result = mysqli_query($conn, $sql);
  $row_count = mysqli_num_rows($result);
             
 	while($rows = mysqli_fetch_array($result)){
-	$visit_name = $rows['visit_name'];
-        $image1 = $rows['image'];
-        $mds_erid = $rows['ERid'];
-     $link = 'javascript:;';
+	$visit_name = $rows['detailName'];
+  $link = 'javascript:;';
 
   if($row_count){
    $expl_visit_name = explode(" ", $visit_name);
@@ -313,7 +311,7 @@ WHERE am.gruppo=gp.id";
 							<div class="feature_label <?php echo $tm2_class?>"><?php echo $visit_name;?>
          <img src="images/arrow.png" alt="" >
        </div>
-							<img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=8" alt="">
+							<img src="images/<?php echo strtolower($expl_visit_name[0])?>.png?v=7" alt="">
     </a>
 						</div>
 		  <!-- New HTML-Code --->
@@ -323,31 +321,13 @@ WHERE am.gruppo=gp.id";
         <div class="text-block-7"><span class="service_text_underline"><?php echo $visit_name;?></span></div>
         <div class="type_of-service_grid">      	
 		<?php
-        $search_city = 'Aci Castello';
-        if (isset($_SESSION['doctor_email'])) {
-            $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
-FROM doctor_profile dp
-JOIN doctor_register as dg ON dp.doctor_id = dg.id
-JOIN doctor_cap as dc ON dp.doctor_id = dc.doctor_id
-JOIN listini as ls ON dp.doctor_id = ls.doctor_id
-JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
-JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
-JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
-JOIN medical_specialty as ms ON '" . $mds_erid . "'=ams.specialtyMobidoc
-WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid."' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
-
-        }else{
-            $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
-FROM doctor_profile dp
-JOIN doctor_register as dg ON dp.doctor_id = dg.id
-JOIN doctor_cap as dc ON dp.doctor_id = dc.doctor_id
-JOIN listini as ls ON dp.doctor_id = ls.doctor_id
-JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
-JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
-JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
-JOIN medical_specialty as ms ON '" . $mds_erid . "'=ams.specialtyMobidoc
-WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid."' AND dp.puo_refertare='N' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
-        }
+  $sql2 = "
+SELECT DISTINCT am.descrizione, am.id AS article_id, g.detailName, home, tele, descrizione, attributo
+ FROM articlesMobidoc am
+ JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+ JOIN medical_specialty as ms ON ms.ERid=ams.specialtyMobidoc
+ LEFT JOIN groups g ON g.id=am.gruppo
+ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y') group by am.descrizione";
 
   $result2 = mysqli_query($conn, $sql2);
       

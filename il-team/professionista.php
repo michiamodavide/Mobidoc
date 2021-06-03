@@ -27,7 +27,9 @@ header("location: validate.php");
   <link href="../images/webclip.png" rel="apple-touch-icon">
  <link href="../css/new-styles.css?v=3" rel="stylesheet" type="text/css">
   <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
-  <style>
+    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <style>
 ::-webkit-scrollbar {
   width: 0px;
   height:0px;
@@ -36,13 +38,11 @@ header("location: validate.php");
   	text-align-last: center !important;
   }
 </style>
- <?php include ("../cam_visit.php")?>
 </head>
 <body>
   <?php include '../header.php';
 	include '../connect.php';
   $sql = "select * from doctor_profile where doctor_id = ".$doctor_id."";
-  
 
 	$result = mysqli_query($conn, $sql);
   $rows = mysqli_fetch_array($result);
@@ -59,9 +59,6 @@ header("location: validate.php");
 	$title = $rows['title'];
 	$photo = "../professionisti/". $rows['photo'];
 	$description = $rows['description'];
-	$education = $rows['education'];
-	$exp = $rows['experience'];
-	mysqli_close($conn);
   ?>
   <div class="profile_masthead">
     <div class="custom_container user_block">
@@ -81,61 +78,46 @@ header("location: validate.php");
         <div class="grid_item_headin">Visite ed Esami</div>
         <div class="visite_container">
           <?php
-			include '../connect.php';
-      $visit = array();
-			$i=0;
-			$j=-1;
-			$sql = "select * from doctor_visit where doctor_email = '".$email."'";
+			$sql = "SELECT DISTINCT am.id As article_id, descrizione, am.home, am.tele, am.attributo
+FROM doctor_specialty ds 
+JOIN articlesMobidoc_specialty as ams ON ds.specialty = ams.specialtyMobidoc
+JOIN  listini as ls ON ams.id = ls.article_mobidoc_id
+JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
+WHERE ds.doctor_id='".$doctor_id."' AND ls.doctor_id='".$doctor_id."' AND am.home='Y' OR am.tele='Y'";
 			$result = mysqli_query($conn, $sql);
 			while($rows = mysqli_fetch_array($result)){
-			$visit_name = $rows['visit_name'];
-			$visit[$i++]=$visit_name;
+			$visit_name = $rows['descrizione'];
+                $attribute = $rows['attributo'];
 		  ?>	
-		  <div style="cursor: pointer" class="doctura_visite" data-item="<?php echo $visit_name?>" data-id="<?php echo $doctor_id?>">
+		  <div style="cursor: pointer" class="doctura_visite">
             <div class="text-block-45">
               <?php
-              checkVisitTypes($visit_name);
-              echo $visit_name;?>
+              echo $visit_name;
+              if (!empty($attribute)){
+                  echo ' <span style="font-size: 13px;font-weight: bold">('.$attribute.')</span>';
+              }
+              ?>
             </div>
           </div>
 		  <?php
 			}
-			while($i>0)
-			{
-				$i--;
-				$sql2 = "select * from visit_type where visit_type_name = '".$visit[$i]."'";
-				$result2 = mysqli_query($conn, $sql2);
-				if ($result2) 
-				{ 
-					$rows2 = mysqli_fetch_array($result2);
-					$visit2[++$j] = $rows2['visit_name']; 
-				}
-			}
-     $visit3 = array_unique($visit2);
-			mysqli_close($conn);
 		  ?>
           
         </div>
       </div>
       <div class="area_di_competenza">
         <div class="grid_item_headin">Aree di Competenza</div>
-        <div class="areas">         
-			<?php      
-
-			for($i=0; $i<count($visit2); $i++){
-        if(isset($visit3[$i])){       
-		  ?>		  
+        <div class="areas">
           <div class="area">
             <div class="div-block-43"></div>
             <div class="area_text">
-              <?PHP echo $visit3[$i]; ?>
+              <?=$title?>
               </div>
+
           </div>
-          <?php
-        }
-			}
-		  ?>
-          
+            <br>
+            <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">Prenota Online</a>
+
         </div>
       </div>
       <div class="about_ex_prof">
@@ -143,14 +125,6 @@ header("location: validate.php");
           <div class="grid_item_headin">Su di me</div>
           <p class="paragraph-12"><?php echo $description;?></p>
         </div>
-        <div class="prof_exp">
-          <div class="grid_item_headin">Esperienze Professionali</div>
-          <p class="paragraph-12 first"><?php echo $exp;?></p>
-        </div>
-      </div>
-      <div class="educazione">
-        <div class="grid_item_headin">Educazione</div>
-        <p class="paragraph-12"><?php echo $education;?></p>
       </div>
     </div>
   </div>
@@ -163,8 +137,7 @@ header("location: validate.php");
       <div class="cap_served">
 	  
 		<?php
-	include '../connect.php';
-	$sql = "select * from doctor_cap where doctor_email = '".$email."'";
+	$sql = "select * from doctor_cap where doctor_id = '".$doctor_id."'";
 	$result = mysqli_query($conn, $sql);
 	while($rows = mysqli_fetch_array($result)){
 		$comune = $rows['comune'];
@@ -184,16 +157,12 @@ header("location: validate.php");
 		}
 	mysqli_close($conn);
 	?>
-        
-        
-        
-        
+
       </div>
     </div>
   </div>
   <?php include '../cta_cards.php';?>
   <?php include '../footer.php';?>
-  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="../js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
   <div id="fb-root"></div>
@@ -208,12 +177,12 @@ header("location: validate.php");
       });      
     });
 
-    $(".doctura_visite").on("click", function (e) {
-      e.preventDefault();
-      var current_visit_name = $(this).attr("data-item");
-      var current_doc_id = $(this).data("id");
-      window.location.href = '/checkout.php?book_visit='+current_visit_name+'&book_doctor='+current_doc_id;
-    })
+    // $(".doctura_visite").on("click", function (e) {
+    //   e.preventDefault();
+    //   var current_visit_name = $(this).attr("data-item");
+    //   var current_doc_id = $(this).data("id");
+    //   window.location.href = '/checkout.php?book_visit='+current_visit_name+'&book_doctor='+current_doc_id;
+    // })
   </script>
   <?php include ("../google_analytic.php")?>
 </body>

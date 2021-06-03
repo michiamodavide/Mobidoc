@@ -1,16 +1,14 @@
 <?php
 
-
-$q = $_REQUEST["q"];
+$doctor_id = $_REQUEST["doctor-id"];
 
 include '../connect.php';
-include '../cam_visit.php';
         
 if($conn === false){
     die("ERROR database");
 }        
 
-$sql = "select * from doctor_profile where doctor_id ='".$q."'";
+$sql = "select * from doctor_profile where doctor_id ='".$doctor_id."'";
 $result = mysqli_query($conn, $sql);
 
 
@@ -42,19 +40,29 @@ while($rows = mysqli_fetch_array($result)){
             
 <?php
 include '../connect.php';
-$sql2 = "select * from doctor_visit where doctor_email ='".$doctor_email."'";
+
+$sql2 = "SELECT DISTINCT am.id As article_id, descrizione, am.home, am.tele, am.attributo
+FROM doctor_specialty ds 
+JOIN articlesMobidoc_specialty as ams ON ds.specialty = ams.specialtyMobidoc
+JOIN  listini as ls ON ams.id = ls.article_mobidoc_id
+JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
+WHERE ds.doctor_id='".$doctor_id."' AND ls.doctor_id='".$doctor_id."' AND am.home='Y' OR am.tele='Y'";
+
 $result2 = mysqli_query($conn, $sql2);
 
-
 while($rows2 = mysqli_fetch_array($result2)){
-    $visite_nome = $rows2['visit_name'];
+    $visite_nome = $rows2['descrizione'];
+    $attribute = $rows2['attributo'];
 ?>
               <div class="qprofile_visite">
                 <div class="text-block-23">
 
                   <?php
-                  checkVisitTypes($visite_nome);
-                  echo $visite_nome?>
+                  echo $visite_nome;
+                   if (!empty($attribute)){
+                       echo ' <span style="font-size: 13px;font-weight: bold">('.$attribute.')</span>';
+                   }
+                  ?>
                 </div>
               </div>
 <?php } ?> 
@@ -67,7 +75,7 @@ while($rows2 = mysqli_fetch_array($result2)){
 
             <?php
 include '../connect.php';
-$sql3 = "select * from doctor_cap where doctor_email ='".$doctor_email."'";
+$sql3 = "select * from doctor_cap where doctor_id ='".$doctor_id."'";
 $result3 = mysqli_query($conn, $sql3);
 
 

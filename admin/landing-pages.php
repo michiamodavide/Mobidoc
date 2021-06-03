@@ -203,7 +203,7 @@ if(!isset($_SESSION['adminlogin']))
                            <?php }?>
                             <div class="div">
                                 <a href="/admin/create-lp.php?mdsid=<?php echo $medical_sid;?>" class="open_booking w-button bg-color">Modifica</a>
-                                <a href="<?php echo $booking_id;?>" class="open_booking w-button">Vedi dettagli</a>
+                                <a href="/visite-ed-esame/landing-page.php?mds=<?php echo $visit_name;?>" target="_blank" class="w-button">Vedi dettagli</a>
                             </div>
                         </div>
                     </div>
