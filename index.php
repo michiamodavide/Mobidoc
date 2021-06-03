@@ -140,7 +140,13 @@
    /*	<h1 class="heading">Visite mediche a casa tua.</h1>*/
    ?>
         <h1 class="heading">Visite mediche ed esami a casa tua.</h1>
-        <a href="javascript:;" class="button stroked card w-button btn-width m-r domici-btn">A Domicilio</a> <a href="/poliambulatorio-online.php" class="button stroked card w-button btn-width bg-color">Online</a> </div>
+        <a href="javascript:;" class="button stroked card w-button btn-width m-r domici-btn">A Domicilio</a>
+          <?php
+          /*
+              <a href="/poliambulatorio-online.php" class="button stroked card w-button btn-width bg-color">Online</a>
+          */
+          ?>
+          </div>
           <div class="w-embed">
         <style>
 					.search.home,

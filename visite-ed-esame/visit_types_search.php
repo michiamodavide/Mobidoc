@@ -1,3 +1,43 @@
+
+<?php
+/*
+<link rel="stylesheet" href="/css/visit_type_search.css?v=8">
+<div class="visit_types_dv">
+    <div class="section_title">
+        <span class="service_name"><?php echo  $visit_name;?></span> che offriamo a domicilio:</div>
+    <select id="select-comune" name="select-comune" mds-name="<?=$visit_name?>" data-erid="<?=$erid_id?>" class="select-comune">
+        <option value="">Seleziona Città o Città</option>
+        <?php
+        include '../connect.php';
+        $sql = "select * from mobi_cap order by Comune";
+        $result = mysqli_query($conn, $sql);
+        while ($rows = mysqli_fetch_array($result)) {
+            $comune = $rows['Comune'];
+            ?>
+            <option value="<?PHP echo $comune?>"><?PHP echo $comune?></option>
+        <?php }
+       ?>
+    </select>
+</div>
+<div style="clear:both;"></div>
+<script>
+    $(document).ready(function(){
+        $(".visit_types_dv .text-field").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            if (value.length == 0){
+                $(".visit_types_dv #Search_form .w-button").css("display", "block");
+            }else {
+                $(".visit_types_dv #Search_form .w-button").css("display", "none");
+            }
+            $(".visite_type_container .visite_type").filter(function() {
+                $(this).toggle($(".text-block-21", this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+*/
+?>
+
 <link rel="stylesheet" href="/css/visit_type_search.css?v=8">
 <div class="visit_types_dv">
  <div class="section_title">

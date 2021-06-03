@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 include '../connect.php';
 
 if($conn === false){
@@ -21,6 +19,10 @@ if (isset($_GET['mds']) && !empty($_GET['mds'])){
     header("location: /");
 }
 
+$get_mds_id = "SELECT ERid FROM medical_specialty WHERE id='".$mds_id."'";
+$get_mds_result = mysqli_query($conn, $get_mds_id);
+$get_mds_row = mysqli_fetch_array($get_mds_result);
+$erid_id = $get_mds_row['ERid'];
 
 ?>
 
@@ -56,23 +58,21 @@ if (isset($_GET['mds']) && !empty($_GET['mds'])){
         }
     </style>
     <script>
-        function getDoctors(value){
-            $('#book_visit').val($.trim(value));
-            $('#book_doctor').val('');
-            var xmlhttp2 = new XMLHttpRequest();
-            xmlhttp2.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("load_doctors").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp2.open("GET", "../getDoctor2.php?q=" + value, true);
-            xmlhttp2.send();
-        }
+        // function getDoctors(value){
+        //     $('#book_visit').val($.trim(value));
+        //     $('#book_doctor').val('');
+        //     var xmlhttp2 = new XMLHttpRequest();
+        //     xmlhttp2.onreadystatechange = function() {
+        //         if (this.readyState == 4 && this.status == 200) {
+        //             document.getElementById("load_doctors").innerHTML = this.responseText;
+        //         }
+        //     };
+        //     xmlhttp2.open("GET", "../getDoctor2.php?q=" + value, true);
+        //     xmlhttp2.send();
+        // }
         // function setDoctor(val){
         //     $('#book_doctor').val(val);
         // }
-    </script>
-    <script>
         function get_visit_Doctors(str) {
             if (str.length == 0) {
                 document.getElementById("txtHint").innerHTML = "";
@@ -84,7 +84,7 @@ if (isset($_GET['mds']) && !empty($_GET['mds'])){
                         document.getElementById("doctor_details").innerHTML = this.responseText;
                     }
                 };
-                xmlhttp.open("GET", "get_doctor_details.php?q=" + str, true);
+                xmlhttp.open("GET", "get_doctor_details.php?doctor-id=" + str, true);
                 xmlhttp.send();
             }
 
@@ -94,35 +94,35 @@ if (isset($_GET['mds']) && !empty($_GET['mds'])){
 <body>
 <?php include '../header.php';?>
 <script>
-    function showHint(str) {
-        $('#load_doctors').html('<div class="slect_visit_first"><span>Please select a visit first!</span></div>');
-        if (str.length == 0) {
-            document.getElementById("txtHint").innerHTML = "";
-            return;
-        } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("visite_list").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "../getVisits1.php?mds=" + str, true);
-            xmlhttp.send();
-        }
-        setTimeout( function(){
-            var visite_count = $('.visite_list').children('.visite').length;
-
-            if(visite_count < 6){
-                $('.visite').css('margin-bottom','15px');
-                $('.visite_list').css('display','block');
-                $('#book_visit, #book_doctor, #article_id').val('');
-            } else {
-                $('.visite').css('margin-bottom','0px');
-                $('.visite_list').css('display','grid');
-                $('#book_visit, #book_doctor, #article_id').val('');
-            }
-        }, 100);
-    }
+    // function showHint(str) {
+    //     $('#load_doctors').html('<div class="slect_visit_first"><span>Please select a visit first!</span></div>');
+    //     if (str.length == 0) {
+    //         document.getElementById("txtHint").innerHTML = "";
+    //         return;
+    //     } else {
+    //         var xmlhttp = new XMLHttpRequest();
+    //         xmlhttp.onreadystatechange = function() {
+    //             if (this.readyState == 4 && this.status == 200) {
+    //                 document.getElementById("visite_list").innerHTML = this.responseText;
+    //             }
+    //         };
+    //         xmlhttp.open("GET", "../getVisits.php?mds=" + str, true);
+    //         xmlhttp.send();
+    //     }
+    //     setTimeout( function(){
+    //         var visite_count = $('.visite_list').children('.visite').length;
+    //
+    //         if(visite_count < 6){
+    //             $('.visite').css('margin-bottom','15px');
+    //             $('.visite_list').css('display','block');
+    //             $('#book_visit, #book_doctor, #article_id').val('');
+    //         } else {
+    //             $('.visite').css('margin-bottom','0px');
+    //             $('.visite_list').css('display','grid');
+    //             $('#book_visit, #book_doctor, #article_id').val('');
+    //         }
+    //     }, 100);
+    // }
 </script>
 <section class="masthead visit_page_header" style="background-image: linear-gradient(177deg, rgba(12, 217, 237, 0.7), rgba(0, 40, 92, 0.6)), url(<?=$page_img?>?v=3)">
     <div class="masthead_container">
@@ -134,7 +134,14 @@ if (isset($_GET['mds']) && !empty($_GET['mds'])){
            ?>
             <h1 class="visite_heading"><?php echo  $visit_name;?></h1>
         </div>
-        <div class="column right"><a data-w-id="ba441505-e5ef-db71-84ad-f245017d0493" href="#" class="button stroked odd w-button" data-name="<?php echo $mds_id;?>" onClick="showHint(this.getAttribute('data-name'))">Prenota Online</a><a href="tel:3357798844" class="button stroked w-button">Chiamaci</a></div>
+        <div class="column right">
+            <?php
+            /*
+            <a data-w-id="ba441505-e5ef-db71-84ad-f245017d0493" href="#" class="button stroked odd w-button" data-name="<?php echo $mds_id;?>" onClick="showHint(this.getAttribute('data-name'))">Prenota Online</a>
+            */
+            ?>
+            <a href="/visite-ed-esami.php" class="button stroked odd w-button move_to_div">Prenota Online</a>
+            <a href="tel:3357798844" class="button stroked w-button">Chiamaci</a></div>
     </div>
 </section>
 <div class="section-13">
@@ -143,7 +150,7 @@ if (isset($_GET['mds']) && !empty($_GET['mds'])){
             <h2 class="heading-7"><?php echo $visit_name;?> a Domicilio</h2>
             <p class="paragraph-7"><?php echo $body_copy;?></p>
             <div class="div-block-53">
-                <a data-w-id="a5879364-b3b1-d445-2751-67a535feab81" href="#" class="button gradient visite_cta w-button" data-name="<?php echo $mds_id;?>" onClick="showHint(this.getAttribute('data-name'))">Prenota Online</a>
+                <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">Prenota Online</a>
                 <a href="tel:3357798844" class="button visite_cta w-button">Chiamaci</a>
             </div>
         </div>
@@ -153,56 +160,66 @@ if (isset($_GET['mds']) && !empty($_GET['mds'])){
 <div class="section-14" style="min-height:auto;">
     <div class="custom_container type_of-visit">
         <?php include ("visit_types_search.php")?>
-        <div class="visite_type_container">
+        <div class="visite_type_container" id="search_visits">
 
             <?php
-            include '../connect.php';
-
-            $get_mds_id = "SELECT ERid FROM medical_specialty WHERE id='".$mds_id."'";
-            $get_mds_result = mysqli_query($conn, $get_mds_id);
-            $get_mds_row = mysqli_fetch_array($get_mds_result);
-            $erid_id = $get_mds_row['ERid'];
 
             if (isset($_SESSION['doctor_email'])) {
-//        $sql2 = "select DISTINCT doctor_visit.visit_name from visit_type INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name where visit_type.visit_name='".$visit_name."'";
-                $sql2 = "select DISTINCT doctor_visit.visit_name from visit_type
-  INNER JOIN doctor_visit on visit_type.visit_type_name = doctor_visit.visit_name
-  INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where visit_type.visit_name='".$visit_name."' AND doctor_profile.active='Y'";
-            }else{
-                $sql2 = "SELECT DISTINCT am.id As article_id, descrizione, am.home, am.tele, am.attributo
-FROM articlesMobidoc am
+                $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
+FROM doctor_profile dp
+JOIN doctor_register as dg ON dp.doctor_id = dg.id
+JOIN listini as ls ON dp.doctor_id = ls.doctor_id
+JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
+JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
-JOIN listini as ls ON am.id = ls.article_mobidoc_id
-JOIN medical_specialty as ms ON '" . $erid_id . "'=ams.specialtyMobidoc 
-WHERE am.home='Y' OR am.tele='Y'";
+JOIN medical_specialty as ms ON '" . $erid_id . "'=ams.specialtyMobidoc
+WHERE dg.tick='1' AND ds.specialty='".$erid_id."' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
+
+            }else{
+                $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
+FROM doctor_profile dp
+JOIN doctor_register as dg ON dp.doctor_id = dg.id
+JOIN listini as ls ON dp.doctor_id = ls.doctor_id
+JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
+JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
+JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+JOIN medical_specialty as ms ON '" . $erid_id . "'=ams.specialtyMobidoc
+WHERE dg.tick='1' AND ds.specialty='".$erid_id."' AND dp.puo_refertare='N' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
             }
+
             $result2 = mysqli_query($conn, $sql2);
 
             while($rows2 = mysqli_fetch_array($result2)){
                 $visit_type_name = trim($rows2['descrizione']," ");
                 $article_id = trim($rows2['article_id'], " ");
                 $visit_name_2 = '"'.$visit_name.'", "'.$visit_type_name.'","'.$article_id.'"';
+                $attribute = $rows2['attributo'];
 
                 ?>
 
-                <div class="visite_type" onClick='getDoctor_details(<?php echo $visit_name_2;?>);'>
+                <div class="visite_type">
                     <div class="text-block-21">
-                        <?php  echo $visit_type_name;?>
+                        <?php  echo $visit_type_name;
+                        if (!empty($attribute)){
+                            echo ' <span style="font-size: 13px;font-weight: bold">('.$attribute.')</span>';
+                        }
+                        ?>
                     </div>
-                 <?php
-                 /*
-                    <div class="price">
-                        <div class="text-block-55">A Partire da</div>
-                        <div class="price_text">€<?php echo $price?></div>
-                    </div>
-                 */
-                 ?>
+                    <?php
+                    /*
+                    <div class="visite_type" onClick='getDoctor_details(<?php echo $visit_name_2;?>);'>
+               </div>
+                       <div class="price">
+                           <div class="text-block-55">A Partire da</div>
+                           <div class="price_text">€<?php echo $price?></div>
+                       </div>
+                    */
+                    ?>
                 </div>
 
             <?Php } ?>
-
-
+            <br>
+            <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">Prenota Online</a>
 
         </div>
 
@@ -224,7 +241,7 @@ WHERE am.home='Y' OR am.tele='Y'";
 FROM doctor_profile dp
 JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
 JOIN doctor_register dg ON ds.doctor_id=dg.id
- WHERE ds.specialty = '".$erid_id."' AND dg.tick = 1 AND dp.`active`='Y'";
+ WHERE ds.specialty = '".$erid_id."' AND dg.tick = 1 AND dp.`active`='Y' AND dp.`visible`='Y'";
                     }else{
                       $sql22 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
 FROM doctor_profile dp
@@ -301,23 +318,8 @@ JOIN doctor_register dg ON ds.doctor_id=dg.id
     </div>
 </div>
 
-<div data-w-id="66c0daf9-02db-a5aa-e005-bf5a69c766b4" style="opacity:0;display:none;overflow: auto" class="vselect_visite">
-    <div data-w-id="bd51dcae-105d-cd54-8ec7-3cbfe34cfd52" style="opacity:0;-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="vvisite_container">
-        <div class="close_btn" data-w-id="19fb11a3-3d75-27c7-7e95-8027996dc7f3"><img src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5d9d869b12f8e2378f12b8e3_Path%20175.svg" alt="" class="image-27"/></div>
-        <div class="text-block-18">SELEZIONA IL TIPO DI VISITA</div>
-        <div class="visite_list" id="visite_list">
-
-            <div class="visite">
-                <div class="text-block-19">Ecografia dei linfonodi inguinali</div>
-            </div>
-
-        </div>
-        <div class="div-block-21"><a data-w-id="b43e47dd-7c65-be78-38e5-acfdfa158bbe" href="#" class="button-3 next close w-button">Close</a><a data-w-id="1c60da1f-0e40-aad4-c0c8-20980471ab4a" href="#" class="button-3 next w-button" style="padding-right:100px;">Continua</a></div>
-    </div>
-    <div data-w-id="19fb11a3-3d75-27c7-7e95-8027996dc7f3" class="closer"></div>
-</div>
-<div data-w-id="c63fef3a-23b1-f70c-9014-2968db2eacbb" style="display:none;opacity:0" class="vselect_doctor">
-    <div data-w-id="33cdd347-afe1-85b8-dddd-e96494f0f01b" style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="vdoctor_container">
+<div style="display:none;opacity:0" class="vselect_doctor">
+    <div style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:1" class="vdoctor_container">
         <div class="text-block-18">SELEZIONA PROFESSIONISTA</div>
         <div class="div-block-19">
             <div class="div-block-20" id="load_doctors">
@@ -345,7 +347,8 @@ JOIN doctor_register dg ON ds.doctor_id=dg.id
     <div class="div-block-22"><img src="../images/upload_1.svg" width="38" alt="" class="image-19">
         <div class="text-block-15">Please Login to Continue</div><a href="#" class="button gradient redirect-to-login w-button">Click here to Login</a></div>
 </div>
-<?php include '../cta_cards.php';?>
+<?php
+include '../cta_cards.php';?>
 <?php include '../footer.php';?>
 <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="../js/webflow.js?v=2" type="text/javascript"></script>
@@ -414,24 +417,55 @@ JOIN doctor_register dg ON ds.doctor_id=dg.id
 </style>
 
 <script>
-    function getDoctor_details(value, name, article_id){
-        //showHint(value);
-        $('#book_visit').val(name);
-        $('#book_doctor').val('');
-        $('#article_id').val(article_id);
-        var xmlhttp2 = new XMLHttpRequest();
-        xmlhttp2.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("load_doctors").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp2.open("GET", "../getDoctor.php?article_id=" + article_id, true);
-        xmlhttp2.send();
-    }
-    function setDoctor(val, art_id){
-        $('#book_doctor').val(val);
-        $('#article_id').val(art_id);
-    }
+    // function getDoctor_details(value, name, article_id){
+    //     //showHint(value);
+    //
+    // }
+
+    // function getDoctor_details(value, name, article_id){
+    //     $('#book_visit').val(name);
+    //     $('#book_doctor').val('');
+    //     $('#article_id').val(article_id);
+    //     var xmlhttp2 = new XMLHttpRequest();
+    //     xmlhttp2.onreadystatechange = function() {
+    //         if (this.readyState == 4 && this.status == 200) {
+    //             document.getElementById("load_doctors").innerHTML = this.responseText;
+    //         }
+    //     };
+    //     xmlhttp2.open("GET", "../getDoctor.php?article_id="+article_id, true);
+    //     xmlhttp2.send();
+    //
+    //     $(".vselect_doctor").attr("style", "display:flex;opacity:1");
+    // }
+    //
+    //  $(".div-block-25 .button-3").on("click", function () {
+    //      $(".vselect_doctor").attr("style", "display:none;opacity:0");
+    //  });
+
+
+    // $('.select-comune').change(function() {
+    //     var option_select_val = $(this).val();
+    //     var data_mdsid = $(this).attr("data-erid");
+    //     var data_mdsname = $(this).attr("mds-name");
+    //         var xmlhttp2 = new XMLHttpRequest();
+    //         xmlhttp2.onreadystatechange = function() {
+    //             if (this.readyState == 4 && this.status == 200) {
+    //                 document.getElementById("search_visits").innerHTML = this.responseText;
+    //             }
+    //         };
+    //         xmlhttp2.open("GET", "get_search_visit.php?city=" + option_select_val+"&erid="+data_mdsid+"&mds_name="+data_mdsname, true);
+    //         xmlhttp2.send();
+    // });
+
+
+    // function setDoctor(val, art_id){
+    //     $('#book_doctor').val(val);
+    //     $('#article_id').val(art_id);
+    // }
+    // $(".move_to_div").click(function (event) {
+    //     event.preventDefault();
+    //     $('html, body').animate({scrollTop: $('.section_title').offset().top}, 1000);
+    // });
 </script>
 <?php include ("../google_analytic.php")?>
 </body>

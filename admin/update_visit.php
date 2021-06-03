@@ -44,7 +44,14 @@ JOIN medical_specialty as ms ON '" . $erid_id . "'=ams.specialtyMobidoc";
                 }
                 ?>
 
-                <p><strong><?=$rows5['descrizione']?></strong> (<?=$rows5['attributo']?>)</p>
+                <p><strong><?=$rows5['descrizione']?></strong>
+                    <?php
+                    if (!empty($rows5['attributo'])){
+                        echo '('. $rows5['attributo'].')';
+                    }
+                    ?>
+
+                </p>
                 <div class="glance_details_title" style="font-size: 14px;margin-left: 15px;">
                     <input type="checkbox" <?php echo $home_check ?> class="home_visit lable2" id="home_visit"
                            name="home_visit" article_id="<?=$article_id?>" value="<?=$home_status?>">

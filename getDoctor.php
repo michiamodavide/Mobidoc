@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 //$visit_name = trim($_REQUEST["q"]);
 $article_id = trim($_REQUEST["article_id"]);

@@ -32,42 +32,21 @@
           die("ERROR database");
         }
 
-          $sql = "SELECT * FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
-          $result = mysqli_query($conn, $sql_get_result1);
-        $visits_count = 0;
-          $row_count = mysqli_num_rows($result);
+          $get_footer_sql = "SELECT v.visit_id, v.visit_name, v.body_text, v.image FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+          $get_footer_result = mysqli_query($conn, $get_footer_sql);
+          $row_count = mysqli_num_rows($get_footer_result);
 
-        while($rows = mysqli_fetch_array($result)){
-        $visit_name = $rows['visit_name'];
-        $link = $rows['link'];
-        $visits_count += 1;
-        if($row_count){
-          if($visits_count <= 10) {
+        while($get_footer_row = mysqli_fetch_array($get_footer_result)){
+        $visit_name = $get_footer_row['visit_name'];
+        $link = '/visite-ed-esame/landing-page.php?mds='.$visit_name;;
         ?>
-          <a href="/<?php echo $link;?>" style="color:#fff; text-decoration:none;">
-          <div style="margin-bottom: 10px;">
+          <a href="<?php echo $link;?>" target="_blank" style="color:#fff; text-decoration:none;">
+              <div style="margin-bottom: 10px;">
 
-            <?php 
-            switch ($visit_name) {
-              case "Medicina Interna e Geriatria":
-                  echo "Medicina Interna";
-                  break;
-              case "Psicologia e Psicoterapia":
-                  echo "Psicologia";
-                  break;
-              case "Ecografia ed Ecocolordoppler":
-                  echo "Ecografia";
-                  break;
-              case "Assistenza Infermieristica":
-                  echo "Assistenza";
-                  break;
-              default:
-                  echo $visit_name;
-            }
-            ?>
-          
-          </div></a>
-        <?php }}  } mysqli_close($conn);?> 
+                  <?=$visit_name?>
+              </div>
+          </a>
+        <?php } mysqli_close($conn);?>
 
           </div>
           <div class="div-block-4"><a href="/visite-ed-esami.php" class="button stroked foot _0dd w-button">Prenota Online</a></div>
