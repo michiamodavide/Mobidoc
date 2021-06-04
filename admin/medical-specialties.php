@@ -229,8 +229,214 @@ if (!isset($_SESSION['adminlogin'])) {
             opacity: .7;
         }
     </style>
+	
+	
+	
+	<!-------------- Ali CSS Strat Here --------------------->
+	<style>
+		.med-specialties .regi_doctor_card {
+    display: -ms-grid;
+    display: grid;
+    margin-top: 30px;
+    padding: 33px;
+    grid-auto-columns: 1fr;
+    grid-column-gap: 70px;
+    grid-row-gap: 16px;
+    -ms-grid-columns: 47% 47%;
+    grid-template-columns: 47% 47%;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+    border-top: 1px none rgba(0, 40, 92, 0.07);
+    border-radius: 20px;
+    background-color: hsla(0, 0%, 100%, 0.5);
+    box-shadow: 0 18px 30px 0 rgb(0 40 92 / 5%), 0 3px 30px 0 rgb(0 40 92 / 5%);
+    -webkit-transform-origin: 0% 50%;
+    -ms-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+    text-align: left;
+			
+}
+		.med-specialties input[type="checkbox"] {
+ 
+    margin-top: 12px;
+}
+		.med-specialties .glance_details_title label {
+
+    margin-top: 9px;
+}
+		.flot-r{
+			float:right;
+		}
+		.width78{
+			width:78%;
+		}
+		.scroll-div{
+		    height: 550px;
+    overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #49ddef #49ddef;
+			margin: 20px 0;
+   
+}
+
+/******************************/
+/* Works on Chrome, Edge, and Safari */
+.scroll-div::-webkit-scrollbar {
+  width: 12px;
+  border-radius: 20px;
+}
+.scroll-div::-webkit-scrollbar-track {
+  background: #d1faff;
+  border-radius: 20px;
+}
+.scroll-div::-webkit-scrollbar-thumb {
+  background-color: #49ddef;
+  border-radius: 20px;
+  border: 2px solid #49ddef;
+}		
+		
+		
+		.med-specialties .div-block-20 {
+  
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    
+    -ms-grid-columns: 7fr 2fr 2fr;
+    grid-template-columns: 7fr 2fr 2fr;
+}
+		.med-specialties .glance_details_title {
+    padding-top: 0px;
+}
+		.div-block-88 {
+  display: -ms-grid;
+  display: grid;
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  justify-items: stretch;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-align-content: space-between;
+  -ms-flex-line-pack: justify;
+  align-content: space-between;
+  grid-auto-columns: 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: auto;
+  grid-template-rows: auto;
+}
+		.visit_form input[type="checkbox"]{ margin-top: 3px;}
+		.width-40{
+			width:40%;
+		}
+		.btn-auto{
+			margin: 0 auto 30px auto !important;
+		}
+/*****************************************************************************/
+		@media only screen and (max-width: 1792px) {	
+		
+		.width78 {
+    width: 76%;
+		}}
+		@media only screen and (max-width: 1600px) {	
+		
+		.width78 {
+    width: 75%;
+		}}
+		@media only screen and (max-width: 1536px) {	
+		
+		.width78 {
+    width: 73%;
+		}}
+		@media only screen and (max-width: 1440px) {	
+		
+		.width78 {
+    width: 70%;
+		}}
+	@media only screen and (max-width: 1366px) {	
+		
+		.width78 {
+    width: 70%;
+		}}	
+		
+	@media only screen and (max-width: 1280px) {	
+		
+		.width78 {
+    width: 67%;
+		}}
+		
+		@media only screen and (max-width: 767px) {
+			.width78 {
+    width: 90%;
+}
+			.med-specialties .regi_doctor_card {
+    display: -ms-grid;
+    display: grid;
+    margin-top: 30px;
+    padding: 15px;
+    grid-auto-columns: 1fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+    -ms-grid-columns: 100%;
+    grid-template-columns: 100%;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+    border-top: 1px none rgba(0, 40, 92, 0.07);
+    border-radius: 20px;
+    background-color: hsla(0, 0%, 100%, 0.5);
+    box-shadow: 0 18px 30px 0 rgb(0 40 92 / 5%), 0 3px 30px 0 rgb(0 40 92 / 5%);
+    -webkit-transform-origin: 0% 50%;
+    -ms-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+    text-align: left;
+}
+			.flot-r {
+    float: none;
+}
+			.div-block-88 {
+ 
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    
+}
+			.med-specialties .pop-width {
+    width: 90%;
+}
+			.med-specialties .div-block-20 {
+    width: 98%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    -ms-grid-columns: 1fr 1fr 1fr;
+    grid-template-columns: 0.9fr 2fr 2fr;
+    display: grid;
+    white-space: normal;
+				    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+				padding-left: 0px;
+}
+			.med-specialties .view_visits_container {
+
+    padding: 20px 15px 15px;
+}
+			.width-40{
+			width:50%;
+		}
+}
+		
+	</style>
+	<!-------------- Ali CSS End Here --------------------->
 </head>
-<body class="body-14">
+<body class="body-14 med-specialties">
 <div>
     <?php include("admin_side_bar.php") ?>
     <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167c1" class="preloader">
@@ -294,9 +500,9 @@ if (!isset($_SESSION['adminlogin'])) {
                             <div class="glance_details_title mds<?=$mds_idd?>" style="font-size: 14px;margin-left: 15px;">
                                 <input type="checkbox" <?php echo $is_check ?> class="medical_speciality lable2" id="medical_speciality"
                                        name="medical_speciality" data-id="<?=$mds_idd?>" value="<?=$mds_status?>">
-                                <label for="medical_speciality"><?=$rows['name']?> </label>
+                                <label for="medical_speciality" class="width78"><?=$rows['name']?> </label>
                                 <p class="gen_errr" style="display: none">Some Error.</p>
-                                <a href="javascript:;" erid-id="<?=$rows['ERid']?>" class="button v_visits w-button">View Visits</a>
+                                <a href="javascript:;" erid-id="<?=$rows['ERid']?>" class="button v_visits w-button flot-r">View Visits</a>
                             </div>
 
                             <?php
@@ -406,26 +612,46 @@ if (!isset($_SESSION['adminlogin'])) {
 
 
                 <form class="visit_form" action="medical-specialties.php" name="email-form" method="post">
-
+<div class="div-block-88">
                     <input type="hidden" name="erid" class="form_erid">
-                    <input type="text" class="inputs w-input" maxlength="256" name="visit_name" placeholder="Add New Visit/Exam" required="" style="margin-bottom: 30px">
-                    <input type="text" class="inputs w-input" maxlength="256" name="attribute" placeholder="attributo" style="margin-bottom: 30px">
-
-                        <input type="checkbox" class="home_check lable2" id="home_check"
+                    <input type="text" class="inputs w-input" maxlength="256" name="visit_name" placeholder="Add New Visit/Exam" required="">
+                    <input type="text" class="inputs w-input" maxlength="256" name="attribute" placeholder="attributo">
+	
+	
+	<table  border="0" cellspacing="0" cellpadding="0" class="width-40">
+  <tbody>
+    <tr>
+      <td> <input type="checkbox" class="home_check lable2" id="home_check"
                                name="home_check">
-                        <label for="home_check">Home</label>
-                    <input type="checkbox" class="tele_check lable2" id="tele_check"
+                        <label for="home_check">Home</label></td>
+      <td><input type="checkbox" class="tele_check lable2" id="tele_check"
                            name="tele_check">
-                    <label for="tele_check">Tele</label>
+                    <label for="tele_check">Tele</label></td>
+    </tr>
+	  
+  </tbody>
+</table>
 
-                    <br>
-                    <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn" style="margin-bottom:30px;">
+	
+                    
+
+                   
+	</div>
+					
+					<div class="div-block-21 diff">
+                <br>
+                    <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn btn-auto">
+            </div>
+					
+					
+					
+	
                 </form>
 
             </div>
             <div class="div-block-21 diff">
-                <a style="display: inline-block" href="#" class="button next close w-button">Close</a>
-                <a href="#" class="button-3 next add_visit w-button">Add New Visit/Exam</a>
+                <a style="display: inline-block;" href="#" class="button next close w-button">Close</a>
+                <a href="#" class="button-3 next add_visit w-button" style="width: auto;">Add New Visit/Exam</a>
             </div>
         </div>
 
@@ -456,6 +682,7 @@ if (!isset($_SESSION['adminlogin'])) {
         $(".view_visits .div-block-19").css("display", "block");
         $(".view_visits .add_visit").css("display", "inline-block");
         $(".add_new_visit").css("display", "none");
+		$(".view_visit_pop").addClass("scroll-div");
     });
 
         $(document).on('click touchstart', '.view_visits .glance_details_title input', function(){
@@ -499,6 +726,7 @@ if (!isset($_SESSION['adminlogin'])) {
             $(".view_visits .div-block-19").slideUp("slow", function () {
                 $(".add_new_visit").slideDown("slow");
             });
+			$(".view_visit_pop").removeClass("scroll-div");
             $(".view_visits .add_visit").css("display", "none");
         });
 

@@ -60,6 +60,10 @@ if(!isset($_SESSION['adminlogin']))
             float: left;
             margin-top: 4px;
         }
+		.float-r{
+			float:right;
+			margin-top: 7px;
+		}
         /*********************************/
 
         @media only screen and (max-width: 767px) {
@@ -76,6 +80,7 @@ if(!isset($_SESSION['adminlogin']))
             }
             .body-13 .heading-24 {
                 font-size: 22px;
+				float: left;
             }
             .body-13 .bookingcard {
                 display: revert;
@@ -124,6 +129,13 @@ if(!isset($_SESSION['adminlogin']))
                 padding-right: 3%;
                 padding-left: 3%;
             }
+			.float-r {
+    float: right;
+    margin-top: 10px;
+}
+			.booking_patent_image {
+    margin: 0 auto;
+}
         }
         @media (min-width: 1200px) and (max-width: 1600px) {
             .lable2{
@@ -165,7 +177,7 @@ if(!isset($_SESSION['adminlogin']))
             <div class="filter">
                 <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button">
                     <div class="text-block-78">
-                        <a href="create-lp.php">Add New Page</a>
+                        <a href="create-lp.php" style="text-decoration: none;">Add New Page</a>
                     </div>
                 </div>
             </div>
@@ -192,18 +204,19 @@ if(!isset($_SESSION['adminlogin']))
                 }
                 ?>
                 <div style="-webkit-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-moz-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-ms-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);opacity:0" class="bookingcard">
-                    <div class="booking_patent_image" style=" background-image: url('/assets/visit_images/<?PHP echo $visit_pic; ?>?v=1'); overflow:hidden; position:relative;"></div>
+                    <!--<div class="booking_patent_image" style=" background-image: url('/assets/visit_images/<?PHP echo $visit_pic; ?>?v=1'); overflow:hidden; position:relative;"></div>-->
+					<div class="booking_patent_image" style=" background-image: url('/assets/visit_images/mds8.jpg?v=1'); overflow:hidden; position:relative;"></div>
                     <div class="booking_details">
                         <div class="top">
-                            <h1 class="heading-24"><?PHP echo $visit_name; ?></h1>
+                            <h1 class="heading-24"><?PHP echo $visit_name; ?> <span class="float-r"><div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div></span></h1>
                             <?php
                             if ($mds_status == 'Y'){
                             ?>
-                            <div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div>
+                            
                            <?php }?>
                             <div class="div">
                                 <a href="/admin/create-lp.php?mdsid=<?php echo $medical_sid;?>" class="open_booking w-button bg-color">Modifica</a>
-                                <a href="/visite-ed-esame/landing-page.php?mds=<?php echo $visit_name;?>" target="_blank" class="w-button">Vedi dettagli</a>
+                                <a href="/visite-ed-esame/landing-page.php?mds=<?php echo $visit_name;?>" target="_blank" class="button visite_cta w-button">Vedi dettagli</a>
                             </div>
                         </div>
                     </div>

@@ -116,7 +116,7 @@ WHERE ds.doctor_id='".$doctor_id."' AND ls.doctor_id='".$doctor_id."' AND am.hom
 
           </div>
             <br>
-            <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">Prenota Online</a>
+            <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">Not available? Call Us</a>
 
         </div>
       </div>

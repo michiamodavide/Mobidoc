@@ -65,7 +65,7 @@ unset($_SESSION['pat_id']);
     $doctor_result = mysqli_query($conn, $doctor);
     $doctor_count = mysqli_num_rows($doctor_result);
 
-    $visit = "select DISTINCT visit_name from doctor_visit";
+    $visit = "select DISTINCT article_mobidoc_id from listini";
     $visit_result = mysqli_query($conn, $visit);
     $visit_count = mysqli_num_rows($visit_result);
 

@@ -5,8 +5,10 @@
      $cookie_value = "0";
      setcookie("privacy_popop", $cookie_value, intval($time_value), "/");
    }
-   
-   ?>
+unset($_SESSION['book_visits']);
+unset($_SESSION['pat_id']);
+
+?>
 <html data-wf-page="5daa262de3e3f080fd1af309" data-wf-site="5d8cfd454ebd737ac1a48727">
 	<head>
 	<meta charset="utf-8">
@@ -225,7 +227,10 @@
       </div>
           <?php
 
-
+          include 'connect.php';
+          if($conn === false){
+              die("ERROR database");
+          }
       $x_num=0;
       echo "<div class=\"feature_container\">";
 
@@ -325,7 +330,7 @@
 				$doctor_result = mysqli_query( $conn, $doctor );
 				$doctor_count = mysqli_num_rows( $doctor_result );
 
-				$visit = "select DISTINCT visit_name from doctor_visit";
+				$visit = "select DISTINCT article_mobidoc_id from listini";
 				$visit_result = mysqli_query( $conn, $visit );
 				$visit_count = mysqli_num_rows( $visit_result );
 

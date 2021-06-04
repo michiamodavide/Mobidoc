@@ -98,6 +98,39 @@ $today = $year . '-' . $month . '-' . $day;
         .p {
             text-align-last: center !important;
         }
+		.w-240{
+		  width:235px !important;
+	  }
+		
+		.checkout_grid2 {
+    display: -ms-grid;
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+    -ms-grid-columns: 0.75fr 0.75fr;
+    grid-template-columns: 1.75fr 0.75fr;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+}
+		.mb-30{
+			margin-bottom:30px;
+		}
+		.price-1{
+			font-size:36px;
+			
+			margin: 20px 0;
+		}
+		
+		
+		@media only screen and (max-width:767px) {
+
+		.checkout_grid2 {
+ 
+    -ms-grid-columns: 1.75fr ;
+    grid-template-columns: 1fr ;
+   
+			}}
     </style>
     <style>
         textarea {
@@ -114,13 +147,13 @@ $today = $year . '-' . $month . '-' . $day;
             <span class="heading1">Wait!</span> <br><br>
             <span class="heading2">
                       You can get 50% off on your second <br>
-                     booking of same group.
+                     booking of same professionist.
                      </span>
         </div>
         <br>
         <div class="div-block-25" style="margin-top: 20px">
-            <a href="javascript:;" class="button-3 next odd diff w-button">Proceed with Checkout</a>
-            <a href="/visite-ed-esami.php?morev=1" class="button-3 next diff w-button">Add more visits</a>
+            <a href="javascript:;" class="button-3 next odd diff w-button w-240">Proceed with Checkout</a>
+            <a href="/visite-ed-esami.php?morev=1" class="button-3 next diff w-button w-240">Add more visits</a>
         </div>
     </div>
 </div>
@@ -133,8 +166,9 @@ $today = $year . '-' . $month . '-' . $day;
 </div>
 <div class="section-30">
     <div class="custom_container checkout">
-        <div class="checkout_grid">
+        <div class="checkout_grid2">
 
+            <div class="check_step1">
             <?php
             include 'connect.php';
             $total_price = 0;
@@ -189,7 +223,7 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
 
                         ?>
 
-                        <div class="details_container">
+                        <div class="details_container mb-30">
                             <div class="doctor_data">
                                 <div class="doctor_data_image">
                                     <div class="image-16"
@@ -285,7 +319,7 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
 
                         </div>
 
-                        <?php
+                            <?php
                         $ii++;
                         $total_price+= $visit_price;
                     }
@@ -293,6 +327,34 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
             }
             mysqli_close($conn);
             ?>
+            </div>
+            <div class="check_step2">
+                <div class="div-block-49">
+					 <?php
+                    if ($ii > 2){
+                        ?>
+                        <div class="price-1">Total Price: <strong>€<?php
+                            if (strpos($total_price,'.') !== false) {
+                                echo $total_price;
+                            }else {
+                                echo $total_price.'.00';
+                            }
+                            ?>
+							</strong>
+                        </div>
+                    <?php }?>
+					<br>
+                    <a data-w-id="c52ba0f4-d38b-9687-46ce-e745bbba5e78" href="#"
+                       class="button gradient submit booking w-button">Conferma prenotazione</a>
+                    <a href="javascript:;" class="button more_visits w-button">Add More Visits</a>
+
+
+             
+                   
+                </div>
+
+            </div>
+
 
             <div class="form">
                 <div class="w-form">
@@ -379,32 +441,6 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
                         </div>
                     </form>
                 </div>
-            </div>
-            <div id="w-node-278d9db1f54f-de2666cf" class="div-block-50">
-                <div class="div-block-49">
-                    <a data-w-id="c52ba0f4-d38b-9687-46ce-e745bbba5e78" href="#"
-                                             class="button gradient submit booking w-button">Conferma prenotazione</a>
-                    <a href="javascript:;" class="button more_visits w-button">Add More Visits</a>
-
-                    <?php
-                    /*
-                    <a href="paziente/profile-edit.php" class="button modify w-button">Modifica Dettagli Personali</a>
-                    */
-                    ?>
-                   </div>
-
-                <?php
-                if ($ii > 2){
-                ?>
-                <div>Total Price: €<?php
-                    if (strpos($total_price,'.') !== false) {
-                        echo $total_price;
-                    }else {
-                        echo $total_price.'.00';
-                    }
-                    ?>
-                </div>
-                <?php }?>
             </div>
         </div>
     </div>

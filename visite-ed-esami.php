@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$last_selected_article_id = '';
+$last_selected_doctor_id = '';
 $article_ids_array = array();
 if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empty($_GET['pid'])){
     if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
@@ -9,7 +9,7 @@ if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empt
 //    print_r($book_visit_details);
         foreach($book_visit_details as $key => $cookie_book_visit) {
             if ($key === array_key_last($book_visit_details) && !empty($cookie_book_visit['book_patient_id'])){
-                $last_selected_article_id = $cookie_book_visit['article_id'];
+                $last_selected_doctor_id = $cookie_book_visit['book_doctor'];
                 array_push($article_ids_array, $cookie_book_visit['article_id']);
             }else{
                 if (empty($cookie_book_visit['book_patient_id'])){
@@ -24,7 +24,6 @@ if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empt
         $_SESSION['book_visits'] = $book_visit_details;
         //print_r($book_visit_details);
     }
-
 }else{
 
     unset($_SESSION['book_visits']);
@@ -71,27 +70,6 @@ if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empt
  float: inherit !important;
 }
   </style>
-<script>
-  function getDoctors(value, article_id){
-    $('#book_visit').val($.trim(value));
-    $('#book_doctor').val('');
-    $('#article_id').val(article_id);
-    var xmlhttp2 = new XMLHttpRequest();
-    xmlhttp2.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("load_doctors").innerHTML = this.responseText;
-      }
-    };
-    xmlhttp2.open("GET", "getDoctor.php?q=" + value+"&article_id="+article_id, true);
-    xmlhttp2.send();
-  }
-  function setDoctor(val, art_id){
-    $('#book_doctor').val(val);
-    $('#article_id').val(art_id);
-  }
-</script>
-
-  <?php include ("cam_visit.php")?>
 </head>
 <body class="visit_page">
 	<div id="n-section-2nd">
@@ -110,6 +88,8 @@ if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empt
       </div>
       <div class="div-block-8 another">
         <div class="div-block-51">
+          <?php
+          /*
           <div class="search team">
             <div class="form-block w-form">
               <form id="Search_form" name="email-form" action="search-result.php" method="get" class="form">
@@ -148,7 +128,11 @@ if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empt
                 <div class="text-block-56">Ecografia Dell Collo</div>
               </div>
             </div>
-          </div><a href="tel:3357798844" class="button stroked m_b servc w-button">Chiamaci</a></div>
+          </div>
+          */
+          ?>
+            <br>
+            <a href="tel:3357798844" class="button stroked m_b servc w-button">Chiamaci</a></div>
       </div>
     </div>
   </div>
@@ -161,37 +145,37 @@ if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empt
       </p>
       </div>
       <script>
-        function showHint(str) {
-          $('#load_doctors').html('<div class="slect_visit_first"><span>Please select a visit first!</span></div>');
-          if (str.length == 0) {
-            document.getElementById("txtHint").innerHTML = "";
-            return;
-          } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("visite_list").innerHTML = this.responseText;
-              }
-            };
-            xmlhttp.open("GET", "getVisits.php?q=" + str, true);
-            xmlhttp.send();
-          }      
-          setTimeout( function(){ 
-                var visite_count = $('.visite_list').children('.visite').length;
-                
-                if(visite_count < 6){
-                  $('.visite').css('margin-bottom','15px');
-                  $('.visite_list').css('display','block'); 
-                  $('#book_visit, #book_doctor').val('');                
-                  $('#book_visit, #article_id').val('');
-                } else {
-                  $('.visite').css('margin-bottom','0px');
-                  $('.visite_list').css('display','grid'); 
-                  $('#book_visit, #book_doctor').val('');
-                  $('#book_visit, #article_id').val('');
-                }
-              }, 100);                        
-        }
+        // function showHint(str) {
+        //   $('#load_doctors').html('<div class="slect_visit_first"><span>Please select a visit first!</span></div>');
+        //   if (str.length == 0) {
+        //     document.getElementById("txtHint").innerHTML = "";
+        //     return;
+        //   } else {
+        //     var xmlhttp = new XMLHttpRequest();
+        //     xmlhttp.onreadystatechange = function() {
+        //       if (this.readyState == 4 && this.status == 200) {
+        //         document.getElementById("visite_list").innerHTML = this.responseText;
+        //       }
+        //     };
+        //     xmlhttp.open("GET", "getVisits.php?q=" + str, true);
+        //     xmlhttp.send();
+        //   }
+        //   setTimeout( function(){
+        //         var visite_count = $('.visite_list').children('.visite').length;
+        //
+        //         if(visite_count < 6){
+        //           $('.visite').css('margin-bottom','15px');
+        //           $('.visite_list').css('display','block');
+        //           $('#book_visit, #book_doctor').val('');
+        //           $('#book_visit, #article_id').val('');
+        //         } else {
+        //           $('.visite').css('margin-bottom','0px');
+        //           $('.visite_list').css('display','grid');
+        //           $('#book_visit, #book_doctor').val('');
+        //           $('#book_visit, #article_id').val('');
+        //         }
+        //       }, 100);
+        // }
       </script>
     </div>
 	  <div id="n-section4">
@@ -232,6 +216,40 @@ if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empt
 				</div>
 			</section>
 		</div>
+
+
+
+         <?php
+         if (empty($last_selected_doctor_id)){
+         ?>
+          <label for="search_visit">Search City for show visits.</label><br>
+          <input name="search_visit" id="search_visit" list="search_visits">
+      <datalist id="search_visits">
+          <?php
+          include 'connect.php';
+
+          if($conn === false){
+              die("ERROR database");
+          }
+          $sql = "select * from mobi_cap order by Comune";
+          $result = mysqli_query($conn, $sql);
+          while ($rows = mysqli_fetch_array($result)) {
+              $comune = $rows['Comune'];
+              $provincia = $rows['Provincia'];
+              $cap = $rows['CAP'];
+          ?>
+              <option value="<?PHP echo $comune ?>"><?PHP echo $comune ?></option>
+          <?php }
+          mysqli_close($conn);
+          ?>
+      </datalist>
+      <br>
+      <br>
+      <a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel call_us_btn" style="display: none">
+          <img src="images/phone.svg" width="11" alt="" class="image-2">
+          <div class="text-block-2">Not available? Call Us</div>
+      </a>
+      <?php }?>
    <?php
    /*
    <section class="section-2" style="padding-top: 70px;padding-bottom: 0px">
@@ -261,139 +279,138 @@ if (isset($_GET['morev']) && $_GET['morev'] == 1 || isset($_GET['pid']) && !empt
    */
    ?>
 	<!--start-->
-	<?php
-	include 'connect.php';
+    <div class="booking_visits">
+        <?php
+        if (!empty($last_selected_doctor_id)) {
+            include 'connect.php';
 
-	if($conn === false){
-		die("ERROR database");
-	}
+            if ($conn === false) {
+                die("ERROR database");
+            }
 
-    $last_selected_article_name = '';
-	if ($last_selected_article_id){
-        $get_group_sql = "
-SELECT DISTINCT am.gruppo, gp.detailName
- FROM groups gp
- JOIN articlesMobidoc as am ON $last_selected_article_id = am.id
-WHERE am.gruppo=gp.id";
-        $get_group_result = mysqli_query($conn, $get_group_sql);
-        $get_group_row= mysqli_fetch_array($get_group_result);
-        $last_selected_article_name = $get_group_row['detailName'];
-    }
+            $sql = "SELECT v.visit_id, v.visit_name, v.body_text, v.image, ms.ERid FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+            $result = mysqli_query($conn, $sql);
+            $row_count = mysqli_num_rows($result);
 
- $sql = "SELECT v.visit_id, v.visit_name, v.body_text, v.image, ms.ERid FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
-  $result = mysqli_query($conn, $sql);
- $row_count = mysqli_num_rows($result);
-            
-	while($rows = mysqli_fetch_array($result)){
-	$visit_name = $rows['visit_name'];
-        $image1 = $rows['image'];
-        $mds_erid = $rows['ERid'];
-     $link = 'javascript:;';
 
-  if($row_count){
-   $expl_visit_name = explode(" ", $visit_name);
+            while($rows = mysqli_fetch_array($result)){
+                $visit_name = $rows['visit_name'];
+                $image1 = $rows['image'];
+                $mds_erid = $rows['ERid'];
+                $link = '/visite-ed-esame/landing-page.php?mds='.$visit_name;
 
-   if ($last_selected_article_id){
-       $expl_visit1 = explode(" ", $last_selected_article_name);
-       $selector_div_css = trim(strtolower($expl_visit1[0]));
-      echo '<style>.service_container{display: none}.service_container.'.$selector_div_css.'{display: grid}</style>';
-   }
+                if($row_count){
+                    $expl_visit_name = explode(" ", $visit_name);
 
-   $tm2_class = '';
-   if (strlen($visit_name) < 20)
-    $tm2_class = 'fet_tm2';
+                    $tm2_class = '';
+                    if (strlen($visit_name) < 20)
+                        $tm2_class = 'fet_tm2';
 
-  ?>
+                    ?>
 
-   <div class="service_container <?php echo trim(strtolower($expl_visit_name[0]))?>">
-      <div id="w-node-9ebfabc602d8-851af311" class="service_maine_card">
-		  <!-- New HTML-Code --->
-		  <div class="feature diff">
-          <a class="pic2" href="<?php echo $link;?>" target="_blank">
-							<div class="feature_label <?php echo $tm2_class?>"><?php echo $visit_name;?>
-         <img src="images/arrow.png" alt="" >
-       </div>
-							<img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=8" alt="">
-    </a>
-						</div>
-		  <!-- New HTML-Code --->
+                    <div class="service_container <?php echo trim(strtolower($expl_visit_name[0]))?>">
+                        <div id="w-node-9ebfabc602d8-851af311" class="service_maine_card">
+                            <!-- New HTML-Code --->
+                            <div class="feature diff">
+                                <a class="pic2" href="<?php echo $link;?>" target="_blank">
+                                    <div class="feature_label <?php echo $tm2_class?>"><?php echo $visit_name;?>
+                                        <img src="images/arrow.png" alt="" >
+                                    </div>
+                                    <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=8" alt="">
+                                </a>
+                            </div>
+                            <!-- New HTML-Code --->
 
-      </div>
-      <div class="service_type_card">
-        <div class="text-block-7"><span class="service_text_underline"><?php echo $visit_name;?></span></div>
-        <div class="type_of-service_grid">      	
-		<?php
-        $search_city = 'Aci Castello';
-        if (isset($_SESSION['doctor_email'])) {
-            $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
-FROM doctor_profile dp
-JOIN doctor_register as dg ON dp.doctor_id = dg.id
-JOIN doctor_cap as dc ON dp.doctor_id = dc.doctor_id
-JOIN listini as ls ON dp.doctor_id = ls.doctor_id
-JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
-JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
-JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
-JOIN medical_specialty as ms ON '" . $mds_erid . "'=ams.specialtyMobidoc
-WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid."' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
+                        </div>
+                        <div class="service_type_card">
+                            <div class="text-block-7"><span class="service_text_underline"><?php echo $visit_name;?></span></div>
+                            <div class="type_of-service_grid">
+                                <?php
+                                if (isset($_SESSION['doctor_email'])) {
+                                    $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
+                    FROM doctor_profile dp
+                    JOIN doctor_register as dg ON dp.doctor_id = dg.id
+                    JOIN listini as ls ON dp.doctor_id = ls.doctor_id
+                    JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
+                    JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
+                    JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+                    JOIN medical_specialty as ms ON ds.specialty=ams.specialtyMobidoc
+                    WHERE dg.tick='1' AND dp.doctor_id='".$last_selected_doctor_id."' AND ds.specialty='".$mds_erid."' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
 
-        }else{
-            $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
-FROM doctor_profile dp
-JOIN doctor_register as dg ON dp.doctor_id = dg.id
-JOIN doctor_cap as dc ON dp.doctor_id = dc.doctor_id
-JOIN listini as ls ON dp.doctor_id = ls.doctor_id
-JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
-JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
-JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
-JOIN medical_specialty as ms ON '" . $mds_erid . "'=ams.specialtyMobidoc
-WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid."' AND dp.puo_refertare='N' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
-        }
+                                }else{
+                                    $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
+                    FROM doctor_profile dp
+                    JOIN doctor_register as dg ON dp.doctor_id = dg.id
+                    JOIN listini as ls ON dp.doctor_id = ls.doctor_id
+                    JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
+                    JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
+                    JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
+                    JOIN medical_specialty as ms ON ds.specialty=ams.specialtyMobidoc
+                    WHERE dg.tick='1' AND dp.doctor_id='".$last_selected_doctor_id."' AND ds.specialty='".$mds_erid."' AND dp.puo_refertare='N' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
+                                }
 
-  $result2 = mysqli_query($conn, $sql2);
-      
-			while($rows2 = mysqli_fetch_array($result2)){
-			 if (trim($rows2['detailName']) == trim($visit_name)) {
-      $visit_type_name = trim($rows2['descrizione'], " ");
-      $article_id = trim($rows2['article_id'], " ");
-      $visit_name_2 = '"' . $visit_name . '", "' . $visit_type_name . '", "' . $article_id . '"';
 
-      if (!empty($last_selected_article_id) && in_array($article_id, $article_ids_array)){
-          //do not add visit
-      }else{
-          echo "<div class='sub_service' onClick='get_visit_Doctors(" . $visit_name_2 . ");' >";
-          echo "<div class='sub_service_text'>";
+                                $result2 = mysqli_query($conn, $sql2);
+                                $rows2_count = mysqli_num_rows($result2);
+                                if (empty($rows2_count)){
+                                    echo '<style>.service_container.'.trim(strtolower($expl_visit_name[0])).'{display: none}</style>';
+                                }
 
-          echo $visit_type_name;
-          echo "</div>";
-          echo "</div>";
-      }
+                                while($rows2 = mysqli_fetch_array($result2)){
 
-    }
-			}
-        ?>
-          
-        </div>
-      </div>
+                                    $visit_type_name = trim($rows2['descrizione'], " ");
+                                    $article_id = trim($rows2['article_id'], " ");
+                                    $visit_name_2 = '"' . $mds_erid . '", "' . $visit_type_name . '", "' . $article_id . '"';
+                                    $attribute = $rows2['attributo'];
+
+
+                                    if (in_array($article_id,$article_ids_array)){
+                                        echo '<style>.sub_service.article_'.$article_id.'{display: none}</style>';
+                                    }
+
+                                    echo "<div class='sub_service article_".$article_id."' >";
+                                    echo "<a style='color: #00285c;' href='/checkout.php?book_visit=".$visit_type_name."&book_doctor=".$last_selected_doctor_id."&article_id=".$article_id."'><div class='sub_service_text'>";
+
+                                    echo $visit_type_name;
+                                    if (!empty($attribute)){
+                                        echo ' <span style="font-size: 13px;font-weight: bold">('.$attribute.')</span>';
+                                    }
+                                    echo "</div></a>";
+                                    echo "</div>";
+
+                                }
+                                ?>
+
+                            </div>
+                        </div>
+                    </div>
+                <?php }} }?>
     </div>
-	<?php }} mysqli_close($conn);?>
-	<!--end-->
+
+      <div id="load_visits">
+
+      </div>
   </div>
+ <?php
+ /*
   <div data-w-id="9da09dce-74fd-48c2-3856-6fbbf1fa1101" style="display:none;opacity:0;overflow: auto" class="select_visite">
     <div data-w-id="cd023d65-eafd-6990-97f3-f7f1d70c1f35" class="closer"></div>
     <div data-w-id="74b504a4-434f-f3ca-0eff-3cc62dc83f42" style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="visite_select_container">
       <div class="close_btn" data-w-id="59f2a1ad-911e-85f4-e6eb-5c357ae648d4"><img src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5d9d869b12f8e2378f12b8e3_Path%20175.svg" alt="" class="image-27"/></div>
       <div class="text-block-18">SELEZIONA IL TIPO DI VISITA</div>
-      
+
         <div class="visite_list" id="visite_list">
-          
+
         </div>
-      
+
       <div class="div-block-21"><a data-w-id="59f2a1ad-911e-85f4-e6eb-5c357ae648d4" href="#" class="button-3 next close odd w-button">Close</a><a data-w-id="edfe7a79-7498-a90d-618f-cd9c0d79fac8" href="#" class="button-3 next w-button" style="padding-right:100px;">Continua</a></div>
     </div>
   </div>
-  <div data-w-id="e63c0446-c4e2-04c7-011e-cc7eda105d92" class="select_doctor">
+ */
+ ?>
+  <div style="display:none;opacity:0" class="select_doctor">
     <div data-w-id="18c3de8b-b737-4d7d-bc89-c71022690854" class="closer"></div>
-    <div data-w-id="815eebd5-c0bb-d447-59df-ebd85e4eeccd" style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="select_doctor_container">
+    <div style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:1" class="select_doctor_container">
       <div class="text-block-18">SELEZIONA PROFESSIONISTA</div>
       <div class="div-block-19">
         <div class="div-block-20" id="load_doctors">
@@ -415,7 +432,7 @@ WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid
           <input type="text" name="book_visit" id="book_visit" style="display:none;"> 
           <input type="text" name="book_doctor" id="book_doctor" style="display:none;"> 
           <input type="text" name="article_id" id="article_id" style="display:none;">
-          <a data-w-id="365b64cd-1aba-0309-c567-e78f0e672a65" href="#" class="button-3 next odd w-button">Indietro</a>
+          <a href="#" class="button-3 next odd w-button cls_btn">Indietro</a>
           <button href="checkout.php" class="button-3 next w-button" style="padding-right:100px;">Continua</button>
         </form>
       </div>
@@ -447,42 +464,86 @@ WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid
   });
 </script>
 <script type="application/javascript">
-  function get_visit_Doctors(str, visit_name, article_id) {
-          $('#load_doctors').html('<div class="slect_visit_first"><span>Please select a visit first!</span></div>');
-          if (str.length == 0) {
-            document.getElementById("txtHint").innerHTML = "";
-            return;
-          } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("visite_list").innerHTML = this.responseText;
-              }
-            };
-            xmlhttp.open("GET", "getVisits.php?q=" + str, true);
-            xmlhttp.send();
-          }
 
-          setTimeout( function(){
-                var visite_count = $('.visite_list').children('.visite').length;
-
-                if(visite_count < 6){
-                  $('.visite').css('margin-bottom','15px');
-                  $('.visite_list').css('display','block');
-                  $('#book_visit').val(visit_name);
-                  $('#book_doctor').val('');
-                  $('#article_id').val(article_id);
-                } else {
-                  $('.visite').css('margin-bottom','0px');
-                  $('.visite_list').css('display','grid');
-                  $('#book_visit').val(visit_name);
-                  $('#book_doctor').val('');
-                  $('#article_id').val(article_id);
+    $('#search_visit').on('input',function() {
+        var opt = $('option[value="'+$(this).val()+'"]');
+        var search_city = opt.length ? opt.attr('value') : '2';
+        if (search_city == 2){
+            $("#load_visits").empty();
+        } else {
+            var xmlhttp2 = new XMLHttpRequest();
+            xmlhttp2.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("load_visits").innerHTML = this.responseText;
                 }
-              }, 100);
-              getDoctors(visit_name,article_id);
-        }
+            };
+            xmlhttp2.open("GET", "get_search_visit.php?city="+search_city, true);
+            xmlhttp2.send();
 
+            $(".call_us_btn").css("display", "inline-block");
+
+        }
+    });
+  // function get_visit_Doctors(str, visit_name, article_id) {
+  //         $('#load_doctors').html('<div class="slect_visit_first"><span>Please select a visit first!</span></div>');
+  //         if (str.length == 0) {
+  //           document.getElementById("txtHint").innerHTML = "";
+  //           return;
+  //         } else {
+  //           var xmlhttp = new XMLHttpRequest();
+  //           xmlhttp.onreadystatechange = function() {
+  //             if (this.readyState == 4 && this.status == 200) {
+  //               document.getElementById("visite_list").innerHTML = this.responseText;
+  //             }
+  //           };
+  //           xmlhttp.open("GET", "getVisits.php?q=" + str, true);
+  //           xmlhttp.send();
+  //         }
+  //
+  //         setTimeout( function(){
+  //               var visite_count = $('.visite_list').children('.visite').length;
+  //
+  //               if(visite_count < 6){
+  //                 $('.visite').css('margin-bottom','15px');
+  //                 $('.visite_list').css('display','block');
+  //                 $('#book_visit').val(visit_name);
+  //                 $('#book_doctor').val('');
+  //                 $('#article_id').val(article_id);
+  //               } else {
+  //                 $('.visite').css('margin-bottom','0px');
+  //                 $('.visite_list').css('display','grid');
+  //                 $('#book_visit').val(visit_name);
+  //                 $('#book_doctor').val('');
+  //                 $('#article_id').val(article_id);
+  //               }
+  //             }, 100);
+  //             getDoctors(visit_name,article_id);
+  //       }
+
+
+    function get_visit_Doctors (mdsid, name, article_id){
+        $('#book_visit').val($.trim(name));
+        $('#book_doctor').val('');
+        $('#article_id').val(article_id);
+        var xmlhttp2 = new XMLHttpRequest();
+        xmlhttp2.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("load_doctors").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp2.open("GET", "getDoctor.php?erid=" + mdsid+"&article_id="+article_id, true);
+        xmlhttp2.send();
+
+        $(".select_doctor").attr("style", "display:flex;opacity:1;overflow: auto");
+    }
+
+    $(".select_doctor .closer, .select_doctor .cls_btn").on("click", function () {
+        $(".select_doctor").attr("style", "display:none;opacity:0");
+    });
+    function setDoctor(val, art_id){
+        $('#book_doctor').val(val);
+        $('#article_id').val(art_id);
+    }
 
   $('.section-7 .service_container').each(function(){
     if ( $('.service_type_card .type_of-service_grid', this).children().length > 0 ) {
@@ -491,8 +552,14 @@ WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid
       $(this).remove()
     }
   });
+
+    var doc_ids = '<?php echo $last_selected_doctor_id?>';
+    if (doc_ids){
+        $('html, body').animate({scrollTop: $('.booking_visits').offset().top}, 1000);
+    }
 </script>
-<style>
+
+        <style>
 .slect_visit_first{              
   position: relative;
   display: -webkit-box;

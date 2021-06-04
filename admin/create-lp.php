@@ -66,7 +66,102 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
             border: none;
         }
 
-
+		.select-style{
+			background: #ebeef2;
+			padding: 20px;
+    border-radius: 7px;
+			border: none;
+			width: 100%;
+		}
+	
+		.div-1{
+			display:block;
+			
+			float: left;
+			width: 86.3%;
+			
+			margin-left: 2.5%;
+			
+		}
+		.div-2{
+			display:block;
+			
+			float: left;
+			width: 11.2%;
+			text-align: right !important;
+			
+		}
+		.m-0-auto{
+			margin:30px auto 0 auto !important;
+		}
+		.div-3{width: 100%;text-align: center !important; margin-top: 30px;}
+		
+		.bg-color {
+    background-color: #f8dbdb;
+    color: #00285c;
+			
+			
+}
+		.m-t-30{
+			margin-top:30px;
+		}
+		/**************************************************************************/
+	@media screen and (max-width: 1600px) {	
+		
+		.div-2 {
+    
+    width: 14.5%;
+    
+}
+		.div-1 {
+   
+    width: 83%;
+    
+}
+		}		
+	@media screen and (max-width: 1440px) {	
+		
+		.div-2 {
+    
+    width: 15.5%;
+    
+}
+		.div-1 {
+   
+    width: 82%;
+    
+}
+		}		
+		
+			@media screen and (max-width: 1366px) {	
+		
+		.div-2 {
+    
+    width: 17%;
+    
+}
+		.div-1 {
+   
+    width: 80%;
+    
+}
+		}
+	@media screen and (max-width: 1280px) {	
+		
+		.div-2 {
+    
+    width: 17%;
+    
+}
+		.div-1 {
+   
+    width: 80%;
+    
+}
+		}
+		
+		
+		
         @media screen and (max-width: 767px) {
             .admin_main_section .admin_section_header {
                 display: inline-block;
@@ -82,10 +177,53 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
                 padding: 23px 10px;
 
             }
+			
+			
+			
+			.div-1{
+			display:block;
+			
+			float: none;
+			width: 100%;
+			margin-top: 4%;
+			margin-left: 0%;
+			
+		}
+		.div-2{
+			display:block !important;
+			margin: 0px auto 0 auto;
+			float: none;
+			width: 80%;
+			text-align: right !important;
+			
+		}
+		.div-3{width: 100%;text-align: center !important; margin-top: 30px;}
+			.div-block-35 {
+    display: -webkit-block;
+    display: -webkit-block;
+    display: -ms-block;
+    display: block;
+      margin-bottom: 0px;
+}
+			.text-block-33 {
+    margin-left: 0px;
+}
+			.profile_image_container.proff {
+   
+    margin: 0 auto;
+}
+			
         }
+		
+		
+		
+		
+		
+		
         .profile_image_container{
             border-radius: 0px;
         }
+		
     </style>
 </head>
 <body class="body-14">
@@ -108,7 +246,7 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
     <div class="section_content">
         <div class="applications">
             <div class="doctors_block">
-                <div class="regi_doctor_card" style="display: block">
+                <div class="regi_doctor_card" style="display: block;">
                     <?php if (isset($_GET['sb']) && $_GET['sb'] == 1){?>
                         <p class="visit_err" style="color: green">New page not added.</p>
                     <?php }?>
@@ -174,12 +312,12 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
 
                     ?>
 
-                    <form class="lp_form" action="create-lp.php" name="email-form" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="mds_name" class="mds-name" value="<?=$medi_name?>">
+                    <form class="lp_form " action="create-lp.php" name="email-form" method="post" enctype="multipart/form-data">
+						 <input type="hidden" name="mds_name" class="mds-name" value="<?=$medi_name?>">
                         <?php
                         if ($show_bar == 1){
                         ?>
-                        <select class="medical_speciality" name="medical_speciality" id="medical_speciality">
+                        <select class="medical_speciality select-style" name="medical_speciality" id="medical_speciality">
                             <option value="">Chose Medical Speciality</option>
                             <?php
                             include '../connect.php';
@@ -202,12 +340,15 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
                             <input type="hidden" name="old_img" class="old_img" value="<?=$up_img_name?>">
                             <input type="hidden" name="medical_speciality" class="medical_speciality" value="<?=$mds_speciality_id?>">
                         <?php }?>
-
-                        <div class="div-block-35">
+						<div class="div-2">  <div class="div-block-35 m-t-30">
+							
+							
                             <div class="profile_image_container proff" id="profile_image">
                                 <div id="dp" style="width:100%; height:100%; background: url(/assets/visit_images/<?=$up_img_name?>) center center / cover no-repeat; background-position:center; background-size:cover; cursor: pointer"></div>
                             </div>
-                            <div class="text-block-33" style="cursor:pointer;"><?=$up_img_name?></div>
+                            <div class="text-block-33"><?=$up_img_name?></div>
+							
+							
                             <br>
                             <input type="file" class="upload_image" style="display:none;" name="upload-image" accept="image/*"
                                    onchange="readURL(this);" value="<?=$up_img_name?>">
@@ -240,16 +381,38 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
                                 }
                             </script>
                         </div>
-                        <textarea placeholder="Page Description" maxlength="10000" id="page_des" name="page_des" class="text_area_profile page_des w-input"><?=$page_description?></textarea>
+							
+						</div>
+						<div class="div-1">
+						
+						
+							<textarea placeholder="Page Description" maxlength="10000" id="page_des" name="page_des" class="text_area_profile page_des w-input"><?=$page_description?></textarea>
+						</div>
+						
+						
+						
+						
+                       
 
-                        <br>
-                        <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn" style="margin-bottom:30px;">
+                      
+						
+						
+						
+						
+						
+						
+						
+                        
+
+                        <div class="div-3">
+                        <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn m-0-auto">
 
                         <div class="error_container">
                             <div class="error_message medical_speciality_msg" style="display: none">
                                 <div class="text-block-30">Please Chose any Medical Speciality.</div>
                             </div>
                         </div>
+							</div>
                     </form>
                 </div>
 
