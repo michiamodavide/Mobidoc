@@ -1,0 +1,25 @@
+
+
+
+SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY','')
+
+ALTER TABLE `paziente_profile` ADD `address` VARCHAR(255) NULL DEFAULT NULL AFTER `fiscale`;
+ALTER TABLE `paziente_profile` ADD `latitude` VARCHAR(255) NULL DEFAULT NULL AFTER `address`;
+ALTER TABLE `paziente_profile` ADD `longitude` VARCHAR(255) NULL DEFAULT NULL AFTER `latitude`;
+
+
+ALTER TABLE `doctor_profile` ADD `visible` ENUM('Y','N') NOT NULL DEFAULT 'Y' AFTER `active`;
+
+ALTER TABLE `doctor_profile` CHANGE `active` `active` ENUM('Y','N') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT 'N';
+
+
+
+ALTER TABLE `paziente_profile` CHANGE `email` `email` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+small word in two tables
+articlesmobidoc
+articlesMobidoc_specialty
+
+
+ALTER TABLE `medical_specialty` ADD `lp_created` ENUM('Y','N') NOT NULL DEFAULT 'N' AFTER `status`;

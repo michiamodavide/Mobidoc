@@ -294,10 +294,15 @@ include '../connect.php';
   <?php
 
   $booking_id = $_GET['id'];
-  $sql_book = "select * from bookings where booking_id ='".$booking_id."'";
+  $sql_book = "select bs.article_id, am.descrizione, bk.apoint_time, bk.refertatore_id, bk.doctor_id, bk.patient_id
+from bookings bk
+JOIN booked_service bs on bs.booking_id=bk.booking_id
+JOIN articlesmobidoc am on bs.article_id=am.id
+where bk.booking_id ='".$booking_id."'";
+
   $get_book_con = mysqli_query($conn, $sql_book);
   $get_book_result = mysqli_fetch_array($get_book_con);
-  $book_visit_name = $get_book_result['visit_name'];
+  $book_visit_name = $get_book_result['descrizione'];
   $refertatore_id = $get_book_result['refertatore_id'];
 
   if ($get_book_result['apoint_time']){
@@ -333,7 +338,6 @@ include '../connect.php';
   $phone = $sql_get_tmp_data['phone'];
   $fname = $sql_get_tmp_data['first_name'];
   $lname = $sql_get_tmp_data['last_name'];
-  $admin_note = $sql_get_tmp_data['admin_note'];
   $dobb = $sql_get_tmp_data['dob'];
 
   ?>

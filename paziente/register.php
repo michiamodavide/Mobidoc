@@ -92,7 +92,7 @@
 
 
                         date_default_timezone_set("Europe/Rome");
-                        $privacy_consent_date = date("Y/m/d");
+                        $privacy_consent_date = date("Y/m/d H:i:s");
 
                         //$sql = "insert into paziente_profile (first_name, last_name, password, email, photo, dor) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$profile_img."', '".$dor."')";
                         $sql = "insert into contact_profile (name, surname, password, email, phone, privacy_consent, lastDatePrivacyConsent,marketing_consent,lastDateMarketingConsent) values('".ucwords($fname)."', '".ucwords($lname)."', '".$pwrd."', '".$email."', '".$phone."', '".$privacy_consent."', '".$privacy_consent_date."', '".$marketing_consent."', '".$privacy_consent_date."')";
@@ -205,6 +205,7 @@ Il consenso qui espresso potrà essere revocato con le medesime modalità.
            <div class="g-recaptcha brochure__form__captcha" data-sitekey="6LdyDJwaAAAAABFuvH-xSQDxaX0I16shCUMw8jCe" aria-required="true"></div>
            <br>
            <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn" style="margin-bottom:30px;">
+
           </form>
 
         </div>

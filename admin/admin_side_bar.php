@@ -6,22 +6,26 @@
       setTimeout(function(){window.location.href=location},1200)
     });
     $('.admin_item:nth-child(2)').click(function(){
-      var location = '/admin/booking.php';
+      var location = '/admin/contacts.php';
       setTimeout(function(){window.location.href=location},1200)
     });
-    $('.admin_item:nth-child(3)').click(function(){
+      $('.admin_item:nth-child(3)').click(function(){
+          var location = '/admin/booking.php';
+          setTimeout(function(){window.location.href=location},1200)
+      });
+    $('.admin_item:nth-child(4)').click(function(){
       var location = '/admin/patient-register.php';
       setTimeout(function(){window.location.href=location},50)
     });
-    $('.admin_item:nth-child(4)').click(function(){
+    $('.admin_item:nth-child(5)').click(function(){
       var location = '/admin/incomplete-patient.php';
       setTimeout(function(){window.location.href=location},50)
     });
-      $('.admin_item:nth-child(5)').click(function(){
+      $('.admin_item:nth-child(6)').click(function(){
           var location = '/admin/medical-specialties.php';
           setTimeout(function(){window.location.href=location},50)
       });
-      $('.admin_item:nth-child(6)').click(function(){
+      $('.admin_item:nth-child(7)').click(function(){
           var location = '/admin/landing-pages.php';
           setTimeout(function(){window.location.href=location},50)
       });
@@ -50,10 +54,16 @@
     <div class="text-block-77">Professionisti</div>
    </div>
   </div>
+     <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/icon.svg" width="21"
+                                                                                   alt="" class="menu_icon">
+         <div class="admin_item_text">
+             <div class="text-block-77">Contacts</div>
+         </div>
+     </div>
   <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167bc" class="admin_item"><img src="../images/bookmark-regular.svg"
                                                                                 width="20" alt="" class="menu_icon">
    <div class="admin_item_text">
-    <div class="text-block-77">Pazienti</div>
+    <div class="text-block-77">Prenotazioni</div>
    </div>
   </div>
   <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/Telefonica2.svg?v=3" width="21"
@@ -70,7 +80,7 @@
    </div>
   </div>
 
-     <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/incomplete.svg?v=2" width="21"
+     <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/stethoscope.png?v=2" width="21"
                                                                                    alt="" class="menu_icon">
          <div class="admin_item_text">
              <div class="text-block-77">Specialità medica</div>
@@ -78,7 +88,7 @@
      </div>
 
 
-     <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/incomplete.svg?v=2" width="21"
+     <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/landing-page.png?v=2" width="21"
                                                                                    alt="" class="menu_icon">
          <div class="admin_item_text">
              <div class="text-block-77">Pagine di destinazione</div>

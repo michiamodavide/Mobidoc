@@ -468,23 +468,32 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                                         <div class="visit_subitem_container_new width-1" style="width: 100%">
                                             <?php
                                             $sql23 = "
-SELECT DISTINCT am.id As article_id, descrizione
+SELECT DISTINCT am.id As article_id, descrizione, am.attributo
 FROM articlesMobidoc am
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '" . $erid . "'=ams.specialtyMobidoc
-WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y') group by am.descrizione";
+WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y') group by am.id";
                                             $result23 = mysqli_query($conn, $sql23);
 
                                             while ($rows2 = mysqli_fetch_array($result23)) {
                                                 $visit_type_name = trim($rows2['descrizione']);
                                                 $article_id = trim($rows2['article_id']);
+
+                                                $attribute = '';
+                                                if ($rows2['attributo']){
+                                                    $attribute = '('.$rows2['attributo'].')';
+                                                }
                                                 ?>
                                               <div class="visit_subitem visit_show<?php echo $doct_id ?>"
                                                    doctor-id="<?php echo $doct_id ?>"
-                                                   data-item="<?php echo $visit_type_name ?>"
+                                                   data-item="<?php echo $visit_type_name.$attribute ?>"
                                                    data-id="<?php echo $article_id ?>">
                                                 <div class="text-block-43">
-                                                    <?php echo $visit_type_name; ?>
+                                                    <?php echo $visit_type_name;
+                                                    if (!empty($attribute)){
+                                                        echo ' <span style="font-size: 13px;font-weight: bold">'.$attribute.'</span>';
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <img src="../images/Path-175.svg" alt="" class="image-12">
                                               </div>
@@ -504,7 +513,7 @@ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y') group by am.descrizione
                                   // include '../connect.php';
 
                                   if (!empty($doct_title)) {
-                                      $sql150 = "SELECT DISTINCT am.id AS article_id, descrizione, ls.visit_home_price, ls.visit_tele_price
+                                      $sql150 = "SELECT DISTINCT am.id AS article_id, descrizione, ls.visit_home_price, ls.visit_tele_price, am.attributo
 FROM listini ls
 JOIN articlesMobidoc as am ON ls.article_mobidoc_id = am.id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
@@ -521,6 +530,11 @@ WHERE ms.status='Y' AND ls.doctor_id='" . $doct_id . "' AND (am.home = 'Y' OR am
                                           $service_name = "service_name_pre" . $j;
                                           $price_name = "service_price_pre" . $j;
                                           $price_tele_name = "service_price_pre_tele" . $j;
+
+                                          $attribute1 = '';
+                                          if ($rows150['attributo']){
+                                              $attribute1 = '('.$rows150['attributo'].')';
+                                          }
                                           ?>
 
                                         <div class="visit_subitem selected">
@@ -528,7 +542,11 @@ WHERE ms.status='Y' AND ls.doctor_id='" . $doct_id . "' AND (am.home = 'Y' OR am
                                             <input type='checkbox' style='display:none;' checked class='text-block-44'
                                                    value='<?php echo $article_id1; ?>'
                                                    name='<?php echo $service_name; ?>'>
-                                              <?php echo $visit_name1; ?>
+                                              <?php echo $visit_name1;
+                                              if (!empty($attribute1)){
+                                                  echo ' <span style="font-size: 13px;font-weight: bold">'.$attribute1.'</span>';
+                                              }
+                                              ?>
                                           </div>
                                           <div class="price_n_remove">
                                             <div class="price_input">

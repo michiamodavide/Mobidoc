@@ -190,7 +190,9 @@ opacity:1;
  if (isset($_SESSION['doctor_email'])) {
    $sql = "select * from doctor_profile where active = 'Y' order by doctor_id desc";
  }else{
-   $sql = "select * from doctor_profile where puo_refertare='N' AND active = 'Y' AND admin_active = 'Y' order by doctor_id desc";
+   $sql = "select dp.doctor_id, dp.photo, dp.fname, dp.lname, dp.title from doctor_profile dp
+join doctor_register dg ON dg.id=dp.doctor_id
+where puo_refertare='N' AND active = 'Y' AND visible = 'Y' AND dg.tick='1' order by doctor_id desc";
  }
 		$result = mysqli_query($conn, $sql);
 		while($rows = mysqli_fetch_array($result)){
@@ -230,74 +232,6 @@ opacity:1;
           <h3 class="profile_name">Paolo Colamussi</h3>
           <div class="profile_titilo">Primario Radiologia</div>
         </div><a href="#" class="button-8 stroked qprofile_visit_button w-button">Visit Profile</a><img src="images/close.svg" width="18" data-w-id="f11899b6-e8e9-0ac4-538d-1dfece0f60c3" alt="" class="close_button"></div>
-      <div class="qprofile_data_container-2">
-        <div class="div-block-28">
-          <div id="w-node-a1e45dfd3fdc-961af312" class="left">
-            <div class="text-block-22">Visite ed Esami</div>
-            <div class="qprofile_visite_container">
-              <div class="qprofile_visite">
-                <div class="text-block-23">Ecografia dei linfonodi inguinali</div>
-              </div>
-              <div class="qprofile_visite">
-                <div class="text-block-23">Ecografia dei linfonodi inguinali</div>
-              </div>
-              <div class="qprofile_visite">
-                <div class="text-block-23">Ecografia dei linfonodi inguinali</div>
-              </div>
-              <div class="qprofile_visite">
-                <div class="text-block-23">Ecografia dei linfonodi inguinali</div>
-              </div>
-              <div class="qprofile_visite">
-                <div class="text-block-23">Ecografia dei linfonodi inguinali</div>
-              </div>
-              <div class="qprofile_visite">
-                <div class="text-block-23">Ecografia dei linfonodi inguinali</div>
-              </div>
-            </div>
-          </div>
-          <div class="right">
-            <div class="text-block-22">Comuni Serviti:</div>
-            <div class="qprofile_area_grid">
-              <div class="qprofile_area">
-                <div class="qprofile_area_name">
-                  <div class="bullets"></div>
-                  <div class="text-block-24">Bondeno (FE)</div>
-                </div>
-                <div class="text-block-25">44012</div>
-              </div>
-              <div class="qprofile_area">
-                <div class="qprofile_area_name">
-                  <div class="bullets"></div>
-                  <div class="text-block-24">Bondeno (FE)</div>
-                </div>
-                <div class="text-block-25">44012</div>
-              </div>
-              <div class="qprofile_area">
-                <div class="qprofile_area_name">
-                  <div class="bullets"></div>
-                  <div class="text-block-24">Bondeno (FE)</div>
-                </div>
-                <div class="text-block-25">44012</div>
-              </div>
-              <div class="qprofile_area">
-                <div class="qprofile_area_name">
-                  <div class="bullets"></div>
-                  <div class="text-block-24">Bondeno (FE)</div>
-                </div>
-                <div class="text-block-25">44012</div>
-              </div>
-              <div class="qprofile_area">
-                <div class="qprofile_area_name">
-                  <div class="bullets"></div>
-                  <div class="text-block-24">Bondeno (FE)</div>
-                </div>
-                <div class="text-block-25">44012</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
     </div>
   </div>
   <div class="section-29">

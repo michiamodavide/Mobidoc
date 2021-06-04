@@ -2,7 +2,7 @@
 
 //$visit_name = trim($_REQUEST["q"]);
 $article_id = trim($_REQUEST["article_id"]);
-
+$mds_erid = trim($_REQUEST["erid"]);
 include 'connect.php';
         
 if($conn === false){
@@ -10,20 +10,22 @@ if($conn === false){
 }
 
   if (isset($_SESSION['doctor_email'])) {
-    $sql2 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
+      $sql2 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
 FROM doctor_profile dp
-JOIN listini ls ON dp.doctor_id=ls.doctor_id
- JOIN doctor_register dg ON ls.doctor_id=dg.id
- WHERE ls.article_mobidoc_id = '".$article_id."' AND dg.tick = 1 AND dp.`active`='Y'";
+JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
+JOIN doctor_register dg ON ds.doctor_id=dg.id
+JOIN listini ls ON ds.doctor_id=ls.doctor_id
+ WHERE ds.specialty = '".$mds_erid."' AND ls.article_mobidoc_id='".$article_id."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dg.tick = 1";
   }else{
-   $sql2 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
+      $sql2 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
 FROM doctor_profile dp
-JOIN listini ls ON dp.doctor_id=ls.doctor_id
- JOIN doctor_register dg ON ls.doctor_id=dg.id
- WHERE ls.article_mobidoc_id = '".$article_id."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='N' AND dg.tick = 1";
+JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
+JOIN doctor_register dg ON ds.doctor_id=dg.id
+JOIN listini ls ON ds.doctor_id=ls.doctor_id
+ WHERE ds.specialty = '".$mds_erid."' AND ls.article_mobidoc_id='".$article_id."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='N' AND dg.tick = 1";
   }
 
-    $result2 = mysqli_query($conn, $sql2);
+$result2 = mysqli_query($conn, $sql2);
   $row_count = mysqli_num_rows($result2);
 
  if ($row_count) {
@@ -32,8 +34,8 @@ JOIN listini ls ON dp.doctor_id=ls.doctor_id
      $profile_image = "/professionisti/" . $rows2['photo'];
      $name = $rows2['fname'] . " " . $rows2['lname'];
      $titile = ucwords($rows2['title']);
-     $link = "/il-team/professionista.php?" . $rows2['doctor_id'];
-     $id = $rows2['doctor_id'];
+       $id = $rows2['doctor_id'];
+     $link = "/il-team/professionista.php?" . $id;
      if (!empty($rows2)) {
        ?>
 
