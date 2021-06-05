@@ -15,8 +15,8 @@ session_start();
         $sql4 = "
 SELECT am.id As article_id, descrizione, am.home, am.tele, am.attributo
 FROM articlesMobidoc am
-JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
-JOIN medical_specialty as ms ON '" . $erid_id . "'=ams.specialtyMobidoc";
+JOIN articlesMobidoc_specialty as ams ON am.id = ams.id WHERE ams.specialtyMobidoc='".$erid_id."' group by am.id";
+
 
         $result4 = mysqli_query($conn, $sql4);
         $row5_count = mysqli_num_rows($result4);

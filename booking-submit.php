@@ -54,9 +54,11 @@ session_start();
                         $unique_cookie_array[$key]=$unique_cookie_val;
                 }
 
+
+                $ii = 1;
+                $booking_parent_id = '';
                 foreach($unique_cookie_array as $key => $cookie_book_visit) {
                  if (!empty($cookie_book_visit['book_patient_id'])){
-
                      $doctor_id = $cookie_book_visit['book_doctor'];
                      $visit_name = $cookie_book_visit['Booking_name'];
                      $article_id = $cookie_book_visit['article_id'];
@@ -79,11 +81,20 @@ WHERE am.`descrizione`='$visit_name' AND (am.home='Y' OR am.tele='Y')";
                      }
 
 
-                     $sql = "insert into bookings (patient_id, doctor_id, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, gmap_coordinates, latitude, longitude ) values('".$patient_id."', '".$doctor_id."', '".$price."', '".$message."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$gmap_address."', '".$latitude."', '".$longitude."')";
+                     if ($ii > 1){
+                         $discounted_price = $price/2;
+                         $sql = "insert into bookings (patient_id, booking_discount_id, doctor_id, price, total_discount, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, gmap_coordinates, latitude, longitude ) values('".$patient_id."','".$booking_parent_id."', '".$doctor_id."', '".$price."', '".$discounted_price."', '".$message."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$gmap_address."', '".$latitude."', '".$longitude."')";
+                     }else{
+                         $sql = "insert into bookings (patient_id, doctor_id, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, gmap_coordinates, latitude, longitude ) values('".$patient_id."', '".$doctor_id."', '".$price."', '".$message."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$gmap_address."', '".$latitude."', '".$longitude."')";
+                     }
+
                      $result = mysqli_query($conn, $sql);
 
                      if($result==1) {
                          $last_booking_id = mysqli_insert_id($conn);
+                         if ($ii==1){
+                             $booking_parent_id = $last_booking_id;
+                         }
                          $sql_new1 = "insert into booked_service (booking_id, article_id, price) values('".$last_booking_id."', '".$article_id."', '".$price."')";
                          $result_new1 = mysqli_query($conn, $sql_new1);
 
@@ -160,9 +171,11 @@ WHERE am.`descrizione`='$visit_name' AND (am.home='Y' OR am.tele='Y')";
                          echo "Unable to insert record in booking table";
                          exit();
                      }
-
+                     $ii++;
                  }
                 }
+
+
                 unset($_SESSION['book_visits']);
                 $_SESSION['pat_id']='';
                 mysqli_close($conn);

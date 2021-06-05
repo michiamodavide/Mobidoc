@@ -198,14 +198,13 @@ if(!isset($_SESSION['adminlogin']))
                 $visit_name = $rows['name'];
                 $mds_status = $rows['status'];
 
-                $visit_pic = 'Group-563.jpg';
+                $visit_pic = 'empty.jpg';
                 if (!empty($rows['image'])){
                     $visit_pic = $rows['image'];
                 }
                 ?>
                 <div style="-webkit-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-moz-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-ms-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);opacity:0" class="bookingcard">
-                    <!--<div class="booking_patent_image" style=" background-image: url('/assets/visit_images/<?PHP echo $visit_pic; ?>?v=1'); overflow:hidden; position:relative;"></div>-->
-					<div class="booking_patent_image" style=" background-image: url('/assets/visit_images/mds8.jpg?v=1'); overflow:hidden; position:relative;"></div>
+                    <div class="booking_patent_image" style=" background-image: url('/assets/visit_images/<?PHP echo $visit_pic; ?>?v=2'); overflow:hidden; position:relative;"></div>
                     <div class="booking_details">
                         <div class="top">
                             <h1 class="heading-24"><?PHP echo $visit_name; ?> <span class="float-r"><div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div></span></h1>
@@ -232,7 +231,7 @@ if(!isset($_SESSION['adminlogin']))
     <div class="menu_current w-embed w-script">
         <script type="text/javascript">
             $(document).ready(function(){
-                $('.admin_item:nth-child(6)').addClass('current');
+                $('.admin_item:nth-child(7)').addClass('current');
             });
 
         </script>

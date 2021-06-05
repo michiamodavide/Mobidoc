@@ -136,7 +136,26 @@
   grid-template-columns: 1fr 0.5fr 1fr 1fr 0.5fr 1fr;
 
 }
-} 
+}
+.active_anchor {
+    text-decoration: none !important;
+    color: black !important;
+}
+.active_anchor:hover {
+    opacity: .7;
+}
+
+    .flag_status{
+        margin-left: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid rgb(0 40 92 / 10%);
+        background-color: #dddddd;
+        padding: 10px 10px;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        border-radius: 5px;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script>
@@ -285,6 +304,7 @@
           $booking_status = $rows['booking_status'];  
           $admin_booking = $rows['admin_book'];
           $admin_book_status = $rows['admin_payment_status'];
+          $admin_book_status = $rows['admin_payment_status'];
 
           $sql2 = "select * from paziente_profile where paziente_id = '".$pateint_id."'";
           $result2 = mysqli_query($conn, $sql2);
@@ -306,16 +326,36 @@
         ?>
       <div style="-webkit-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-moz-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-ms-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);opacity:0" class="bookingcard <?php echo $bbb_id?>">
         <div class="booking_patent_image" style=" background-image: url('<?PHP echo $patient_pic; ?>'); overflow:hidden; position:relative;">
-          <?php if($booking_status == 1 && !isset($admin_booking) || isset($admin_booking) && $admin_book_status == 1){?>
+          <?php if($booking_status == 5 && !isset($admin_booking) || isset($admin_booking) && $admin_book_status == 1){?>
           <div class="selected_tick selected_true"> <img src="../images/Path-107.svg" width="55" alt="" class="image-4"> </div>
           <?php }
             ?>
-          <div class="selected_tick selected_true" style="opacity: 0"> <img src="../images/Path-107.svg" width="55" alt="" class="image-4"> </div>
+          <div class="selected_tick selected_true" style="opacity: 0">
+              <img src="../images/Path-107.svg" width="55" alt="" class="image-4">
+          </div>
         </div>
         <div class="booking_details">
           <div class="top">
             <h1 class="heading-24"><?PHP echo $patient_name; ?></h1>
-            <div class="div"> <a href="/admin/edit-booking.php?id=<?php echo $bbb_id;?>" class="open_booking w-button bg-color">Modifica</a> <a href="<?php echo $booking_id;?>" class="open_booking w-button">Vedi dettagli</a> </div>
+
+              <?php
+              $flag_status_txt = '';
+              $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
+
+              echo '<div class="bok_status">'.$flag_status_txt[$booking_status].'</div>';
+              if ($booking_status == 2 || $booking_status == 3 || $booking_status == 4){
+                  $new_status = $booking_status+1;
+              ?>
+                  <a class="active_anchor" href="/booking_status.php?bkg_id=<?php echo $bbb_id?>&booking_flag=<?php echo $new_status?>&admin=1">
+                  <div class="flag_status"><?=$flag_status_txt[$booking_status+1]?></div>
+              </a>
+
+              <?php }?>
+            <div class="div">
+                <?php if ($booking_status < 5){?>
+                    <a href="/admin/edit-booking.php?id=<?php echo $bbb_id;?>" class="open_booking w-button bg-color">Modifica</a>
+                <?php }?>
+                <a href="<?php echo $booking_id;?>" class="open_booking w-button">Vedi dettagli</a> </div>
           </div>
           <div class="bottom">
             <div class="glance_details">
@@ -364,7 +404,7 @@
   <div class="menu_current w-embed w-script"> 
     <script type="text/javascript">
 	$(document).ready(function(){
-  	$('.admin_item:nth-child(2)').addClass('current');
+  	$('.admin_item:nth-child(3)').addClass('current');
   });
 
  $('.admin_pyment_confirm').click(function() {
@@ -400,6 +440,11 @@
      });
 
  });
+
+ // $(".active_anchor").on("click", function () {
+ //     var check_status = $(this).attr("data-status");
+ //     alert(check_status);
+ // });
 </script> 
   </div>
 </div>

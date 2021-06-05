@@ -178,6 +178,7 @@ JOIN articlesmobidoc as am ON am.id=bs.article_id";
 
             $date_of_book = $rows['date_of_booking'] ;
             $booking_id = $rows['booking_id'];
+              $booking_status = $rows['booking_status'];
             //Patient Rows
             $patient_id = $rows['patient_id'];            
             $patient_sql = "select * from paziente_profile where paziente_id ='".$patient_id."'";
@@ -220,7 +221,7 @@ JOIN articlesmobidoc as am ON am.id=bs.article_id";
                   <div style="background:red; width:100%; height:100%; background:url('/images/Group-556.jpg') no-repeat center center / cover;"></div>
                 </div>
                 <div class="booking_main_data">
-                <?php if($rows['booking_status'] == 0){ ?>
+                <?php if($rows['payment_status'] == 0){ ?>
                   <div class="booking_name"><?php echo $visit_name;?></div>
                 <?php } ?>
                   <div class="doctor_name_data_container">
@@ -239,11 +240,16 @@ JOIN articlesmobidoc as am ON am.id=bs.article_id";
                  </div>
                 </div>
                 <div class="booking_card_buttons">
-                <?php if($rows['booking_status'] == 0){ ?>
+
+                    <?php
+                    $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
+                    ?>
+                    <div class="bok_status"><?=$flag_status_txt[$booking_status]?></div>
+                <?php if($rows['payment_status'] == 0){ ?>
                   <a href="#" class="button gradient see_details w-button">Vedi Dettagli Visita</a>
                 <?php } ?>
                   <a href="<?php echo '/il-team/professionista.php?'.$doctor_id?>" target="_blank" class="button view_profile w-button">Profilo Professionisti</a>
-                  <?php if($rows['doctor_booking_status'] == 1 && $rows['patient_confirmation'] == 0){ ?>
+                  <?php if($rows['payment_status'] == 1 && $rows['patient_confirmation'] == 0){ ?>
                     <a href="<?php echo $auth_code;?>" class="button view_profile confirm w-button" style="display:block; height:auto;">Conferma Prestazione</a>
                   <?php } ?>
                   <?php if($rows['patient_confirmation'] == 1){ ?>
@@ -297,7 +303,7 @@ JOIN articlesmobidoc as am ON am.id=bs.article_id";
                 </div>
               </div>
             </div>
-            <?php if($rows['booking_status'] == 1){ ?>
+            <?php if($rows['payment_status'] == 1){ ?>
             <div class="visit_completed" style="display:block;">
               <div class="text-block-59">Questa prestazione è stata completata.</div>
             </div>

@@ -69,6 +69,13 @@ unset($_SESSION['pat_id']);
 	background-color:  #fff !important;color:#00285c !important;}
 .bg-color:hover{background-color: hsla(0, 0%, 100%, 0.12) !important;color:  #fff !important;}
 /******************************************************/
+		.abc{
+			
+   
+    justify-content: start !important;
+    
+
+		}
 @media screen and (min-width: 767px) {
 .extra_card {
 	visibility: hidden;
@@ -232,7 +239,7 @@ unset($_SESSION['pat_id']);
               die("ERROR database");
           }
       $x_num=0;
-      echo "<div class=\"feature_container\">";
+      echo "<div class=\"feature_container abc\">";
 
       $sql_get_result1 = "SELECT v.visit_id, v.visit_name, v.body_text, v.image FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
       $get_result1 = mysqli_query($conn, $sql_get_result1);
@@ -241,10 +248,13 @@ unset($_SESSION['pat_id']);
       while($visit_doc_rows = mysqli_fetch_array($get_result1)){
       $visit_name1 = $visit_doc_rows['visit_name'];
         $link1 = '/visite-ed-esame/landing-page.php?mds='.$visit_name1;
-        $image1 = $visit_doc_rows['image'];
+          $image1 = 'empty.jpg';
+          if (!empty($visit_doc_rows['image'])){
+              $image1 = $visit_doc_rows['image'];
+          }
       if($row_count1){
         if($x_num!=0 && $x_num%3==0){
-          echo "</div>\n<div class='feature_container'>";
+          echo "</div>\n<div class='feature_container abc'>";
         }
 
         $tm21_class = '';
@@ -253,7 +263,7 @@ unset($_SESSION['pat_id']);
       ?>
           <div class="feature diff"> <a href="<?php echo $link1?>" target="_blank">
             <div class="feature_label <?php echo $tm21_class?>"><?php echo wordwrap($visit_name1,20,"<br>\n");?> <img src="images/arrow.png" alt="" > </div>
-            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=2" style="width: 550px;height: 300px" alt=""> </a> </div>
+            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=3" style="width: 550px;height: 300px;max-width: 463px;" alt=""> </a> </div>
           <?php
           ++$x_num;
         }}

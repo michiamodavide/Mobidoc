@@ -88,6 +88,18 @@ if(!isset($_SESSION['adminlogin']))
 	margin-right: 10px !important;
 }
 }
+
+    .status_btn{
+        margin-left: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid rgb(0 40 92 / 10%);
+        background-color: #dddddd;
+        padding: 10px 10px;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        border-radius: 5px;
+    }
 </style>
 </head>
 <body class="body-14">
@@ -141,6 +153,7 @@ if(!isset($_SESSION['adminlogin']))
         <div class="div-block-65">
           <div id="w-node-cf99e8f702f8-80dd982b" class="regi_name_block">
             <div class="text-block-68"><?PHP echo ucwords($fname)." ".ucwords($lname); ?></div>
+              <div class="status_btn">Salvato</div>
           </div>
           <div class="div-block-66">
             <div class="regi_data">Nome contatto</div>
@@ -176,7 +189,7 @@ if(!isset($_SESSION['adminlogin']))
 <div class="menu_current w-embed w-script"> 
   <script>
       $(document).ready(function(){
-        $('.admin_item:nth-child(4)').addClass('current');
+        $('.admin_item:nth-child(5)').addClass('current');
       });
 
     </script> 

@@ -23,3 +23,5 @@ articlesMobidoc_specialty
 
 
 ALTER TABLE `medical_specialty` ADD `lp_created` ENUM('Y','N') NOT NULL DEFAULT 'N' AFTER `status`;
+ALTER TABLE `bookings` ADD `booking_discount_id` INT(11) NULL DEFAULT NULL AFTER `booking_id`;
+ALTER TABLE `bookings` CHANGE `total_discount` `total_discount` VARCHAR(255) NULL DEFAULT NULL;
