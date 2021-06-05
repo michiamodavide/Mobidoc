@@ -12,7 +12,11 @@ $row_count = mysqli_num_rows($result);
 
 while($rows = mysqli_fetch_array($result)){
     $visit_name = $rows['visit_name'];
-    $image1 = $rows['image'];
+
+    $image1 = 'empty.jpg';
+    if ($rows['image']){
+        $image1 = $rows['image'];
+    }
     $mds_erid = $rows['ERid'];
     $link = '/visite-ed-esame/landing-page.php?mds='.$visit_name;
 

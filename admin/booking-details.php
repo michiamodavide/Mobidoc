@@ -26,13 +26,11 @@
   $booking_status = $rows['booking_status'];          
   //$fattura = $rows['fattura'];
   $opointment_time = $rows['apoint_time'];
-  if($booking_status == 1){
-    $state = 'Eseguito';          
-  } else {
-    $state = 'Prenotato';       
-  }
- 
-  $sql2 = "select * from paziente_profile where paziente_id = '".$pateint_id."'";
+
+  $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
+  $state = $flag_status_txt[$booking_status];
+
+$sql2 = "select * from paziente_profile where paziente_id = '".$pateint_id."'";
   $result2 = mysqli_query($conn, $sql2);
   $rows2 = mysqli_fetch_array($result2);
   $patient_name = $rows2['first_name']." ".$rows2['last_name'];
@@ -124,7 +122,7 @@
   <div class="menu_current w-embed w-script">
     <script>
 	$(document).ready(function(){
-  	$('.admin_item:nth-child(2)').addClass('current');
+  	$('.admin_item:nth-child(3)').addClass('current');
   });
 </script>
     <style>

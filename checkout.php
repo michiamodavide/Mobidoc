@@ -314,8 +314,12 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
                                 professionista.
                             </div>
 
+                       <?php
+                       /*
                             <br>
                             <a data-w-id="0f151d5f-aa1b-7d96-f52d-8d7913128245" href="#" data-article="<?=$cr_article_id?>" data-boook-name="<?=$cr_booking_name?>" class="button modify w-button">Cambia Professionista</a>
+                       */
+                       ?>
 
                         </div>
 
@@ -360,6 +364,7 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
                 <div class="w-form">
                     <form id="checkout_form" name="checkout" action="booking-submit.php" method="post">
                         <div class="input_fields" style="display:none;">
+
                             <input type="text" class="w-input" maxlength="256" name="patient_id"
                                    placeholder="Patient ID" id="patient_id" value="<?php echo $pat_id; ?>">
                             <input type="text" class="w-input" maxlength="256" name="doctor_id"
@@ -375,7 +380,7 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
                             <input type="text" class="w-input" maxlength="256" name="payment_mode"
                                    placeholder="Payment Mode" id="payment_mode" value="">
                             <input type="text" class="w-input" maxlength="256" name="booking_status"
-                                   placeholder="Booking Status" id="booking_status" value="0">
+                                   placeholder="Booking Status" id="booking_status" value="1">
                             <input type="text" class="w-input" maxlength="256" name="doctor_booking_status"
                                    placeholder="Doctor Booking Status" id="doctor_booking_status" value="0">
                             <input type="text" class="w-input" maxlength="256" name="patient_confirmation"

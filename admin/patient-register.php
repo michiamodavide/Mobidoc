@@ -1073,7 +1073,7 @@ WHERE dp.puo_refertare='N' AND ms.status='Y' AND dp.active='Y' AND (am.home = 'Y
 <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> 
 <script>
   $(document).ready(function(){
-    $('.admin_item:nth-child(3)').addClass('current');
+    $('.admin_item:nth-child(4)').addClass('current');
 
     $(".search .text-field").on("keyup", function() {
       var value = $(this).val().toLowerCase();

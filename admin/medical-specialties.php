@@ -524,7 +524,7 @@ if (!isset($_SESSION['adminlogin'])) {
     <div class="menu_current w-embed w-script">
         <script>
             $(document).ready(function () {
-                $('.admin_item:nth-child(5)').addClass('current');
+                $('.admin_item:nth-child(6)').addClass('current');
             });
 
             $('.medical_speciality').click(function () {
@@ -566,7 +566,6 @@ if (!isset($_SESSION['adminlogin'])) {
             </div>
 
             <div class="w-form add_new_visit" style="display: none">
-
                 <?PHP
                 if(isset($_POST['submit']))
                 {
@@ -609,8 +608,6 @@ if (!isset($_SESSION['adminlogin'])) {
                 }
 
                 ?>
-
-
                 <form class="visit_form" action="medical-specialties.php" name="email-form" method="post">
 <div class="div-block-88">
                     <input type="hidden" name="erid" class="form_erid">
