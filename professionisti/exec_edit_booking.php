@@ -7,6 +7,7 @@ if(isset($_POST['submit']))
   $booking_id = $_POST['booking_id'];
   $ref_id = $_POST['ref_id'];
   $appoint_time = $_POST['appoint_time'];
+  $visit_name = $_POST['exam_name'];
 
   $refertatore_id = '0';
   if (!empty($ref_id)) {
@@ -18,13 +19,12 @@ if(isset($_POST['submit']))
   $result_booking = mysqli_query($conn, $sql_booking);
   $booking_res = mysqli_fetch_array($result_booking);
 
-  $visit_name = $booking_res['visit_name'];
   $price = $booking_res['price'];
   $payment_mode = $booking_res['payment_mode'];
   $opointment_time = $booking_res['apoint_time'];
 
   /*update booking data*/
-  $appt_time = date("Y/m/d", strtotime($appoint_time));
+  $appt_time = date("Y/m/d H:i:s", strtotime($appoint_time));
   $sql = "UPDATE `bookings` SET `refertatore_id` = '$refertatore_id', `apoint_time` = '$appt_time' WHERE `booking_id` = $booking_id;";
   $result = mysqli_query($conn, $sql);
 
@@ -44,7 +44,7 @@ if(isset($_POST['submit']))
     $patient_name = $ref_v_res22['first_name'].' '.$ref_v_res22['last_name'];
     $fiscal = $ref_v_res22['fiscale'];
     $date_of_birth = date("d-m-Y", strtotime($ref_v_res22['dob']));
-    $address = $ref_v_res22['via'];
+    $address = $ref_v_res22['address'];
     $gmap_addr = $ref_v_res22['gmap_address'];
 
     /*get ref detail*/

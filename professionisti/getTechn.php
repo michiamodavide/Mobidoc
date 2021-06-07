@@ -1,17 +1,26 @@
 <?php
 session_start();
 
-$q = $_REQUEST["q"];
+$article_id = $_REQUEST["article-id"];
+$doc_id = $_REQUEST["doc-id"];
 
 include '../connect.php';
         
 if($conn === false){
     die("ERROR database");
-}        
+}
 
-$sql = "SELECT dp.doctor_id, dp.photo, dp.fname, dp.lname, dp.title, dp.email  from listini ls
- JOIN doctor_profile as dp on ls.doctor_id=dp.doctor_id
- where ls.article_mobidoc_id ='".$q."' AND dp.puo_refertare ='Y' AND dg.tick = 1 AND dp.`active`='Y'";
+$doc_spec_sql = "SELECT specialty from doctor_specialty where doctor_id='".$doc_id."'";
+$doc_spec_result = mysqli_query($conn, $doc_spec_sql);
+$doc_spec_row = mysqli_fetch_array($doc_spec_result);
+
+$sql = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
+FROM doctor_profile dp
+JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
+JOIN doctor_register dg ON ds.doctor_id=dg.id
+JOIN listini ls ON ds.doctor_id=ls.doctor_id
+ WHERE ds.specialty = '".$doc_spec_row['specialty']."' AND ls.article_mobidoc_id='".$article_id."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='Y' AND dg.tick = 1";
+
 $result = mysqli_query($conn, $sql);
 
 while($rows2 = mysqli_fetch_array($result)){

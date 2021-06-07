@@ -114,7 +114,7 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
       <?php
         include '../connect.php';
         $sql = "select * from bookings where patient_id ='".$rows3['paziente_id']."' order by booking_id desc";
-        $result = mysqli_query($conn, $sql);     
+        $result = mysqli_query($conn, $sql);
         $count = mysqli_num_rows($result);
 
         $sql2 = "select * from bookings where patient_id ='".$rows3['paziente_id']."' and pateint_remove_from_list = '1'";
@@ -160,18 +160,19 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
         <?php
 
           while($rows = mysqli_fetch_array($result)){
-
             $booked_service_query =
-              "SELECT DISTINCT bs.price, am.descrizione
+              "SELECT DISTINCT bg.price, bg.total_discount, am.descrizione
 FROM bookings bg
-JOIN booked_service as bs ON bs.booking_id = bg.booking_id
-JOIN articlesmobidoc as am ON am.id=bs.article_id";
+JOIN booked_service as bs ON bs.booking_id = bg.booking_id 
+ JOIN articlesmobidoc as am ON am.id=bs.article_id
+where bg.booking_id='".$rows['booking_id']."'";
 
             $booked_service_result = mysqli_query($conn, $booked_service_query);
             $booked_service_row = mysqli_fetch_array($booked_service_result);
 
 
             $price = $booked_service_row['price'];
+            $discounted_price = $booked_service_row['total_discount'];
             $visit_name = $booked_service_row['descrizione'];
             $message = $rows['message'];
             $opoint_time = $rows['apoint_time'];
@@ -218,12 +219,17 @@ JOIN articlesmobidoc as am ON am.id=bs.article_id";
             <div class="main_data_container">
               <div class="top_section">
                 <div class="doctor_profile_image">
-                  <div style="background:red; width:100%; height:100%; background:url('/images/Group-556.jpg') no-repeat center center / cover;"></div>
+                  <div style="background:red; width:100%; height:100%; background:url('/images/Group-556.jpg?v=1') no-repeat center center / cover;"></div>
+
                 </div>
+                 <div>
+                     <?php
+                     $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
+                     ?>
+                     <div class="bok_status"><?=$flag_status_txt[$booking_status]?></div>
+                 </div>
                 <div class="booking_main_data">
-                <?php if($rows['payment_status'] == 0){ ?>
                   <div class="booking_name"><?php echo $visit_name;?></div>
-                <?php } ?>
                   <div class="doctor_name_data_container">
                     <div class="titlo">Professionista:</div>
                     <div class="doctor_name"><?php echo $doctor_rows['fname']." ".$doctor_rows['lname']?></div>
@@ -240,11 +246,6 @@ JOIN articlesmobidoc as am ON am.id=bs.article_id";
                  </div>
                 </div>
                 <div class="booking_card_buttons">
-
-                    <?php
-                    $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
-                    ?>
-                    <div class="bok_status"><?=$flag_status_txt[$booking_status]?></div>
                 <?php if($rows['payment_status'] == 0){ ?>
                   <a href="#" class="button gradient see_details w-button">Vedi Dettagli Visita</a>
                 <?php } ?>
@@ -296,7 +297,13 @@ JOIN articlesmobidoc as am ON am.id=bs.article_id";
                       <div>Costo</div>
                     </div>
                     <div class="value">
-                      <div class="text-block-54"><?php echo $price;?>€</div>
+                      <div class="text-block-54">€<?php echo $price;
+
+                      if ($discounted_price){
+                          echo ' €'.$discounted_price;
+                      }
+
+                      ?></div>
                     </div>
                  <br>
                   </div>

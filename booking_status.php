@@ -1,5 +1,4 @@
 <?php
-session_start();
 $booking_id = $_GET['bkg_id'];
 $booking_flag = $_GET['booking_flag'];
 
@@ -18,7 +17,7 @@ if ($result == 1) {
     if (isset($_GET['admin']) && $_GET['admin'] == 1){
         header("Location: /admin/booking.php");
     }else{
-        echo "true";
+        header("Location: /professionisti/account.php");
     }
 }else{
     echo "false";
