@@ -38,7 +38,7 @@ if(isset($_POST['submit']))
     $paziente_main_name = $ref_v_res22['first_name'].' '.$ref_v_res22['last_name'];
     $fiscal = $ref_v_res22['fiscale'];
     $date_of_birth = date("d-m-Y", strtotime($ref_v_res22['dob']));
-    $address = $ref_v_res22['via'];
+    $address = $ref_v_res22['address'];
     $gmap_addr = $ref_v_res22['gmap_address'];
 
     $start_dt = '';

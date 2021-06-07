@@ -196,10 +196,12 @@ $rows3 = mysqli_fetch_array($result3);
        <?php
        while ($rows = mysqli_fetch_array($result)) {
          $price = $rows['price'];
+         $discounted_price = $rows['total_discount'];
          $payment_status = $rows['payment_status'];
          $booking_id = $rows['booking_id'];
          $refertatore_id = $rows['refertatore_id'];
          $opoint_time = $rows['apoint_time'];
+         $booking_status = $rows['booking_status'];
 
          if ($payment_status == 0) {
            $payment_status = "Authorized, Not Captured";
@@ -269,7 +271,38 @@ $rows3 = mysqli_fetch_array($result3);
 
           <div class="price_container">
            <div class="text-block-65">Prezzo Visita</div>
-           <div class="price_euro"><span class="text-span-5"></span><?php echo '€ ' . $price; ?></div>
+           <div class="price_euro">
+               <span class="text-span-5"></span><span class="total_amount"><?php echo '€' . $price; ?></span>
+           <?php
+           if ($discounted_price){
+               echo '€' . $discounted_price;
+           }
+           ?>
+               <br>
+               <br>
+
+             <div>
+                 <?php
+                 if ($cur_doctor == 1){
+                 $flag_status_txt = '0';
+                 $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
+
+                     $new_status = $booking_status+1;
+                     if ($booking_status==1){
+                     ?>
+                     <div class="bok_status">Confirm the booking status after contacting the patient.</div>
+                     <?php }else{?>
+                         <div class="bok_status"><?=$flag_status_txt[$booking_status]?></div>
+                         <?php }
+                     if ($booking_status == 1 || $booking_status == 2 || $booking_status == 4){
+                     ?>
+
+                         <a href="/booking_status.php?bkg_id=<?php echo $booking_id?>&booking_flag=<?php echo $new_status?>" class="button-5 faded diff w-button" style="background-color: #f8dbdb;;">
+                             <?=$flag_status_txt[$booking_status+1]?>
+                         </a>
+                 <?php }}?>
+             </div>
+           </div>
           </div>
 
          </div>
@@ -287,12 +320,12 @@ $rows3 = mysqli_fetch_array($result3);
            if ($cur_doctor == 1) {
              ?>
 
-            <div class="text-block-62"><?php echo $current_ref_name; ?></div>
+            <div class="text-block-62"><?php echo $current_doc_name; ?></div>
              <?php
            }else {
 
              ?>
-            <div class="text-block-62"><?php echo $current_doc_name; ?></div>
+            <div class="text-block-62"><?php echo $current_ref_name; ?></div>
              <?php
            }
              ?>
@@ -312,8 +345,8 @@ $rows3 = mysqli_fetch_array($result3);
           <?php  if ($rows3['puo_refertare'] != 'Y'){?>
            <?php if ($rows['doctor_booking_status'] == 0) { ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
-            <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" article-id="<?php echo $article_id; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
-            <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>
+            <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" article-id="<?php echo $article_id; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" curr-doc-id="<?php echo $doctor_id?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
+            <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>&article_id=<?=$article_id?>&visit_name=<?=$visit_name?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>
            <?php } ?>
         <?php if ($rows['admin_book'] == 1){
          ?>
@@ -492,6 +525,7 @@ WHERE ms.status='Y' AND ls.doctor_id='".$rows3['doctor_id']."' AND (am.home = 'Y
   $(".exam-share-btn").on("click", function (e) {
     e.preventDefault();
     var get_article_id = $(this).attr("article-id");
+    var get_doc_id = $(this).attr("curr-doc-id");
     $("#vis_name").val($(this).attr("visit-name"));
     $("#book_id").val($(this).attr("data-id"));
     $("#doct_name").val($(this).attr("curr-doc-nam"));
@@ -501,7 +535,7 @@ WHERE ms.status='Y' AND ls.doctor_id='".$rows3['doctor_id']."' AND (am.home = 'Y
         document.getElementById("load_doctors").innerHTML = this.responseText;
       }
     };
-    xmlhttp2.open("GET", "getTechn.php?q=" + get_article_id, true);
+    xmlhttp2.open("GET", "getTechn.php?article-id=" + get_article_id+"&doc-id="+get_doc_id, true);
     xmlhttp2.send();
 
     $(".select_doctor").attr("style", "display: flex;opacity: 1;");

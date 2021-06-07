@@ -6,6 +6,9 @@ if (!isset($_SESSION['doctor_email'])) {
 if (!isset($_GET['bookid'])) {
   header("Location: login.php");
 }
+if (!isset($_GET['article_id'])){
+    header("Location: login.php");
+}
 ?>
 <!DOCTYPE html>
 <html data-wf-page="5daa262de3e3f05ab91af322" data-wf-site="5d8cfd454ebd737ac1a48727">
@@ -199,6 +202,7 @@ else {
           <div>
             <div class="form_section">
               <div class="dual_container diff">
+
                 <input type="text" class="datepicker-here inputs w-input appoint_time" data-language="it" data-date-format="dd-mm-yyyy"
                       maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora" id="appoint_time">
                 <div class="choose_your_area">
@@ -214,31 +218,43 @@ else {
                       $result = mysqli_query($conn, $sql);
                       $booking_res = mysqli_fetch_array($result);
 
+                      $booking_apt_time = '';
+                      if ($booking_res['apoint_time']){
+                          $booking_apt_time = date("d-m-Y H:i", strtotime($booking_res['apoint_time']));;
+                      }
 
-                      $ref_v_sql21 = "select * from doctor_profile where doctor_id ='" . $booking_res['refertatore_id'] . "' AND puo_refertare ='Y' AND active ='Y'";
+                      $ref_v_sql21 = "select * from doctor_profile where doctor_id ='" . $booking_res['refertatore_id'] . "' AND puo_refertare ='Y' AND active ='Y' AND visible ='Y'";
                       $ref_v_result21 = mysqli_query($conn, $ref_v_sql21);
                       $ref_v_res21 = mysqli_fetch_array($ref_v_result21);
                       ?>
                         <option value="<?PHP echo $ref_v_res21['doctor_id']; ?>"
                              selected><?PHP echo $ref_v_res21['fname'] . ' ' . $ref_v_res21['lname']; ?></option>
                         <?php
-                      $doctor_v_sql = "select * from doctor_visit where visit_name ='" . $booking_res['visit_name'] . "'";
-                      $doctor_v_result = mysqli_query($conn, $doctor_v_sql);
+                        $doc_spec_sql = "SELECT specialty from doctor_specialty where doctor_id='".$booking_res['doctor_id']."'";
+                        $doc_spec_result = mysqli_query($conn, $doc_spec_sql);
+                        $doc_spec_row = mysqli_fetch_array($doc_spec_result);
 
-                      while ($doctor_v_rows = mysqli_fetch_array($doctor_v_result)) {
+                        $get_report_sql = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
+FROM doctor_profile dp
+JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
+JOIN doctor_register dg ON ds.doctor_id=dg.id
+JOIN listini ls ON ds.doctor_id=ls.doctor_id
+ WHERE ds.specialty = '".$doc_spec_row['specialty']."' AND ls.article_mobidoc_id='".$_GET['article_id']."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='Y' AND dg.tick = 1";
+
+                        $get_report_result = mysqli_query($conn, $get_report_sql);
+
+                        while ($doctor_v_rows = mysqli_fetch_array($get_report_result)) {
                         $ref_v_email = $doctor_v_rows['doctor_email'];
-                        $ref_v_sql2 = "select * from doctor_profile where email ='" . $ref_v_email . "' AND puo_refertare ='Y' AND active ='Y'";
-                        $ref_v_result2 = mysqli_query($conn, $ref_v_sql2);
-                        $ref_v_res2 = mysqli_fetch_array($ref_v_result2);
-                        if ($ref_v_res2 && $ref_v_res2['doctor_id'] != $booking_res['refertatore_id']) {
+                        if ($doctor_v_rows['doctor_id'] != $booking_res['refertatore_id']) {
                           ?>
                         <option
-                          value="<?PHP echo $ref_v_res2['doctor_id']; ?>"><?PHP echo $ref_v_res2['fname'] . ' ' . $ref_v_res2['lname']; ?></option>
+                          value="<?PHP echo $doctor_v_rows['doctor_id']; ?>"><?PHP echo $doctor_v_rows['fname'] . ' ' . $doctor_v_rows['lname']; ?></option>
                         <?php }
                       }
                       ?>
                         <input type="hidden" class="old_ref_id" name="old_ref_id" value="<?PHP echo $ref_v_res21['doctor_id']; ?>">
-                        <input type="hidden" class="opt_date" name="opt_date" value="<?php echo $booking_res['apoint_time']?>">
+                        <input type="hidden" class="opt_date" name="opt_date" value="<?php echo $booking_apt_time?>">
+                        <input type="hidden" class="exam_name" name="exam_name" value="<?php echo $_GET['visit_name']?>">
                         <?php mysqli_close($conn); ?>
                       </select>
                       <script>

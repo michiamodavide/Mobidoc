@@ -131,41 +131,8 @@ $today = $year . '-' . $month . '-' . $day;
  
     -ms-grid-columns: 1.75fr ;
     grid-template-columns: 1fr ;
-			padding: 0 15px;
    
-			}
-		
-		.details_container {
-    width: 100%;
-    
-    padding: 41px 0px 17px;
-    margin: 15px auto 0 auto !important;
-			border-style: solid;
-    border-width: 1px;
-    border-color: rgba(12, 217, 237, 0.7);
-			    background-color: rgba(230, 251, 253, 0.5);
-}
-			.text-block-51 {
-   
-    margin-left: 15px;
-    
-}
-		
-		
-		.button-3.next {
-    margin-bottom: 20px;
-}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		}
+			}}
     </style>
     <style>
         textarea {
