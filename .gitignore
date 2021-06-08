@@ -1,7 +1,6 @@
 professionisti/cv/
 professionisti/photo
 paziente/photo
-assets/generate_pdf
 *.idea
 .idea/*
 .DS_Store
