@@ -21,7 +21,8 @@ $headers .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer
 
 $message123 = "This is test email";
 
-
+$file = $fileNL;
+echo $file;
 // Preparing attachment
 if(!empty($file) > 0){
     if(is_file($file)){
