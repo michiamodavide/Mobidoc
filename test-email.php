@@ -4,6 +4,9 @@
 $bk_email = $_GET['email'];
 $bk_name = $_GET['name'];
 
+echo $bk_email;
+echo '<br>';
+
 include ("render_pdf.php");
 //renderPdf($bk_name, $bk_email);
 
