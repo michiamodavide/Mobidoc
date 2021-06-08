@@ -8,7 +8,7 @@ $bk_name = $_GET['name'];
 echo $bk_email;
 echo '<br>';
 
-//include ("render_pdf.php");
+include ("render_pdf.php");
 //renderPdf($bk_name, $bk_email);
 
 $to = $bk_email;
@@ -31,28 +31,28 @@ $message123 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data
 
 
 
-//$file = $fileNL;
-//echo $file;
-//// Preparing attachment
-//if(!empty($file) > 0){
-//    if(is_file($file)){
-//        $fp =    @fopen($file,"rb");
-//        $data =  @fread($fp,filesize($file));
-//
-//        @fclose($fp);
-//        $data = chunk_split(base64_encode($data));
-//        $message123 .= "Content-Type: application/octet-stream; name=\"".basename($file)."\"\n" .
-//            "Content-Description: ".basename($file)."\n" .
-//            "Content-Disposition: attachment;\n" . " filename=\"".basename($file)."\"; size=".filesize($file).";\n" .
-//            "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
-//    }
-//}
-//$pdf_file_path = "-f" . $from;
+$file = $fileNL;
+echo $file;
+// Preparing attachment
+if(!empty($file) > 0){
+    if(is_file($file)){
+        $fp =    @fopen($file,"rb");
+        $data =  @fread($fp,filesize($file));
+
+        @fclose($fp);
+        $data = chunk_split(base64_encode($data));
+        $message123 .= "Content-Type: application/octet-stream; name=\"".basename($file)."\"\n" .
+            "Content-Description: ".basename($file)."\n" .
+            "Content-Disposition: attachment;\n" . " filename=\"".basename($file)."\"; size=".filesize($file).";\n" .
+            "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+    }
+}
+$pdf_file_path = "-f" . $from;
 
 
 //mail($to, $subject, $message123, $headers);
 
-if (mail($to, $subject, $message123, $headers))
+if (mail($to, $subject, $message123, $headers, $pdf_file_path))
 {
     echo "Message accepted";
 }
