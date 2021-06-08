@@ -80,8 +80,9 @@
 </html>");
       $pdf->WriteHTML(file_get_contents("emails_html/page6.php"));
 
-      $pdf_save_path = dirname(__FILE__).'\emails_html\generate_pdf';
-      $fileNL = $pdf_save_path."\\".strtolower($bk_name).'.pdf';//Windows
+      $pdf_save_path = dirname(__FILE__).'/emails_html/generate_pdf';
+
+      $fileNL = $pdf_save_path."/".strtolower($bk_name).'.pdf';//Windows
     //$pdf->Output(strtolower(str_replace(' ', '-', $title)).'-'.date('Ymd-Hi').'.pdf', 'F');
     $pdf->Output($fileNL, 'F');
 
