@@ -8,7 +8,7 @@ $bk_name = $_GET['name'];
 echo $bk_email;
 echo '<br>';
 
-include ("render_pdf.php");
+//include ("render_pdf.php");
 //renderPdf($bk_name, $bk_email);
 
 $to = $bk_email;
@@ -24,12 +24,12 @@ $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 $headers .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
 
 
-$file = $fileNL;
+$file = 'http://w4.mobidoc.it/assets/generate_pdf/hamid3.pdf';
 // Boundary
 $semi_rand = md5(time());
 $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
 // Headers for attachment
-$headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\"";
+$headers .= "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\"";
 //$message123 = "This is test email";
 
 $paziente_main_name  = "New Name";
