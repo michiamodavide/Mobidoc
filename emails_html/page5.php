@@ -9,30 +9,24 @@
 <div class="main-wraper">
     <h3>Flag di presa visione</h3>
     <p>O – Ho letto e compreso l’<a href="#">informativa privacy.</a></p>
-            <div class="wraper form1">
-                <div class="left-div">Luogo e Data:</div>
-                <div class="right-div">
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="" placeholder="">
-                    </div>
-                </div>
-            </div>
-            <div class="wraper">
-                <div class="left-div">Nome e Cognome:</div>
-                <div class="right-div">
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="" placeholder="">
-                    </div>
-                </div>
-            </div>
-            <div class="wraper">
-                <div class="left-div">Firma :</div>
-                <div class="right-div">
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="" placeholder="">
-                    </div>
-                </div>
-            </div>
+    <div class="wraper">
+        <div class="left-div">Luogo e Data:</div>
+        <div class="right-div border-bottom">
+
+        </div>
+    </div>
+    <div class="wraper">
+        <div class="left-div">Nome e Cognome:</div>
+        <div class="right-div border-bottom">
+
+        </div>
+    </div>
+    <div class="wraper">
+        <div class="left-div">Firma :</div>
+        <div class="right-div border-bottom">
+
+        </div>
+    </div>
     <div class="page-number">5</div>
 </div>
 </body>
