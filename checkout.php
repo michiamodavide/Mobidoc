@@ -237,8 +237,6 @@ FROM listini lis
 JOIN articlesMobidoc am ON am.id=lis.article_mobidoc_id
 WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_doctor_id."'";
 
-                      echo $sql3;
-
                         //echo $sql3;
                         $result3 = mysqli_query($conn, $sql3);
                         $rows3 = mysqli_fetch_array($result3);
