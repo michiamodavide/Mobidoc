@@ -240,7 +240,7 @@ height:0px;
 	  
 	  
 	  <div class="label-wrap">
-    <label class="label-style" for="search_visit">Search City for show visits.</label>
+    <label class="label-style" for="search_visit">Enter your city to view the visits available in your area</label>
     
     <input class="input-style" name="search_visit" id="search_visit" list="search_visits" placeholder="Search here">
 	  
@@ -267,10 +267,6 @@ height:0px;
       mysqli_close( $conn );
       ?>
     </datalist>
-    
-    <a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel call_us_btn" style="display: none"> <img src="images/phone.svg" width="11" alt="" class="image-2">
-    <div class="text-block-2">Not available? Call Us</div>
-    </a>
     <?php }?>
     <?php
     /*
@@ -405,6 +401,11 @@ height:0px;
       <?php }} }?>
     </div>
     <div id="load_visits"> </div>
+
+      <br>
+      <a href="javascript:;" class="button gradient large diff w-inline-block home-tel call_us_btn" style="display: none">
+          <div class="text-block-2">Non trovi la prestazione di cui avevi bisogno?</div>
+      </a>
   </div>
   <?php
   /*
@@ -458,6 +459,12 @@ height:0px;
   </div>
   <?php include 'cta_cards2.php';?>
   <?php include 'footer.php';?>
+
+
+    <?php
+    $show_call_us_btn = 1;
+    include ("admin_contact_pop.php")?>
+
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> 
   <script src="js/webflow.js?v=3" type="text/javascript"></script> 
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
@@ -496,6 +503,14 @@ height:0px;
 
         }
     });
+
+    $(".call_us_btn").on("click", function () {
+        $(".vselect_doctor").attr("style", "display:flex;z-index: 9999;");
+    });
+    $(".adm_contact_pb").on("click", function () {
+        $(".vselect_doctor").attr("style", "display:none");
+    });
+
   // function get_visit_Doctors(str, visit_name, article_id) {
   //         $('#load_doctors').html('<div class="slect_visit_first"><span>Please select a visit first!</span></div>');
   //         if (str.length == 0) {

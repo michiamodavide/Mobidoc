@@ -198,8 +198,13 @@ flex-direction: column-reverse !important;
               </div>
               
               <?php
-				        if(isset($_SESSION['paziente_email'])){ ?>
-				        	<a href='/paziente/account.php' style='text-decoration:none; color:#fff;'><div class='doctor_user_name' style='display:block;'><?php echo $fname;?> <?php echo $lname;?></div></a>
+				        if(isset($_SESSION['paziente_email'])){
+				            $add_account_param = '';
+				            if (isset($move_checkout) && $move_checkout==1){
+                                $add_account_param = '?pcheckout=1';
+                            }
+				            ?>
+				        	<a href='/paziente/account.php<?php echo $add_account_param?>' style='text-decoration:none; color:#fff;'><div class='doctor_user_name' style='display:block;'><?php echo $fname;?> <?php echo $lname;?></div></a>
                     
                   <script>
                     $(document).ready(function(){

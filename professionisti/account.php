@@ -81,6 +81,20 @@ $rows3 = mysqli_fetch_array($result3);
   .button-5{
    font-size: 11px;
   }
+	 .status_style, .vis_text{
+		 font-size:11px;
+		 line-height: normal;
+		 margin-bottom: 20px;
+	 }
+	 .green-btn{
+		 
+   border: 1px solid #ddd;
+padding: 13px 30px;
+    border-radius: 50px;
+		 margin-bottom: 15px;
+		     font-family: Poppins, sans-serif;
+    font-size: 11px;
+	 }
   @media screen and (max-width: 767px){
    .button-5.faded.diff{
     display: block;
@@ -272,27 +286,34 @@ $rows3 = mysqli_fetch_array($result3);
           <div class="price_container">
            <div class="text-block-65">Prezzo Visita</div>
            <div class="price_euro">
-               <span class="text-span-5"></span><span class="total_amount"><?php echo '€' . $price; ?></span>
+               <span class="text-span-5"></span>
+
            <?php
            if ($discounted_price){
-               echo '€' . $discounted_price;
-           }
            ?>
+               <strike style="color:red">
+                   <span class="total_amount" style="color:#00285c"><?php echo '€' . $price; ?></span>
+               </strike>
+               <?php
+               echo '€' . $discounted_price;
+           }else{?>
+               <span class="total_amount" style="color:#00285c"><?php echo '€' . $price; ?></span>
+           <?php }?>
                <br>
                <br>
 
              <div>
                  <?php
-                 if ($cur_doctor == 1){
+                 if ($cur_doctor == 1 && $rows['admin_book'] == 2){
                  $flag_status_txt = '0';
                  $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
 
                      $new_status = $booking_status+1;
                      if ($booking_status==1){
                      ?>
-                     <div class="bok_status">Confirm the booking status after contacting the patient.</div>
+                     <div class="bok_status status_style">Confirm the booking status after contacting the patient.</div>
                      <?php }else{?>
-                         <div class="bok_status"><?=$flag_status_txt[$booking_status]?></div>
+                         <div class="green-btn"><?=$flag_status_txt[$booking_status]?></div>
                          <?php }
                      if ($booking_status == 1 || $booking_status == 2 || $booking_status == 4){
                      ?>
@@ -349,10 +370,17 @@ $rows3 = mysqli_fetch_array($result3);
             <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>&article_id=<?=$article_id?>&visit_name=<?=$visit_name?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>
            <?php } ?>
         <?php if ($rows['admin_book'] == 1){
-         ?>
-          <a href="#" onClick="confirm_doc_vst(<?php echo $patient_id . ',' . $booking_id; ?>)" class="button-5 faded diff w-button" style="background-color: #ebeef2;">Conferma prenotazione</a>
+                   if (empty($rows['total_discount'])) {
+                       ?>
+                       <a href="#" onClick="confirm_doc_vst(<?php echo $patient_id . ',' . $booking_id; ?>)"
+                          class="button-5 faded diff w-button" style="background-color: #ebeef2;">Conferma
+                           prenotazione</a>
 
-            <?php
+                       <?php
+                   }else{
+                       ?>
+                       <div class="vis_text">Confirmation for this discounted visit is connected to the visit below.</div>
+                   <?php }
               echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' a{pointer-events: none !important;opacity: 0.4 !important;}  .appoint_buttons_container.book_btn_'.$rows['booking_id'].' a:nth-child(6){pointer-events: inherit !important;opacity: inherit !important;}</style>';
           }}else{?>
            <a href="tel:<?php echo $doctor_rows['phone']; ?>" class="button-5 faded diff w-button" style="background-color: rgba(0, 0, 0, 0.7); color: white;">Chiama Professionista</a>

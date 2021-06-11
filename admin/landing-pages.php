@@ -191,7 +191,7 @@ if(!isset($_SESSION['adminlogin']))
 
             $sql = "SELECT ms.id as medical_sid, visit_name, body_text, image, ms.status, ms.name
   FROM visit vs
-  JOIN medical_specialty ms ON vs.specialty_id=ms.id";
+  JOIN medical_specialty ms ON ms.id=vs.specialty_id";
             $result = mysqli_query($conn, $sql);
             while($rows = mysqli_fetch_array($result)){
                 $medical_sid = $rows['medical_sid'];

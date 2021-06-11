@@ -16,9 +16,7 @@
         <li>gli obblighi di conservazione previsti dalla legge, anche con specifico riguardo alle prestazioni sanitarie erogate<sup>6</sup>;</li>
         <li>sussista la necessità che siano trattati dalla nostra Società per esercitare o difendere un diritto in sede giudiziaria.</li>
     </ul>
-    <br>
     <h2>5. Comunicazione e diffusione dei dati personali</h2>
-    <br>
     <p>Il paragrafo che segue illustra se ed in che modo saranno trasferiti i Suoi dati personali.<br>
         <br>
         I Suoi dati personali non saranno diffusi, né trasferiti verso Paesi terzi o organizzazioni internazionali<sup>7</sup>.<br>

@@ -54,13 +54,13 @@
     <div class="text-block-77">Professionisti</div>
    </div>
   </div>
-     <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/icon.svg" width="21"
+     <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/contact.png?v=1" width="21"
                                                                                    alt="" class="menu_icon">
          <div class="admin_item_text">
              <div class="text-block-77">Contacts</div>
          </div>
      </div>
-  <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167bc" class="admin_item"><img src="../images/bookmark-regular.svg"
+  <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167bc" class="admin_item"><img src="../images/booking.png?v=1"
                                                                                 width="20" alt="" class="menu_icon">
    <div class="admin_item_text">
     <div class="text-block-77">Prenotazioni</div>
@@ -73,7 +73,7 @@
    </div>
   </div>
 
-  <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/incomplete.svg?v=2" width="21"
+  <div data-w-id="410c8c4a-713c-7280-b165-1dd2a36167b7" class="admin_item"><img src="../images/incomplete.png?v=3" width="21"
                                                                                 alt="" class="menu_icon">
    <div class="admin_item_text">
     <div class="text-block-77">Pazienti incompleti</div>

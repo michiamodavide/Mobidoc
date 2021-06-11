@@ -56,7 +56,6 @@
 
                       include '../connect.php';
 
-                    $_SESSION['paziente_email']=$_POST['Email-register'];
                     $email = mysqli_real_escape_string($conn, $_POST['Email-register']);
 
                     $sql_1 = "select email from contact_profile where email ='".$email."'";
@@ -100,6 +99,8 @@
                         $result = mysqli_query($conn, $sql);
                         if($result==1)
                         {
+
+                            $_SESSION['paziente_email']=$_POST['Email-register'];
 
                           $to = 'info@mobidoc.it';
                           $subject = 'Nuova Candidatura';

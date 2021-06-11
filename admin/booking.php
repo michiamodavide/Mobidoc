@@ -61,7 +61,43 @@
     margin-top: 4px;
 }
 /*********************************/	 
-
+	.wrap{
+		
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding-bottom: 10px;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+   
+	}
+	
+	.style-1{
+		margin-left:15px;
+		border: 1px solid rgba(12, 229, 178, 0.41);
+		padding: 13px 30px;
+		border-radius: 30px;
+		color: rgba(12, 229, 178, 0.41);
+	}
+	.m-0-auto{
+		margin: inherit;
+	}
+	@media only screen and (min-width: 768px) {
+.wrap2{
+		display: none;
+	}
+		.hide-w{
+		display:none;
+	}
+	}
+	
 @media only screen and (max-width: 767px) {
 .body-13 .admin_side_panel {
 
@@ -82,7 +118,7 @@
 	padding: 10px 10px 10px 10px;
 }
 .body-13 .open_booking {
-	padding: 10px 15px;
+	padding: 10px 22px;
 }
 .body-13 .scroll_indicator {
 	display: none;
@@ -124,6 +160,44 @@
 	padding-right: 3%;
 	padding-left: 3%;
 }
+	.wrap{
+		display: none;
+	}
+	.wrap2{
+		 display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding-bottom: 10px;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+		width: 50%;
+		margin-top: 20px;
+	}
+	.style-1 {
+    margin-left: 0px;
+    border: 1px solid rgba(12, 229, 178, 0.41);
+    padding: 8px 20px;
+    border-radius: 30px;
+    color: rgba(12, 229, 178, 0.41);
+    font-size: 11px;
+}
+	.body-13 .heading-24 {
+    margin-top: 0px;
+		text-align: center;
+}
+	.m-0-auto{
+		margin: 0 auto;
+	}
+	.hide-w{
+		display:block;
+	}
 }
 @media (min-width: 1200px) and (max-width: 1600px) {
 .lable2{
@@ -149,7 +223,7 @@
         margin-left: 20px;
         font-weight: bold;
         border-bottom: 1px solid rgb(0 40 92 / 10%);
-        background-color: #dddddd;
+        background-color: rgba(12, 229, 178, 0.41);
         padding: 10px 10px;
         border-top: none;
         border-right: none;
@@ -325,7 +399,7 @@
           $doctor_name = $rows3['fname']." ".$rows3['lname'];
         ?>
       <div style="-webkit-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-moz-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-ms-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);opacity:0" class="bookingcard <?php echo $bbb_id?>">
-        <div class="booking_patent_image" style=" background-image: url('<?PHP echo $patient_pic; ?>'); overflow:hidden; position:relative;">
+        <div class="booking_patent_image m-0-auto" style=" background-image: url('<?PHP echo $patient_pic; ?>'); overflow:hidden; position:relative;">
           <?php if($booking_status == 5 && !isset($admin_booking) || isset($admin_booking) && $admin_book_status == 1){?>
           <div class="selected_tick selected_true"> <img src="../images/Path-107.svg" width="55" alt="" class="image-4"> </div>
           <?php }
@@ -336,13 +410,15 @@
         </div>
         <div class="booking_details">
           <div class="top">
+			  
+			  
+			  <div class="wrap">
             <h1 class="heading-24"><?PHP echo $patient_name; ?></h1>
 
               <?php
               $flag_status_txt = '';
               $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
-
-              echo '<div class="bok_status">'.$flag_status_txt[$booking_status].'</div>';
+              echo '<div class="bok_status style-1">'.$flag_status_txt[$booking_status].'</div>';
               if ($booking_status == 2 || $booking_status == 3 || $booking_status == 4){
                   $new_status = $booking_status+1;
               ?>
@@ -351,6 +427,33 @@
               </a>
 
               <?php }?>
+
+			  
+			  </div>
+			  
+			    <div class="wrap2">
+            
+
+              <?php
+              $flag_status_txt = '';
+              $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
+
+              echo '<div class="bok_status style-1">'.$flag_status_txt[$booking_status].'</div>';
+              if ($booking_status == 2 || $booking_status == 3 || $booking_status == 4){
+                  $new_status = $booking_status+1;
+              ?>
+                  <a class="active_anchor" href="/booking_status.php?bkg_id=<?php echo $bbb_id?>&booking_flag=<?php echo $new_status?>&admin=1">
+                  <div class="flag_status"><?=$flag_status_txt[$booking_status+1]?></div>
+              </a>
+					
+
+              <?php }?>
+			  
+			  
+			  
+			  
+			  </div>
+			  <h1 class="heading-24 hide-w"><?PHP echo $patient_name; ?></h1>
             <div class="div">
                 <?php if ($booking_status < 5){?>
                     <a href="/admin/edit-booking.php?id=<?php echo $bbb_id;?>" class="open_booking w-button bg-color">Modifica</a>

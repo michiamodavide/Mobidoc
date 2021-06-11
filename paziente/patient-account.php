@@ -70,6 +70,14 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
 .back-btn:hover{
  background-color: hsla(0, 0%, 100%, 0.15) !important;
 }
+	  
+/**********************************************************/	  
+.button.gradient.see_details {
+
+    width: 240px;
+
+}	  
+	  .button.view_profile {width: 240px;}
 </style>
 <script>
   function remove_visit(value,value2){
@@ -161,7 +169,7 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
 
           while($rows = mysqli_fetch_array($result)){
             $booked_service_query =
-              "SELECT DISTINCT bg.price, bg.total_discount, am.descrizione
+              "SELECT DISTINCT bg.price, bg.total_discount, am.descrizione, am.attributo
 FROM bookings bg
 JOIN booked_service as bs ON bs.booking_id = bg.booking_id 
  JOIN articlesmobidoc as am ON am.id=bs.article_id
@@ -170,10 +178,10 @@ where bg.booking_id='".$rows['booking_id']."'";
             $booked_service_result = mysqli_query($conn, $booked_service_query);
             $booked_service_row = mysqli_fetch_array($booked_service_result);
 
-
             $price = $booked_service_row['price'];
             $discounted_price = $booked_service_row['total_discount'];
             $visit_name = $booked_service_row['descrizione'];
+            $visit_attribute = $booked_service_row['attributo'];
             $message = $rows['message'];
             $opoint_time = $rows['apoint_time'];
 
@@ -218,18 +226,39 @@ where bg.booking_id='".$rows['booking_id']."'";
         <div class="booking_card">
             <div class="main_data_container">
               <div class="top_section">
-                <div class="doctor_profile_image">
+				  
+				  
+				  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td align="center"><div class="doctor_profile_image">
                   <div style="background:red; width:100%; height:100%; background:url('/images/Group-556.jpg?v=1') no-repeat center center / cover;"></div>
 
-                </div>
-                 <div>
+                </div></td>
+    </tr>
+    <?php
+    if ($booking_status){
+    ?>
+    <tr>
+         <td align="center">
                      <?php
                      $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
                      ?>
-                     <div class="bok_status"><?=$flag_status_txt[$booking_status]?></div>
-                 </div>
+                     <div class="bok_status button-3 gradient select_button w-button" style="margin-top: 15px; width: 140px;"><?=$flag_status_txt[$booking_status]?></div>
+                 </td>
+    </tr>
+        <?php }?>
+  </tbody>
+</table>
+				  
                 <div class="booking_main_data">
-                  <div class="booking_name"><?php echo $visit_name;?></div>
+                  <div class="booking_name">
+                      <?php echo $visit_name;
+                      if ($visit_attribute){
+                          echo ' <span style="font-weight: 400">('.$visit_attribute.')</span>';
+                      }
+                      ?>
+                  </div>
                   <div class="doctor_name_data_container">
                     <div class="titlo">Professionista:</div>
                     <div class="doctor_name"><?php echo $doctor_rows['fname']." ".$doctor_rows['lname']?></div>
@@ -297,13 +326,19 @@ where bg.booking_id='".$rows['booking_id']."'";
                       <div>Costo</div>
                     </div>
                     <div class="value">
-                      <div class="text-block-54">€<?php echo $price;
-
-                      if ($discounted_price){
-                          echo ' €'.$discounted_price;
-                      }
-
-                      ?></div>
+                      <div class="text-block-54">
+                          <?php
+                          if (!empty($discounted_price)){
+                          ?>
+                          <strike style="color:red"><span style="color:#00285c">€<?=$price?></span></strike>
+						  <?php
+                              echo ' €' . $discounted_price;
+                          }else{
+                              echo ' €' . $price;
+                          }
+                      ?>
+						
+						</div>
                     </div>
                  <br>
                   </div>

@@ -814,7 +814,7 @@ where bk.booking_id ='".$booking_id."'";
 
   }
   $(document).ready(function(){
-    $('.admin_item:nth-child(2)').addClass('current');
+    $('.admin_item:nth-child(3)').addClass('current');
   });
 </script>
 <!-- [if lte IE 9]>
