@@ -84,7 +84,7 @@
 		border: 1px solid rgba(12, 229, 178, 0.41);
 		padding: 13px 30px;
 		border-radius: 30px;
-		color: rgba(12, 229, 178, 0.41);
+		color: #00285c;
 	}
 	.m-0-auto{
 		margin: inherit;

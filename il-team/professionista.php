@@ -38,6 +38,15 @@ header("location: validate.php");
 	.p{
   	text-align-last: center !important;
   }
+		
+		
+	@media screen and (max-width: 767px) {	
+		.about_me{
+			margin-left: 0%;
+		}
+		.about_ex_prof{
+			width:82%;
+		}}
 </style>
 </head>
 <body>
@@ -116,9 +125,9 @@ WHERE ds.doctor_id='".$doctor_id."' AND ls.doctor_id='".$doctor_id."' AND am.hom
               </div>
 
           </div>
-            <br>
+       <div class="div" style="text-align:left;">
             <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">View all available visits</a>
-
+</div>
         </div>
       </div>
       <div class="about_ex_prof">
