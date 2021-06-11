@@ -1,5 +1,6 @@
 <?PHP
 session_start();
+
 $name = $_REQUEST["name"];
 $email = $_REQUEST["email"];
 $msg = $_REQUEST["message"];

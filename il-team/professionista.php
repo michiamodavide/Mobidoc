@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_start();
 $doctor_id=$_SERVER['QUERY_STRING'];
 /*if(isset($_GET['doctor_id'])) {
 $doctor_id=$_GET['doctor_id'];
@@ -116,7 +117,7 @@ WHERE ds.doctor_id='".$doctor_id."' AND ls.doctor_id='".$doctor_id."' AND am.hom
 
           </div>
             <br>
-            <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">Not available? Call Us</a>
+            <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">View all available visits</a>
 
         </div>
       </div>

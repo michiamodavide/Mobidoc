@@ -16,6 +16,13 @@
   $sql3 = "select * from contact_profile where email ='".$email_of_contact."'";
   $result3 = mysqli_query($conn, $sql3);
   $rows3 = mysqli_fetch_array($result3);
+
+
+
+  if (isset($_GET['pcheckout']) && $_GET['pcheckout']==1){
+      unset( $_SESSION[ 'book_visits' ] );
+      unset( $_SESSION[ 'pat_id' ] );
+  }
 ?>
 
 <!DOCTYPE html>

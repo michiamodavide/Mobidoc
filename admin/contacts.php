@@ -180,7 +180,7 @@
         <div class="filter">
             <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button">
                 <div class="text-block-78">
-                    <a href="add-contact.php" style="text-decoration: none;">Add New Page</a>
+                    <a href="add-contact.php" style="text-decoration: none;color: black">Add New Page</a>
                 </div>
             </div>
         </div>

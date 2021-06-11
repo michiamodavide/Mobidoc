@@ -156,15 +156,6 @@ $today = $year . '-' . $month . '-' . $day;
     margin-bottom: 20px;
 }
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		}
     </style>
     <style>
@@ -181,8 +172,8 @@ $today = $year . '-' . $month . '-' . $day;
         <div class="text-block-18 paypay_heading">
             <span class="heading1">Wait!</span> <br><br>
             <span class="heading2">
-                      You can get 50% off on your second <br>
-                     booking of same professionist.
+                     YOU CAN GET 50% OFF ON YOUR NEXT<br>
+VISITS FROM THE SAME PROFESSIONIST.
                      </span>
         </div>
         <br>
@@ -192,7 +183,9 @@ $today = $year . '-' . $month . '-' . $day;
         </div>
     </div>
 </div>
-<?php include 'header.php'; ?>
+<?php
+$move_checkout = 1;
+include 'header.php'; ?>
 
 <div class="masthead checkout">
     <div class="masthead_container diff">
@@ -309,7 +302,7 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
                                             <?php
                                             if ($ii > 1){
                                             ?>
-                                            <div class="text-block-54">€<?php echo $visit_price; ?>
+                                            <div class="text-block-54"><strike style="color:red"><span style="color:#00285c">€<?php echo $visit_price; ?></span></strike>
                                                 <span> €<?php
                                                     $visit_price = $visit_price/2;
                                                     if (strpos($visit_price,'.') !== false) {

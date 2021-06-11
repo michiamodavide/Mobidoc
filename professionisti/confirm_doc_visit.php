@@ -8,7 +8,7 @@ if($conn === false){
     die("ERROR database");
 }        
 
-   $sql = "update bookings set admin_book='2' where patient_id = '".$q."' and booking_id = '".$c."' ";
+   $sql = "update bookings set admin_book='2' where patient_id = '".$q."' and booking_id = '".$c."' or patient_id = '".$q."' and booking_discount_id = '".$c."' ";
     $result = mysqli_query($conn, $sql);
    if ($result == 1) {
      // sql to delete a record
