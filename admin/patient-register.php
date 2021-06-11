@@ -1,8 +1,8 @@
-<?php session_start();
+<?php
+session_start();
 
-if(!isset($_SESSION['adminlogin']))
-{
-  header("Location: login.php");
+if ( !isset( $_SESSION[ 'adminlogin' ] ) ) {
+  header( "Location: login.php" );
 }
 include '../connect.php';
 ?>
@@ -17,316 +17,367 @@ include '../connect.php';
 <link href="../css/admin/normalize.css" rel="stylesheet" type="text/css">
 <link href="../css/admin/webflow.css" rel="stylesheet" type="text/css">
 <link href="../css/admin/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-<script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
-<!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> 
+<script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script> 
+<!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] --> 
 <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
 <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
 <link href="../images/webclip.png" rel="apple-touch-icon">
-<script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script> 
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <link href="../css/normalize.css" rel="stylesheet" type="text/css">
 <link href="../css/webflow.css" rel="stylesheet" type="text/css">
 <link href="../css/mobidoc.webflow.css" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-<script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
-<!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> 
+<script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script> 
+<!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] --> 
 <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
 <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
 <link href="../images/webclip.png" rel="apple-touch-icon">
 <link href="/paziente/dist/css/datepicker.css" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <link href="../dist/css/selectize.default.css?v=1" rel="stylesheet"/>
-<script src="../dist/js/standalone/selectize.min.js"></script>
+<script src="../dist/js/standalone/selectize.min.js"></script> 
 <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
 <style>
-.error_message{
-	transform: none !important;}
+.error_message {
+    transform: none !important;
+}
 ::-webkit-scrollbar {
- width: 0px;
- height:0px;
+width: 0px;
+height:0px;
 }
 .p {
-	text-align-last: center !important;
+    text-align-last: center !important;
 }
 .input-controls {
-	margin-top: 10px;
-	border: 1px solid transparent;
-	border-radius: 2px 0 0 2px;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	height: 32px;
-	outline: none;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 #address_search {
-	width: 60%;
-	left: 215px !important;
-	top: 10px !important;
+    width: 60%;
+    left: 215px !important;
+    top: 10px !important;
 }
 
 @media screen and (max-width: 767px) {
 .duo_flex .choose_your_area .input_element {
-	width: 350px;
+    width: 350px;
 }
 .choose_your_area.select2 {
-	margin-left: 0px !important;
-	margin-top: 15px !important;
-	margin-bottom: 0px !important;
+    margin-left: 0px !important;
+    margin-top: 15px !important;
+    margin-bottom: 0px !important;
 }
 .submit_form_btn {
-	text-align: center;
+    text-align: center;
 }
 #address_search {
-	width: 75%;
-	left: 40px !important;
-	top: 51px !important;
+    width: 75%;
+    left: 40px !important;
+    top: 51px !important;
 }
 }
 
 @media screen and (max-width: 400px) {
 .duo_flex .choose_your_area .input_element {
-	width: 319px;
+    width: 319px;
 }
 #address_search {
-	width: 75%;
-	left: 38px !important;
-	top: 51px !important;
+    width: 75%;
+    left: 38px !important;
+    top: 51px !important;
 }
 }
 
 @media screen and (max-width: 360px) {
 .duo_flex .choose_your_area .input_element {
-	width: 307px;
+    width: 307px;
 }
 }
 
 @media screen and (max-width: 340px) {
 .duo_flex .choose_your_area .input_element {
-	width: 273px;
+    width: 273px;
 }
 #address_search {
-	width: 80%;
-	left: 28px !important;
-	top: 51px !important;
+    width: 80%;
+    left: 28px !important;
+    top: 51px !important;
 }
 }
 </style>
- <style>
-  ::-webkit-scrollbar {
-   width: 0px;
-   height:0px;
-  }
-  .p {
-   text-align-last: center !important;
-  }
-  *:focus {
-   outline: none;
-   border: none;
-  }
-  .pro_type {
-   margin-top: 20px;
-   width: 100% !important;
-   padding: 8px 7px;
-   border-radius: 1.2rem;
-   font-size: 12px;
-   border: 1px solid #979797 !important;
-  }
-  .button-10 {
-   margin-top: 70px;
-  }
-  .search.home {
-   background-color: black;
-  }
-  .mt-240 {
-   margin-top: 240px;
-  }
-  .register .mt-240 {
-   margin-top: 110px;
-  }
-
-  @media screen and (min-width: 1280px) {
-
-   .register .custom_container.update_form {
-    display: block;
-    width: 100%;}
-  }
-
-  @media screen and (max-width: 767px) {
-   .register .admin_section_heading {
-    font-size: 24px;
-
-   }
-   .register .selectize-input {
-
-    padding: 10px;
-
-   }
-   .register .mt-240 {
+<style>
+::-webkit-scrollbar {
+width: 0px;
+height:0px;
+}
+.p {
+    text-align-last: center !important;
+}
+*:focus {
+    outline: none;
+    border: none;
+}
+.pro_type {
+    margin-top: 20px;
+    width: 100% !important;
+    padding: 8px 7px;
+    border-radius: 1.2rem;
+    font-size: 12px;
+    border: 1px solid #979797 !important;
+}
+.button-10 {
     margin-top: 70px;
-   }
-   .register .duo_flex .choose_your_area .input_element {
+}
+.search.home {
+    background-color: black;
+}
+.mt-240 {
+    margin-top: 240px;
+}
+.register .mt-240 {
+    margin-top: 110px;
+}
+
+@media screen and (min-width: 1280px) {
+.register .custom_container.update_form {
+    display: block;
+    width: 100%;
+}
+}
+
+@media screen and (max-width: 767px) {
+.register .admin_section_heading {
+    font-size: 24px;
+}
+.register .selectize-input {
+    padding: 10px;
+}
+.register .mt-240 {
+    margin-top: 70px;
+}
+.register .duo_flex .choose_your_area .input_element {
     min-width: 100%;
-    width:100%;
-   }
-   .register .admin_main_section {
+    width: 100%;
+}
+.register .admin_main_section {
     width: 80%;
     height: 100vh;
     margin-left: 70px;
     padding-top: 0.5px;
     padding-right: 3%;
-   }
-
-   .register .admin_main_section .admin_section_header {
+}
+.register .admin_main_section .admin_section_header {
     display: inline-block;
     left: 70px;
     width: 76%;
-   }
-
-
-   .admin_main_section .admin_section_header {
+}
+.admin_main_section .admin_section_header {
     display: inline-block;
     left: 90px;
-   }
-   .admin_main_section .scroll_indicator {
+}
+.admin_main_section .scroll_indicator {
     display: none;
-   }
-   .body-14 .search.home {
+}
+.body-14 .search.home {
     margin: 0px 0px;
     width: 105vw;
-   }
-   .body-14 .search {
+}
+.body-14 .search {
     -webkit-transform: scale(0.75);
     -ms-transform: scale(0.75);
     transform: scale(0.75);
     -webkit-transform-origin: 0% 50%;
     -ms-transform-origin: 0% 50%;
     transform-origin: 0% 50%;
-   }
-   .mt-240 {
+}
+.mt-240 {
     margin-top: 200px;
-   }
-   .register .custom_container.update_form {
+}
+.register .custom_container.update_form {
     width: 100%;
-   }
-   .register .input_element {
-
+}
+.register .input_element {
     padding-right: 10px;
     padding-left: 10px;
-   }
-  }
+}
+}
 
-  @media screen and (max-width: 450px) {
-   .register .duo_flex .choose_your_area .input_element {
+@media screen and (max-width: 450px) {
+.register .duo_flex .choose_your_area .input_element {
     min-width: 290px;
     width: 100%;
-   }
-   .section_content{
+}
+.section_content {
     padding-bottom: 5px;
-   }
+}
+}
 
-  }
-
-  @media screen and (max-width: 400px) {
-   #add .button-10 {
+@media screen and (max-width: 400px) {
+#add .button-10 {
     font-size: 11px;
-   }
-   .register .duo_flex .choose_your_area .input_element {
+}
+.register .duo_flex .choose_your_area .input_element {
     min-width: 255px;
     width: 100%;
-   }
-   .button.gradient.submit{
+}
+.button.gradient.submit {
     padding-right: 22px;
     padding-left: 22px;
-   }
-  }
+}
+}
 
-  @media screen and (max-width: 340px) {
-   #add .button-10 {
+@media screen and (max-width: 340px) {
+#add .button-10 {
     margin-right: 10px !important;
-   }
-   .register .duo_flex .choose_your_area .input_element {
+}
+.register .duo_flex .choose_your_area .input_element {
     min-width: 100%;
     width: 100%;
-   }
-   .button.gradient{
+}
+.button.gradient {
     padding: 11px 17px;
-   }
-   .button.gradient.submit {
+}
+.button.gradient.submit {
     padding-right: 18px;
     padding-left: 18px;
     font-size: 11px;
-   }
-  }
- </style>
+}
+}
+</style>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9O3bcxgKNkrvPOc2kdGKsLF9FnTfh7Go&sensor=false&libraries=places"></script>
 <?php
 
-  $fisc_code = '';
-  $email = '';
-  $call_fname = '';
-  $call_lname=  '';
-  $phone = '';
-  $fname = '';
-  $lname = '';
-  $admin_note = '';
-  $dobb = '';
-  $address= '';
-  $visit_name1 = '';
-  $opoint_time = '';
-  $payment_mode = '';
-   $refer_id = '';
-   $gmap_addr = '';
-   $lat_log = '';
-   $selected_exc = '';
+$fisc_code = '';
+$email = '';
+$call_fname = '';
+$call_lname = '';
+$phone = '';
+$fname = '';
+$lname = '';
+$admin_note = '';
+$dobb = '';
+$address = '';
+$visit_name1 = '';
+$opoint_time = '';
+$payment_mode = '';
+$refer_id = '';
+$gmap_addr = '';
+$lat_log = '';
+$selected_exc = '';
 
-  $icp_param = '';
-  if (isset($_GET['icp'])){
-    $icp_param = $_GET['icp'];
-    $sql_get_query = "select * from temprary_patient where patient_id ='".$_GET['icp']."'";
-    $sql_get_tmp = mysqli_query($conn, $sql_get_query);
-    $sql_get_tmp_data = mysqli_fetch_array($sql_get_tmp);
+$icp_param = '';
+if ( isset( $_GET[ 'icp' ] ) ) {
+  $icp_param = $_GET[ 'icp' ];
+  $sql_get_query = "select * from temprary_patient where patient_id ='" . $_GET[ 'icp' ] . "'";
+  $sql_get_tmp = mysqli_query( $conn, $sql_get_query );
+  $sql_get_tmp_data = mysqli_fetch_array( $sql_get_tmp );
 
-    $patient_id = $sql_get_tmp_data['patient_id'];
-    $fisc_code = $sql_get_tmp_data['fiscale'];
-    $email = $sql_get_tmp_data['email'];
-    $caller_name_string = explode(" ", $sql_get_tmp_data['caller_name']);
-    $call_fname = $caller_name_string[0];
-    $call_lname=  $caller_name_string[1];
-    $phone = $sql_get_tmp_data['phone'];
-    $fname = $sql_get_tmp_data['first_name'];
-    $lname = $sql_get_tmp_data['last_name'];
-    $admin_note = $sql_get_tmp_data['admin_note'];
-    $dobb = date("m-d-Y H:i", strtotime($sql_get_tmp_data['dob']));
+  $patient_id = $sql_get_tmp_data[ 'patient_id' ];
+  $fisc_code = $sql_get_tmp_data[ 'fiscale' ];
+  $email = $sql_get_tmp_data[ 'email' ];
+  $caller_name_string = explode( " ", $sql_get_tmp_data[ 'caller_name' ] );
+  $call_fname = $caller_name_string[ 0 ];
+  $call_lname = $caller_name_string[ 1 ];
+  $phone = $sql_get_tmp_data[ 'phone' ];
+  $fname = $sql_get_tmp_data[ 'first_name' ];
+  $lname = $sql_get_tmp_data[ 'last_name' ];
+  $admin_note = $sql_get_tmp_data[ 'admin_note' ];
+  $dobb = date( "m-d-Y H:i", strtotime( $sql_get_tmp_data[ 'dob' ] ) );
 
-    $address = $sql_get_tmp_data['address'];
-    $article_idd = $sql_get_tmp_data['visit_name'];
-    $get_article_desc = "SELECT descrizione FROM articlesmobidoc WHERE id = '".$article_idd."'";
-    $get_article_result = mysqli_query($conn, $get_article_desc);
-    $get_article_row = mysqli_fetch_array($get_article_result);
-    $visit_name1 = $get_article_row['descrizione'];
+  $address = $sql_get_tmp_data[ 'address' ];
+  $article_idd = $sql_get_tmp_data[ 'visit_name' ];
+  $get_article_desc = "SELECT descrizione FROM articlesmobidoc WHERE id = '" . $article_idd . "'";
+  $get_article_result = mysqli_query( $conn, $get_article_desc );
+  $get_article_row = mysqli_fetch_array( $get_article_result );
+  $visit_name1 = $get_article_row[ 'descrizione' ];
 
-    $apoint_time = '';
-    if ($sql_get_tmp_data['appoint_time']){
-      $apoint_time = date("m-d-Y H:i", strtotime($sql_get_tmp_data['appoint_time']));
-    }
-
-    $payment_mode = $sql_get_tmp_data['payment_mode'];
-    $refer_id = $sql_get_tmp_data['refertatore_id'];
-    $gmap_addr = $sql_get_tmp_data['gmap_address'];
-    $lat_log = $sql_get_tmp_data['lat_log'];
-    $selected_exc = $sql_get_tmp_data['excutor_ids'];
-
-      /*get refer email*/
-      $sql44 = "select * from doctor_profile where doctor_id ='".$refer_id."'";
-      $result44 = mysqli_query($conn, $sql44);
-      $rows44 = mysqli_fetch_array($result44);
-      $doctor_main_name = $rows44['fname'].' '.$rows44['lname'];
-      $doctor_id= $rows44['doctor_id'];
+  $apoint_time = '';
+  if ( $sql_get_tmp_data[ 'appoint_time' ] ) {
+    $apoint_time = date( "m-d-Y H:i", strtotime( $sql_get_tmp_data[ 'appoint_time' ] ) );
   }
-  ?>
 
+  $payment_mode = $sql_get_tmp_data[ 'payment_mode' ];
+  $refer_id = $sql_get_tmp_data[ 'refertatore_id' ];
+  $gmap_addr = $sql_get_tmp_data[ 'gmap_address' ];
+  $lat_log = $sql_get_tmp_data[ 'lat_log' ];
+  $selected_exc = $sql_get_tmp_data[ 'excutor_ids' ];
+
+  /*get refer email*/
+  $sql44 = "select * from doctor_profile where doctor_id ='" . $refer_id . "'";
+  $result44 = mysqli_query( $conn, $sql44 );
+  $rows44 = mysqli_fetch_array( $result44 );
+  $doctor_main_name = $rows44[ 'fname' ] . ' ' . $rows44[ 'lname' ];
+  $doctor_id = $rows44[ 'doctor_id' ];
+}
+?>
+<style>
+	.patient_names{
+		background-color: #fff;
+		padding: 10px;
+		border-radius: 0 0 5px 5px;
+		width: 48.5%;
+	}	
+	.patient_names ol{
+		padding-left: 18px;}
+	.patient_names ol li{
+		line-height: 36px;
+	list-style: none;}
+	 .patient_names ol li span{
+		margin-right: 20px;
+	width: 60px;}
+	.plus{
+		background:url("../images/plus.png") center center no-repeat;
+		background-size: contain;
+		display: block;
+		height: 24px;
+		width: 24px;
+		    margin: 0 auto;
+	}
+	.minus{
+		background:url("../images/minus.png") center center no-repeat;
+		background-size: contain;
+		display: block;
+		height: 24px;
+		width: 24px;
+		    margin: 0 auto;
+	}
+	.m-b-input{
+		margin-bottom:inherit;
+	}
+@media only screen and (max-width: 767px) {
+.patient_names{
+		
+		padding: 5px;
+		
+		width: 100%;
+	}	
+	
+	.patient_names ol{
+		padding-left: 5px;}
+	
+	
+.patient_names ol li{
+		line-height: 20px;
+	list-style: none;
+	font-size: 9px;}
+	 .patient_names ol li span{
+		margin-right: 0px;
+		 margin-right: 0px;
+	width: 60px;}
+	.m-b-input{
+		margin-bottom:0px;
+	}
+}	
+</style>
 </head>
 <body class="body-14 register">
 <div>
@@ -367,43 +418,41 @@ include '../connect.php';
                 <input type="hidden" value="<?php echo $patient_id?>" name="patient_temp_id">
                 <?php }?>
                 <div>
-                 <div class="form_section">
-                   <?php
-                   if (isset($_GET['err']) && ($_GET['err'] == '1')){
-                     ?>
+                  <div class="form_section">
+                    <?php
+                    if ( isset( $_GET[ 'err' ] ) && ( $_GET[ 'err' ] == '1' ) ) {
+                      ?>
                     <div class="error" style="display: block">
-                     <div>Email già registrata.</div>
+                      <div>Email già registrata.</div>
                     </div>
-                   <?php }?>
-                  <div class="form_section_heading">Controllo Anagrafica Paziente</div>
-                  <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name">
-                  <div class="patient_names">
-                   <ol>
-
-                   </ol>
+                    <?php }?>
+                    <div class="form_section_heading">Controllo Anagrafica Paziente</div>
+                    <input type="text" class="inputs w-input m-b-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name">
+                    <div class="patient_names">
+                      <ol>
+                      </ol>
+                    </div>
+                    <br>
+                    <div class="dual_container diff">
+                      <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname?>" id="first_name">
+                      <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off">
+                    </div>
                   </div>
-                   <br>
-                  <div class="dual_container diff">
-                   <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname?>" id="first_name">
-
-                   <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off">
+                  <div class="form_section">
+                    <div class="form_section_heading">Informazioni Contatto</div>
+                    <div class="dual_container diff">
+                      <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $call_fname?>" id="caller_first_name">
+                      <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $call_lname?>" id="caller_last_name">
+                    </div>
+                    <div class="dual_container diff">
+                      <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" value="<?php echo $email?>" id="email">
+                      <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" value="<?php echo $phone?>" id="tele">
+                    </div>
+                    <style>
+.show_contact_msg{margin-top: -20px;margin-bottom: -10px;color: green;display: none}
+</style>
+                    <p class="show_contact_msg">Contatto già registrato.</p>
                   </div>
-
-                 </div>
-                 <div class="form_section">
-                  <div class="form_section_heading">Informazioni Contatto</div>
-                  <div class="dual_container diff">
-                   <input type="text" class="inputs w-input" maxlength="256" name="call_first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $call_fname?>" id="caller_first_name">
-                   <input type="text" class="inputs w-input" maxlength="256" name="call_last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $call_lname?>" id="caller_last_name">
-                  </div>
-                  <div class="dual_container diff">
-                   <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" value="<?php echo $email?>" id="email">
-                   <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" value="<?php echo $phone?>" id="tele">
-
-                  </div>
-                  <style>.show_contact_msg{margin-top: -20px;margin-bottom: -10px;color: green;display: none}</style>
-                  <p class="show_contact_msg">Contatto già registrato.</p>
-                 </div>
                   <div class="form_section">
                     <div class="form_section_heading">Informazioni Paziente</div>
                     <input type="text" class="datepicker-here inputs w-input date_of_birth" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" style="margin-bottom: 25px">
@@ -412,177 +461,169 @@ include '../connect.php';
                     <input type="hidden" class="inputs w-input lat_log" value="<?php echo $lat_log?>" maxlength="256" name="lat_log" placeholder="Indirizzo Completo *">
                     <div class="map" id="map" style="width: 100%; height: 300px;margin: 0% auto 33px;"></div>
                     <?php
-             /*
-             <div class="form_area">
-              <input type="text" name="location" id="location">
-              <input type="text" name="lat" id="lat">
-              <input type="text" name="lng" id="lng">
-             </div>
-             */
-             ?>
+                    /*
+                    <div class="form_area">
+                     <input type="text" name="location" id="location">
+                     <input type="text" name="lat" id="lat">
+                     <input type="text" name="lng" id="lng">
+                    </div>
+                    */
+                    ?>
                     <textarea placeholder="Note *" maxlength="10000" id="personal_description"
                        name="admin_note" data-name="personal_description"
                        class="text_area_profile personal_description w-input"><?php echo $admin_note?></textarea>
                   </div>
-
-
                   <div class="form_section">
                     <div class="form_section_heading">Prenotazione Prestazione</div>
-                      <div class="duo_flex medical_sp">
-                          <div class="choose_your_area select4">
-                              <div class="search_cap_input sci2">
-                                  <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                      <select id="get-medical-speciality" placeholder="Select Medical Speciality *" name="mds_name" onchange="getVisits()">
-                                          <option value="">Select Medical Speciality</option>
-                                          <?php
-                                          include '../connect.php';
-                                          $mds_sql = "SELECT DISTINCT ms.ERid, ms.name 
+                    <div class="duo_flex medical_sp">
+                      <div class="choose_your_area select4">
+                        <div class="search_cap_input sci2">
+                          <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
+                            <select id="get-medical-speciality" placeholder="Select Medical Speciality *" name="mds_name" onchange="getVisits()">
+                              <option value="">Select Medical Speciality</option>
+                              <?php
+                              include '../connect.php';
+                              $mds_sql = "SELECT DISTINCT ms.ERid, ms.name 
 FROM  doctor_profile dp
 JOIN doctor_register as dg ON dg.id = dp.doctor_id 
 JOIN doctor_specialty as ds ON ds.doctor_id = dg.id 
 JOIN medical_specialty as ms ON ms.ERid = ds.specialty 
 where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.specialty";
-                                          $mds_result = mysqli_query($conn, $mds_sql);
-                                          while($mds_rows = mysqli_fetch_array($mds_result)){
-                                              $medical_erd = $mds_rows['ERid'];
-                                              $medical_name = $mds_rows['name'];
-                                              ?>
-                                              <option value="<?PHP echo $medical_erd;?>"><?PHP echo $medical_name;?></option>
-                                          <?php } mysqli_close($conn);?>
-                                      </select>
-                                      <script>
+                              $mds_result = mysqli_query( $conn, $mds_sql );
+                              while ( $mds_rows = mysqli_fetch_array( $mds_result ) ) {
+                                $medical_erd = $mds_rows[ 'ERid' ];
+                                $medical_name = $mds_rows[ 'name' ];
+                                ?>
+                              <option value="<?PHP echo $medical_erd;?>"><?PHP echo $medical_name;?></option>
+                              <?php } mysqli_close($conn);?>
+                            </select>
+                            <script>
                                           $('#get-medical-speciality').selectize();
-                                      </script>
-                                  </div>
-                              </div>
+                                      </script> 
                           </div>
+                        </div>
                       </div>
-                     <div class="new_visit_no1">
-                         <div class="duo_flex">
-                             <div class="choose_your_area select1" id="select1">
-                                 <div class="search_cap_input sci2">
-                                     <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                         <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]" onchange="getVisitDoc()">
-                                             <option value="">Seleziona Prestazione</option>
-                                         </select>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="choose_your_area select2" id="select2" style="margin: 10px;">
-                                 <div class="search_cap_input sci2">
-                                     <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                         <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">
-                                             <option value="">Seleziona Esecutore</option>
-                                         </select>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="duo_flex">
-                             <div class="choose_your_area select3">
-                                 <div class="search_cap_input sci2">
-                                     <div class="input_element" style="background:#d3fbff;">
-                                         <img src="../images/search.svg" width="28"  alt="">
-
-                                         <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id[]">
-                                             <?php
-                                             if (!empty($refer_id)){
-                                                 ?>
-                                                 <option value="<?php echo $doctor_id?>" selected><?php echo $doctor_main_name?></option>
-                                             <?php }else{?>
-                                                 <option value="">Seleziona Refertatore</option>
-                                             <?php }?>
-                                         </select>
-
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="dual_container diff">
-                             <input type="text" class="datepicker-here inputs w-input appoint_time" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time[]" placeholder="Data e Ora" id="appoint_time">
-                         </div>
-                     </div>
-
-                      <div class="new_visit_no2" style="display: none">
-                          <div class="duo_flex">
-                              <div class="choose_your_area select1" id="select1">
-                                  <div class="search_cap_input sci2">
-                                      <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                          <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]" onchange="getVisitDocTwo()">
-                                              <option value="">Seleziona Prestazione</option>
-                                          </select>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="choose_your_area select2" id="select2" style="margin: 10px;">
-                                  <div class="search_cap_input sci2">
-                                      <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                          <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">
-                                              <option value="">Seleziona Esecutore</option>
-                                          </select>
-                                      </div>
-                                  </div>
-                              </div>
+                    </div>
+                    <div class="new_visit_no1">
+                      <div class="duo_flex">
+                        <div class="choose_your_area select1" id="select1">
+                          <div class="search_cap_input sci2">
+                            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
+                              <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]" onchange="getVisitDoc()">
+                                <option value="">Seleziona Prestazione</option>
+                              </select>
+                            </div>
                           </div>
-                          <div class="duo_flex">
-                              <div class="choose_your_area select3">
-                                  <div class="search_cap_input sci2">
-                                      <div class="input_element" style="background:#d3fbff;">
-                                          <img src="../images/search.svg" width="28"  alt="">
+                        </div>
+                        <div class="choose_your_area select2" id="select2" style="margin: 10px;">
+                          <div class="search_cap_input sci2">
+                            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
+                              <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">
+                                <option value="">Seleziona Esecutore</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="duo_flex">
+                        <div class="choose_your_area select3">
+                          <div class="search_cap_input sci2">
+                            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
+                              <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id[]">
+                                <?php
+                                if ( !empty( $refer_id ) ) {
+                                  ?>
+                                <option value="<?php echo $doctor_id?>" selected><?php echo $doctor_main_name?></option>
+                                <?php }else{?>
+                                <option value="">Seleziona Refertatore</option>
+                                <?php }?>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="dual_container diff">
+                        <input type="text" class="datepicker-here inputs w-input appoint_time" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time[]" placeholder="Data e Ora" id="appoint_time">
+                      </div>
+                    </div>
+                    <div class="new_visit_no2" style="display: none">
+                      <div class="duo_flex" style="justify-content: space-around !important;">
+                        <div class="choose_your_area select1" id="select1">
+                          <div class="search_cap_input sci2">
+                            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
+                              <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]" onchange="getVisitDocTwo()">
+                                <option value="">Seleziona Prestazione</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="choose_your_area select2" id="select2" style="margin: 10px;">
+                          <div class="search_cap_input sci2">
+                            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
+                              <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">
+                                <option value="">Seleziona Esecutore</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="duo_flex" style="justify-content: space-around !important;">
+                        <div class="choose_your_area select3">
+                          <div class="search_cap_input sci2">
+                            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
+                              <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id[]">
+                                <?php
+                                if ( !empty( $refer_id ) ) {
+                                  ?>
+                                <option value="<?php echo $doctor_id?>" selected><?php echo $doctor_main_name?></option>
+                                <?php }else{?>
+                                <option value="">Seleziona Refertatore</option>
+                                <?php }?>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="choose_your_area select4">
+                          <div class="search_cap_input sci2">
+                            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
+                              <select id="select-discount" placeholder="Select Discount" name="select_discount[]">
+                                <?php
+                                for ( $i = 1; $i <= 9; $i++ ) {
+                                  $percentage_val = 10 * $i;
 
-                                          <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id[]">
-                                              <?php
-                                              if (!empty($refer_id)){
-                                                  ?>
-                                                  <option value="<?php echo $doctor_id?>" selected><?php echo $doctor_main_name?></option>
-                                              <?php }else{?>
-                                                  <option value="">Seleziona Refertatore</option>
-                                              <?php }?>
-                                          </select>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="choose_your_area select4">
-                                  <div class="search_cap_input sci2">
-                                      <div class="input_element" style="background:#d3fbff;">
-                                          <img src="../images/search.svg" width="28"  alt="">
-
-                                          <select id="select-discount" placeholder="Select Discount" name="select_discount[]">
-                                              <?php
-                                              for( $i=1; $i<=9; $i++ )
-                                              {
-                                                 $percentage_val = 10*$i;
-
-                                                  ?>
-                                                  <option value="<?php echo $percentage_val?>"><?php echo $percentage_val.'%'?></option>
-                                                 <?php }?>
-                                          </select>
-                                          <script>
+                                  ?>
+                                <option value="<?php echo $percentage_val?>"><?php echo $percentage_val.'%'?></option>
+                                <?php }?>
+                              </select>
+                              <script>
                                               $('#select-discount').selectize();
-                                          </script>
-                                      </div>
-                                  </div>
-                              </div>
+                                          </script> 
+                            </div>
                           </div>
-                          <div class="dual_container diff">
-                              <input type="text" class="datepicker-here inputs w-input appoint_time"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time[]" placeholder="Data e Ora" id="appoint_time">
-                          </div>
+                        </div>
                       </div>
-                      <div class="input-group-btn" style="display: none">
-                          <button class="btn btn-success add_next_visit" type="button" data-id="1"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Plus</button>
+                      <div class="dual_container diff">
+                        <input type="text" class="datepicker-here inputs w-input appoint_time"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time[]" placeholder="Data e Ora" id="appoint_time">
                       </div>
+                    </div>
+                    <div class="input-group-btn" style="display: none;">
+                      <button class="btn btn-success add_next_visit plus" type="button" data-id="1">
+						  
+						</button>
+						<button class="btn btn-success add_next_visit minus" type="button" data-id="1">
+						  
+						</button>
+                    </div>
                   </div>
                   <div class="form_section">
-
-                      <?php
-                      /*
+                    <?php
+                    /*
                          <div class="form_section_heading">Data e Ora</div>
                     <div class="dual_container diff">
                       <input type="text" class="datepicker-here inputs w-input appoint_time"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora" id="appoint_time">
                     </div>
                       */
-                      ?>
-
+                    ?>
                     <div class="form_section_heading">Indennità Km</div>
                     <div class="dual_container diff">
                       <input type="number" class="inputs w-input" autocomplete="off" name="km_price" placeholder="Indennità Km">
@@ -595,11 +636,11 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                         <div class="search_cap_input sci2">
                           <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
                             <select id="cash-option" placeholder="Metodo di Pagamento" name="payment_mode">
-                             <?php
-                             if (!empty($payment_mode)){
-                             ?>
-                             <option value="<?php echo $payment_mode?>" selected><?php echo $payment_mode?></option>
-                             <?php }?>
+                              <?php
+                              if ( !empty( $payment_mode ) ) {
+                                ?>
+                              <option value="<?php echo $payment_mode?>" selected><?php echo $payment_mode?></option>
+                              <?php }?>
                               <option value="Contanti">Contanti</option>
                               <option value="Bancomat">Bancomat</option>
                               <option value="Bonifico Bancario">Bonifico Bancario</option>
@@ -633,48 +674,44 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                     <span class="checkbox-label-2 w-form-label">Esprimo il consenso in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di marketing</span>
                     </label>
                   </div>
-
-                 <div class="error_container">
-                  <div class="error_message fiscale error_fiscal_code" onClick="window.location='#fiscal_code';">
-                   <div class="text-block-30">Il codice fiscale non è valido.</div>
+                  <div class="error_container">
+                    <div class="error_message fiscale error_fiscal_code" onClick="window.location='#fiscal_code';">
+                      <div class="text-block-30">Il codice fiscale non è valido.</div>
+                    </div>
+                    <div class="error_message call_fname_length error_caller_first_name" onClick="window.location='#caller_first_name';">
+                      <div class="text-block-30">Il nome del chiamante deve contenere un massimo di 2 caratteri.</div>
+                    </div>
+                    <div class="error_message caller_last_length error_caller_last_name" onClick="window.location='#caller_last_name';">
+                      <div class="text-block-30">Il cognome del chiamante deve contenere un massimo di 2 caratteri.</div>
+                    </div>
+                    <div class="error_message email_dont_match error_email" onClick="window.location='#email';">
+                      <div class="text-block-30">Email non valida.</div>
+                    </div>
+                    <div class="error_message tele_length error_tele" onClick="window.location='#tele';">
+                      <div class="text-block-30">Aggiungi un numero di telefono valido.</div>
+                    </div>
+                    <div class="error_message first_name_length error_first_name" onClick="window.location='#first_name';">
+                      <div class="text-block-30">Il nome del paziente deve contenere un massimo di 2 caratteri.</div>
+                    </div>
+                    <div class="error_message last_name_length error_last_name" onClick="window.location='#last_name';">
+                      <div class="text-block-30">Il cognome del paziente deve contenere un massimo di 2 caratteri.</div>
+                    </div>
+                    <div class="error_message age error_dob" onClick="window.location='#dob';">
+                      <div class="text-block-30">Si prega di aggiungere la data di nascita.</div>
+                    </div>
+                    <div class="error_message address_search_length error_address_search" onClick="window.location='#address_search';">
+                      <div class="text-block-30">Si prega di aggiungere l'indirizzo.</div>
+                    </div>
+                    <div class="error_message personal_description_length error_personal_description" onClick="window.location='#personal_description';">
+                      <div class="text-block-30">Inserisci almeno 15 caratteri per il campo della nota amministratore.</div>
+                    </div>
+                    <div class="error_message select-visi_length error_select-visit-selectized" onClick="window.location='#select1';">
+                      <div class="text-block-30">Seleziona Visita.</div>
+                    </div>
+                    <div class="error_message select-doctor_length error_select-doctor-selectized" onClick="window.location='#select-doctor';">
+                      <div class="text-block-30">Seleziona Executor.</div>
+                    </div>
                   </div>
-                  <div class="error_message call_fname_length error_caller_first_name" onClick="window.location='#caller_first_name';">
-                   <div class="text-block-30">Il nome del chiamante deve contenere un massimo di 2 caratteri.</div>
-                  </div>
-                  <div class="error_message caller_last_length error_caller_last_name" onClick="window.location='#caller_last_name';">
-                   <div class="text-block-30">Il cognome del chiamante deve contenere un massimo di 2 caratteri.</div>
-                  </div>
-                  <div class="error_message email_dont_match error_email" onClick="window.location='#email';">
-                   <div class="text-block-30">Email non valida.</div>
-                  </div>
-                  <div class="error_message tele_length error_tele" onClick="window.location='#tele';">
-                   <div class="text-block-30">Aggiungi un numero di telefono valido.</div>
-                  </div>
-                  <div class="error_message first_name_length error_first_name" onClick="window.location='#first_name';">
-                   <div class="text-block-30">Il nome del paziente deve contenere un massimo di 2 caratteri.</div>
-                  </div>
-                  <div class="error_message last_name_length error_last_name" onClick="window.location='#last_name';">
-                   <div class="text-block-30">Il cognome del paziente deve contenere un massimo di 2 caratteri.</div>
-                  </div>
-
-                  <div class="error_message age error_dob" onClick="window.location='#dob';">
-                   <div class="text-block-30">Si prega di aggiungere la data di nascita.</div>
-                  </div>
-                  <div class="error_message address_search_length error_address_search" onClick="window.location='#address_search';">
-                   <div class="text-block-30">Si prega di aggiungere l'indirizzo.</div>
-                  </div>
-
-                  <div class="error_message personal_description_length error_personal_description" onClick="window.location='#personal_description';">
-                   <div class="text-block-30">Inserisci almeno 15 caratteri per il campo della nota amministratore.</div>
-                  </div>
-                  <div class="error_message select-visi_length error_select-visit-selectized" onClick="window.location='#select1';">
-                   <div class="text-block-30">Seleziona Visita.</div>
-                  </div>
-                  <div class="error_message select-doctor_length error_select-doctor-selectized" onClick="window.location='#select-doctor';">
-                   <div class="text-block-30">Seleziona Executor.</div>
-                  </div>
-
-                 </div>
                   <div class="submit_form_btn">
                     <input type="submit" name="save_data" style="color:#fff !important;" value="Salva" class="button gradient w-button">
                     <input type="submit" name="submit" style="color:#fff !important;" value="Conferma e Invia" id="submit" class="button gradient submit w-button">
@@ -788,8 +825,8 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
   opacity: 0.6;
  }
 </style>
-<script src="/paziente/date_pic.js?v=2"></script>
-<script src="/paziente/dist/js/i18n/datepicker.en.js?v=2"></script>
+<script src="/paziente/date_pic.js?v=2"></script> 
+<script src="/paziente/dist/js/i18n/datepicker.en.js?v=2"></script> 
 <script type="application/javascript">
 
   var icp_param = '<?php echo $icp_param?>';
@@ -1202,7 +1239,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
               $.each(response, function(key, value ) {
                   var date_of_birth = response[key].dob.split('-');
                   var dob = date_of_birth[1] + '-' + date_of_birth[0] + '-' + date_of_birth[2];
-                $(".patient_names ol").append("<strong><li class='data-list' style='cursor: pointer;' contact-id='"+response[key].contact_id+"' data-id='"+response[key].paziente_id+"'>"+'<span style="color: green;">'+response[key].fname+' '+response[key].lname+'</span>, <span style="color: blue;">'+response[key].fiscale+', </span><span style="color: pink;">'+dob+'</span>'+"</li></strong>");
+                $(".patient_names ol").append("<strong><li class='data-list' style='cursor: pointer;' contact-id='"+response[key].contact_id+"' data-id='"+response[key].paziente_id+"'>"+'<span style="color: #00285c;">'+response[key].fname+' '+response[key].lname+',</span> <span style="color: #0cd9ed;">'+response[key].fiscale+', </span><span style="color: #0ab;">'+dob+'</span>'+"</li></strong>");
               });
             }
           }
@@ -1251,7 +1288,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
     });
   });
 
-</script>
+</script> 
 <script>
   /* script */
   function initialize() {
@@ -1326,7 +1363,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script> 
-
 <script type="text/javascript">
 
  $(".appoint_time").keyup(function(){
@@ -1398,7 +1434,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
  }
 </style>
 <script src="../js/admin/webflow.js" type="text/javascript"></script> 
-<script src="/js/admin/tel_book_val.js" type="text/javascript"></script>
+<script src="/js/admin/tel_book_val.js" type="text/javascript"></script> 
 <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 <div id="fb-root"></div>
 <script async="" defer="" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
