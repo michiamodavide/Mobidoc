@@ -231,13 +231,18 @@ include 'header.php'; ?>
                         $doctor_photo = "/professionisti/" . $rows2['photo'];
 
 
-                        $sql3 = "SELECT DISTINCT lis.visit_home_price, lis.visit_tele_price, am.home, am.tele
+                        /*$sql3 = "SELECT DISTINCT lis.visit_home_price, lis.visit_tele_price, am.home, am.tele
 FROM articlesMobidoc am
 JOIN listini lis ON am.id=lis.article_mobidoc_id
 JOIN articlesMobidoc_specialty ams ON am.id=ams.id
 JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
 JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
-WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
+WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";*/
+
+                        $sql3 = "SELECT DISTINCT lis.visit_home_price, lis.visit_tele_price, am.home, am.tele, am.attributo
+FROM articlesMobidoc am
+JOIN listini lis ON am.id=lis.article_mobidoc_id
+WHERE am.`id`='$cr_article_id' AND (am.home='Y' OR am.tele='Y') AND lis.doctor_id='".$cr_article_id."'";
 
                         echo $sql3;
                         $result3 = mysqli_query($conn, $sql3);
@@ -249,7 +254,7 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
                             $visit_price = $rows3['visit_tele_price'];
                         }
 
-
+                        $visit_attribute = $rows3['attributo'];
                         ?>
 
                         <div class="details_container mb-30">
@@ -274,7 +279,11 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
                                             <div>Tipo di Visita:</div>
                                         </div>
                                         <div class="value w-clearfix">
-                                            <div class="text-block-35"><?php echo $cr_booking_name; ?></div>
+                                            <div class="text-block-35"><?php echo $cr_booking_name;
+                                            if ($visit_attribute){
+                                                echo ' <strong>('.$visit_attribute.')</strong>';
+                                            }
+                                            ?></div>
                                             <div class="modify_visit_container"></div>
                                         </div>
                                         <div class="data">
