@@ -68,21 +68,18 @@ session_start();
                      $visit_name = $cookie_book_visit['Booking_name'];
                      $article_id = $cookie_book_visit['article_id'];
 
-                     $sql3 = "SELECT DISTINCT lis.visit_home_price, lis.visit_tele_price, am.home, am.tele
-FROM articlesMobidoc am
-JOIN listini lis ON am.id=lis.article_mobidoc_id
-JOIN articlesMobidoc_specialty ams ON am.id=ams.id
-JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
-JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
-WHERE am.`descrizione`='$visit_name' AND (am.home='Y' OR am.tele='Y')";
+                     $sql345 = "SELECT DISTINCT am.descrizione, lis.visit_home_price, lis.visit_tele_price, am.home, am.tele
+FROM listini lis
+JOIN articlesMobidoc am ON am.id=lis.article_mobidoc_id
+WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."'";
 
-                     $result3 = mysqli_query($conn, $sql3);
-                     $rows3 = mysqli_fetch_array($result3);
+                     $result345 = mysqli_query($conn, $sql345);
+                     $rows345 = mysqli_fetch_array($result345);
 
-                     if ($rows3['home'] == 'Y' && $rows3['tele'] == 'Y' || $rows3['home'] == 'Y') {
-                         $price = $rows3['visit_home_price'];
+                     if ($rows345['home'] == 'Y' && $rows345['tele'] == 'Y' || $rows345['home'] == 'Y') {
+                         $price = $rows345['visit_home_price'];
                      } else {
-                         $price = $rows3['visit_tele_price'];
+                         $price = $rows345['visit_tele_price'];
                      }
 
                      array_push($items_array, array(

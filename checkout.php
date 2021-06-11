@@ -219,6 +219,7 @@ include 'header.php'; ?>
                         $cr_article_id = $cookie_book_visit['article_id'];
                         $sql2 = "select * from doctor_profile where doctor_id ='" . $cr_doctor_id . "'";
 
+
                         $result2 = mysqli_query($conn, $sql2);
                         $rows2 = mysqli_fetch_array($result2);
                         $doctor_email = $rows2['email'];
@@ -231,24 +232,17 @@ include 'header.php'; ?>
                         $doctor_photo = "/professionisti/" . $rows2['photo'];
 
 
-                        /*$sql3 = "SELECT DISTINCT lis.visit_home_price, lis.visit_tele_price, am.home, am.tele
-FROM articlesMobidoc am
-JOIN listini lis ON am.id=lis.article_mobidoc_id
-JOIN articlesMobidoc_specialty ams ON am.id=ams.id
-JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
-JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
-WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";*/
+                        $sql3 = "SELECT DISTINCT am.descrizione, lis.visit_home_price, lis.visit_tele_price, am.home, am.tele, am.attributo
+FROM listini lis
+JOIN articlesMobidoc am ON am.id=lis.article_mobidoc_id
+WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_doctor_id."'";
 
-                        $sql3 = "SELECT DISTINCT lis.visit_home_price, lis.visit_tele_price, am.home, am.tele, am.attributo
-FROM articlesMobidoc am
-JOIN listini lis ON am.id='".$cr_article_id."'
-WHERE (am.home='Y' OR am.tele='Y') AND lis.doctor_id='".$cr_doctor_id."'";
+                      echo $sql3;
 
-                        echo $sql3;
+                        //echo $sql3;
                         $result3 = mysqli_query($conn, $sql3);
                         $rows3 = mysqli_fetch_array($result3);
 
-                        print_r($rows3);
 
                         if ($rows3['home'] == 'Y' && $rows3['tele'] == 'Y' || $rows3['home'] == 'Y') {
                             $visit_price = $rows3['visit_home_price'];
@@ -369,7 +363,7 @@ WHERE (am.home='Y' OR am.tele='Y') AND lis.doctor_id='".$cr_doctor_id."'";
                     }
                 }
             }
-            mysqli_close($conn);
+            //mysqli_close($conn);
             ?>
             </div>
             <div class="check_step2">
