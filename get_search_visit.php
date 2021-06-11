@@ -7,6 +7,9 @@ if($conn === false){
 }
 
 $sql = "SELECT v.visit_id, v.visit_name, v.body_text, v.image, ms.ERid FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+echo $sql;
+echo '<br>';
+
 $result = mysqli_query($conn, $sql);
 $row_count = mysqli_num_rows($result);
 
@@ -80,6 +83,7 @@ JOIN medical_specialty as ms ON '" . $mds_erid . "'=ams.specialtyMobidoc
 WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid."' AND dp.puo_refertare='N' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
                     }
 
+                    echo $sql2;
                     $result2 = mysqli_query($conn, $sql2);
                     $rows2_count = mysqli_num_rows($result2);
                     if (empty($rows2_count)){
