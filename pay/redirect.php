@@ -69,7 +69,6 @@
 		->setDescription('Membeship');
 	
 
-	echo 'hello1';
 	//Redirect URLs
 	$redirectUrls->setReturnUrl('https://www.mobidoc.it/pay/auth.php?approved=true')
 		->setCancelUrl('https://www.mobidoc.it/pay/auth.php?approved=false');
@@ -82,13 +81,12 @@
 
 	//$request = clone $payment;
 
-	echo 'hello2';
+
 	//try {
 		$payment->create($apiContext);
 		$redirectUrl = $payment->getApprovalLink();
 		$auth_id = $payment->getId();
-		$_SESSION['auth'] = $auth_id;	
-		echo 'hello3';
+		$_SESSION['auth'] = $auth_id;
 		/*
 	} catch (PayPal\Exception\PayPalConnectionException $ex) {
 		echo $ex->getCode();
@@ -99,6 +97,5 @@
 		echo 'hello4';
 	}
 	*/
-	echo 'hello5';
 	header('Location: '. $redirectUrl);
 ?>
