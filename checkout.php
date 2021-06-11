@@ -239,6 +239,7 @@ JOIN doctor_specialty ds ON ams.specialtyMobidoc=ds.specialty
 JOIN doctor_profile dp ON ds.doctor_id=dp.doctor_id
 WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";
 
+                        echo $sql3;
                         $result3 = mysqli_query($conn, $sql3);
                         $rows3 = mysqli_fetch_array($result3);
 
