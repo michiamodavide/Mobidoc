@@ -172,8 +172,10 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
               "SELECT DISTINCT bg.price, bg.total_discount, am.descrizione, am.attributo
 FROM bookings bg
 JOIN booked_service as bs ON bs.booking_id = bg.booking_id 
- JOIN articlesmobidoc as am ON am.id=bs.article_id
+ JOIN articlesMobidoc as am ON am.id=bs.article_id
 where bg.booking_id='".$rows['booking_id']."'";
+
+            echo $booked_service_query;
 
             $booked_service_result = mysqli_query($conn, $booked_service_query);
             $booked_service_row = mysqli_fetch_array($booked_service_result);
