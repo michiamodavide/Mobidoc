@@ -230,7 +230,7 @@ padding: 13px 30px;
          $booked_service_row = mysqli_fetch_array($booked_service_result);
 
          $article_id = $booked_service_row['article_id'];
-         $get_visit_query = "select descrizione from articlesmobidoc where id='" . $article_id . "'";
+         $get_visit_query = "select descrizione from articlesMobidoc where id='" . $article_id . "'";
          $get_visit_result = mysqli_query($conn, $get_visit_query);
          $get_visit_row = mysqli_fetch_array($get_visit_result);
 

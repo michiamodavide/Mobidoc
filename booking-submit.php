@@ -181,7 +181,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
       ". $item_array['exam_name'].'-: <strong>€'.$visit_amount.'<br>'."
      ";
                         }
-                        $message123 .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Data e Ora </strong>:da confermare<br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+                        $message123 .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Data e Ora</strong>:da confermare<br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
 
                         mail($to, $subject, $message123, $headers);
