@@ -241,12 +241,14 @@ WHERE am.`descrizione`='$cr_booking_name' AND (am.home='Y' OR am.tele='Y')";*/
 
                         $sql3 = "SELECT DISTINCT lis.visit_home_price, lis.visit_tele_price, am.home, am.tele, am.attributo
 FROM articlesMobidoc am
-JOIN listini lis ON am.id=lis.article_mobidoc_id
-WHERE am.`id`='$cr_article_id' AND (am.home='Y' OR am.tele='Y') AND lis.doctor_id='".$cr_article_id."'";
+JOIN listini lis ON am.id='".$cr_article_id."'
+WHERE (am.home='Y' OR am.tele='Y') AND lis.doctor_id='".$cr_doctor_id."'";
 
                         echo $sql3;
                         $result3 = mysqli_query($conn, $sql3);
                         $rows3 = mysqli_fetch_array($result3);
+
+                        print_r($rows3);
 
                         if ($rows3['home'] == 'Y' && $rows3['tele'] == 'Y' || $rows3['home'] == 'Y') {
                             $visit_price = $rows3['visit_home_price'];
