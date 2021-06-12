@@ -174,7 +174,7 @@ if(isset($_POST['submit'])){
           $doctor_id = $doc_ids_array[$i];
           /*$article_id = mysqli_real_escape_string($conn, $_POST['vist_name']);*/
           $get_visit_query = "select descrizione, ls.visit_home_price, ls.visit_tele_price, am.home, am.tele
- from articlesmobidoc am
+ from articlesMobidoc am
   join listini ls on ls.article_mobidoc_id=am.id
   where ls.article_mobidoc_id='" . $article_id . "' AND ls.doctor_id='" . $doctor_id . "'";
           $get_visit_result = mysqli_query($conn, $get_visit_query);

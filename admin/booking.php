@@ -361,14 +361,15 @@
         $result = mysqli_query($conn, $sql);
         while($rows = mysqli_fetch_array($result)){
          $bbb_id = $rows['booking_id'];
-            $get_visit_sql = "SELECT DISTINCT ms.id AS arti_id, ms.descrizione
-  FROM articlesmobidoc ms
+            $get_visit_sql = "SELECT DISTINCT ms.id AS arti_id, ms.descrizione, ms.attributo
+  FROM articlesMobidoc ms
   JOIN booked_service bs ON ms.id=bs.article_id
  WHERE bs.booking_id = '".$bbb_id."'";
             $get_visit_result = mysqli_query($conn, $get_visit_sql);
             $get_visit_row = mysqli_fetch_array($get_visit_result);
 
             $visit_name = $get_visit_row['descrizione'];
+            $visit_attribute = $get_visit_row['attributo'];
           $price = $rows['price'];
           $payment_mode = $rows['payment_mode'];
           $dateBooking = $rows['date_of_booking'];
@@ -467,7 +468,17 @@
             </div>
             <div class="glance_details">
               <div class="glance_details_title">Prezzo</div>
-              <div class="glance_details_value"><?PHP echo '€'.$price; ?></div>
+              <div class="glance_details_value">
+                  <?php if (!empty($rows['total_discount'])){?>
+                  <strike style="color:red"><span style="color: black">
+                      <?PHP echo '€'.$price; ?>
+                      </span></strike>
+                  <?php
+                      echo ' €'.$rows['total_discount'];
+                  }else{?>
+                      <?PHP echo '€'.$price; ?>
+                  <?php }?>
+              </div>
             </div>
             <div class="glance_details">
               <div class="glance_details_title">Metodo di pagamento</div>

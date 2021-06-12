@@ -296,7 +296,7 @@ if ( isset( $_GET[ 'icp' ] ) ) {
 
   $address = $sql_get_tmp_data[ 'address' ];
   $article_idd = $sql_get_tmp_data[ 'visit_name' ];
-  $get_article_desc = "SELECT descrizione FROM articlesmobidoc WHERE id = '" . $article_idd . "'";
+  $get_article_desc = "SELECT descrizione FROM articlesMobidoc WHERE id = '" . $article_idd . "'";
   $get_article_result = mysqli_query( $conn, $get_article_desc );
   $get_article_row = mysqli_fetch_array( $get_article_result );
   $visit_name1 = $get_article_row[ 'descrizione' ];

@@ -32,13 +32,14 @@
           die("ERROR database");
         }
 
-          $get_footer_sql = "SELECT v.visit_id, v.visit_name, v.body_text, v.image FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+          $get_footer_sql = "SELECT v.visit_id, v.visit_name, v.body_text, v.image, v.specialty_id FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
           $get_footer_result = mysqli_query($conn, $get_footer_sql);
           $row_count = mysqli_num_rows($get_footer_result);
 
         while($get_footer_row = mysqli_fetch_array($get_footer_result)){
         $visit_name = $get_footer_row['visit_name'];
-        $link = '/visite-ed-esame/landing-page.php?mds='.$visit_name;;
+            $visit_id = $get_footer_row['specialty_id'];
+        $link = '/visite-ed-esame/landing-page.php?mds_name='.$visit_name.'&mds_id='.$visit_id;
         ?>
           <a href="<?php echo $link;?>" target="_blank" style="color:#fff; text-decoration:none;">
               <div style="margin-bottom: 10px;">
