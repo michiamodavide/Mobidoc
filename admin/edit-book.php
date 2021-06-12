@@ -11,17 +11,24 @@ if(isset($_POST['submit'])){
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
 
     $patients_idd = $_POST['patient_id'];
-    $sql = "UPDATE `paziente_profile` SET `dob` = '$dob', `phone` = '$tel', `first_name` = '$first_name', `last_name` = '$last_name' WHERE `paziente_id` = $patients_idd;";
-    $result = mysqli_query($conn, $sql);
 
-    if ($result == 1) {
+     /*
+         $sql = "UPDATE `paziente_profile` SET `dob` = '$dob', `phone` = '$tel', `first_name` = '$first_name', `last_name` = '$last_name' WHERE `paziente_id` = $patients_idd;";
+    $result = mysqli_query($conn, $sql);
+     */
+
 
       $paziente_main_name = $first_name.' '.$last_name;
 
       $doctor_id = mysqli_real_escape_string($conn, $_POST['doc_id']);
       $refertatore_id = mysqli_real_escape_string($conn, $_POST['refertatore_id']);
       $visit_name = mysqli_real_escape_string($conn, $_POST['vist_name']);
+
       $patient_apt_date = $_POST['appoint_time'];
+
+       date_default_timezone_set("Europe/Rome");
+      $doc_apt_time = date("Y/m/d H:i:s", strtotime($patient_apt_date));
+
 
       $booking_idd = $_POST['booing_idd'];
 
@@ -40,7 +47,7 @@ if(isset($_POST['submit'])){
       $opointment_time = $booking_res['apoint_time'];
 
       /*update booking data*/
-      $sql12 = "UPDATE `bookings` SET `doctor_id` = '$doctor_id',`refertatore_id` = '$referr_id', `visit_name` = '$visit_name', `apoint_time` = '$patient_apt_date' WHERE `booking_id` = $booking_idd;";
+      $sql12 = "UPDATE `bookings` SET `doctor_id` = '$doctor_id',`refertatore_id` = '$referr_id', `apoint_time` = '$doc_apt_time' WHERE `booking_id` = $booking_idd;";
       $result12 = mysqli_query($conn, $sql12);
 
       /*get doctor data*/
@@ -200,10 +207,6 @@ if(isset($_POST['submit'])){
         echo "Unable to insert record";
       }
 
-    } else {
-      header("location: /admin/booking.php");
-      echo "Unable to insert record2";
-    }
 
     mysqli_close($conn);
 

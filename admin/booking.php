@@ -372,15 +372,15 @@
             $visit_attribute = $get_visit_row['attributo'];
           $price = $rows['price'];
           $payment_mode = $rows['payment_mode'];
-          $dateBooking = $rows['date_of_booking'];
+
+            $dateBooking =  date("d/m/Y H:i:s", strtotime($rows['date_of_booking']));;
+
           $pateint_id = $rows['patient_id'];
           $doctor_id = $rows['doctor_id'];
           $booking_id = 'booking-details.php?id='.$rows['booking_id'];
           $booking_status = $rows['booking_status'];  
           $admin_booking = $rows['admin_book'];
           $admin_book_status = $rows['admin_payment_status'];
-          $admin_book_status = $rows['admin_payment_status'];
-
           $sql2 = "select * from paziente_profile where paziente_id = '".$pateint_id."'";
           $result2 = mysqli_query($conn, $sql2);
           $rows2 = mysqli_fetch_array($result2);
@@ -417,6 +417,7 @@
             <h1 class="heading-24"><?PHP echo $patient_name; ?></h1>
 
               <?php
+              if ($booking_status){
               $flag_status_txt = '';
               $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
               echo '<div class="bok_status style-1">'.$flag_status_txt[$booking_status].'</div>';
@@ -427,7 +428,7 @@
                   <div class="flag_status"><?=$flag_status_txt[$booking_status+1]?></div>
               </a>
 
-              <?php }?>
+              <?php }}?>
 
 			  
 			  </div>
@@ -464,7 +465,11 @@
           <div class="bottom">
             <div class="glance_details">
               <div class="glance_details_title">Prestazione prenotata</div>
-              <div class="glance_details_value" style="line-height:25px;"><?PHP echo $visit_name; ?></div>
+              <div class="glance_details_value" style="line-height:25px;"><?PHP echo $visit_name;
+              if ($visit_attribute){
+                  echo ' <strong>('.$visit_attribute.')</strong>';
+              }
+              ?></div>
             </div>
             <div class="glance_details">
               <div class="glance_details_title">Prezzo</div>
@@ -486,13 +491,15 @@
             </div>
             <div class="glance_details">
               <div class="glance_details_title">Data Prenotazione</div>
-              <div class="glance_details_value"><?PHP echo $dateBooking; ?></div>
+              <div class="glance_details_value">
+                  <?PHP echo $dateBooking; ?>
+              </div>
             </div>
             <div class="glance_details">
               <div class="glance_details_title">Professionista</div>
               <div class="glance_details_value"><?PHP echo $doctor_name; ?></div>
             </div>
-            <?php if (isset($admin_booking)){
+            <?php if (isset($admin_booking) && !empty($admin_booking)){
               if ($admin_book_status == 1){
                $is_check = 'checked';
               }else{
@@ -503,7 +510,15 @@
               <div class="glance_details_title" style="font-size: 14px"><input type="checkbox" <?php echo $is_check?> class="admin_pyment_confirm lable2" id="admin_payment_check" name="admin_payment_check" data-id="<?php echo $bbb_id?>" value="<?php echo $admin_book_status?>"><label for="admin_payment_check">Pagamento</label></div>
              <br>
             </div>
-            <?php }?>            
+            <?php }else if (strtolower($payment_mode) == 'online'){?>
+                <div class="glance_details">
+                    <div class="glance_details_title" style="font-size: 14px">
+                        <input type="checkbox" checked class="admin_pyment_confirm lable2" id="online_payment_check" disabled="disabled">
+                        <label for="online_payment_check">Carta di credito</label>
+                    </div>
+                    <br>
+                </div>
+              <?php }?>
           </div>
         </div>
       </div>

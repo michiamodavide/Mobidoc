@@ -168,7 +168,18 @@ $sql2 = "select * from paziente_profile where paziente_id = '".$pateint_id."'";
             </div>
             <div class="glance_details diff">
               <div class="glance_details_title">Prezzo</div>
-              <div class="glance_details_value"><?php echo $price;?></div>
+              <div class="glance_details_value">
+                  <?php if (!empty($rows['total_discount'])){?>
+                      <strike style="color:red"><span style="color: black">
+                      <?PHP echo $price; ?>
+                      </span></strike>
+                      <?php
+                      echo ' €'.$rows['total_discount'];
+                  }else{?>
+                      <?PHP echo $price; ?>
+                  <?php }?>
+
+              </div>
             </div>
             <div class="glance_details diff">
               <div class="glance_details_title">Metodo di pagamento</div>

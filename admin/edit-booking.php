@@ -294,7 +294,7 @@ include '../connect.php';
   <?php
 
   $booking_id = $_GET['id'];
-  $sql_book = "select bs.article_id, am.descrizione, bk.apoint_time, bk.refertatore_id, bk.doctor_id, bk.patient_id
+  $sql_book = "select bs.article_id, am.descrizione, am.attributo, bk.apoint_time, bk.refertatore_id, bk.doctor_id, bk.patient_id
 from bookings bk
 JOIN booked_service bs on bs.booking_id=bk.booking_id
 JOIN articlesMobidoc am on bs.article_id=am.id
@@ -302,7 +302,9 @@ where bk.booking_id ='".$booking_id."'";
 
   $get_book_con = mysqli_query($conn, $sql_book);
   $get_book_result = mysqli_fetch_array($get_book_con);
+  $book_article_id = $get_book_result['article_id'];
   $book_visit_name = $get_book_result['descrizione'];
+  $book_visit_attribute = $get_book_result['attributo'];
   $refertatore_id = $get_book_result['refertatore_id'];
 
   if ($get_book_result['apoint_time']){
@@ -312,11 +314,15 @@ where bk.booking_id ='".$booking_id."'";
   }
 
   /*get doctor data*/
-  $sql_doc = "select * from doctor_profile where doctor_id ='".$get_book_result['doctor_id']."'";
+  $sql_doc = "select dp.doctor_id, dp.fname, dp.lname, ds.specialty
+from doctor_profile dp
+join doctor_specialty ds on ds.doctor_id=dp.doctor_id
+where dp.doctor_id ='".$get_book_result['doctor_id']."'";
   $sql_get_doc = mysqli_query($conn, $sql_doc);
   $sql_get_doc_data = mysqli_fetch_array($sql_get_doc);
   $doctor_id = $sql_get_doc_data['doctor_id'];
   $doc_name = $sql_get_doc_data['fname'].' '.$sql_get_doc_data['lname'];
+  $doctor_speciality = $sql_get_doc_data['specialty'];
 
   if (isset($refertatore_id)) {
     /*get refertatore data*/
@@ -335,10 +341,18 @@ where bk.booking_id ='".$booking_id."'";
   $patient_id = $sql_get_tmp_data['paziente_id'];
   $fisc_code = $sql_get_tmp_data['fiscale'];
   $email = $sql_get_tmp_data['email'];
-  $phone = $sql_get_tmp_data['phone'];
   $fname = $sql_get_tmp_data['first_name'];
   $lname = $sql_get_tmp_data['last_name'];
-  $dobb = $sql_get_tmp_data['dob'];
+
+  $dobb = '';
+  if (!empty($sql_get_tmp_data['dob'])){
+      $dobb = date("d-m-Y", strtotime($sql_get_tmp_data['dob']));
+  }
+
+  /*get patient data*/
+  $sql_contact_query = "select * from  contact_profile where id ='".$sql_get_tmp_data['contact_id']."'";
+  $get_contact_result = mysqli_query($conn, $sql_contact_query);
+  $get_contact_row= mysqli_fetch_array($get_contact_result);
 
   ?>
 </head>
@@ -371,43 +385,52 @@ where bk.booking_id ='".$booking_id."'";
          <input type="hidden" name="booing_idd" value="<?php echo $booking_id?>">
          <div>
           <div class="form_section">
-           <div class="form_section_heading">Informazioni Contatto</div>
+           <div class="form_section_heading">Informazioni Paziente</div>
            <div class="dual_container diff">
             <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off" readonly>
             <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" value="<?php echo $email?>" id="email" readonly>
            </div>
-           <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono *" value="<?php echo $phone?>" id="tele" required>
+              <div class="dual_container diff">
+                  <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname.' '.$lname?>" id="first_name" readonly>
+                 <?php
+                /*
+                 <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name" required>
+                <input type="text" class="datepicker-here inputs w-input date_of_birth" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" style="margin-bottom: 25px" readonly>
+                */
+                 ?>
+                  <input type="text" class="inputs w-input" maxlength="256" autocomplete="off" name="dob" value="<?=$dobb?>" placeholder="Data di Nascita *" id="dob" readonly>
+
+              </div>
           </div>
           <div class="form_section">
-           <div class="form_section_heading">Informazioni Paziente</div>
-           <div class="dual_container diff">
-            <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname?>" id="first_name" required>
-            <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name" required>
-           </div>
-           <input type="text" class="datepicker-here inputs w-input date_of_birth" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" style="margin-bottom: 25px" required>
+           <div class="form_section_heading">Informazioni Contatto</div>
+              <div class="dual_container diff">
+                  <input type="text" class="inputs w-input" maxlength="256" name="contact_fname" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $get_contact_row['name']?>" autocomplete="off" readonly>
+                  <input type="text" class="inputs w-input" maxlength="256" name="contact_lname" placeholder="Email *" value="<?php echo $get_contact_row['surname']?>" id="contact_lname" readonly>
+              </div>
+
+              <div class="dual_container diff">
+                  <input type="text" class="inputs w-input" maxlength="256" name="contact_email" placeholder="Nome *" value="<?php echo $get_contact_row['email']?>" readonly>
+                  <input type="tel" class="inputs w-input" maxlength="256" name="contact_tele" placeholder="Telefono *" value="<?php echo $get_contact_row['phone']?>" readonly>
+              </div>
+
 
           </div>
           <div class="form_section">
            <div class="form_section_heading">Prenotazione Prestazione</div>
            <div class="duo_flex">
-            <div class="choose_your_area select1">
+            <div class="choose_your_area select1" style="pointer-events: none;opacity: 0.8;">
              <div class="search_cap_input sci2">
               <div class="input_element" style="background:#d3fbff;">
                <img src="../images/search.svg" width="28"  alt="">
-               <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" onchange="getVisitDoc()" required>
-                <option value="<?php echo $book_visit_name?>" selected><?php echo $book_visit_name?></option>
-                 <?php
-                 include '../connect.php';
-                 /* $visit_sql = "select * from doctor_visit order by visit_name";*/
-                 $visit_sql = "select DISTINCT visit_name from doctor_visit
-  INNER JOIN doctor_profile on doctor_visit.doctor_email = doctor_profile.email
-  where doctor_profile.puo_refertare='N' AND doctor_profile.active = 'Y'";
-                 $visit_result = mysqli_query($conn, $visit_sql);
-                 while($visit_rows = mysqli_fetch_array($visit_result)){
-                   $visit_types = $visit_rows['visit_name'];
-                   ?>
-                  <option value="<?PHP echo $visit_types;?>"><?PHP echo $visit_types;?></option>
-                 <?php } mysqli_close($conn);?>
+               <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" required>
+                <option value="<?php echo $book_visit_name?>" selected>
+                    <?php echo $book_visit_name;
+                    if ($book_visit_attribute){
+                        echo ' <strong>('.$book_visit_attribute.')</strong>';
+                    }
+                    ?>
+                </option>
                </select>
                <script>
                  $('#select-visit').selectize();
@@ -433,11 +456,13 @@ where bk.booking_id ='".$booking_id."'";
              </div>
             </div>
            </div>
+
            <div class="duo_flex">
             <div class="choose_your_area select3">
              <div class="search_cap_input sci2">
               <div class="input_element" style="background:#d3fbff;">
                <img src="../images/search.svg" width="28"  alt="">
+
 
                <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id">
 
@@ -447,7 +472,20 @@ where bk.booking_id ='".$booking_id."'";
                  } else{
                    ?>
                   <option value="">Seleziona Refertatore</option>
-                 <?php }?>
+                 <?php }
+                 $get_ref_sql = "SELECT DISTINCT dp.doctor_id, dp.fname, dp.lname
+FROM doctor_profile dp
+JOIN doctor_register as dg ON dg.id = dp.doctor_id 
+JOIN doctor_specialty ds ON ds.doctor_id = dg.id 
+JOIN listini ls ON ls.doctor_id = ds.doctor_id
+where dg.tick='1' AND ds.specialty='".$doctor_speciality."' AND ls.article_mobidoc_id='".$book_article_id."' AND dp.puo_refertare='Y' AND dp.active='Y'";
+                 $get_ref_result = mysqli_query($conn, $get_ref_sql);
+                 $get_rows_count = mysqli_num_rows($get_ref_result);
+                 while ($get_ref_row = mysqli_fetch_array($get_ref_result)) {
+                     if ($get_ref_row['doctor_id'] != $ref_id){
+                 ?>
+                     <option value="<?php echo $get_ref_row['doctor_id'] ?>"><?php echo $get_ref_row['fname'].' '.$get_ref_row['lname'] ?></option>
+                   <?php }}?>
                </select>
                <script>
                  var $select_ref = $('#select-refertatore').selectize();
@@ -456,6 +494,10 @@ where bk.booking_id ='".$booking_id."'";
                </script>
               </div>
              </div>
+                <?php if ($get_rows_count < 1){?>
+                <p style="text-align: center;color: red;">No referrer available for the selected visit.</p>
+                    <style>.choose_your_area.select3{pointer-events: none;opacity: 0.8;}</style>
+           <?php }?>
             </div>
            </div>
           </div>
@@ -589,7 +631,7 @@ where bk.booking_id ='".$booking_id."'";
       color: #00285C !important;
      }
 
-     .choose_your_area.select2, .choose_your_area.select3 {
+     .choose_your_area.select2 {
       pointer-events: none;
      }
     </style>
@@ -697,7 +739,7 @@ where bk.booking_id ='".$booking_id."'";
   color: #00285C !important;
  }
 
- .choose_your_area.select2, .choose_your_area.select3 {
+ .choose_your_area.select2 {
   pointer-events: none;
   opacity: 0.6;
  }
@@ -707,89 +749,9 @@ where bk.booking_id ='".$booking_id."'";
 <script src="../js/admin/webflow.js" type="text/javascript"></script>
 <script src="/paziente/date_pic.js?v=1"></script>
 <script src="/paziente/dist/js/i18n/datepicker.en.js?v=1"></script>
+
 <script type="text/javascript">
   $( document ).ready(function() {
-    var visit_type_single = $("#select-visit option").val();
-    // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
-    $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
-    $.ajax({
-      url: "/paziente/get_visit_doc.php",
-      type: "post",
-      data: {data:visit_type_single},
-      dataType: "json",
-      success: function (response) {
-        $.each(response, function(index) {
-          var puo_refertare = response[index].puo_refertare;
-          var is_active_doc = response[index].active;
-          if (is_active_doc == 'Y'){
-            if (puo_refertare == 'N'){
-              $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-              doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
-            } else if (puo_refertare == 'Y') {
-              $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
-              ref_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
-            }
-          }
-        });
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
-      }
-    });
-  });
-  function getVisitDoc() {
-    var visit_type_single = $("#select-visit option").val();
-    var items_new = doc_select.items.slice(0);
-    for (var i in items_new) {
-      doc_select.removeItem(items_new[i]);
-    }
-    doc_select.clearOptions();
-    ref_select.clear();
-    ref_select.clearOptions();
-    // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
-    $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
-    $.ajax({
-      url: "/paziente/get_visit_doc.php",
-      type: "post",
-      data: {data:visit_type_single},
-      dataType: "json",
-      success: function (response) {
-        $.each(response, function(index) {
-          var puo_refertare = response[index].puo_refertare;
-          var is_active_doc = response[index].active;
-          if (is_active_doc == 'Y'){
-            if (puo_refertare == 'N'){
-              $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-              doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
-            } else if (puo_refertare == 'Y') {
-              $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
-              ref_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
-            }
-          }
-        });
-
-        doc_select.refreshOptions();
-        ref_select.refreshOptions();
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
-      }
-    });
-  }
-
-
-  var dobb = '<?php echo $dobb?>';
-  if (dobb){
-    var date_of_birth = date_of_birth = new Date('<?php echo $dobb?>');
-    $('.date_of_birth').datepicker({
-      timepicker: false
-    }).data('datepicker').selectDate(new Date(date_of_birth.getFullYear(), date_of_birth.getMonth(), date_of_birth.getDate()));
-  }else {
-    $('.date_of_birth').datepicker({
-      timepicker: false
-    });
-  }
-
   $("#appoint_time").keyup(function(){
     var select_date = $(this).val().split('-');
     var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
@@ -805,14 +767,15 @@ where bk.booking_id ='".$booking_id."'";
 
   });
 
+      var opoint_dd = '<?php echo $apoint_time?>';
+      if (opoint_dd){
+          console.log(opoint_dd);
+          var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
+          $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
 
-  var opoint_dd = '<?php echo $apoint_time?>';
-  if (opoint_dd){
-    console.log(opoint_dd);
-    var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
-    $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+      }
+  });
 
-  }
   $(document).ready(function(){
     $('.admin_item:nth-child(3)').addClass('current');
   });

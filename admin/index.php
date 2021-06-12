@@ -318,13 +318,20 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                     <?php } ?>
 
                     <?PHP
-                    if ($user_active == 'Y') {
-                        ?>
-                  <a class="active_anchor" href="doc_active.php?a=N&email=<?php echo urlencode($email);?>"> <div class="active">Attivo</div></a>
-                    <?php } else {
-                        ?>
-                  <a class="active_anchor" href="doc_active.php?a=Y&email=<?php echo urlencode($email);?>"><div class="active inactive">Non Attivo</div></a>
-                    <?php } ?>
+                    if ($tick == 1) {
+                        if ($user_active == 'Y') {
+                            ?>
+                            <a class="active_anchor" href="doc_active.php?a=N&email=<?php echo urlencode($email); ?>">
+                                <div class="active">Attivo</div>
+                            </a>
+                        <?php } else {
+                            ?>
+                            <a class="active_anchor" href="doc_active.php?a=Y&email=<?php echo urlencode($email); ?>">
+                                <div class="active inactive">Non Attivo</div>
+                            </a>
+                        <?php }
+                    }
+                    ?>
 
 
                 </div>
