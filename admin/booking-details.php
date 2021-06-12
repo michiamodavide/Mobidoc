@@ -11,7 +11,7 @@
   $rows = mysqli_fetch_array($result);
 
   $get_visit_sql = "SELECT DISTINCT ms.id AS arti_id, ms.descrizione
-  FROM articlesmobidoc ms
+  FROM articlesMobidoc ms
   JOIN booked_service bs ON ms.id=bs.article_id
  WHERE bs.booking_id = '".$_GET['id']."'";
    $get_visit_result = mysqli_query($conn, $get_visit_sql);

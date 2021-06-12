@@ -6,20 +6,21 @@ if($conn === false){
     die("ERROR database");
 }
 
-$sql = "SELECT v.visit_id, v.visit_name, v.body_text, v.image, ms.ERid FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+$sql = "SELECT v.visit_id, v.visit_name, v.body_text, v.image, v.specialty_id, ms.ERid FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
 
 $result = mysqli_query($conn, $sql);
 $row_count = mysqli_num_rows($result);
 
 while($rows = mysqli_fetch_array($result)){
     $visit_name = $rows['visit_name'];
+    $visit_id = $rows['specialty_id'];
 
     $image1 = 'empty.jpg';
     if ($rows['image']){
         $image1 = $rows['image'];
     }
     $mds_erid = $rows['ERid'];
-    $link = '/visite-ed-esame/landing-page.php?mds='.$visit_name;
+    $link = '/visite-ed-esame/landing-page.php?mds_name='.$visit_name.'&mds_id='.$visit_id;
 
     if($row_count){
         $expl_visit_name = explode(" ", $visit_name);

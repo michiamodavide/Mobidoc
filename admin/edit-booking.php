@@ -297,7 +297,7 @@ include '../connect.php';
   $sql_book = "select bs.article_id, am.descrizione, bk.apoint_time, bk.refertatore_id, bk.doctor_id, bk.patient_id
 from bookings bk
 JOIN booked_service bs on bs.booking_id=bk.booking_id
-JOIN articlesmobidoc am on bs.article_id=am.id
+JOIN articlesMobidoc am on bs.article_id=am.id
 where bk.booking_id ='".$booking_id."'";
 
   $get_book_con = mysqli_query($conn, $sql_book);

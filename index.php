@@ -241,13 +241,14 @@ unset($_SESSION['pat_id']);
       $x_num=0;
       echo "<div class=\"feature_container abc\">";
 
-      $sql_get_result1 = "SELECT v.visit_id, v.visit_name, v.body_text, v.image FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
+      $sql_get_result1 = "SELECT v.visit_id, v.visit_name, v.body_text, v.image, v.specialty_id FROM visit v JOIN medical_specialty ms ON ms.id=v.specialty_id WHERE ms.`status`='Y'";
       $get_result1 = mysqli_query($conn, $sql_get_result1);
       $row_count1 = mysqli_num_rows($get_result1);
 
       while($visit_doc_rows = mysqli_fetch_array($get_result1)){
       $visit_name1 = $visit_doc_rows['visit_name'];
-        $link1 = '/visite-ed-esame/landing-page.php?mds='.$visit_name1;
+      $visit_id = $visit_doc_rows['specialty_id'];
+        $link1 = '/visite-ed-esame/landing-page.php?mds_name='.$visit_name1.'&mds_id='.$visit_id;
           $image1 = 'empty.jpg';
           if (!empty($visit_doc_rows['image'])){
               $image1 = $visit_doc_rows['image'];

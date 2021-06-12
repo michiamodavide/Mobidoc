@@ -592,7 +592,7 @@ if (!isset($_SESSION['adminlogin'])) {
                     {
                         $last_visit_id = mysqli_insert_id($conn);
                         $visit_erid = $_POST['erid'];
-                        $sql12 = "insert into articlesmobidoc_specialty (id, specialtyMobidoc) values('".$last_visit_id."', '".$visit_erid."')";
+                        $sql12 = "insert into articlesMobidoc_specialty (id, specialtyMobidoc) values('".$last_visit_id."', '".$visit_erid."')";
                         $result12 = mysqli_query($conn, $sql12);
 
                         if ($result12 == 1){

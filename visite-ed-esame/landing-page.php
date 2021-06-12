@@ -6,8 +6,8 @@ if($conn === false){
 }
 
 
-if (isset($_GET['mds']) && !empty($_GET['mds'])){
-    $sql = "select * from visit where visit_name='".$_GET['mds']."'";
+if (isset($_GET['mds_id']) && !empty($_GET['mds_id'])){
+    $sql = "select * from visit where specialty_id='".$_GET['mds_id']."'";
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_array($result);
     $visit_name = $rows['visit_name'];
