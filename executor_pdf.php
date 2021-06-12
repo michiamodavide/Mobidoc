@@ -34,7 +34,7 @@ $pdf->setImageScale( PDF_IMAGE_SCALE_RATIO );
 
 // add a page
 $pdf->AddPage();
-
+$pdf->setImageScale("1.9");
 $pdf->WriteHTML( file_get_contents( "emails_html/pdf2/page1.php" ) );
 $html1 = '<br>
 <p>Text-1</p>';
@@ -153,6 +153,6 @@ $pdf->setImageScale( "1.6" );
 
 $pdf_save_path = dirname( __FILE__ ) . '/assets/generate_pdf';
 
-$fileNL = $pdf_save_path . "/" . strtolower( $bk_name ) . '.pdf'; //Windows
+$fileNL = $pdf_save_path . "/" . strtolower($doctor_fname).'.pdf';
 //$pdf->Output(strtolower(str_replace(' ', '-', $title)).'-'.date('Ymd-Hi').'.pdf', 'F');
-$pdf->Output( $fileNL, 'I' );
+$pdf->Output( $fileNL, 'F' );

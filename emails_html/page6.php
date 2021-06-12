@@ -191,37 +191,42 @@ ul.center-list li span.outer {
   <p>Letta e compresa l’informativa privacy, premendo su <i>“Presto il consenso”</i> o <i>“Nego il consenso”</i>, esprimo la mia volontà in merito al trattamento dei miei dati personali per finalità di marketing: invio di comunicazioni di carattere commerciale, informativo e promo-pubblicitario su prodotti, servizi ed attività di Tekamed S.r.l., con modalità automatizzate di contatto o comunicazioni elettroniche mediante l’utilizzo di posta elettronica e messaggi del tipo SMS, IM, MMS, notifiche push; compimento di indagini di mercato e rilevazione del gradimento e della soddisfazione sui servizi resi agli interessati. Comunicazioni informative, commerciali e pubblicitarie che acconsento a ricevere anche tramite posta cartacea o chiamate telefoniche.
     Questo consenso potrà essere revocato nello stesso modo. </p>
 
-	
-	
-	<table align="center" class="list-div" border="0" cellspacing="0" cellpadding="0">
-  <tbody>
+	<table align="center" class="list-div" border="0" cellspacing="0" cellpadding="0" style="text-align: center">
+  <tbody style="text-align: center">
     <tr>
-      <td><img style="padding-top:5px;" src="emails_html/round-1.jpg" alt=""/>&nbsp;– Presto il consenso</td>
-      <td><img style="margin-top:5px;" src="emails_html/round-2.jpg" alt=""/>&nbsp;– Nego il consenso</td>
+      <td><img style="padding-top:5px;" src="/emails_html/round-2.jpg" alt=""/>&nbsp;– Presto il consenso</td>
+      <td><img style="margin-top:5px;" src="/emails_html/round-2.jpg" alt=""/>&nbsp;– Nego il consenso</td>
       
     </tr>
   </tbody>
 </table>
-		
-	
-  <div class="col-md-12">
-    <div class="wraper">
-      <div class="left-div">Luogo e Data:_________________________________________________________________________________</div>
-      
-    </div>
-    <div class="wraper">
-      <div class="left-div">Nome e Cognome:______________________________________________________________________________</div>
-      
-    </div>
-    <div class="wraper">
-      <div class="left-div">Firma :_______________________________________________________________________________________</div>
-      
-    </div>
-  </div>
-  
-  <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <div class="page-number">Page 6</div>
-  <!--------------------------------------------------------------------------------------------------------------------------------------------------------------> 
+<br>
+<br>
+<br>
+    <div class="left-div">Luogo e Data:_________________________________________________________________________________</div>
+  <br>
+    <div class="left-div">Nome e Cognome:______________________________________________________________________________</div>
+<br>
+    <div class="left-div">Firma :_______________________________________________________________________________________</div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  <div class="page-number">6</div>
 </div>
 </body>
 </html>

@@ -17,6 +17,11 @@
     <p>Tali diritti potranno essere esercitati rivolgendosi al Titolare di trattamento, scrivendo agli indirizzi sopra indicati.<br>
         <br>
         Il Titolare del trattamento si riserva il diritto di apportare modifiche alle presenti politiche di trattamento dei dati personali in qualunque momento, dandone comunicazione agli interessati e richiedendo eventuali consensi ulteriori che si rendano necessari, previa lettura dell’informativa aggiornata, prima di proseguire con il trattamento.</p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="page-number">4</div>
 </div>
 </body>
