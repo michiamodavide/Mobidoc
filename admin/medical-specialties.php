@@ -611,8 +611,8 @@ if (!isset($_SESSION['adminlogin'])) {
                 <form class="visit_form" action="medical-specialties.php" name="email-form" method="post">
 <div class="div-block-88">
                     <input type="hidden" name="erid" class="form_erid">
-                    <input type="text" class="inputs w-input" maxlength="256" name="visit_name" placeholder="Add New Visit/Exam" required="">
-                    <input type="text" class="inputs w-input" maxlength="256" name="attribute" placeholder="attributo">
+                    <input type="text" class="inputs w-input" maxlength="256" name="visit_name" placeholder="Visit/Exam Name"" required="">
+                    <input type="text" class="inputs w-input" maxlength="256" name="attribute" placeholder="Attributo">
 	
 	
 	<table  border="0" cellspacing="0" cellpadding="0" class="width-40">
@@ -647,7 +647,7 @@ if (!isset($_SESSION['adminlogin'])) {
 
             </div>
             <div class="div-block-21 diff">
-                <a style="display: inline-block;" href="#" class="button next close w-button">Close</a>
+                <a style="display: inline-block;margin-left: 0px;" href="#" class="button next close w-button">Cancella</a>
                 <a href="#" class="button-3 next add_visit w-button" style="width: auto;">Add New Visit/Exam</a>
             </div>
         </div>

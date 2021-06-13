@@ -351,7 +351,7 @@ if ( isset( $_GET[ 'icp' ] ) ) {
 		    margin: 0 auto;
 	}
 	.m-b-input{
-		margin-bottom:inherit;
+		margin-bottom:0px;
 	}
 @media only screen and (max-width: 767px) {
 .patient_names{

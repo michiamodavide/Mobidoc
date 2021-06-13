@@ -93,6 +93,14 @@ $erid_id = $get_mds_row['ERid'];
 
         }
     </script>
+
+    <?php
+    if ($erid_id == '011'){
+      echo '<style>   @media screen and (max-width: 780px){
+            .masthead_container h1{font-size: 18px;} 
+        }</style>';
+    }
+    ?>
 </head>
 <body>
 <?php include '../header.php';?>

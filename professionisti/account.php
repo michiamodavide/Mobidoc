@@ -316,7 +316,7 @@ padding: 13px 30px;
                      <?php }else{?>
                          <div class="green-btn"><?=$flag_status_txt[$booking_status]?></div>
                          <?php }
-                     if ($booking_status == 1 || $booking_status == 2 || $booking_status == 4){
+                     if ($booking_status == 1 || $booking_status == 2){
                      ?>
 
                          <a href="/booking_status.php?bkg_id=<?php echo $booking_id?>&booking_flag=<?php echo $new_status?>" class="button-5 faded diff w-button" style="background-color: #f8dbdb;;">
@@ -365,7 +365,11 @@ padding: 13px 30px;
           <a href="#" class="button-5 faded diff w-button view_details_button">Vedi Dettagli Visita</a>
 
           <?php  if ($rows3['puo_refertare'] != 'Y'){?>
-           <?php if ($rows['doctor_booking_status'] == 0) { ?>
+           <?php if ($rows['doctor_booking_status'] == 0) {
+               if ($booking_status < 3){
+                echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' .exam-share-btn, .appoint_buttons_container.book_btn_'.$rows['booking_id'].' .visit_complete{pointer-events: none !important;opacity: 0.4 !important;}</style>';
+               }
+               ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
             <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" article-id="<?php echo $article_id; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" curr-doc-id="<?php echo $doctor_id?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
             <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>&article_id=<?=$article_id?>&visit_name=<?=$visit_name?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>

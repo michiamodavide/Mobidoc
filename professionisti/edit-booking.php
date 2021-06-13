@@ -202,22 +202,29 @@ else {
           <div>
             <div class="form_section">
               <div class="dual_container diff">
+                  <?php
+                  include '../connect.php';
+
+                  $booking_id =  $_GET['bookid'];
+                  /*get data from booking table*/
+                  $sql = "select * from bookings where booking_id ='" . $booking_id . "'";
+                  $result = mysqli_query($conn, $sql);
+                  $booking_res = mysqli_fetch_array($result);
+                  $booking_status = $booking_res['booking_status'];
+                  ?>
 
                 <input type="text" class="datepicker-here inputs w-input appoint_time" data-language="it" data-date-format="dd-mm-yyyy"
                       maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora" id="appoint_time">
-                <div class="choose_your_area">
+                  <?php
+                  if ($booking_status > 2){?>
+                      <p style="text-align: center;color: red;">Booking date can not be changed after execution.</p>
+                      <style>.appoint_time{pointer-events: none;opacity: 0.8;}</style>
+                  <?php }?>
+                <div class="choose_your_area refertor_select">
                   <div class="search_cap_input sci2">
                     <div class="input_element"> <img src="../images/search.svg" width="28"  alt="">
                       <select id="select-refer" name="ref_id" placeholder="Seleziona Refertatore">
                         <?php
-                      include '../connect.php';
-
-                      $booking_id =  $_GET['bookid'];
-                      /*get data from booking table*/
-                      $sql = "select * from bookings where booking_id ='" . $booking_id . "'";
-                      $result = mysqli_query($conn, $sql);
-                      $booking_res = mysqli_fetch_array($result);
-
                       $booking_apt_time = '';
                       if ($booking_res['apoint_time']){
                           $booking_apt_time = date("d-m-Y H:i", strtotime($booking_res['apoint_time']));;
@@ -259,9 +266,13 @@ JOIN listini ls ON ds.doctor_id=ls.doctor_id
                       </select>
                       <script>
                       $('#select-refer').selectize();
-                    </script> 
+                    </script>
                     </div>
                   </div>
+                    <?php if ($booking_status < 3){?>
+                        <p style="text-align: center;color: red;">You can modify referrer once the booking is executed.</p>
+                        <style>.choose_your_area.refertor_select{pointer-events: none;opacity: 0.8;}</style>
+                    <?php }?>
                 </div>
               </div>
             </div>
