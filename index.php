@@ -263,7 +263,9 @@ unset($_SESSION['pat_id']);
           $tm21_class = 'm-t-14';
       ?>
           <div class="feature diff"> <a href="<?php echo $link1?>" target="_blank">
-            <div class="feature_label <?php echo $tm21_class?>"><?php echo wordwrap($visit_name1,20,"<br>\n");?> <img src="images/arrow.png" alt="" > </div>
+            <div class="feature_label <?php echo $tm21_class?>"><?php echo substr(wordwrap($visit_name1,20,"<br>\n"), 0, 30);
+                if (strlen($visit_name1) > 30){echo '...';}
+            ?> <img src="images/arrow.png" alt="" > </div>
             <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=3" style="width: 550px;height: 300px;max-width: 463px;" alt=""> </a> </div>
           <?php
           ++$x_num;

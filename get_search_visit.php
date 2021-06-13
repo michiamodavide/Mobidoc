@@ -25,6 +25,11 @@ while($rows = mysqli_fetch_array($result)){
     if($row_count){
         $expl_visit_name = explode(" ", $visit_name);
 
+        $first_word = $expl_visit_name[0];
+        if ($mds_erid == '011'){
+            $first_word = str_replace(".", "",$first_word);
+        }
+
 
 //        if ($last_selected_article_id){
 //            $expl_visit1 = explode(" ", $last_selected_article_name);
@@ -39,12 +44,13 @@ while($rows = mysqli_fetch_array($result)){
 
         ?>
 
-        <div class="service_container <?php echo trim(strtolower($expl_visit_name[0]))?>">
+        <div class="service_container <?php echo trim(strtolower($first_word))?>">
             <div id="w-node-9ebfabc602d8-851af311" class="service_maine_card">
                 <!-- New HTML-Code --->
                 <div class="feature diff">
                     <a class="pic2" href="<?php echo $link;?>" target="_blank">
-                        <div class="feature_label <?php echo $tm2_class?>"><?php echo $visit_name;?>
+                        <div class="feature_label <?php echo $tm2_class?>"><?php echo substr(wordwrap($visit_name,20,"<br>\n"), 0, 30);
+                            if (strlen($visit_name) > 30){echo '...';}?>
                             <img src="images/arrow.png" alt="" >
                         </div>
                         <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=8" alt="">
@@ -85,7 +91,7 @@ WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid
                     $result2 = mysqli_query($conn, $sql2);
                     $rows2_count = mysqli_num_rows($result2);
                     if (empty($rows2_count)){
-                        echo '<style>.service_container.'.trim(strtolower($expl_visit_name[0])).'{display: none}</style>';
+                        echo '<style>.service_container.'.trim(strtolower($first_word)).'{display: none}</style>';
                     }
 
                     while($rows2 = mysqli_fetch_array($result2)){

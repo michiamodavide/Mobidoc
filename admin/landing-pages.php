@@ -175,11 +175,13 @@ if(!isset($_SESSION['adminlogin']))
         <h1 class="admin_section_heading">Landing Pages</h1>
         <div class="div-block-70">
             <div class="filter">
+                <a href="create-lp.php" style="text-decoration: none;">
                 <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button">
                     <div class="text-block-78">
-                        <a href="create-lp.php" style="text-decoration: none;">Add New Page</a>
+                       Add New Page
                     </div>
                 </div>
+                </a>
             </div>
             <a href="logout.php" class="admin_logout w-button"></a></div>
     </div>
@@ -207,7 +209,9 @@ if(!isset($_SESSION['adminlogin']))
                     <div class="booking_patent_image" style=" background-image: url('/assets/visit_images/<?PHP echo $visit_pic; ?>?v=2'); overflow:hidden; position:relative;"></div>
                     <div class="booking_details">
                         <div class="top">
-                            <h1 class="heading-24"><?PHP echo $visit_name; ?> <span class="float-r"><div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div></span></h1>
+                            <h1 class="heading-24"><?PHP echo substr($visit_name, 0, 30);
+                            if (strlen($visit_name) > 30){echo '...';}
+                            ?> <span class="float-r"><div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26"></div></span></h1>
                             <?php
                             if ($mds_status == 'Y'){
                             ?>

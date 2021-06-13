@@ -136,7 +136,11 @@
   grid-template-columns: 1fr 0.5fr 1fr 1fr 0.5fr 1fr;
 
 }
-} 
+}
+    .filter_button{
+        padding-right: 20px;
+        padding-left: 20px;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script>
@@ -178,11 +182,13 @@
         <div data-w-id="98c7cd18-996f-4b08-777e-ae54e6517910" data-animation-type="lottie" data-src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5df9f0f25ccbf3bb4c727941_lottieflow-scrolling-01-1-00285C-easey.json" data-loop="0" data-direction="1" data-autoplay="0" data-is-ix2-target="1" data-renderer="svg" data-default-duration="2.76" data-duration="0" class="lottie-animation-3"></div>
       </div>
         <div class="filter">
+            <a href="add-contact.php" style="text-decoration: none;color: black">
             <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button">
                 <div class="text-block-78">
-                    <a href="add-contact.php" style="text-decoration: none;color: black">Add New Page</a>
+                   Add New Contact
                 </div>
             </div>
+            </a>
         </div>
       <a href="logout.php" class="admin_logout w-button"></a></div>
   </div>

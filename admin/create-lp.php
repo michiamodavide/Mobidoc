@@ -388,24 +388,9 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
 						
 							<textarea placeholder="Page Description" maxlength="10000" id="page_des" name="page_des" class="text_area_profile page_des w-input"><?=$page_description?></textarea>
 						</div>
-						
-						
-						
-						
-                       
-
-                      
-						
-						
-						
-						
-						
-						
-						
-                        
 
                         <div class="div-3">
-                        <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn m-0-auto">
+                        <input type="submit" name="submit" value="Salva" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn m-0-auto">
 
                         <div class="error_container">
                             <div class="error_message medical_speciality_msg" style="display: none">
