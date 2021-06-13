@@ -261,7 +261,7 @@ WHERE dg.tick='1' AND ds.specialty='".$erid_id."' AND dp.puo_refertare='N' AND d
 		
         </div>
 	<div class="div" style="margin-top: 30px;">
-            <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">Not available? Call Us</a>
+            <a href="/visite-ed-esami.php" class="button gradient visite_cta w-button move_to_div">Prenota Online</a>
 </div>
     </div>
 </div>

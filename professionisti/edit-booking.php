@@ -213,13 +213,17 @@ else {
                   $booking_status = $booking_res['booking_status'];
                   ?>
 
-                <input type="text" class="datepicker-here inputs w-input appoint_time" data-language="it" data-date-format="dd-mm-yyyy"
-                      maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora" id="appoint_time">
+              <div>
+                  <input type="text" class="datepicker-here inputs w-input appoint_time" data-language="it" data-date-format="dd-mm-yyyy"
+                         maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora" id="appoint_time" required>
                   <?php
                   if ($booking_status > 2){?>
                       <p style="text-align: center;color: red;">Booking date can not be changed after execution.</p>
                       <style>.appoint_time{pointer-events: none;opacity: 0.8;}</style>
+                  <?php }else{?>
+                  <p>&nbsp;&nbsp;</p>
                   <?php }?>
+              </div>
                 <div class="choose_your_area refertor_select">
                   <div class="search_cap_input sci2">
                     <div class="input_element"> <img src="../images/search.svg" width="28"  alt="">
@@ -262,6 +266,7 @@ JOIN listini ls ON ds.doctor_id=ls.doctor_id
                         <input type="hidden" class="old_ref_id" name="old_ref_id" value="<?PHP echo $ref_v_res21['doctor_id']; ?>">
                         <input type="hidden" class="opt_date" name="opt_date" value="<?php echo $booking_apt_time?>">
                         <input type="hidden" class="exam_name" name="exam_name" value="<?php echo $_GET['visit_name']?>">
+                        <input type="hidden" class="exam_name" name="exam_attribute" value="<?php echo $_GET['attribute']?>">
                         <?php mysqli_close($conn); ?>
                       </select>
                       <script>
@@ -272,6 +277,8 @@ JOIN listini ls ON ds.doctor_id=ls.doctor_id
                     <?php if ($booking_status < 3){?>
                         <p style="text-align: center;color: red;">You can modify referrer once the booking is executed.</p>
                         <style>.choose_your_area.refertor_select{pointer-events: none;opacity: 0.8;}</style>
+                    <?php }else{?>
+                        <p>&nbsp;&nbsp;</p>
                     <?php }?>
                 </div>
               </div>

@@ -31,7 +31,7 @@
 <body>
   <div class="master_head account_sccess">
     <div class="div-block-68">
-      <div class="text-block-71" style="max-width:500px; font-size:20px; line-height:35px;">Grazie! Abbiamo ricevuto la tua candidatura con successo. Verrai contattato al più presto dalla direzione.</div><a href="../" class="button-11 w-button">Torna alla Home</a></div>
+      <div class="text-block-71" style="max-width:500px; font-size:20px; line-height:35px;">Grazie! Abbiamo ricevuto la tua candidatura con successo. Verrai contattato al più presto dalla direzione.</div><a href="/professionisti-home.php" class="button-11 w-button">Torna alla Home</a></div>
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="../js/webflow.js" type="text/javascript"></script>

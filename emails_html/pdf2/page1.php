@@ -20,7 +20,7 @@ body {
     clear: both;
     height: 30px;
     background-color: #fef1cd;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 .left-div {
     width: auto;
@@ -177,25 +177,20 @@ ul.center-list li {
   <h1>Autorizzazione all’Accesso alla piattaforma «Mobidoc» <sup>1</sup></h1>
   <div class="col-md-12">
     <div class="wraper">
-      <div class="left-div">Il sottoscritto/a NOME:______________________________ COGNOME:________________________________</div>
-      
-     
+      Il sottoscritto/a NOME:________________________ &nbsp;COGNOME:_________________________
+    </div>
+    <div class="wraper">
+      CODICE FISCALE:_______________________________________________________________      
+    </div>
+    <div class="wraper">
+      RESIDENTE IN:_______________________ VIA:________________________ N.:___________
+    </div>
+    <div class="wraper">
+      TELEFONO:____________________________________________________________________
       
     </div>
     <div class="wraper">
-      <div class="left-div">CODICE FISCALE:___________________________________________________________________________</div>
-      
-    </div>
-    <div class="wraper">
-      <div class="left-div">RESIDENTE IN:________________________________ VIA:________________________________ N.:_______</div>
-    </div>
-    <div class="wraper">
-      <div class="left-div">TELEFONO:________________________________________________________________________________</div>
-      
-    </div>
-    <div class="wraper">
-      <div class="left-div">INDIRIZZO DI POSTA ELETTRONICA:___________________________________________________________</div>
-      
+     INDIRIZZO DI POSTA ELETTRONICA:_______________________________________________      
     </div>
   </div>
   <p>presa visione e chiaramente compresa l’informativa sul trattamento dei dati personali fornitami dalla societ&aacute; Tekamed S.r.l., in qualit&aacute; di Titolare del trattamento, sotto la mia responsabilit&aacute;</p>
@@ -207,11 +202,30 @@ ul.center-list li {
   </ul>
   <h2>dichiaro</h2>
   <p><span></span>di avere specifica autorizzazione ad accedere ai dati personali dell’interessato in qualità di <strong>DELEGATO</strong> di persona capace di intendere e volere, nonché capace d’agire (delegante) – al/la quale ho già sottoposto e che ha chiaramente compreso l’informativa sul trattamento dei dati personali fornitami dalla società Tekamed S.r.l. – di cui indico i seguenti dati personali: </p>
-
+<div class="col-md-12">
+    <div class="wraper">
+     NOME:______________________________ &nbsp;COGNOME:_______________________________                 
+    </div>
+    <div class="wraper">
+      CODICE FISCALE:_______________________________________________________________      
+    </div>
+    <div class="wraper">
+      RESIDENTE IN:______________________ VIA:_________________________ N.:___________
+    </div>
+   
+  </div>
+    
+ __________________________
+	 
+    <p><span>1</span>Disponibile all’indirizzo web: <i>https://www.mobidoc.it/</i>.</p>
+    <p><span>2</span>Ai sensi dell’art 4, paragrafo primo, n. 1, Regolamento U.E. n. 679/2016:i <i>“qualsiasi informazione riguardante una persona fisica identificata o identificabile”</i>.</p>
+    <p><span>3</span>Ai sensi dell'art. 4, paragrafo primo, n. 14, Regolamento U.E. n. 679/2016: <i>“i dati personali attinenti alla salute fisica o mentale di una persona fisica, compresa la prestazione di servizi di assistenza sanitaria, che rivelano informazioni relative al suo stato di salute”</i>.</p>
+    <p><span>4</span>Decreto Legislativo 30 giugno 2003, n. 196 <i>“Codice in materia di protezione dei dati personali”</i> e successive modificazioni e integrazioni (con particolare riguardo al Decreto Legislativo 10 agosto 2018, n. 101) e Regolamento U.E. n. 679 del Parlamento Europeo e del Consiglio del 27/4/2016, relativo alla protezione delle persone fisiche con riguardo al trattamento dei dati personali.</p>
   
-  <div class="page-number">Page 1</div>
   
-
+ <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <div class="page-number">1</div>
+  <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
   
 </div>
 </body>
