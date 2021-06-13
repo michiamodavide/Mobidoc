@@ -297,11 +297,12 @@ padding: 13px 30px;
          $booked_service_row = mysqli_fetch_array($booked_service_result);
 
          $article_id = $booked_service_row['article_id'];
-         $get_visit_query = "select descrizione from articlesMobidoc where id='" . $article_id . "'";
+         $get_visit_query = "select descrizione,attributo  from articlesMobidoc where id='" . $article_id . "'";
          $get_visit_result = mysqli_query($conn, $get_visit_query);
          $get_visit_row = mysqli_fetch_array($get_visit_result);
 
          $visit_name = $get_visit_row['descrizione'];
+         $visit_attribute = $get_visit_row['attributo'];
          $message = $rows['message'];
          $date_of_booking = $rows['date_of_booking'];
          $date_of_booking_string = "'" . $date_of_booking . "'";
@@ -398,7 +399,11 @@ padding: 13px 30px;
           <h3 class="paziente_name"><?php echo $patient_rows['first_name'] . " " . $patient_rows['last_name'] ?></h3>
           <div class="paziente_data_block">
            <div class="text-block-63">Prenotato per</div>
-           <div class="text-block-62"><?php echo $visit_name; ?></div>
+           <div class="text-block-62"><?php echo $visit_name;
+           if (!empty($visit_attribute)){
+               echo ' <strong>('.$visit_attribute.')</strong>';
+           }
+           ?></div>
           </div>
 
           <div class="paziente_data_block">
@@ -437,7 +442,7 @@ padding: 13px 30px;
                }
                ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
-            <a href="javascript:;" visit-name="<?php echo $visit_name; ?>" article-id="<?php echo $article_id; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" curr-doc-id="<?php echo $doctor_id?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
+            <a href="javascript:;" visit-name="<?php echo $visit_name;?>" visit_attribute="<?php echo $visit_attribute?>" article-id="<?php echo $article_id; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" curr-doc-id="<?php echo $doctor_id?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
             <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>&article_id=<?=$article_id?>&visit_name=<?=$visit_name?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>
            <?php } ?>
         <?php if ($rows['admin_book'] == 1){
@@ -613,6 +618,7 @@ WHERE ms.status='Y' AND ls.doctor_id='".$rows3['doctor_id']."' AND (am.home = 'Y
     <input type="text" name="refertatore_id" id="share_exam" style="display:none;">
     <input type="text" name="refer_name" id="refer_name" style="display:none;">
     <input type="text" name="vis_name" id="vis_name" style="display:none;">
+    <input type="text" name="vis_attribute" id="vis_attribute" style="display:none;">
     <input type="text" name="doct_name" id="doct_name" style="display:none;">
     <textarea style="min-height: 100px;margin-top: 0px;" placeholder="Condividi rapporto *" maxlength="10000" id="ext_not"
               name="ext_not" data-name="personal_description"
@@ -650,6 +656,7 @@ WHERE ms.status='Y' AND ls.doctor_id='".$rows3['doctor_id']."' AND (am.home = 'Y
     $("#vis_name").val($(this).attr("visit-name"));
     $("#book_id").val($(this).attr("data-id"));
     $("#doct_name").val($(this).attr("curr-doc-nam"));
+    $("#vis_attribute").val($(this).attr("visit_attribute"));
     var xmlhttp2 = new XMLHttpRequest();
     xmlhttp2.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
