@@ -188,6 +188,7 @@ where bg.booking_id='".$rows['booking_id']."'";
             $date_of_book = $rows['date_of_booking'] ;
             $booking_id = $rows['booking_id'];
               $booking_status = $rows['booking_status'];
+              $payment_mode = $rows['payment_mode'];
             //Patient Rows
             $patient_id = $rows['patient_id'];            
             $patient_sql = "select * from paziente_profile where paziente_id ='".$patient_id."'";
@@ -279,7 +280,18 @@ where bg.booking_id='".$rows['booking_id']."'";
                   <a href="#" class="button gradient see_details w-button">Vedi Dettagli Visita</a>
                 <?php } ?>
                   <a href="<?php echo '/il-team/professionista.php?'.$doctor_id?>" target="_blank" class="button view_profile w-button">Profilo Professionisti</a>
-                  <?php if($rows['payment_status'] == 1 && $rows['patient_confirmation'] == 0){ ?>
+                    <?php
+                    if (strtolower($payment_mode) == 'online'){
+                    ?>
+                        <div class="glance_details">
+                            <div class="glance_details_title" style="font-size: 14px">
+                                <input type="checkbox" checked class="admin_pyment_confirm lable2" id="online_payment_check" disabled="disabled">
+                                <label for="online_payment_check">Carta di credito</label>
+                            </div>
+                            <br>
+                        </div>
+                <?php }?>
+                    <?php if($rows['payment_status'] == 1 && $rows['patient_confirmation'] == 0){ ?>
                     <a href="<?php echo $auth_code;?>" class="button view_profile confirm w-button" style="display:block; height:auto;">Conferma Prestazione</a>
                   <?php } ?>
                   <?php if($rows['patient_confirmation'] == 1){ ?>

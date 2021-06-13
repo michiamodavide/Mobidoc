@@ -216,6 +216,7 @@ padding: 13px 30px;
          $refertatore_id = $rows['refertatore_id'];
          $opoint_time = $rows['apoint_time'];
          $booking_status = $rows['booking_status'];
+           $payment_mode = $rows['payment_mode'];
 
          if ($payment_status == 0) {
            $payment_status = "Authorized, Not Captured";
@@ -386,6 +387,17 @@ padding: 13px 30px;
            <a href="tel:<?php echo $doctor_rows['phone']; ?>" class="button-5 faded diff w-button" style="background-color: rgba(0, 0, 0, 0.7); color: white;">Chiama Professionista</a>
            <a href="<?php echo '/il-team/professionista.php?'.$doctor_rows['doctor_id']?>" target="_blank" class="button-5 faded diff w-button" style="background-color: #0ce5b2;">Vedi Profilo Professionista</a>
            <?php }?>
+             <?php
+             if (strtolower($payment_mode) == 'online'){
+                 ?>
+                 <div class="glance_details">
+                     <div class="glance_details_title" style="font-size: 14px">
+                         <input type="checkbox" checked class="admin_pyment_confirm lable2" id="online_payment_check" disabled="disabled">
+                         <label for="online_payment_check">Carta di credito</label>
+                     </div>
+                     <br>
+                 </div>
+             <?php }?>
           <div data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c88" class="confirm diff">
            <div
             style="-webkit-transform:translate3d(0, 20%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 20%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 20%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 20%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0"
