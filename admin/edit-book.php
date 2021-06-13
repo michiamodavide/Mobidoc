@@ -96,6 +96,7 @@ if(isset($_POST['submit'])){
           $patient_time = date('H:i', strtotime($booking_date));
 
           $calender_link = 'https://calendar.google.com/calendar/u/0/r/eventedit?action=TEMPLATE&text=Mobidoc Visit&dates='.$start_dt.'/'.$end_dt.'&ctz=Europe/Rome';
+
         }
 
 

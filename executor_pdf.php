@@ -34,44 +34,65 @@ $pdf->setImageScale( PDF_IMAGE_SCALE_RATIO );
 
 // add a page
 $pdf->AddPage();
-$pdf->setImageScale("1.9");
+$pdf->setImageScale("2.1");
 $pdf->WriteHTML( file_get_contents( "emails_html/pdf2/page1.php" ) );
 $html1 = '<br>
 <p>Text-1</p>';
-$pdf->writeHTMLCell( 0, 0, 50, 22, $html1, 0, 1, 0, true );
+$pdf->writeHTMLCell( 0, 0, 75, 14, $html1, 0, 1, 0, true );
 
 $html2 = '<br>
 <p>Text-2</p>';
-$pdf->writeHTMLCell( 0, 0, 135, 22, $html2, 0, 1, 0, true );
+$pdf->writeHTMLCell( 0, 0, 160, 14, $html2, 0, 1, 0, true );
 
 $html3 = '<br>
 <p>Text-3</p>';
-$pdf->writeHTMLCell( 0, 0, 45, 43, $html3, 0, 1, 0, true );
+$pdf->writeHTMLCell( 0, 0, 106, 25, $html3, 0, 1, 0, true );
 
 $html4 = '<br>
 <p>Text-4</p>';
-$pdf->writeHTMLCell( 0, 0, 40, 64, $html4, 0, 1, 0, true );
+$pdf->writeHTMLCell( 0, 0, 62, 35, $html4, 0, 1, 0, true );
 
 $html5 = '<br>
 <p>Text-5</p>';
-$pdf->writeHTMLCell( 0, 0, 115, 64, $html5, 0, 1, 0, true );
+$pdf->writeHTMLCell( 0, 0, 125, 35, $html5, 0, 1, 0, true );
 
 $html6 = '<br>
 <p>Text-6</p>';
-$pdf->writeHTMLCell( 0, 0, 185, 64, $html6, 0, 1, 0, true );
+$pdf->writeHTMLCell( 0, 0, 176	, 35, $html6, 0, 1, 0, true );
 
 $html7 = '<br>
 <p>Text-7</p>';
-$pdf->writeHTMLCell( 0, 0, 35, 84, $html7, 0, 1, 0, true );
+$pdf->writeHTMLCell( 0, 0, 102, 46, $html7, 0, 1, 0, true );
 
 $html8 = '<br>
 <p>Text-8</p>';
-$pdf->writeHTMLCell( 0, 0, 80, 104, $html8, 0, 1, 0, true );
+$pdf->writeHTMLCell( 0, 0, 138, 56, $html8, 0, 1, 0, true );
 
-$pdf->SetMargins( PDF_MARGIN_LEFT, "0px", PDF_MARGIN_RIGHT );
+$html9 = '<br>
+<p>Text-9</p>';
+$pdf->writeHTMLCell( 0, 0, 50, 178, $html9, 0, 1, 0, true );
+
+$html10 = '<br>
+<p>Text-10</p>';
+$pdf->writeHTMLCell( 0, 0, 150, 178, $html10, 0, 1, 0, true );
+
+$html11 = '<br>
+<p>Text-11</p>';
+$pdf->writeHTMLCell( 0, 0, 105, 188, $html11, 0, 1, 0, true );
+
+$html12 = '<br>
+<p>Text-12</p>';
+$pdf->writeHTMLCell( 0, 0, 60, 199, $html12, 0, 1, 0, true );
+
+$html13 = '<br>
+<p>Text-13</p>';
+$pdf->writeHTMLCell( 0, 0, 120, 199, $html13, 0, 1, 0, true );
+
+$html14 = '<br>
+<p>Text-14</p>';
+$pdf->writeHTMLCell( 0, 0, 173, 199, $html14, 0, 1, 0, true );
+
 $pdf->AddPage();
-
-
 
 // set image scale factor
 $pdf->setImageScale( "1.65" );
@@ -146,13 +167,10 @@ $html25 = '<br>
 $pdf->writeHTMLCell( 0, 0, 24, 211, $html25, 0, 1, 0, true );
 
 
-// set image scale factor
-$pdf->setImageScale( "1.6" );
-
 
 
 $pdf_save_path = dirname( __FILE__ ) . '/assets/generate_pdf';
 
 $fileNL = $pdf_save_path . "/" . strtolower($doctor_fname).'.pdf';
 //$pdf->Output(strtolower(str_replace(' ', '-', $title)).'-'.date('Ymd-Hi').'.pdf', 'F');
-$pdf->Output( $fileNL, 'F' );
+$pdf->Output( $fileNL, 'I' );

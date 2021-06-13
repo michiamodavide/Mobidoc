@@ -443,7 +443,7 @@ padding: 13px 30px;
                ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
             <a href="javascript:;" visit-name="<?php echo $visit_name;?>" visit_attribute="<?php echo $visit_attribute?>" article-id="<?php echo $article_id; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" curr-doc-id="<?php echo $doctor_id?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
-            <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>&article_id=<?=$article_id?>&visit_name=<?=$visit_name?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>
+            <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>&article_id=<?=$article_id?>&visit_name=<?=$visit_name?>&attribute=<?php echo $visit_attribute?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>
            <?php } ?>
         <?php if ($rows['admin_book'] == 1){
                    if (empty($rows['total_discount'])) {
