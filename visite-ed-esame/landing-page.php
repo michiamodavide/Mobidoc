@@ -59,6 +59,34 @@ $erid_id = $get_mds_row['ERid'];
         .p{
             text-align-last: center !important;
         }
+		.landing-p-1  span.service_name{   
+    line-height: 32px;
+}
+		
+/*************************************************************************/		
+		
+		@media screen and (max-width: 780px){
+.landing-p-1 .masthead_container h1 {
+    line-height: 26px;
+}		
+			.landing-p-1 h2.heading-7 {line-height: 28px;margin-top: 0px;	}
+			.landing-p-1 .button.gradient.visite_cta {
+    
+    padding: 12px 14px;
+			}
+			
+			
+.landing-p-1 .custom_container.type_of-visit {
+    margin-top: 0px;
+}
+			
+			.landing-p-1 .section_title	{
+				line-height: 15px;
+			}
+			
+		}
+		
+		
     </style>
     <script>
         // function getDoctors(value){
@@ -102,7 +130,7 @@ $erid_id = $get_mds_row['ERid'];
     }
     ?>
 </head>
-<body>
+<body class="landing-p-1">
 <?php include '../header.php';?>
 <script>
     // function showHint(str) {

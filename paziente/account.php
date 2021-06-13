@@ -56,6 +56,20 @@
 	.p{
   	text-align-last: center !important;
   }
+/*****************************************/	  
+@media screen and (max-width: 991px){	  
+.body-8 a.list_item.diff {
+    width: 282px;
+   margin: 10px auto 0 auto;
+}		  
+	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 </style>
 <script>
   function remove_visit(value,value2){
