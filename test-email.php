@@ -35,7 +35,7 @@ $pdf_file1 = "assets/generate_pdf/".$bk_name.".pdf";
 $pdf_file2 = "assets/generate_pdf/".$doctor_fname.".pdf";
 
 
-$pdf_files = array($pdf_file1,$pdf_file2);
+$pdf_files = array($pdf_file1, $pdf_file2);
 
 print_r($pdf_files);
 
@@ -66,16 +66,15 @@ for ($px = 0; $px < count($pdf_files); $px++) {
             @fclose($fp);
             $data = chunk_split(base64_encode($data));
             $message .= "Content-Type: application/octet-stream; name=\"".basename($pdf_files[$px])."\"\n" .
-                "Content-Description: ".basename($file)."\n" .
+                "Content-Description: ".basename($pdf_files[$px])."\n" .
                 "Content-Disposition: attachment;\n" . " filename=\"".basename($pdf_files[$px])."\"; size=".filesize($pdf_files[$px]).";\n" .
                 "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
         }
 
 
     $message .= "--{$mime_boundary}--";
+    $returnpath = "-f" . $from;
 }
-
-$returnpath = "-f" . $from;
 
 // Send email
 $mail = @mail($to, $subject, $message, $headers, $returnpath);
