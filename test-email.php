@@ -71,10 +71,10 @@ for ($px = 0; $px < count($pdf_files); $px++) {
                 "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
         }
 
-
-    $message .= "--{$mime_boundary}--";
-    $returnpath = "-f" . $from;
 }
+
+$message .= "--{$mime_boundary}--";
+$returnpath = "-f" . $from;
 
 // Send email
 $mail = @mail($to, $subject, $message, $headers, $returnpath);
