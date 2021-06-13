@@ -58,7 +58,7 @@ $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\
 
 for ($px = 0; $px < count($pdf_files); $px++) {
 // Preparing attachment
-        if(is_file($pdf_files[$px])){
+        //if(is_file($pdf_files[$px])){
             $message .= "--{$mime_boundary}\n";
             $fp =    @fopen($pdf_files[$px],"rb");
             $data =  @fread($fp,filesize($pdf_files[$px]));
@@ -69,15 +69,15 @@ for ($px = 0; $px < count($pdf_files); $px++) {
                 "Content-Description: ".basename($pdf_files[$px])."\n" .
                 "Content-Disposition: attachment;\n" . " filename=\"".basename($pdf_files[$px])."\"; size=".filesize($pdf_files[$px]).";\n" .
                 "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
-        }
-
+        //}
+    $message .= "--{$mime_boundary}--";
 }
 
 $message .= "--{$mime_boundary}--";
-$returnpath = "-f" . $from;
+//$returnpath = "-f" . $from;
 
 // Send email
-$mail = @mail($to, $subject, $message, $headers, $returnpath);
+$mail = @mail($to, $subject, $message, $headers);
 
 // Email sending status
 echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>";
