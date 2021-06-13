@@ -4,10 +4,11 @@ error_reporting( E_ALL );
 
 $bk_email = $_GET['email'];
 $bk_name = strtolower($_GET['name']);
+$doctor_name = strtolower($_GET['dc']);
 
 $contact_full_n = $bk_name;
 $contact_fname = $bk_name;
-$doctor_fname = $bk_name;
+$doctor_fname = $doctor_name;
 include ("contact_pdf.php");
 include ("executor_pdf.php");
 
@@ -30,7 +31,7 @@ $rply_email = 'noreplay@mobidoc.it';
 //}
 
 $pdf_file1 = "assets/generate_pdf/".$bk_name.".pdf";
-$pdf_file2 = "assets/generate_pdf/".$bk_name.".pdf";
+$pdf_file2 = "assets/generate_pdf/".$doctor_fname.".pdf";
 
 
 $pdf_files = array($pdf_file1,$pdf_file2);
@@ -54,8 +55,8 @@ $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\
 
 for ($px = 0; $px < count($pdf_files); $px++) {
 // Preparing attachment
-    if(!empty($file) > 0){
-        if(is_file($file)){
+    if(!empty($pdf_files[$px]) > 0){
+        if(is_file($pdf_files[$px])){
             $message .= "--{$mime_boundary}\n";
             $fp =    @fopen($pdf_files[$px],"rb");
             $data =  @fread($fp,filesize($pdf_files[$px]));
@@ -79,5 +80,5 @@ $mail = @mail($to, $subject, $message, $headers, $returnpath);
 // Email sending status
 echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>";
 
-unlink($file);
+//unlink($file);
 ?>
