@@ -146,13 +146,13 @@ if ($is_first ==1 && $result==1){
 
             mail($to, $subject, $message, $headers);
             // Sending email
-
-            header("Location: index.php");
-
-            echo "link sent on doctor email id: <br> www.mobidoc.it/professionisti/crea-un-profilo.php?email=$email";
-
         }
-	}
+
+        header("Location: index.php");
+
+        echo "link sent on doctor email id: <br> www.mobidoc.it/professionisti/crea-un-profilo.php?email=$email";
+
+    }
 	else
 	{
 		$to = $email;

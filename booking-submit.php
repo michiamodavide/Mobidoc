@@ -153,7 +153,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                     $doctor_fname = $rows3['fname'];
 
 
-                    $send_emails_array = array($contact_email, $doctor_email, "jimmymike347@gmail.com"); //info@mobidoc.it
+                    $send_emails_array = array($contact_email, $doctor_email, "info@mobidoc.it");
 
                     $contact_full_n = $contact_name;
                     include ("contact_pdf.php");
