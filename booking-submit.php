@@ -153,27 +153,20 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                     $doctor_fname = $rows3['fname'];
 
 
-                    $send_emails_array = array($contact_email, $doctor_email, "info@mobidoc.it");
+                    $send_emails_array = array($contact_email, $doctor_email, "jimmymike347@gmail.com"); //info@mobidoc.it
 
                     foreach($send_emails_array as $send_emails_key => $send_email) {
-                        if ($send_emails_key == 0 || $send_emails_key == 1){
-                            if ($send_emails_key == 0){
-                                $contact_full_n = $contact_name;
-                                include ("contact_pdf.php");
 
-                                // Attachment file
-                                $file = "assets/generate_pdf/".strtolower($contact_fname).'.pdf';
-                            }else{
-                                include ("executor_pdf.php");
+                        $contact_full_n = $contact_name;
+                        include ("contact_pdf.php");
+                        // Attachment file
+                        $pdf_file1 = "assets/generate_pdf/".strtolower($contact_fname).'.pdf';
 
-                                // Attachment file
-                                $file = "assets/generate_pdf/".strtolower($contact_fname).'.pdf';
-                            }
+                        include ("executor_pdf.php");
+                        // Attachment file
+                        $pdf_file2 = "assets/generate_pdf/".strtolower($contact_fname).'.pdf';
 
-                        }else{
-                            $file = '';
-
-                        }
+                        $pdf_files = array($pdf_file1, $pdf_file2);
 
                         // Recipient
                         $to = $send_email;
@@ -216,6 +209,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                             "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n";
 
                         // Preparing attachment
+                       /*
                         if(!empty($file) > 0){
                             if(is_file($file)){
                                 $message .= "--{$mime_boundary}\n";
@@ -230,13 +224,36 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                                     "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
                             }
                         }
+                       */
+
+                        if(!empty($pdf_files)){
+                            for($px=0;$px<count($pdf_files);$px++){
+                                if(is_file($pdf_files[$px])){
+                                    $file_name = basename($pdf_files[$px]);
+                                    $file_size = filesize($pdf_files[$px]);
+
+                                    $message .= "--{$mime_boundary}\n";
+                                    $fp =    @fopen($pdf_files[$px], "rb");
+                                    $data =  @fread($fp, $file_size);
+                                    @fclose($fp);
+                                    $data = chunk_split(base64_encode($data));
+                                    $message .= "Content-Type: application/octet-stream; name=\"".$file_name."\"\n" .
+                                        "Content-Description: ".$file_name."\n" .
+                                        "Content-Disposition: attachment;\n" . " filename=\"".$file_name."\"; size=".$file_size.";\n" .
+                                        "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+                                }
+                            }
+                        }
+
                         $message .= "--{$mime_boundary}--";
                         $returnpath = "-f" . $from;
 
                         // Send email
                         @mail($to, $subject, $message, $headers, $returnpath);
 
-                        unlink($file);
+                           for($pd=0;$pd<count($pdf_files);$pd++){
+                               unlink($pdf_files[$pd]);
+                           }
 
                         // Email sending status
                        // echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>";
