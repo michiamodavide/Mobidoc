@@ -78,6 +78,20 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
 
 }	  
 	  .button.view_profile {width: 240px;}
+.body-8 .top_section {
+ 
+    grid-column-gap: 32px;
+}	  
+.body-8 .patient_name {
+    margin-top: 45px;
+    
+}	  
+@media screen and (max-width: 991px){	  
+.body-8 a.list_item.diff {
+    width: 282px;
+   margin: 10px auto 0 auto;
+}		  
+	  }	  
 </style>
 <script>
   function remove_visit(value,value2){
@@ -245,7 +259,7 @@ where bg.booking_id='".$rows['booking_id']."'";
                      <?php
                      $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
                      ?>
-                     <div class="bok_status button-3 gradient select_button w-button" style="margin-top: 15px; width: 140px;"><?=$flag_status_txt[$booking_status]?></div>
+                     <div class="bok_status button-3 gradient select_button w-button" style="margin-top: 15px; width: 150px;"><?=$flag_status_txt[$booking_status]?></div>
                  </td>
     </tr>
         <?php }?>
@@ -285,8 +299,17 @@ where bg.booking_id='".$rows['booking_id']."'";
                     ?>
                         <div class="glance_details">
                             <div class="glance_details_title" style="font-size: 14px">
-                                <input type="checkbox" checked class="admin_pyment_confirm lable2" id="online_payment_check" disabled="disabled">
-                                <label for="online_payment_check">Carta di credito</label>
+								<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
+  <tbody>
+    <tr>
+      <td><input type="checkbox" checked class="admin_pyment_confirm lable2" id="online_payment_check" disabled="disabled"></td>
+      <td align="left"><label for="online_payment_check">Carta di credito</label></td>
+    </tr>
+  </tbody>
+</table>
+
+                               
+                               
                             </div>
                             <br>
                         </div>

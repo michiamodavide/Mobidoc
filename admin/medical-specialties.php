@@ -611,7 +611,7 @@ if (!isset($_SESSION['adminlogin'])) {
                 <form class="visit_form" action="medical-specialties.php" name="email-form" method="post">
 <div class="div-block-88">
                     <input type="hidden" name="erid" class="form_erid">
-                    <input type="text" class="inputs w-input" maxlength="256" name="visit_name" placeholder="Visit/Exam Name"" required="">
+                    <input type="text" class="inputs w-input" maxlength="256" name="visit_name" placeholder="Visit/Exam Name" required="">
                     <input type="text" class="inputs w-input" maxlength="256" name="attribute" placeholder="Attributo">
 	
 	

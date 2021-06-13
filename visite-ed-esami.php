@@ -90,6 +90,24 @@ height:0px;
 	.mt-90{
 		margin-top:30px;
 	}
+	.visit_page .section-7 {
+    padding-bottom: 70px;
+}
+	.visit_page .service_text_underline {;
+    line-height: 32px;
+}
+	
+	
+	
+		@media screen and (max-width: 780px){
+.visit_page input.input-style {
+    
+    margin-left: 0px;
+    margin-top: 20px;
+    width: 91%;
+}	
+		
+	}
 	
 </style>
 </head>
@@ -403,7 +421,7 @@ height:0px;
     <div id="load_visits"> </div>
 
       <br>
-      <a href="javascript:;" class="button gradient large diff w-inline-block home-tel call_us_btn" style="display: none">
+      <a href="javascript:;" class="button gradient large diff w-inline-block home-tel call_us_btn" style="display: none;margin-top: 50px;">
           <div class="text-block-2">Non trovi la prestazione di cui avevi bisogno?</div>
       </a>
   </div>

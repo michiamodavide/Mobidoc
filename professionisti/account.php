@@ -95,17 +95,83 @@ padding: 13px 30px;
 		     font-family: Poppins, sans-serif;
     font-size: 11px;
 	 }
+	 
+	 
+	 .account-1 .appointment {
+
+    -ms-grid-columns: 160px 1fr 180px;
+    grid-template-columns: 160px 1fr 180px;
+   
+}
+	 .ping-bg{
+		 background-color: #f8dbdb !important;
+	 }
+	 .ping-bg:hover{
+		 opacity: 0.8;
+	 }
+	  .account-1 .text-block-62 {
+  
+    line-height: 26px !important;
+}
+	 .no_active_btn:hover, .active_btn:hover{
+   opacity: .7 !important;
+  }
+/******************************************/	 
   @media screen and (max-width: 767px){
+
+	  	  
    .button-5.faded.diff{
     display: block;
    }
    .view_details_button{
     display: none !important;
    }
+	  .account-1 .appointments_container {
+    width: 96%;
+}
+	.account-1 .text_container {
+    width: 100%;
+    
+}  
+	.account-1  .pateint_message {  
+    padding: 12px 12px 12px 12px; 	  	 	  
   }
-  .no_active_btn:hover, .active_btn:hover{
-   opacity: .7 !important;
-  }
+	  
+.account-1 .heading {
+    width: 90%;
+  
+}	  
+	  
+	.active {
+		margin-left: 00px;}  
+	  
+	 }
+.account-1 .div-block-61 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-ordinal-group: 0;
+    -webkit-order: -1;
+    -ms-flex-order: -1;
+    order: -1;
+}	 
+/*************************************************/	 
+  
  </style>
  <script>
    function complete_visit(value, value2, value3, value4) {
@@ -147,7 +213,7 @@ padding: 13px 30px;
    }
  </script>
 </head>
-<body>
+<body class="account-1">
 
 <?php include '../header-prof.php'; ?>
 <div class="master_head profile">
@@ -319,7 +385,7 @@ padding: 13px 30px;
                      if ($booking_status == 1 || $booking_status == 2){
                      ?>
 
-                         <a href="/booking_status.php?bkg_id=<?php echo $booking_id?>&booking_flag=<?php echo $new_status?>" class="button-5 faded diff w-button" style="background-color: #f8dbdb;;">
+                         <a href="/booking_status.php?bkg_id=<?php echo $booking_id?>&booking_flag=<?php echo $new_status?>" class="ping-bg button-5 faded diff w-button ">
                              <?=$flag_status_txt[$booking_status+1]?>
                          </a>
                  <?php }}?>
@@ -396,10 +462,21 @@ padding: 13px 30px;
                  ?>
                  <div class="glance_details">
                      <div class="glance_details_title" style="font-size: 14px">
-                         <input type="checkbox" checked class="admin_pyment_confirm lable2" id="online_payment_check" disabled="disabled">
-                         <label for="online_payment_check">Carta di credito</label>
+						 <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td><input type="checkbox" checked class="admin_pyment_confirm lable2" id="online_payment_check" disabled="disabled"></td>
+      <td><label for="online_payment_check">Carta di credito</label></td>
+    </tr>
+  </tbody>
+</table>
+
+						 
+						 
+                         
+                         
                      </div>
-                     <br>
+                     
                  </div>
              <?php }?>
           <div data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c88" class="confirm diff">
