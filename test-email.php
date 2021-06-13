@@ -56,28 +56,50 @@ $headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " bou
 $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
 "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n";
 
-for ($px = 0; $px < count($pdf_files); $px++) {
-// Preparing attachment
-        //if(is_file($pdf_files[$px])){
-            $message .= "--{$mime_boundary}\n";
-            $fp =    @fopen($pdf_files[$px],"rb");
-            $data =  @fread($fp,filesize($pdf_files[$px]));
+//for ($px = 0; $px < count($pdf_files); $px++) {
+//// Preparing attachment
+//        //if(is_file($pdf_files[$px])){
+//    echo $pdf_files[$px];
+//    echo '<br>';
+//            $message .= "--{$mime_boundary}\n";
+//            $fp =    @fopen($pdf_files[$px],"rb");
+//            $data =  @fread($fp,filesize($pdf_files[$px]));
+//
+//            @fclose($fp);
+//            $data = chunk_split(base64_encode($data));
+//            $message .= "Content-Type: application/octet-stream; name=\"".basename($pdf_files[$px])."\"\n" .
+//                "Content-Description: ".basename($pdf_files[$px])."\n" .
+//                "Content-Disposition: attachment;\n" . " filename=\"".basename($pdf_files[$px])."\"; size=".filesize($pdf_files[$px]).";\n" .
+//                "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+//        //}
+//    $message .= "--{$mime_boundary}--";
+//}
 
+// Preparing attachment
+if(!empty($pdf_files)){
+    for($px=0;$px<count($pdf_files);$px++){
+        if(is_file($pdf_files[$px])){
+            $file_name = basename($pdf_files[$px]);
+            $file_size = filesize($pdf_files[$px]);
+
+            $message .= "--{$mime_boundary}\n";
+            $fp =    @fopen($pdf_files[$px], "rb");
+            $data =  @fread($fp, $file_size);
             @fclose($fp);
             $data = chunk_split(base64_encode($data));
-            $message .= "Content-Type: application/octet-stream; name=\"".basename($pdf_files[$px])."\"\n" .
-                "Content-Description: ".basename($pdf_files[$px])."\n" .
-                "Content-Disposition: attachment;\n" . " filename=\"".basename($pdf_files[$px])."\"; size=".filesize($pdf_files[$px]).";\n" .
+            $message .= "Content-Type: application/octet-stream; name=\"".$file_name."\"\n" .
+                "Content-Description: ".$file_name."\n" .
+                "Content-Disposition: attachment;\n" . " filename=\"".$file_name."\"; size=".$file_size.";\n" .
                 "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
-        //}
-    $message .= "--{$mime_boundary}--";
+        }
+    }
 }
 
 $message .= "--{$mime_boundary}--";
-//$returnpath = "-f" . $from;
+$returnpath = "-f" . $from;
 
 // Send email
-$mail = @mail($to, $subject, $message, $headers);
+$mail = @mail($to, $subject, $message, $headers, $returnpath);
 
 // Email sending status
 echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>";
