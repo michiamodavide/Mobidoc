@@ -249,14 +249,15 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                         // Send email
                         @mail($to, $subject, $message, $headers, $returnpath);
 
+                        if ($send_emails_key == 2){
+                            for($pd=0;$pd < count($pdf_files);$pd++){
+                                unlink($pdf_files[$pd]);
+                            }
+                        }
                         // Email sending status
                        // echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>";
                     }
 
-
-                    for($pd=0;$pd < count($pdf_files);$pd++){
-                        unlink($pdf_files[$pd]);
-                    }
                     /*
 
                     //email to admin
