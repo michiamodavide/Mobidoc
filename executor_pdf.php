@@ -37,59 +37,59 @@ $pdf->AddPage();
 $pdf->setImageScale("2.1");
 $pdf->WriteHTML( file_get_contents( "emails_html/pdf2/page1.php" ) );
 $html1 = '<br>
-<p>Text-1</p>';
+<p>'.$contact_fname.'</p>';
 $pdf->writeHTMLCell( 0, 0, 75, 14, $html1, 0, 1, 0, true );
 
 $html2 = '<br>
-<p>Text-2</p>';
+<p>'.$contact_surname.'</p>';
 $pdf->writeHTMLCell( 0, 0, 160, 14, $html2, 0, 1, 0, true );
 
 $html3 = '<br>
-<p>Text-3</p>';
+<p></p>';
 $pdf->writeHTMLCell( 0, 0, 106, 25, $html3, 0, 1, 0, true );
 
 $html4 = '<br>
-<p>Text-4</p>';
+<p></p>';
 $pdf->writeHTMLCell( 0, 0, 62, 35, $html4, 0, 1, 0, true );
 
 $html5 = '<br>
-<p>Text-5</p>';
+<p></p>';
 $pdf->writeHTMLCell( 0, 0, 125, 35, $html5, 0, 1, 0, true );
 
 $html6 = '<br>
-<p>Text-6</p>';
+<p></p>';
 $pdf->writeHTMLCell( 0, 0, 176	, 35, $html6, 0, 1, 0, true );
 
 $html7 = '<br>
-<p>Text-7</p>';
+<p>'.$contact_phone.'</p>';
 $pdf->writeHTMLCell( 0, 0, 102, 46, $html7, 0, 1, 0, true );
 
 $html8 = '<br>
-<p>Text-8</p>';
-$pdf->writeHTMLCell( 0, 0, 138, 56, $html8, 0, 1, 0, true );
+<p>'.$contact_email.'</p>';
+$pdf->writeHTMLCell( 0, 0, 127, 56, $html8, 0, 1, 0, true );
 
 $html9 = '<br>
-<p>Text-9</p>';
+<p>'.$p_first_name.'</p>';
 $pdf->writeHTMLCell( 0, 0, 50, 178, $html9, 0, 1, 0, true );
 
 $html10 = '<br>
-<p>Text-10</p>';
-$pdf->writeHTMLCell( 0, 0, 150, 178, $html10, 0, 1, 0, true );
+<p>'.$p_last_name.'</p>';
+$pdf->writeHTMLCell( 0, 0, 148, 178, $html10, 0, 1, 0, true );
 
 $html11 = '<br>
-<p>Text-11</p>';
+<p>'.$patient_fiscal.'</p>';
 $pdf->writeHTMLCell( 0, 0, 105, 188, $html11, 0, 1, 0, true );
 
 $html12 = '<br>
-<p>Text-12</p>';
-$pdf->writeHTMLCell( 0, 0, 60, 199, $html12, 0, 1, 0, true );
+<p>'.$patient_address.'</p>';
+$pdf->writeHTMLCell( 0, 0, 55, 199, $html12, 0, 1, 0, true );
 
 $html13 = '<br>
-<p>Text-13</p>';
-$pdf->writeHTMLCell( 0, 0, 120, 199, $html13, 0, 1, 0, true );
+<p>'.$patient_address.'</p>';
+$pdf->writeHTMLCell( 0, 0, 115, 199, $html13, 0, 1, 0, true );
 
 $html14 = '<br>
-<p>Text-14</p>';
+<p></p>';
 $pdf->writeHTMLCell( 0, 0, 173, 199, $html14, 0, 1, 0, true );
 
 $pdf->AddPage();
@@ -99,72 +99,62 @@ $pdf->setImageScale( "1.65" );
 // add a page
 $pdf->WriteHTML( file_get_contents( "emails_html/pdf2/page2.php" ) );
 $html9 = '<br>
-<p>Text-9</p>';
-$pdf->writeHTMLCell( 0, 0, 25, 33, $html9, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 35, 33, $html9, 0, 1, 0, true );
 
 $html10 = '<br>
-<p>Text-10</p>';
-$pdf->writeHTMLCell( 0, 0, 85, 33, $html10, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 95, 33, $html10, 0, 1, 0, true );
 
 $html11 = '<br>
-<p>Text-11</p>';
-$pdf->writeHTMLCell( 0, 0, 160, 33, $html11, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 170, 33, $html11, 0, 1, 0, true );
 
 $html12 = '<br>
-<p>Text-12</p>';
-$pdf->writeHTMLCell( 0, 0, 27, 87, $html12, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 50, 87, $html12, 0, 1, 0, true );
 
 $html13 = '<br>
-<p>Text-13</p>';
-$pdf->writeHTMLCell( 0, 0, 125, 87, $html13, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 150, 87, $html13, 0, 1, 0, true );
 
 $html14 = '<br>
-<p>Text-14</p>';
-$pdf->writeHTMLCell( 0, 0, 43, 108, $html14, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 100, 98, $html14, 0, 1, 0, true );
 
 $html15 = '<br>
-<p>Text-15</p>';
-$pdf->writeHTMLCell( 0, 0, 110, 108, $html15, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 62, 108, $html15, 0, 1, 0, true );
 
 $html16 = '<br>
-<p>Text-16</p>';
-$pdf->writeHTMLCell( 0, 0, 182, 108, $html16, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 135, 108, $html16, 0, 1, 0, true );
 
 $html17 = '<br>
-<p>Text-17</p>';
-$pdf->writeHTMLCell( 0, 0, 24, 119, $html17, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 182, 108, $html17, 0, 1, 0, true );
 
 $html18 = '<br>
-<p>Text-18</p>';
-$pdf->writeHTMLCell( 0, 0, 59, 119, $html18, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 31, 119, $html18, 0, 1, 0, true );
 
 $html19 = '<br>
-<p>Text-19</p>';
-$pdf->writeHTMLCell( 0, 0, 89, 119, $html19, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 70	, 119, $html19, 0, 1, 0, true );
 
 $html20 = '<br>
-<p>Text-20</p>';
-$pdf->writeHTMLCell( 0, 0, 117, 119, $html20, 0, 1, 0, true );
+<p></p>';
+$pdf->writeHTMLCell( 0, 0, 155, 119, $html20, 0, 1, 0, true );
 
-$html21 = '<br>
-<p>Text-21</p>';
-$pdf->writeHTMLCell( 0, 0, 175, 119, $html21, 0, 1, 0, true );
 
-$html22 = '<br>
-<p>Text-22</p>';
-$pdf->writeHTMLCell( 0, 0, 25, 191, $html22, 0, 1, 0, true );
 
-$html23 = '<br>
-<p>Text-23</p>';
-$pdf->writeHTMLCell( 0, 0, 95, 191, $html23, 0, 1, 0, true );
+
 
 $html24 = '<br>
-<p>Text-24</p>';
-$pdf->writeHTMLCell( 0, 0, 44, 201, $html24, 0, 1, 0, true );
+<p>'.$contact_name.'</p>';
+$pdf->writeHTMLCell( 0, 0, 105, 207, $html24, 0, 1, 0, true );
 
-$html25 = '<br>
-<p>Text-25</p>';
-$pdf->writeHTMLCell( 0, 0, 24, 211, $html25, 0, 1, 0, true );
+
 
 
 
@@ -173,4 +163,4 @@ $pdf_save_path = dirname( __FILE__ ) . '/assets/generate_pdf';
 
 $fileNL = $pdf_save_path . "/" . strtolower($doctor_fname).'.pdf';
 //$pdf->Output(strtolower(str_replace(' ', '-', $title)).'-'.date('Ymd-Hi').'.pdf', 'F');
-$pdf->Output( $fileNL, 'I' );
+$pdf->Output( $fileNL, 'F' );

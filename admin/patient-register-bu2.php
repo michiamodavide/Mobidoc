@@ -475,11 +475,11 @@ if ( isset( $_GET[ 'icp' ] ) ) {
                   </div>
                   <div class="form_section">
                     <div class="form_section_heading">Prenotazione Prestazione</div>
-                    <div class="duo_flex">
+                    <div class="duo_flex medical_sp">
                       <div class="choose_your_area select4">
                         <div class="search_cap_input sci2">
                           <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                            <select id="get-medical-speciality" placeholder="Select Medical Speciality *" name="mds_name" onchange="getVisits(1)">
+                            <select id="get-medical-speciality" placeholder="Select Medical Speciality *" name="mds_name" onchange="getVisits()">
                               <option value="">Select Medical Speciality</option>
                               <?php
                               include '../connect.php';
@@ -509,7 +509,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                         <div class="choose_your_area select1" id="select1">
                           <div class="search_cap_input sci2">
                             <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                              <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]" onchange="getVisitDoc(1)">
+                              <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]" onchange="getVisitDoc()">
                                 <option value="">Seleziona Prestazione</option>
                               </select>
                             </div>
@@ -529,7 +529,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                         <div class="choose_your_area select3">
                           <div class="search_cap_input sci2">
                             <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                              <select id="select-refertatore" class="select-refertatore-new" placeholder="Seleziona Refertatore" name="refertatore_id[]">
+                              <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id[]">
                                 <?php
                                 if ( !empty( $refer_id ) ) {
                                   ?>
@@ -541,24 +541,23 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                             </div>
                           </div>
                         </div>
-                          <div class="dual_container diff">
-                              <input type="text" class="datepicker-here inputs w-input appoint_time" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time[]" placeholder="Data e Ora" id="appoint_time">
-                          </div>
                       </div>
-
+                      <div class="dual_container diff">
+                        <input type="text" class="datepicker-here inputs w-input appoint_time" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time[]" placeholder="Data e Ora" id="appoint_time">
+                      </div>
                     </div>
                     <div class="new_visit_no2" style="display: none">
                       <div class="duo_flex" style="justify-content: space-around !important;">
                         <div class="choose_your_area select1" id="select1">
                           <div class="search_cap_input sci2">
                             <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                              <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]" onchange="getVisitDoc(2)">
+                              <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]" onchange="getVisitDocTwo()">
                                 <option value="">Seleziona Prestazione</option>
                               </select>
                             </div>
                           </div>
                         </div>
-                        <div class="choose_your_area select2" id="select2" style="margin: 10px; display: none">
+                        <div class="choose_your_area select2" id="select2" style="margin: 10px;">
                           <div class="search_cap_input sci2">
                             <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
                               <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">
@@ -567,27 +566,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                             </div>
                           </div>
                         </div>
-                          <div class="choose_your_area select4">
-                              <div class="search_cap_input sci2">
-                                  <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                      <select id="select-discount" class="select-discount-new" placeholder="Select Discount" name="select_discount[]">
-                                          <?php
-                                          for ( $i = 1; $i <= 9; $i++ ) {
-                                              $percentage_val = 10 * $i;
-
-                                              ?>
-                                              <option value="<?php echo $percentage_val?>"><?php echo $percentage_val.'%'?></option>
-                                          <?php }?>
-                                      </select>
-                                  </div>
-                              </div>
-                          </div>
                       </div>
                       <div class="duo_flex" style="justify-content: space-around !important;">
                         <div class="choose_your_area select3">
                           <div class="search_cap_input sci2">
                             <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                              <select id="select-refertatore" class="select-refertatore-new" placeholder="Seleziona Refertatore" name="refertatore_id[]">
+                              <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id[]">
                                 <?php
                                 if ( !empty( $refer_id ) ) {
                                   ?>
@@ -599,73 +583,36 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                             </div>
                           </div>
                         </div>
-                          <div class="dual_container diff">
-                              <input type="text" class="datepicker-here inputs w-input appoint_time"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time[]" placeholder="Data e Ora" id="appoint_time">
-                          </div>
-                      </div>
+                        <div class="choose_your_area select4">
+                          <div class="search_cap_input sci2">
+                            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
+                              <select id="select-discount" placeholder="Select Discount" name="select_discount[]">
+                                <?php
+                                for ( $i = 1; $i <= 9; $i++ ) {
+                                  $percentage_val = 10 * $i;
 
+                                  ?>
+                                <option value="<?php echo $percentage_val?>"><?php echo $percentage_val.'%'?></option>
+                                <?php }?>
+                              </select>
+                              <script>
+                                              $('#select-discount').selectize();
+                                          </script> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="dual_container diff">
+                        <input type="text" class="datepicker-here inputs w-input appoint_time"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time[]" placeholder="Data e Ora" id="appoint_time">
+                      </div>
                     </div>
-                      <div class="new_visit_no3" style="display: none">
-                          <div class="duo_flex" style="justify-content: space-around !important;">
-                              <div class="choose_your_area select1" id="select1">
-                                  <div class="search_cap_input sci2">
-                                      <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                          <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]" onchange="getVisitDoc(3)">
-                                              <option value="">Seleziona Prestazione</option>
-                                          </select>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="choose_your_area select2" id="select2" style="margin: 10px; display: none">
-                                  <div class="search_cap_input sci2">
-                                      <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                          <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">
-                                              <option value="">Seleziona Esecutore</option>
-                                          </select>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="choose_your_area select4">
-                                  <div class="search_cap_input sci2">
-                                      <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                          <select id="select-discount" class="select-discount-new" placeholder="Select Discount" name="select_discount[]">
-                                              <?php
-                                              for ( $i = 1; $i <= 9; $i++ ) {
-                                                  $percentage_val = 10 * $i;
-
-                                                  ?>
-                                                  <option value="<?php echo $percentage_val?>"><?php echo $percentage_val.'%'?></option>
-                                              <?php }?>
-                                          </select>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="duo_flex" style="justify-content: space-around !important;">
-                              <div class="choose_your_area select3">
-                                  <div class="search_cap_input sci2">
-                                      <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">
-                                          <select id="select-refertatore" class="select-refertatore-new" placeholder="Seleziona Refertatore" name="refertatore_id[]">
-                                              <?php
-                                              if ( !empty( $refer_id ) ) {
-                                                  ?>
-                                                  <option value="<?php echo $doctor_id?>" selected><?php echo $doctor_main_name?></option>
-                                              <?php }else{?>
-                                                  <option value="">Seleziona Refertatore</option>
-                                              <?php }?>
-                                          </select>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="dual_container diff">
-                                  <input type="text" class="datepicker-here inputs w-input appoint_time"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time[]" placeholder="Data e Ora" id="appoint_time">
-                              </div>
-                          </div>
-
-                      </div>
                     <div class="input-group-btn" style="display: none;">
-                      <button class="btn btn-success next_visit plus" type="button" data-id="1"></button>
-						<button class="btn btn-success back_visit minus" type="button" data-id="0"></button>
+                      <button class="btn btn-success add_next_visit plus" type="button" data-id="1">
+						  
+						</button>
+						<button class="btn btn-success add_next_visit minus" type="button" data-id="1">
+						  
+						</button>
                     </div>
                   </div>
                   <div class="form_section">
@@ -918,18 +865,115 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
     }
   });
 
+
+  //div 1
   // fetch the instance for doctor
-  var select_doc = $('.select-doctor-new').selectize();
+  var select1 = $('.new_visit_no1 #select-doctor').selectize();
+  var doc_select1 = select1[0].selectize;
   // fetch the instance for reporter
-  var select_ref = $('.select-refertatore-new').selectize();
+  var select_ref1 = $('.new_visit_no1 #select-refertatore').selectize();
+  var ref_select1 = select_ref1[0].selectize;
   // fetch the instance for visits
-  var select_visit = $('.select-visit-new').selectize();
+  var select_visit1 = $('.new_visit_no1 #select-visit').selectize();
+  var visit_select1 = select_visit1[0].selectize;
 
-  console.log(select_visit);
+  //div 2
+  // fetch the instance for doctor
+  var select2 = $('.new_visit_no2 #select-doctor').selectize();
+  var doc_select2 = select2[0].selectize;
+  // fetch the instance for reporter
+  var select_ref2 = $('.new_visit_no2 #select-refertatore').selectize();
+  var ref_select2 = select_ref2[0].selectize;
+  // fetch the instance for visits
+  var select_visit2 = $('.new_visit_no2 #select-visit').selectize();
+  var visit_select2 = select_visit2[0].selectize;
 
-  $('.select-discount-new').selectize();
+  function getVisits() {
+      var get_medical_speciality = $("#get-medical-speciality option").val();
 
-  function getVisits(booking_no) {
+      var items_new = doc_select1.items.slice(0);
+      for (var i in items_new) {
+          doc_select.removeItem(items_new[i]);
+      }
+
+      doc_select1.clearOptions();
+      ref_select1.clear();
+      ref_select1.clearOptions();
+      visit_select1.clear();
+      visit_select1.clearOptions();
+
+      $(".new_visit_no1 .choose_your_area.select1").attr("style", "pointer-events: none; opacity: 0.6;");
+      $.ajax({
+          url: "get_visit_doc.php",
+          type: "post",
+          data: {data:get_medical_speciality, get_vist:1},
+          dataType: "json",
+          success: function (response) {
+              console.log(response);
+              $.each(response, function(index) {
+                  $(".new_visit_no1 .choose_your_area.select1").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+                  var visit_att = '';
+                  if (response[index].attribute){
+                      var visit_att = ' ('+response[index].attribute+')';
+                  }
+                  visit_select1.addOption({value: response[index].article_id, text: response[index].description+visit_att});
+              });
+
+              doc_select1.refreshOptions();
+              ref_select1.refreshOptions();
+              visit_select1.refreshOptions();
+              $(".medical_sp").slideUp("slow");
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus, errorThrown);
+          }
+      });
+  }
+
+  function getVisitDoc() {
+    var visit_type_single = $(".new_visit_no1 #select-visit option").val();
+    var get_mds_id = $("#get-medical-speciality option").val();
+
+    var items_new = doc_select1.items.slice(0);
+    for (var i in items_new) {
+      doc_select1.removeItem(items_new[i]);
+    }
+    doc_select1.clearOptions();
+    ref_select1.clear();
+    ref_select1.clearOptions();
+    // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
+    $(".new_visit_no1 .choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
+    $.ajax({
+        url: "get_visit_doc.php",
+      type: "post",
+      data: {data:visit_type_single, mds_erid:get_mds_id, get_vist:0},
+      dataType: "json",
+      success: function (response) {
+          console.log(response);
+        $.each(response, function(index) {
+          var puo_refertare = response[index].puo_refertare;
+            if (puo_refertare == 'N'){
+                $(".new_visit_no1 .appoint_time").attr("style", "pointer-events: inherit; opacity: inherit");
+                $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+                    doc_select1.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+                } else if (puo_refertare == 'Y') {
+                    $(".new_visit_no1 .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+                    ref_select1.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+                }
+        });
+
+        doc_select1.refreshOptions();
+        ref_select1.refreshOptions();
+          $(".input-group-btn").css("display", "block");
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown);
+      }
+    });
+  }
+
+
+  function getVisitsTwo() {
       var get_medical_speciality = $("#get-medical-speciality option").val();
 
       var select_visits_arr = [];
@@ -939,23 +983,17 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
               select_visits_arr.push(selected_value);
           }
       });
-      var get_instance = parseInt(booking_no)-1;
-      var doc_select = select_doc[get_instance].selectize;
-      var ref_select = select_ref[get_instance].selectize;
-      var visit_select = select_visit[get_instance].selectize;
-
-      var items_new = doc_select.items.slice(0);
+      var items_new = doc_select2.items.slice(0);
       for (var i in items_new) {
-          doc_select.removeItem(items_new[i]);
+          doc_select2.removeItem(items_new[i]);
       }
+      doc_select2.clearOptions();
+      ref_select2.clear();
+      ref_select2.clearOptions();
+      visit_select2.clear();
+      visit_select2.clearOptions();
 
-      doc_select.clearOptions();
-      ref_select.clear();
-      ref_select.clearOptions();
-      visit_select.clear();
-      visit_select.clearOptions();
-
-      $(".new_visit_no"+booking_no+" .choose_your_area.select1").attr("style", "pointer-events: none; opacity: 0.6;");
+      $(".new_visit_no2 .choose_your_area.select1").attr("style", "pointer-events: none; opacity: 0.6;");
       $.ajax({
           url: "get_visit_doc.php",
           type: "post",
@@ -964,32 +1002,32 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
           success: function (response) {
               console.log(response);
               $.each(response, function(index) {
-                  $(".new_visit_no"+booking_no+" .choose_your_area.select1").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-                  if ($.inArray(response[index].article_id, select_visits_arr) != -1){
-                     // not add visit
-                  }else {
+                  $(".new_visit_no2 .choose_your_area.select1").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+
+                  if ($.inArray(response[index].article_id, select_visits_arr)){
                       var visit_att = '';
                       if (response[index].attribute){
                           var visit_att = ' ('+response[index].attribute+')';
                       }
-                      visit_select.addOption({value: response[index].article_id, text: response[index].description+visit_att});
+                      visit_select2.addOption({value: response[index].article_id, text: response[index].description+visit_att});
                   }
+
               });
 
-              doc_select.refreshOptions();
-              ref_select.refreshOptions();
-              visit_select.refreshOptions();
+              doc_select2.refreshOptions();
+              ref_select2.refreshOptions();
+              visit_select2.refreshOptions();
+
           },
           error: function(jqXHR, textStatus, errorThrown) {
               console.log(textStatus, errorThrown);
           }
       });
   }
+  function getVisitDocTwo() {
+      var visit_type_single = $(".new_visit_no2 #select-visit option").val();
+      var get_mds_id = $("#get-medical-speciality option").val();
 
-  function getVisitDoc(booking_no) {
-      console.log(booking_no);
-    var visit_type_single = $(".new_visit_no"+booking_no+" #select-visit option").val();
-    var get_mds_id = $("#get-medical-speciality option").val();
 
       var select_doctor_arr = [];
       var select_doctor_arr1 = [];
@@ -1005,121 +1043,79 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
           }
       });
 
-      var get_instance = parseInt(booking_no)-1;
-      var doc_select = select_doc[get_instance].selectize;
-      var ref_select = select_ref[get_instance].selectize;
-      var visit_select = select_visit[get_instance].selectize;
-
-    var items_new = doc_select.items.slice(0);
-    for (var i in items_new) {
-      doc_select.removeItem(items_new[i]);
-    }
-    doc_select.clearOptions();
-    ref_select.clear();
-    ref_select.clearOptions();
-    $(".new_visit_no"+booking_no+" .choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
-    $.ajax({
-        url: "get_visit_doc.php",
-      type: "post",
-      data: {data:visit_type_single, mds_erid:get_mds_id, get_vist:0},
-      dataType: "json",
-      success: function (response) {
-          var get_doctor_arr = [];
-          $.each(response, function(index) {
-              var puo_refertare = response[index].puo_refertare;
-              if (puo_refertare == 'N'){
-                  get_doctor_arr.push(response[index].doctor_id);
-              }
-          });
-          $.each(response, function(index) {
-              var puo_refertare = response[index].puo_refertare;
-              if (puo_refertare == 'N'){
-                if (booking_no == 1){
-                    $(".new_visit_no"+booking_no+" .appoint_time").attr("style", "pointer-events: inherit; opacity: inherit");
-                    $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-                    doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
-
-                } else {
-                    if($.inArray(response[index].doctor_id, select_doctor_arr1) !== -1 ) {
-                        $(".new_visit_no"+booking_no+" .appoint_time").attr("style", "pointer-events: inherit; opacity: inherit");
-                        $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-                        doc_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
-                    }
-                }
-              } else if (puo_refertare == 'Y') {
-                  $(".new_visit_no"+booking_no+" .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
-                  ref_select.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
-              }
-          });
-
-              $.each(select_doctor_arr, function (index) {
-                  if ($.inArray(select_doctor_arr[index].doctor_id, get_doctor_arr) !== -1) {
-                      // not do anything
-                  } else {
-
-                      alert(select_doctor_arr[index].doctor_name + " is not added for selected Visit/Exam");
-                      // $(".new_visit_no"+booking_no+" .choose_your_area.select2").attr("style", "pointer-events: none; opacity: 0.6;");
-
-                      doc_select.clearOptions();
-                      ref_select.clearOptions();
-                      return false;
-
+      var items_new = doc_select2.items.slice(0);
+      for (var i in items_new) {
+          doc_select2.removeItem(items_new[i]);
+      }
+      doc_select2.clearOptions();
+      ref_select2.clear();
+      ref_select2.clearOptions();
+      // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
+      $(".new_visit_no2 .choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
+      $.ajax({
+          url: "get_visit_doc.php",
+          type: "post",
+          data: {data:visit_type_single, mds_erid:get_mds_id, get_vist:0},
+          dataType: "json",
+          success: function (response) {
+              // console.log(response);
+              var get_doctor_arr = [];
+              $.each(response, function(index) {
+                  var puo_refertare = response[index].puo_refertare;
+                  if (puo_refertare == 'N'){
+                      get_doctor_arr.push(response[index].doctor_id);
                   }
+              });
 
+              $.each(response, function(index) {
+                  var puo_refertare = response[index].puo_refertare;
+                  if (puo_refertare == 'N'){
+                      if($.inArray(response[index].doctor_id, select_doctor_arr1) !== -1 ) {
+                          $(".new_visit_no2 .appoint_time").attr("style", "pointer-events: inherit; opacity: inherit");
+                          $(".new_visit_no2 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+                          doc_select2.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+                      }
+                  } else if (puo_refertare == 'Y') {
+                      $(".new_visit_no2 .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+                      ref_select2.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+                  }
               });
 
 
-          doc_select.refreshOptions();
-        ref_select.refreshOptions();
-          $(".input-group-btn").css("display", "block");
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
-      }
-    });
+              $.each(select_doctor_arr, function(index) {
+                  if($.inArray(select_doctor_arr[index].doctor_id, get_doctor_arr) !== -1 ) {
+                      return true;
+              }else {
+                    alert(select_doctor_arr[index].doctor_name+" is not added for selected Visit/Exam");
+                      $(".new_visit_no2 .choose_your_area.select2").attr("style", "pointer-events: none; opacity: 0.6;");
+
+                      doc_select2.clearOptions();
+                      return false;
+
+              }
+              });
+
+              doc_select2.refreshOptions();
+              ref_select2.refreshOptions();
+
+
+              //$(".input-group-btn").css("display", "block");
+
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus, errorThrown);
+          }
+      });
   }
 
 
-  $(".next_visit").on("click", function () {
+  $(".add_next_visit").on("click", function () {
       var current_book_nb = $(this).attr("data-id");
-      var btn_new_no = parseInt(current_book_nb)+1;
-      $(this).attr("data-id", btn_new_no);
-      $('.back_visit').attr("data-id", current_book_nb);
-      $(".new_visit_no"+btn_new_no).slideDown("slow");
-      // $(".input-group-btn").css("display", "none");
+      $(this).attr("data-id", parseInt(current_book_nb)+1);
+      $(".new_visit_no2").slideDown("slow");
+      $(".input-group-btn").css("display", "none");
 
-      getVisits(btn_new_no);
-  });
-
-
-  $(".back_visit").on("click", function () {
-      var current_book_nb = $(this).attr("data-id");
-      var btn_new_no = parseInt(current_book_nb)-1;
-      $(this).attr("data-id", btn_new_no);
-      $('.next_visit').attr("data-id", current_book_nb);
-      var hide_current = parseInt(current_book_nb)+1;
-      $(".new_visit_no"+hide_current).slideUp("slow");
-      // $(".input-group-btn").css("display", "none");
-
-      var doc_select = select_doc[current_book_nb].selectize;
-      var ref_select = select_ref[current_book_nb].selectize;
-      var visit_select = select_visit[current_book_nb].selectize;
-
-
-      var items_new = doc_select.items.slice(0);
-      for (var i in items_new) {
-          doc_select.removeItem(items_new[i]);
-      }
-
-      doc_select.clearOptions();
-      ref_select.clear();
-      ref_select.clearOptions();
-      visit_select.clear();
-      visit_select.clearOptions();
-
-      doc_select.refreshOptions();
-      ref_select.refreshOptions();
-      visit_select.refreshOptions();
+      getVisitsTwo();
   });
 
   function checkFisical(fis_val){

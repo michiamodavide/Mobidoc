@@ -210,7 +210,7 @@ ul.low-abc2 li:before {
   </ul>
   <p>Tali finalit&aacute; saranno perseguite:</p>
   <ul class="dot">
-    <li>in relazione alla finalit&aacute; prevista alla lettera a), poiché il trattamento è necessario all'esecuzione di un contratto di cui è parte l'interessato o all'esecuzione di misure precontrattuali adottate su sua richiesta <sup>6</sup>;</li>
+    <li>in relazione alla finalit&aacute; prevista alla lettera a), poiché il trattamento è necessario all'esecuzione di un contratto di cui è parte l'interessato o all'esecuzione di misure precontrattuali adottate su sua richiesta<sup>6</sup>;</li>
     <li>in relazione alle finalit&aacute; previste alle lettere b) ed e), in forza del Suo consenso al trattamento<sup>7</sup> – espresso in forma specifica in relazione ai dati idonei a rivelare lo stato di salute<sup>8</sup> – revocabile in qualunque momento con le stesse modalit&aacute;;</li>
     <li>in relazione alle finalit&aacute; prevista alle lettere c) e d), poiché il trattamento è necessario per adempiere un obbligo legale al quale è soggetto il Titolare del trattamento<sup>9</sup>.</li>
   </ul>
@@ -233,7 +233,7 @@ ul.low-abc2 li:before {
     <li>Che ne costituisce la base giuridica ai sensi dell'art. 6, paragrafo primo, lett. c), Regolamento U.E. n. 679/2016.</li>
   </ol>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <div class="page-number">Page 3</div>
+  <div class="page-number">3</div>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>
 </body>

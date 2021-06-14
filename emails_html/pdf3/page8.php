@@ -200,21 +200,24 @@ ul.low-abc2 li:before {
 </head>
 <body>
 <div class="main-wraper">
+  
 
   <div style="clear: both"></div>
-  <h4>Consenso al trattamento, anche di dati appartenenti a particolari categorie, per finalit&aacute; di erogazione delle prestazioni e degli interventi di prevenzione, diagnosi e cura (ivi incluse le attivit&aacute; di follow-up a fini di cura e/o le visite specialistiche e/o le prestazioni ambulatoriali eventualmente richieste dall’interessato) (finalit&aacute; b) indicata dall’informativa di trattamento).</h4>
-  <h1>CONSENSO SPECIFICO AL TRATTAMENTO DI DATI PERSONALI</h1>
-  <p>Letta e compresa l’informativa privacy, premendo su “Presto il consenso” o “Nego il consenso”, esprimo la mia volont&aacute; in merito al trattamento dei miei dati personali, con specifico riguardo a quelli idonei a rivelare lo stato di salute per l’erogazione delle prestazioni e degli interventi di prevenzione, diagnosi e cura (comprese le attivit&aacute; di follow-up a fini di cura e/o le visite specialistiche e/o le prestazioni ambulatoriali eventualmente da me richiesti). 
-    Questo consenso potr&aacute; essere revocato nello stesso modo.</p>
-	<div style="clear: both"></div><br>
+  <h4>Consenso per finalit&aacute; di marketing ed attivit&aacute; di comunicazione di carattere commerciale, informativa e promo-pubblicitaria (finalit&aacute; e) indicata dall’informativa di trattamento).</h4>
+  <h1>CONSENSO AL TRATTAMENTO DI DATI PERSONALI</h1>
+  <p>Letta e compresa l’informativa privacy, premendo su “Presto il consenso” o “Nego il consenso”, esprimo la mia volont&aacute; in merito al trattamento dei miei dati personali per finalit&aacute; di marketing: invio di comunicazioni di carattere commerciale, informativo e promo-pubblicitario su prodotti, servizi ed attivit&aacute; di Tekamed S.r.l., con modalit&aacute; automatizzate di contatto o comunicazioni elettroniche mediante l’utilizzo di posta elettronica e messaggi del tipo SMS, IM, MMS, notifiche push; compimento di indagini di mercato e rilevazione del gradimento e della soddisfazione sui servizi resi agli interessati. Comunicazioni informative, commerciali e pubblicitarie che acconsento a ricevere anche tramite posta cartacea o chiamate telefoniche. 
+    Questo consenso potr&aacute; essere revocato nello stesso modo. </p>
+	
+	<div style="clear: both"></div>
+	<br>
+<br>
 <br>
 
-	
- 	<table  align="center" class="list-div" border="0" cellspacing="0" cellpadding="0">
+  <table  align="center" class="list-div" border="0" cellspacing="0" cellpadding="0">
   <tbody>
     <tr>
-      <td><img style="padding-top:5px;" src="emails_html/round-1.jpg" alt=""/>&nbsp;– Presto il consenso</td>
-      <td><img style="margin-top:5px;" src="emails_html/round-2.jpg" alt=""/>&nbsp;– Nego il consenso</td>
+      <td><img style="padding-top:5px;" src="emails_html/pdf3/round-2.jpg" alt=""/>&nbsp;– Presto il consenso</td>
+      <td><img style="margin-top:5px;" src="emails_html/pdf3/round-2.jpg" alt=""/>&nbsp;– Nego il consenso</td>
       
     </tr>
   </tbody>
@@ -228,12 +231,13 @@ ul.low-abc2 li:before {
         <div class="left-div">Nome e Cognome:________________________________________________________________________________</div>
       </div>
       <div class="wraper">
-        <div class="left-div">Firma :_________________________________________________________________________________________</div>
+        <div class="left-div">Firma:__________________________________________________________________________________________</div>
       </div>
     </div>
   </div>
+  
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <div class="page-number">Page 8</div>
+  <div class="page-number">8</div>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>
 </body>

@@ -200,8 +200,25 @@ ul.low-abc2 li:before {
 </head>
 <body>
 <div class="main-wraper">
-  <h3>Flag di presa visione</h3>
-  <p>O – Ho letto e compreso l’<a href="#">informativa privacy.</a></p>
+
+  <div style="clear: both"></div>
+  <h4>Consenso al trattamento, anche di dati appartenenti a particolari categorie, per finalit&aacute; di erogazione delle prestazioni e degli interventi di prevenzione, diagnosi e cura (ivi incluse le attivit&aacute; di follow-up a fini di cura e/o le visite specialistiche e/o le prestazioni ambulatoriali eventualmente richieste dall’interessato) (finalit&aacute; b) indicata dall’informativa di trattamento).</h4>
+  <h1>CONSENSO SPECIFICO AL TRATTAMENTO DI DATI PERSONALI</h1>
+  <p>Letta e compresa l’informativa privacy, premendo su “Presto il consenso” o “Nego il consenso”, esprimo la mia volont&aacute; in merito al trattamento dei miei dati personali, con specifico riguardo a quelli idonei a rivelare lo stato di salute per l’erogazione delle prestazioni e degli interventi di prevenzione, diagnosi e cura (comprese le attivit&aacute; di follow-up a fini di cura e/o le visite specialistiche e/o le prestazioni ambulatoriali eventualmente da me richiesti). 
+    Questo consenso potr&aacute; essere revocato nello stesso modo.</p>
+	<div style="clear: both"></div><br>
+<br>
+
+	
+ 	<table  align="center" class="list-div" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td><img style="padding-top:5px;" src="emails_html/round-1.jpg" alt=""/>&nbsp;– Presto il consenso</td>
+      <td><img style="margin-top:5px;" src="emails_html/round-2.jpg" alt=""/>&nbsp;– Nego il consenso</td>
+      
+    </tr>
+  </tbody>
+</table>
   <div class="form1">
     <div class="col-md-12">
       <div class="wraper">
@@ -211,13 +228,12 @@ ul.low-abc2 li:before {
         <div class="left-div">Nome e Cognome:________________________________________________________________________________</div>
       </div>
       <div class="wraper">
-        <div class="left-div">Firma :__________________________________________________________________________________________</div>
+        <div class="left-div">Firma :_________________________________________________________________________________________</div>
       </div>
     </div>
   </div>
-  
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <div class="page-number">Page 7</div>
+  <div class="page-number">7</div>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>
 </body>
