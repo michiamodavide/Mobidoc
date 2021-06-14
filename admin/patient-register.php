@@ -700,59 +700,13 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                                         </div>
 
 
-<!--                                        <div class="new_visit_no2" style="display: block;">-->
-<!--                                            <div class="duo_flex" style="justify-content: space-around !important;">-->
-<!--                                                <div class="input-style m-r">-->
-<!--                                                    <select>-->
-<!--                                                        <option value="0">Select car:</option>-->
-<!--                                                        <option value="1">Audi</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                                <div class="input-style">-->
-<!--                                                    <select>-->
-<!--                                                        <option value="0">Select car:</option>-->
-<!--                                                        <option value="1">Audi</option>-->
-<!--                                                        <option value="2">BMW</option>-->
-<!--                                                        <option value="3">Citroen</option>-->
-<!--                                                        <option value="4">Ford</option>-->
-<!--                                                        <option value="5">Honda</option>-->
-<!--                                                        <option value="6">Jaguar</option>-->
-<!--                                                        <option value="7">Land Rover</option>-->
-<!--                                                        <option value="8">Mercedes</option>-->
-<!--                                                        <option value="9">Mini</option>-->
-<!--                                                        <option value="10">Nissan</option>-->
-<!--                                                        <option value="11">Toyota</option>-->
-<!--                                                        <option value="12">Volvo</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="duo_flex" style="justify-content: space-around !important;">-->
-<!--                                                <div class="input-style m-r">-->
-<!--                                                    <select>-->
-<!--                                                        <option value="0">Select car:</option>-->
-<!--                                                        <option value="1">Audi</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!---->
-<!--                                                <div style="width: 100%;">-->
-<!--                                                    <input type="text" class="datepicker-here appoint_time input-style2" data-language="it"-->
-<!--                                                           data-date-format="dd-mm-yyyy" maxlength="256"-->
-<!--                                                           autocomplete="off" name="appoint_time[]"-->
-<!--                                                           placeholder="Data e Ora" id="appoint_time">-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!---->
-<!--                                        </div>-->
 
-                                        <div id="new_visit">
-
-                                        </div>
+                                        <div id="new_visit"></div>
 
 
                                         <div class="input-group-btn">
-                                            <button class="btn btn-success next_visit plus" type="button" onclick="addNewVisit();"></button>
+                                            <button class="btn btn-success plus" type="button" onclick="addNewVisit();"></button>
                                         </div>
-
                                     </div>
                                     <div class="form_section">
                                         <div class="form_section_heading">Indennità Km</div>
@@ -998,6 +952,59 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
 <script src="/paziente/dist/js/i18n/datepicker.en.js?v=2"></script>
 <script type="application/javascript">
 
+
+    var room = 1;
+    function addNewVisit() {
+        room++;
+        var objTo = document.getElementById('new_visit');
+        var divtest = document.createElement("div");
+        divtest.setAttribute("class", "new_visit_no"+room);
+        var rdiv = 'new_visit_no'+room;
+        divtest.innerHTML = '      <div class="new_visit_no2">\n' +
+            '                                            <div class="duo_flex" style="justify-content: space-around !important;">\n' +
+            '                                                <div class="input-style m-r">\n' +
+            '                                                    <select>\n' +
+            '                                                        <option value="0">Select car:</option>\n' +
+            '                                                        <option value="1">Audi</option>\n' +
+            '                                                    </select>\n' +
+            '                                                </div>\n' +
+            '                                                <div class="input-style">\n' +
+            '                                                    <select>\n' +
+            '                                                        <option value="0">Select car:</option>\n' +
+            '                                                        <option value="1">Audi</option>\n' +
+            '                                                        <option value="2">BMW</option>\n' +
+            '                                                    </select>\n' +
+            '                                                </div>\n' +
+            '                                            </div>\n' +
+            '                                            <div class="duo_flex" style="justify-content: space-around !important;">\n' +
+            '                                                <div class="input-style m-r">\n' +
+            '                                                    <select>\n' +
+            '                                                        <option value="0">Select car:</option>\n' +
+            '                                                        <option value="1">Audi</option>\n' +
+            '                                                    </select>\n' +
+            '                                                </div>\n' +
+            '\n' +
+            '                                                <div style="width: 100%;">\n' +
+            '                                                    <input type="text" class="datepicker-here appoint_time input-style2" data-language="it"\n' +
+            '                                                           data-date-format="dd-mm-yyyy" maxlength="256"\n' +
+            '                                                           autocomplete="off" name="appoint_time[]"\n' +
+            '                                                           placeholder="Data e Ora" id="appoint_time">\n' +
+            '                                                </div>\n' +
+            '                                            </div>\n' +
+            '\n' +
+            '                                        </div>    <div class="input-group-btn">\n' +
+            '                                            <button class="btn btn-success minus" type="button" onclick="remove_visit_fields('+ room +');"></button>\n' +
+            '                                        </div>';
+
+        objTo.appendChild(divtest);
+
+
+    }
+    function remove_visit_fields(rid) {
+        $('.new_visit_no'+rid).remove();
+    }
+
+
     var icp_param = '<?php echo $icp_param?>';
     $(document).ready(function () {
         if (icp_param) {
@@ -1040,12 +1047,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         }
     });
 
-    // // fetch the instance for doctor
-    // var select_doc = $('.select-doctor-new').selectize();
-    // // fetch the instance for reporter
-    // var select_ref = $('.select-refertatore-new').selectize();
-    // // fetch the instance for visits
-    // var select_visit = $('.select-visit-new').selectize();
+    // fetch the instance for doctor
+    var select_doc = $('.select-doctor-new').selectize();
+    // fetch the instance for reporter
+    var select_ref = $('.select-refertatore-new').selectize();
+    // fetch the instance for visits
+    var select_visit = $('.select-visit-new').selectize();
 
 
     $('.select-discount-new').selectize();
@@ -1255,53 +1262,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
     //     visit_select.refreshOptions();
     // });
 
-
-    var room = 1;
-    function addNewVisit() {
-        room++;
-        var objTo = document.getElementById('new_visit');
-        var divtest = document.createElement("div");
-        divtest.setAttribute("class", "new_visit_no"+room);
-        var rdiv = 'new_visit_no'+room;
-        //divtest.innerHTML = '<div class="col-sm-6 col-sm-offset-1 nopadding"><div class="form-group"><label for="survey_question">Type your question for survey</label><input type="text" class="form-control" id="question" name="question[]" value="" placeholder="School name"></div></div><div class="col-sm-4 nopadding"><div class="form-group"><label for="field_type">Please select field type</label><div class="input-group"><select class="form-control" id="field_type" name="field_type[]"><option value="" disabled selected>Selected answer field</option><option value="textfield">Text Field</option><option value="textarea">Textarea</option><option value="dropdown">Dropdown</option><option value="checkbox">Checkbox</option><option value="radiobutton">Radio Button</option></select><div class="input-group-btn"><button class="btn btn-danger" type="button" onclick="remove_survey_fields('+ room +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Remove Div</button></div></div></div></div><div class="col-sm-6 col-sm-offset-1  nopadding" id="option_div"><div class="form-group"><label for="field_type">What is your options</label><input type="text" class="form-control" id="option" name="option[]" value="" placeholder="Danyal,waris,minhas"><small id="field_type" class="form-text text-muted">If you select Checkbox,Radiobutton or Dropdown then options will be acceptable</small></div></div><div class="clear"></div>';
-        divtest.innerHTML = '<div class="duo_flex">\n' +
-            '    <div class="choose_your_area select1" id="select1">\n' +
-            '        <div class="search_cap_input sci2">\n' +
-            '            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">\n' +
-            '                <select id="select-visit" placeholder="Seleziona Prestazione *" name="vist_name" onchange="getVisitDoc()">\n' +
-            '                </select>\n' +
-            '            </div>\n' +
-            '        </div>\n' +
-            '    </div>\n' +
-            '    <div class="choose_your_area select2" id="select2" style="margin: 10px;">\n' +
-            '        <div class="search_cap_input sci2">\n' +
-            '            <div class="input_element" style="background:#d3fbff;"> <img src="../images/search.svg" width="28"  alt="">\n' +
-            '                <select id="select-doctor" placeholder="Seleziona Esecutore *" class="select-doctor-new" multiple name="doc_id[]">\n' +
-            '                    <option value="">Seleziona Esecutore</option>\n' +
-            '                </select>\n' +
-            '            </div>\n' +
-            '        </div>\n' +
-            '    </div>\n' +
-            '</div>\n' +
-            '<div class="duo_flex">\n' +
-            '    <div class="choose_your_area select3">\n' +
-            '        <div class="search_cap_input sci2">\n' +
-            '            <div class="input_element" style="background:#d3fbff;">\n' +
-            '                <img src="../images/search.svg" width="28"  alt="">\n' +
-            '\n' +
-            '                <select id="select-refertatore" placeholder="Seleziona Refertatore" name="refertatore_id">\n' +
-            '                    <option value="">Seleziona Refertatore</option>\n' +
-            '                </select>\n' +
-            '            </div>\n' +
-            '        </div>\n' +
-            '    </div>\n' +
-            '</div>' +
-            '<button class="btn btn-danger" type="button" onclick="remove_visit_fields('+ room +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Remove Div</button>';
-
-    }
-    function remove_visit_fields(rid) {
-        $('.new_visit_no'+rid).remove();
-    }
 
     // <button class="btn btn-success back_visit minus" type="button" data-id="0"></button>
 
