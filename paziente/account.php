@@ -64,12 +64,6 @@
 }		  
 	  }
 	  
-	  
-	  
-	  
-	  
-	  
-	  
 </style>
 <script>
   function remove_visit(value,value2){
@@ -132,7 +126,6 @@
         <?php
 
           while($rows = mysqli_fetch_array($result)){
-
            $patient_name = $rows['first_name'].' '.$rows['last_name'];
 
         ?>
@@ -187,6 +180,12 @@
             <div class="blue_bulet"></div>
             <div class="text-block-58">Aggiungi nuovo paziente</div>
           </a>
+
+            <a href="patient-profile.php?contact-id=<?php echo $rows3['id']?>" class="list_item diff w-inline-block add_self">
+                <div class="blue_bulet"></div>
+                <div class="text-block-58">Sii paziente</div>
+            </a>
+
          <a href="/paziente/profile-edit.php" class="list_item diff w-inline-block">
           <div class="blue_bulet"></div>
           <div class="text-block-58">Modifica Dettagli Personali</div>

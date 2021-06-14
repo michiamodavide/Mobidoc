@@ -48,6 +48,18 @@ if (isset($_GET['pid'])) {
 
   $submit_btn_text = 'Confirm and Save';
 }
+
+if (isset($_GET['contact-id']) && !empty($_GET['contact-id'])) {
+    $contact_id = $_GET['contact-id'];
+    $get_contact_query= "select * from contact_profile where id = '" . $contact_id . "'";
+    $get_contact_result = mysqli_query($conn, $get_contact_query);
+    $get_contact_row = mysqli_fetch_array($get_contact_result);
+
+    $name = $get_contact_row['name'];
+    $cogname = $get_contact_row['surname'];
+    $email_p = $get_contact_row['email'];
+
+}
 ?>
 <!DOCTYPE html>
 <html data-wf-page="5daa262de3e3f064091af31c" data-wf-site="5d8cfd454ebd737ac1a48727">
