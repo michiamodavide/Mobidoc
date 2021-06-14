@@ -200,24 +200,10 @@ ul.low-abc2 li:before {
 </head>
 <body>
 <div class="main-wraper">
-  <h3>Flag di presa visione</h3>
-  <p>O – Ho letto e compreso l’<a href="#">informativa privacy.</a></p>
-  <div class="form1">
-    <div class="col-md-12">
-      <div class="wraper">
-        <div class="left-div">Luogo e Data:____________________________________________________________________________________</div>
-      </div>
-      <div class="wraper">
-        <div class="left-div">Nome e Cognome:________________________________________________________________________________</div>
-      </div>
-      <div class="wraper">
-        <div class="left-div">Firma :__________________________________________________________________________________________</div>
-      </div>
-    </div>
-  </div>
-  
+   <p>richiedendo eventuali consensi ulteriori che si rendano necessari, previa lettura dell’informativa
+    aggiornata, prima di proseguire con il trattamento.</p>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <div class="page-number">6</div>
+  <div class="page-number">Page 6</div>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>
 </body>

@@ -202,7 +202,7 @@ ul.low-abc2 li:before {
 <div class="main-wraper">
 	
  <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <h1>Informativa di trattamento dei dati personali <sup>1</sup> </h1>
+  <h1>Informativa di trattamento dei dati personali<sup>1</sup> </h1>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
   <p>La societ&aacute; Tekamed S.r.l., è tenuta a fornirLe, prima che i Suoi dati personali siano raccolti – solo in seguito al Suo consenso, nei casi previsti dalla legge – le seguenti informazioni, relative al loro trattamento da parte della nostra Societ&aacute;</p>
  
@@ -218,7 +218,7 @@ ul.low-abc2 li:before {
   <h2>2. Fonte e categoria dei dati personali</h2>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
   <p>Il paragrafo che segue illustra in che modo saranno acquisiti i Suoi dati personali.<br>
-    La legge definisce “dato personale” qualunque informazione relativa a persona fisica, identificata o identificabile, anche indirettamente, mediante riferimento a qualsiasi altra informazione, ivi compreso un numero di identificazione personale . Lo sono, in altre parole, le informazioni (ad esempio, il nome o il cognome) che identificano o rendono identificabile una persona e che possono fornire dettagli sulle sue caratteristiche, le sue abitudini, il suo stile di vita, le sue relazioni personali, il suo stato di salute, la sua situazione economica e così via.<br>
+    La legge definisce “dato personale” qualunque informazione relativa a persona fisica, identificata o identificabile, anche indirettamente, mediante riferimento a qualsiasi altra informazione, ivi compreso un numero di identificazione personale<sup>2</sup>. Lo sono, in altre parole, le informazioni (ad esempio, il nome o il cognome) che identificano o rendono identificabile una persona e che possono fornire dettagli sulle sue caratteristiche, le sue abitudini, il suo stile di vita, le sue relazioni personali, il suo stato di salute, la sua situazione economica e così via.<br>
     I dati personali in nostro possesso sono raccolti di direttamente presso gli interessati e consistono in:</p>
   <ul class="list-center">
     <li><span>1)</span> dati identificativi e di contatto;</li>
@@ -233,7 +233,7 @@ ul.low-abc2 li:before {
     <li>Più in dettaglio, ai sensi dell’art 4, paragrafo primo, n. 1, Regolamento U.E. n. 679/2016: <i>“qualsiasi informazione riguardante una persona fisica identificata o identificabile («interessato»); si considera identificabile la persona fisica che può essere identificata, direttamente o indirettamente, con particolare riferimento a un identificativo come il nome, un numero di identificazione, dati relativi all'ubicazione, un identificativo online o a uno o più elementi caratteristici della sua identità fisica, fisiologica, genetica, psichica, economica, culturale o sociale”</i>.</li>
   </ol>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <div class="page-number">Page 1</div>
+  <div class="page-number">1</div>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>
 </body>

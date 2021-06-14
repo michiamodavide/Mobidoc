@@ -213,18 +213,12 @@ ul.low-abc2 li:before {
   </ul>
   <p>Tali diritti potranno essere esercitati rivolgendosi al Titolare di trattamento, scrivendo agli indirizzi sopra indicati.<br>
     <br>
-    Il Titolare del trattamento si riserva il diritto di apportare modifiche alle presenti politiche di trattamento dei dati personali in qualunque momento, dandone comunicazione agli interessati e </p>
-  <br>
-  <br>
-  <br>
-  <div class="line"></div>
-  <ol start="12">
-    <li>Con modalità che comprendono, a titolo esemplificativo, l'invio di comunicazioni di carattere commerciale,
-      informativo e promo-pubblicitario su prodotti, servizi ed attività di Tekamed S.r.l.</li>
-  </ol>
+    Il Titolare del trattamento si riserva il diritto di apportare modifiche alle presenti politiche di trattamento dei dati personali in qualunque momento, dandone comunicazione agli interessati e richiedendo eventuali consensi ulteriori che si rendano necessari, previa lettura dell’informativa
+    aggiornata, prima di proseguire con il trattamento.</p>
+  
   
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <div class="page-number">Page 5</div>
+  <div class="page-number">5</div>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>
 </body>

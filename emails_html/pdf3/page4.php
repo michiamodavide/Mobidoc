@@ -227,14 +227,17 @@ ul.low-abc2 li:before {
     <li>società che svolgono servizi di archiviazione della documentazione relativa ai rapporti intercorsi con i Clienti;</li>
   </ul>
   <p>e inoltre, in relazione alla finalità prevista alla lettera e) del terzo paragrafo della presente informativa, esclusivamente a soggetti terzi ai quali la comunicazione si renda necessaria per perseguirla tecnicamente<sup>12</sup>.</p>
+	
  
   <div class="line"></div>
   <ol start="10">
     <li>A titolo esemplificativo e non esaustivo: la documentazione inerente gli accertamenti effettuati nel corso delle visite per il rilascio del certificato di idoneità all’attività sportiva agonistica deve essere conservata, a cura del medico visitatore, per almeno 5 (cinque) anni (ai sensi dell’art. 5, D.M. 18/2/1982); le cartelle cliniche, unitamente ai relativi referti, vanno conservate illimitatamente (in base alla Circolare del Ministero della Sanità del 19/12/1986, n. 9002/AG454/260); la documentazione iconografica radiologica deve essere conservata per un periodo non inferiore a 10 (dieci) anni (ai sensi dell’art. 4, D.M. 14/2/1997).</li>
     <li>In particolare, in presenza delle previste dal Capo V del Regolamento U.E. n. 679/2016.</li>
+	  <li>Con modalità che comprendono, a titolo esemplificativo, l'invio di comunicazioni di carattere commerciale,
+      informativo e promo-pubblicitario su prodotti, servizi ed attività di Tekamed S.r.l.</li>
   </ol>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <div class="page-number">Page 4</div>
+  <div class="page-number">4</div>
   <!--------------------------------------------------------------------------------------------------------------------------------------------------------------> 
 </div>
 </body>

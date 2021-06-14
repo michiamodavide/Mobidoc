@@ -171,6 +171,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
 				$contact_email = $contact_row['email'];
 				$contact_phone = $contact_row['phone'];
 				$contact_fname = $contact_row['name'];
+				$contact_surname = $contact_row["surname"];
 
 				/*get patient data*/
 				$patient_sql = "select * from paziente_profile where paziente_id='".$patient_id."'";
@@ -181,6 +182,8 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
 				$patient_dob = date("d-m-Y", strtotime($patient_row['dob']));
 				$patient_address = $patient_row['address'];
 				$patient_gmap_addr = $patient_row['gmap_address'];
+				$p_first_name = $patient_row['first_name'];
+				$p_last_name = $patient_row["last_name"];
 
 				/*get doctor info*/
 				$sql3 = "select * from doctor_profile where doctor_id='".$doctor_id."'";

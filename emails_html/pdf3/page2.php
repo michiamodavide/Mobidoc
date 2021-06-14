@@ -201,7 +201,7 @@ ul.low-abc2 li:before {
 <body>
 <div class="main-wraper">
  <ul class="list-center">
-    <li><span>4)</span> dati relativi alla salute<sup>3</sup> (rientranti tra i cc.dd. dati appartenenti a particolari categorie <sup>4</sup> ).</li>
+    <li><span>4)</span> dati relativi alla salute<sup>3</sup> (rientranti tra i cc.dd. dati appartenenti a particolari categorie<sup>4</sup> ).</li>
   </ul>
   <p>Tutti i dati personali vengono trattati nel rispetto di ogni disposizione di legge applicabile, valutando tutti i rischi connessi e rispettando gli obblighi di riservatezza cui si è sempre ispirata l'attività della nostra Azienda.</p>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -209,7 +209,7 @@ ul.low-abc2 li:before {
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
   
   <p>Il paragrafo che segue illustra per quali ragioni saranno trattati i Suoi dati personali.<br>
-    Il trattamento  a cui saranno sottoposti i Suoi dati personali avverrà nell'ambito della normale attività della nostra Società e per le finalità di seguito indicate: </p>
+    Il trattamento<sup>5</sup> a cui saranno sottoposti i Suoi dati personali avverrà nell'ambito della normale attività della nostra Società e per le finalità di seguito indicate: </p>
   <ul class="low-abc">
     <li>gestione di attività amministrative connesse e strumentali alle prestazioni e ai servizi sanitari richiesti dall’interessato. <br>
       Il conferimento dei dati necessari a tali finalità è facoltativo. L’eventuale rifiuto a fornirli, nei campi contraddistinti come indispensabili, comporta l’impossibilità di fruire dei servizi erogati dalla piattaforma telematica gestita dalla Società. <br>
@@ -239,7 +239,7 @@ ul.low-abc2 li:before {
     <li>Ai sensi dell'art. 4, paragrafo primo, n. 2, Regolamento U.E. n. 679/2016: <i>“qualsiasi operazione o insieme di operazioni, compiute con o senza l'ausilio di processi automatizzati e applicate a dati personali o insiemi di dati personali, come la raccolta, la registrazione, l'organizzazione, la strutturazione, la conservazione, l'adattamento o la modifica, l'estrazione, la consultazione, l'uso, la comunicazione mediante trasmissione, diffusione o qualsiasi altra forma di messa a disposizione, il raffronto o l'interconnessione, la limitazione, la cancellazione o la distruzione”</i>.</li>
   </ol>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <div class="page-number">Page 2</div>
+  <div class="page-number">2</div>
   <!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
 </div>
 </body>
