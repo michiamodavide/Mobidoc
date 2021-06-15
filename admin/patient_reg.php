@@ -5,6 +5,7 @@ if(isset($_POST['submit'])){
 
   print_r($_POST);
   exit();
+
   /*
   $form_data_array = array('fiscal_code','email','call_first_name','call_last_name','tele','first_name','last_name', 'dob','address','admin_note','vist_name','doc_id');
   $verified = 1;
@@ -154,7 +155,12 @@ if(isset($_POST['submit'])){
       $visit_iteration = 0;
       $booking_ids_array = array();
       foreach ($_POST['vist_name'] as $patient_visit) {
-        $appoint_time = date("Y/m/d H:i:s", strtotime($patient_apt_date[$visit_iteration]));
+
+        $appoint_time = '';
+        if ($patient_apt_date[$visit_iteration]){
+          $appoint_time = date("Y/m/d H:i:s", strtotime($patient_apt_date[$visit_iteration]));
+        }
+
         $refertatore_id = $ref_id[$visit_iteration];
 
         /*get refertatore detail*/
@@ -211,7 +217,12 @@ if(isset($_POST['submit'])){
 
           if ($visit_iteration > 0){
             $booking_parent_id = $booking_ids_array[$i];
-            $discounted_price = $price*$discounted_value[$visit_iteration-1]/100;
+
+            $discounted_price = ' ';
+            if ($discounted_value[$visit_iteration-1]){
+              $discounted_price = $price*$discounted_value[$visit_iteration-1]/100;
+            }
+
             $sql_booking = "insert into bookings (patient_id, booking_discount_id, doctor_id, refertatore_id, price, total_discount, km_price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book, gmap_coordinates, latitude, longitude) values('".$patient_id."','".$booking_parent_id."', '".$doctor_id."', '".$referr_id."', '".$price."', '".$discounted_price."',  '".$km_price."','".$admin_note."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."','".$gmap_address."', '".$latitude."', '".$longtitude."')";
           }else{
             $sql_booking = "insert into bookings (patient_id, doctor_id, refertatore_id, price, km_price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book, gmap_coordinates, latitude, longitude) values('".$patient_id."', '".$doctor_id."', '".$referr_id."', '".$price."', '".$km_price."', '".$admin_note."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."','".$gmap_address."', '".$latitude."', '".$longtitude."')";

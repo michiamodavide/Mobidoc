@@ -312,15 +312,19 @@ include '../connect.php';
     $admin_note = '';
     $dobb = '';
     $address = '';
-    $visit_name1 = '';
     $opoint_time = '';
     $payment_mode = '';
     $refer_id = '';
     $gmap_addr = '';
     $lat_log = '';
     $selected_exc = '';
+    $medical_speciality = '';
 
     $icp_param = '';
+    $refer_idss = '';
+    $total_discount = '';
+
+    $article_idd = '';
     if (isset($_GET['icp'])) {
         $icp_param = $_GET['icp'];
         $sql_get_query = "select * from temprary_patient where patient_id ='" . $_GET['icp'] . "'";
@@ -337,28 +341,33 @@ include '../connect.php';
         $fname = $sql_get_tmp_data['first_name'];
         $lname = $sql_get_tmp_data['last_name'];
         $admin_note = $sql_get_tmp_data['admin_note'];
+        $medical_speciality = trim($sql_get_tmp_data['mds_id']);
         $dobb = date("m-d-Y H:i", strtotime($sql_get_tmp_data['dob']));
 
         $address = $sql_get_tmp_data['address'];
         $article_idd = $sql_get_tmp_data['visit_name'];
-        $get_article_desc = "SELECT descrizione FROM articlesMobidoc WHERE id = '" . $article_idd . "'";
-        $get_article_result = mysqli_query($conn, $get_article_desc);
-        $get_article_row = mysqli_fetch_array($get_article_result);
-        $visit_name1 = $get_article_row['descrizione'];
+        $total_discount = $sql_get_tmp_data['total_discount'];
+//        $get_article_desc = "SELECT descrizione FROM articlesMobidoc WHERE id = '" . $article_idd . "'";
+//        $get_article_result = mysqli_query($conn, $get_article_desc);
+//        $get_article_row = mysqli_fetch_array($get_article_result);
+//        $visit_name1 = $get_article_row['descrizione'];
 
+        $apt_time = json_decode($sql_get_tmp_data['appoint_time']);
         $apoint_time = '';
-        if ($sql_get_tmp_data['appoint_time']) {
-            $apoint_time = date("m-d-Y H:i", strtotime($sql_get_tmp_data['appoint_time']));
+        if ($apt_time[0]) {
+            $apoint_time = date("m-d-Y H:i", strtotime($apt_time[0]));
         }
 
         $payment_mode = $sql_get_tmp_data['payment_mode'];
-        $refer_id = $sql_get_tmp_data['refertatore_id'];
+        $refer_id = json_decode($sql_get_tmp_data['refertatore_id']);
+        $refer_idss = $sql_get_tmp_data['refertatore_id'];
         $gmap_addr = $sql_get_tmp_data['gmap_address'];
         $lat_log = $sql_get_tmp_data['lat_log'];
         $selected_exc = $sql_get_tmp_data['excutor_ids'];
 
+
         /*get refer email*/
-        $sql44 = "select * from doctor_profile where doctor_id ='" . $refer_id . "'";
+        $sql44 = "select * from doctor_profile where doctor_id ='" . $refer_id[0] . "'";
         $result44 = mysqli_query($conn, $sql44);
         $rows44 = mysqli_fetch_array($result44);
         $doctor_main_name = $rows44['fname'] . ' ' . $rows44['lname'];
@@ -475,6 +484,10 @@ include '../connect.php';
             }
         }
     </style>
+
+
+<!--    <link rel="stylesheet" href="/resources/demos/style.css">-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body class="body-14 register">
 <div>
@@ -605,6 +618,7 @@ include '../connect.php';
                                     </div>
                                     <div class="form_section">
                                         <div class="form_section_heading">Prenotazione Prestazione</div>
+
                                         <div class="duo_flex">
                                             <div class="choose_your_area select4">
                                                 <div class="search_cap_input sci2">
@@ -612,7 +626,8 @@ include '../connect.php';
                                                                 src="../images/search.svg" width="28" alt="">
                                                         <select id="get-medical-speciality"
                                                                 placeholder="Select Medical Speciality *"
-                                                                name="mds_name" onchange="getVisits(1)">
+                                                                name="mds_name" onchange="getVisits()">
+
                                                             <option value="">Select Medical Speciality</option>
                                                             <?php
                                                             include '../connect.php';
@@ -626,9 +641,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                                                             while ($mds_rows = mysqli_fetch_array($mds_result)) {
                                                                 $medical_erd = $mds_rows['ERid'];
                                                                 $medical_name = $mds_rows['name'];
+                                                                if (!empty($medical_speciality) && $medical_speciality == $medical_erd){
                                                                 ?>
+                                                                <option value="<?PHP echo $medical_erd; ?>" selected><?PHP echo $medical_name; ?></option>
+                                                                 <?php }else{?>
                                                                 <option value="<?PHP echo $medical_erd; ?>"><?PHP echo $medical_name; ?></option>
-                                                            <?php }
+                                                            <?php }}
                                                             mysqli_close($conn); ?>
                                                         </select>
                                                         <script>
@@ -644,9 +662,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                                                     <div class="search_cap_input sci2">
                                                         <div class="input_element" style="background:#d3fbff;"><img
                                                                     src="../images/search.svg" width="28" alt="">
-                                                            <select id="select-visit" class="select-visit-new"
-                                                                    placeholder="Seleziona Prestazione *"
-                                                                    name="vist_name[]" onchange="getVisitDoc(1)">
+                                                            <select id="select-visit" class="select-visit-new" placeholder="Seleziona Prestazione *" name="vist_name[]">
                                                                 <option value="">Seleziona Prestazione</option>
                                                             </select>
                                                         </div>
@@ -705,7 +721,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
 
 
                                         <div class="input-group-btn">
-                                            <button class="btn btn-success plus" type="button" onclick="addNewVisit();"></button>
+                                            <button class="btn btn-success plus" style="display: none" type="button" onclick="addNewVisit();"></button>
                                         </div>
                                     </div>
                                     <div class="form_section">
@@ -948,39 +964,140 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         opacity: 0.6;
     }
 </style>
-<script src="/paziente/date_pic.js?v=2"></script>
-<script src="/paziente/dist/js/i18n/datepicker.en.js?v=2"></script>
+
 <script type="application/javascript">
 
 
+    var icp_param = '<?php echo $icp_param?>';
+
+
+    var select1 = $('.new_visit_no1 #select-doctor').selectize();
+    var doc_select1 = select1[0].selectize;
+    // fetch the instance for reporter
+    var select_ref1 = $('.new_visit_no1 #select-refertatore').selectize();
+    var ref_select1 = select_ref1[0].selectize;
+    // fetch the instance for visits
+    var select_visit1 = $('.new_visit_no1 #select-visit').selectize();
+    var visit_select1 = select_visit1[0].selectize;
+
+    function getVisits() {
+        var get_medical_speciality = $("#get-medical-speciality option").val();
+
+        var items_new = doc_select1.items.slice(0);
+        for (var i in items_new) {
+            doc_select.removeItem(items_new[i]);
+        }
+
+        doc_select1.clearOptions();
+        ref_select1.clear();
+        ref_select1.clearOptions();
+        visit_select1.clear();
+        visit_select1.clearOptions();
+
+        $(".new_visit_no1 .choose_your_area.select1").attr("style", "pointer-events: none; opacity: 0.6;");
+        $.ajax({
+            url: "get_visit_doc.php",
+            type: "post",
+            data: {data:get_medical_speciality, get_vist:1},
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                $.each(response, function(index) {
+                    $(".new_visit_no1 .choose_your_area.select1").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+                    var visit_att = '';
+                    if (response[index].attribute){
+                        var visit_att = ' ('+response[index].attribute+')';
+                    }
+                    visit_select1.addOption({value: response[index].article_id, text: response[index].description+visit_att});
+                });
+
+                doc_select1.refreshOptions();
+                ref_select1.refreshOptions();
+                visit_select1.refreshOptions();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+
+    if (icp_param == '') {
+
+        $(document).on("change",'.new_visit_no1 .select-visit-new', function(event) {
+            event.preventDefault();
+            getVisitDoc();
+        });
+    }
+    function getVisitDoc() {
+        var visit_type_single = $(".new_visit_no1 #select-visit option").val();
+        var get_mds_id = $("#get-medical-speciality option").val();
+
+        var items_new = doc_select1.items.slice(0);
+        for (var i in items_new) {
+            doc_select1.removeItem(items_new[i]);
+        }
+        doc_select1.clearOptions();
+        ref_select1.clear();
+        ref_select1.clearOptions();
+        // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
+        $(".new_visit_no1 .choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
+        $.ajax({
+            url: "get_visit_doc.php",
+            type: "post",
+            data: {data:visit_type_single, mds_erid:get_mds_id, get_vist:0},
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                $.each(response, function(index) {
+                    var puo_refertare = response[index].puo_refertare;
+                    if (puo_refertare == 'N'){
+                        $(".new_visit_no1 .appoint_time").attr("style", "pointer-events: inherit; opacity: inherit");
+                        $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+                        doc_select1.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+                    } else if (puo_refertare == 'Y') {
+                        $(".new_visit_no1 .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+                        ref_select1.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
+                    }
+                });
+
+                doc_select1.refreshOptions();
+                ref_select1.refreshOptions();
+                $(".input-group-btn .plus").css("display", "block");
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+
+
+
     var room = 1;
-    function addNewVisit() {
+
+    function render_html() {
+        $(".input-group-btn .plus").css("display", "none");
         room++;
         var objTo = document.getElementById('new_visit');
         var divtest = document.createElement("div");
         divtest.setAttribute("class", "new_visit_no"+room);
         var rdiv = 'new_visit_no'+room;
-        divtest.innerHTML = '      <div class="new_visit_no2">\n' +
+        divtest.innerHTML = '      <div class="dynamic_div">\n' +
             '                                            <div class="duo_flex" style="justify-content: space-around !important;">\n' +
             '                                                <div class="input-style m-r">\n' +
-            '                                                    <select>\n' +
-            '                                                        <option value="0">Select car:</option>\n' +
-            '                                                        <option value="1">Audi</option>\n' +
+            '                                                    <select data-id="'+room+'" class="select-visit-new" name="vist_name[]">\n' +
+            '                                                        <option value="">Seleziona Prestazione</option>\n' +
             '                                                    </select>\n' +
             '                                                </div>\n' +
             '                                                <div class="input-style">\n' +
-            '                                                    <select>\n' +
-            '                                                        <option value="0">Select car:</option>\n' +
-            '                                                        <option value="1">Audi</option>\n' +
-            '                                                        <option value="2">BMW</option>\n' +
+            '                                                    <select class="select-discount-new" name="select_discount[]">\n' +
+            '                                                        <option value="">Seleziona Sconto</option>\n' +
             '                                                    </select>\n' +
             '                                                </div>\n' +
             '                                            </div>\n' +
             '                                            <div class="duo_flex" style="justify-content: space-around !important;">\n' +
             '                                                <div class="input-style m-r">\n' +
-            '                                                    <select>\n' +
-            '                                                        <option value="0">Select car:</option>\n' +
-            '                                                        <option value="1">Audi</option>\n' +
+            '                                                    <select class="select-refertatore-new" name="refertatore_id[]">\n' +
+            '                                                        <option value="">Seleziona Refertatore</option>\n' +
             '                                                    </select>\n' +
             '                                                </div>\n' +
             '\n' +
@@ -998,272 +1115,327 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
 
         objTo.appendChild(divtest);
 
+        // $(".appoint_time").on("keyup", function(e) {
+        //     alert("hello");
+        // })
+
+
 
     }
-    function remove_visit_fields(rid) {
-        $('.new_visit_no'+rid).remove();
-    }
-
-
-    var icp_param = '<?php echo $icp_param?>';
+    // $('.appoint_time').datepicker();
     $(document).ready(function () {
         if (icp_param) {
-            var executor_selected = $.parseJSON('<?php echo $selected_exc?>');
-            var visit_type_single = $("#select-visit option").val();
-            $(".choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
+            var get_medical_speciality = $("#get-medical-speciality option").val();
+            var articles_idds = $.parseJSON('<?php echo $article_idd?>');
+
             $.ajax({
-                url: "/paziente/get_visit_doc.php",
+                url: "get_visit_doc.php",
                 type: "post",
-                data: {data: visit_type_single, get_vist: 0},
+                data: {data:get_medical_speciality, get_vist:1},
+                dataType: "json",
+                success: function (response) {
+                    $.each(response, function(index) {
+                        $(".new_visit_no1 .choose_your_area.select1").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+                        var visit_att = '';
+                        if (response[index].attribute){
+                            var visit_att = ' ('+response[index].attribute+')';
+                        }
+                        visit_select1.addOption({value: response[index].article_id, text: response[index].description+visit_att});
+                    });
+
+                    visit_select1.setValue(articles_idds[0]);
+
+
+                    var discounted_prices = $.parseJSON('<?php echo $total_discount?>');
+                    // console.log(discounted_prices);
+                    $(articles_idds).each(function(index, val) {
+                        if (index > 0){
+                            render_html();
+
+                            var back_index = parseInt(index)-1;
+                            for (ds = 1; ds < 10; ds++) {
+                                var options_data = ds*10;
+                                if (options_data == discounted_prices[back_index]) {
+                                    $(".new_visit_no"+room+" .select-discount-new")
+                                        .append($("<option></option>")
+                                            .attr("value", options_data)
+                                            .text(options_data+'%')
+                                            .attr('selected', 'selected')
+                                        );
+                                }else {
+                                    $(".new_visit_no"+room+" .select-discount-new")
+                                        .append($("<option></option>")
+                                            .attr("value", options_data)
+                                            .text(options_data+'%'));
+                                }
+
+                            }
+                            var current_art_id = val;
+                            $.each(response, function(index) {
+                                var visit_att = '';
+                                if (response[index].attribute){
+                                    var visit_att = ' ('+response[index].attribute+')';
+                                }
+                                if (current_art_id == response[index].article_id) {
+                                    $(".new_visit_no"+room+" .select-visit-new")
+                                        .append($("<option></option>")
+                                            .attr("value", response[index].article_id)
+                                            .text(response[index].description+visit_att)
+                                            .attr('selected', 'selected')
+                                        );
+                                }else {
+                                    $(".new_visit_no"+room+" .select-visit-new")
+                                        .append($("<option></option>")
+                                            .attr("value", response[index].article_id)
+                                            .text(response[index].description+visit_att)
+                                        );
+                                }
+
+                            });
+                        }
+
+                    });
+
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+
+            var executor_selected = $.parseJSON('<?php echo $selected_exc?>');
+            var visit_type_single = articles_idds[0];
+            $(".new_visit_no1 .choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
+            $.ajax({
+                url: "get_visit_doc.php",
+                type: "post",
+                data: {data:visit_type_single, mds_erid:get_medical_speciality, get_vist:0},
                 dataType: "json",
                 success: function (response) {
                     $.each(response, function (index) {
                         var puo_refertare = response[index].puo_refertare;
-                        var is_active_doc = response[index].active;
-                        if (is_active_doc == 'Y') {
                             if (puo_refertare == 'N') {
-                                $(".choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-                                doc_select.addOption({
+                                $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+                                doc_select1.addOption({
                                     value: response[index].doctor_id,
                                     text: response[index].fname + ' ' + response[index].lname
                                 });
-                                // executor_selected.push(response[index].doctor_id);
+
                             } else if (puo_refertare == 'Y') {
-                                $(".choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
-                                ref_select.addOption({
+                                $(".new_visit_no1 .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+                                ref_select1.addOption({
                                     value: response[index].doctor_id,
                                     text: response[index].fname + ' ' + response[index].lname
                                 });
                             }
-                        }
+
                     });
 
-                    doc_select.setValue(executor_selected);
+                    doc_select1.setValue(executor_selected);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(textStatus, errorThrown);
                 }
             });
+
+
+
+            // console.log(discounted_prices);
+            var refer_idsss = $.parseJSON('<?php echo $refer_idss?>');
+            $(articles_idds).each(function(index, val) {
+                if (index > 0){
+                    var current_nb = parseInt(index)+1;
+
+                    $.ajax({
+                        url: "get_visit_doc.php",
+                        type: "post",
+                        data: {data:val, mds_erid:get_medical_speciality, get_vist:0},
+                        dataType: "json",
+                        success: function (response) {
+                            $.each(response, function (index) {
+                                var puo_refertare = response[index].puo_refertare;
+                                if (puo_refertare == 'Y') {
+                                    if (refer_idsss[index] == response[index].doctor_id){
+                                        $(".new_visit_no"+current_nb+" .select-refertatore-new")
+                                            .append($("<option></option>")
+                                                .attr("value", response[index].doctor_id)
+                                                .text(response[index].fname + ' ' + response[index].lname)
+                                                .attr('selected', 'selected')
+                                            );
+                                    } else {
+                                        $(".new_visit_no"+current_nb+" .select-refertatore-new")
+                                            .append($("<option></option>")
+                                                .attr("value", response[index].doctor_id)
+                                                .text(response[index].fname + ' ' + response[index].lname)
+                                            );
+                                    }
+
+                                }
+
+                            });
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
+
+
+                }
+
+            });
+
+
+            var select_visits_arr = [articles_idds[0]];
+            $(".dynamic_div .select-visit-new").each(function(i){
+                var selected_value = $(this).children("option:selected").val();
+                if (selected_value){
+                    select_visits_arr.push(selected_value);
+                }
+            });
+            $(".input-group-btn .plus").css("display", "block");
         }
     });
 
-    // fetch the instance for doctor
-    var select_doc = $('.select-doctor-new').selectize();
-    // fetch the instance for reporter
-    var select_ref = $('.select-refertatore-new').selectize();
-    // fetch the instance for visits
-    var select_visit = $('.select-visit-new').selectize();
 
+    function addNewVisit() {
 
-    $('.select-discount-new').selectize();
-
-    function getVisits(booking_no) {
+        render_html();
         var get_medical_speciality = $("#get-medical-speciality option").val();
 
         var select_visits_arr = [];
-        $(".select-visit-new").each(function (i) {
+        $(".select-visit-new").each(function(i){
             var selected_value = $(this).children("option:selected").val();
-            if (selected_value) {
+            if (selected_value){
                 select_visits_arr.push(selected_value);
             }
         });
-        var get_instance = parseInt(booking_no) - 1;
-        var doc_select = select_doc[get_instance].selectize;
-        var ref_select = select_ref[get_instance].selectize;
-        var visit_select = select_visit[get_instance].selectize;
-
-        var items_new = doc_select.items.slice(0);
-        for (var i in items_new) {
-            doc_select.removeItem(items_new[i]);
-        }
-
-        doc_select.clearOptions();
-        ref_select.clear();
-        ref_select.clearOptions();
-        visit_select.clear();
-        visit_select.clearOptions();
-
-        $(".new_visit_no" + booking_no + " .choose_your_area.select1").attr("style", "pointer-events: none; opacity: 0.6;");
         $.ajax({
             url: "get_visit_doc.php",
             type: "post",
-            data: {data: get_medical_speciality, get_vist: 1},
+            data: {data:get_medical_speciality, get_vist:1},
             dataType: "json",
             success: function (response) {
                 console.log(response);
-                $.each(response, function (index) {
-                    $(".new_visit_no" + booking_no + " .choose_your_area.select1").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-                    if ($.inArray(response[index].article_id, select_visits_arr) != -1) {
+                $.each(response, function(index) {
+                    // $(".new_visit_no2 .choose_your_area.select1").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
+                    if ($.inArray(response[index].article_id, select_visits_arr) != -1 ){
                         // not add visit
-                    } else {
+                    }else {
                         var visit_att = '';
-                        if (response[index].attribute) {
-                            var visit_att = ' (' + response[index].attribute + ')';
+                        if (response[index].attribute){
+                            var visit_att = ' ('+response[index].attribute+')';
                         }
-                        visit_select.addOption({
-                            value: response[index].article_id,
-                            text: response[index].description + visit_att
-                        });
+                        $(".new_visit_no"+room+" .select-visit-new")
+                            .append($("<option></option>")
+                                .attr("value", response[index].article_id)
+                                .text(response[index].description+visit_att));
                     }
+
                 });
 
-                doc_select.refreshOptions();
-                ref_select.refreshOptions();
-                visit_select.refreshOptions();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
             }
         });
-    }
 
-    function getVisitDoc(booking_no) {
-        console.log(booking_no);
-        var visit_type_single = $(".new_visit_no" + booking_no + " #select-visit option").val();
-        var get_mds_id = $("#get-medical-speciality option").val();
 
-        var select_doctor_arr = [];
-        var select_doctor_arr1 = [];
-        $(".select-doctor-new option:selected").each(function (i) {
-            var selected_id = $(this).val();
-            var selected_text = $(this).text();
-            if (selected_id) {
-                select_doctor_arr.push({
-                    doctor_id: selected_id,
-                    doctor_name: selected_text
-                });
-                select_doctor_arr1.push(selected_id);
-            }
-        });
-
-        var get_instance = parseInt(booking_no) - 1;
-        var doc_select = select_doc[get_instance].selectize;
-        var ref_select = select_ref[get_instance].selectize;
-        var visit_select = select_visit[get_instance].selectize;
-
-        var items_new = doc_select.items.slice(0);
-        for (var i in items_new) {
-            doc_select.removeItem(items_new[i]);
+        for (ds = 1; ds < 10; ds++) {
+            var options_data = ds*10;
+            $(".new_visit_no"+room+" .select-discount-new")
+                .append($("<option></option>")
+                    .attr("value", options_data)
+                    .text(options_data+'%'));
         }
-        doc_select.clearOptions();
-        ref_select.clear();
-        ref_select.clearOptions();
-        $(".new_visit_no" + booking_no + " .choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
-        $.ajax({
-            url: "get_visit_doc.php",
-            type: "post",
-            data: {data: visit_type_single, mds_erid: get_mds_id, get_vist: 0},
-            dataType: "json",
-            success: function (response) {
-                var get_doctor_arr = [];
-                $.each(response, function (index) {
-                    var puo_refertare = response[index].puo_refertare;
-                    if (puo_refertare == 'N') {
-                        get_doctor_arr.push(response[index].doctor_id);
-                    }
-                });
-                $.each(response, function (index) {
-                    var puo_refertare = response[index].puo_refertare;
-                    if (puo_refertare == 'N') {
-                        if (booking_no == 1) {
-                            $(".new_visit_no" + booking_no + " .appoint_time").attr("style", "pointer-events: inherit; opacity: inherit");
-                            $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-                            doc_select.addOption({
-                                value: response[index].doctor_id,
-                                text: response[index].fname + ' ' + response[index].lname
-                            });
 
-                        } else {
-                            if ($.inArray(response[index].doctor_id, select_doctor_arr1) !== -1) {
-                                $(".new_visit_no" + booking_no + " .appoint_time").attr("style", "pointer-events: inherit; opacity: inherit");
-                                $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
-                                doc_select.addOption({
-                                    value: response[index].doctor_id,
-                                    text: response[index].fname + ' ' + response[index].lname
-                                });
-                            }
-                        }
-                    } else if (puo_refertare == 'Y') {
-                        $(".new_visit_no" + booking_no + " .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
-                        ref_select.addOption({
-                            value: response[index].doctor_id,
-                            text: response[index].fname + ' ' + response[index].lname
-                        });
-                    }
-                });
-
-                $.each(select_doctor_arr, function (index) {
-                    if ($.inArray(select_doctor_arr[index].doctor_id, get_doctor_arr) !== -1) {
-                        // not do anything
-                    } else {
-
-                        alert(select_doctor_arr[index].doctor_name + " is not added for selected Visit/Exam");
-                        // $(".new_visit_no"+booking_no+" .choose_your_area.select2").attr("style", "pointer-events: none; opacity: 0.6;");
-
-                        doc_select.clearOptions();
-                        ref_select.clearOptions();
-                        return false;
-
-                    }
-
-                });
-
-
-                doc_select.refreshOptions();
-                ref_select.refreshOptions();
-                $(".input-group-btn").css("display", "block");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
-            }
-        });
+    }
+    function remove_visit_fields(rid) {
+        $('.new_visit_no'+rid).remove();
+        $(".input-group-btn .plus").css("display", "block");
     }
 
+    $(document).on("change",'.dynamic_div .select-visit-new', function(event){
+        event.preventDefault();
 
-    // $(".next_visit").on("click", function () {
-    //     var current_book_nb = $(this).attr("data-id");
-    //     var btn_new_no = parseInt(current_book_nb) + 1;
-    //     $(this).attr("data-id", btn_new_no);
-    //     $('.back_visit').attr("data-id", current_book_nb);
-    //     $(".new_visit_no" + btn_new_no).slideDown("slow");
-    //     // $(".input-group-btn").css("display", "none");
-    //
-    //     getVisits(btn_new_no);
-    // });
-    //
-    //
-    // $(".back_visit").on("click", function () {
-    //     var current_book_nb = $(this).attr("data-id");
-    //     var btn_new_no = parseInt(current_book_nb) - 1;
-    //     $(this).attr("data-id", btn_new_no);
-    //     $('.next_visit').attr("data-id", current_book_nb);
-    //     var hide_current = parseInt(current_book_nb) + 1;
-    //     $(".new_visit_no" + hide_current).slideUp("slow");
-    //     // $(".input-group-btn").css("display", "none");
-    //
-    //     var doc_select = select_doc[current_book_nb].selectize;
-    //     var ref_select = select_ref[current_book_nb].selectize;
-    //     var visit_select = select_visit[current_book_nb].selectize;
-    //
-    //
-    //     var items_new = doc_select.items.slice(0);
-    //     for (var i in items_new) {
-    //         doc_select.removeItem(items_new[i]);
-    //     }
-    //
-    //     doc_select.clearOptions();
-    //     ref_select.clear();
-    //     ref_select.clearOptions();
-    //     visit_select.clear();
-    //     visit_select.clearOptions();
-    //
-    //     doc_select.refreshOptions();
-    //     ref_select.refreshOptions();
-    //     visit_select.refreshOptions();
-    // });
+        var visit_type_single = $(this).find(':selected').val();
+
+        if (visit_type_single) {
+            var booking_number = $(this).attr("data-id");
+            $('.new_visit_no' + booking_number + ' .select-visit-new option:eq(0)').removeAttr('selected');
+
+            var get_mds_id = $("#get-medical-speciality option").val();
 
 
-    // <button class="btn btn-success back_visit minus" type="button" data-id="0"></button>
+            var select_doctor_arr = [];
+            var select_doctor_arr1 = [];
+            $(".select-doctor-new option:selected").each(function (i) {
+                var selected_id = $(this).val();
+                var selected_text = $(this).text();
+                if (selected_id) {
+                    select_doctor_arr.push({
+                        doctor_id: selected_id,
+                        doctor_name: selected_text
+                    });
+                    select_doctor_arr1.push(selected_id);
+                }
+            });
+
+            // $(".choose_your_area.select2 .selectize-control.multi .selectize-input div, .choose_your_area.select2 .select-doctor-new option").remove();
+            $(".new_visit_no2 .choose_your_area.select3").attr("style", "pointer-events: none; opacity: 0.6;");
+            $.ajax({
+                url: "get_visit_doc.php",
+                type: "post",
+                data: {data: visit_type_single, mds_erid: get_mds_id, get_vist: 0},
+                dataType: "json",
+                success: function (response) {
+                    // console.log(response);
+                    var get_doctor_arr = [];
+                    $.each(response, function (index) {
+                        var puo_refertare = response[index].puo_refertare;
+                        if (puo_refertare == 'N') {
+                            get_doctor_arr.push(response[index].doctor_id);
+                        }
+                    });
+
+                    $.each(response, function (index) {
+                        var puo_refertare = response[index].puo_refertare;
+                        if (puo_refertare == 'Y') {
+                            // $(".new_visit_no2 .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
+                            $(".new_visit_no" + booking_number + " .select-refertatore-new")
+                                .append($("<option></option>")
+                                    .attr("value", response[index].doctor_id)
+                                    .text(response[index].fname + ' ' + response[index].lname));
+                        }
+                    });
+
+
+                    $.each(select_doctor_arr, function (index) {
+                        if ($.inArray(select_doctor_arr[index].doctor_id, get_doctor_arr) !== -1) {
+                            $(".input-group-btn .plus").css("display", "block");
+                            return true;
+                        } else {
+                            alert(select_doctor_arr[index].doctor_name + " is not added for selected Visit/Exam");
+                            // $(".new_visit_no2 .choose_your_area.select2").attr("style", "pointer-events: none; opacity: 0.6;");
+                            $('.new_visit_no' + booking_number + ' .select-visit-new option:eq(0)').attr('selected', 'selected');
+                            $('.new_visit_no' + booking_number + ' .select-refertatore-new option').each(function () {
+                                if ($(this).val() !== '') {
+                                    $(this).remove();
+                                }
+                            });
+                            return false;
+
+                        }
+                    });
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+
+            });
+        }
+    });
 
 
     function checkFisical(fis_val) {
@@ -1514,9 +1686,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
 
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+<script src="/paziente/date_pic.js?v=2"></script>
+<script src="/paziente/dist/js/i18n/datepicker.en.js?v=2"></script>
 <script type="text/javascript">
 
-    $(".appoint_time").keyup(function () {
+
+    $(".appoint_time").on("keyup", function(e) {
         var select_date = $(this).val().split('-');
         var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
 
@@ -1525,7 +1700,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
             if (opoint_date == 'Invalid Date') {
                 //do not do anyting
             } else {
-                $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+                $('.appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
             }
         }, 500);
 
