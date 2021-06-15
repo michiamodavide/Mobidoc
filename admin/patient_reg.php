@@ -3,9 +3,6 @@ include '../connect.php';
 
 if(isset($_POST['submit'])){
 
-  print_r($_POST);
-  exit();
-
   /*
   $form_data_array = array('fiscal_code','email','call_first_name','call_last_name','tele','first_name','last_name', 'dob','address','admin_note','vist_name','doc_id');
   $verified = 1;
@@ -154,7 +151,9 @@ if(isset($_POST['submit'])){
       $patient_visit_count = count(array_filter($_POST['vist_name']));
       $visit_iteration = 0;
       $booking_ids_array = array();
-      foreach ($_POST['vist_name'] as $patient_visit) {
+
+      $pat_visits_array = $_POST['vist_name'];
+      foreach ($pat_visits_array as $patient_visit) {
 
         $appoint_time = '';
         if ($patient_apt_date[$visit_iteration]){
@@ -177,8 +176,12 @@ if(isset($_POST['submit'])){
         $article_id = $patient_visit;
         $booking_done = 0;
         $doc_details_array = array();
-        for ($i = 0; $i < count($doc_ids_array); $i++)  {
 
+        $items_array = array(
+            $patient_visit => array()
+        );
+
+        for ($i = 0; $i < count($doc_ids_array); $i++)  {
 
           $doctor_id = $doc_ids_array[$i];
           /*$article_id = mysqli_real_escape_string($conn, $_POST['vist_name']);*/
@@ -196,6 +199,7 @@ if(isset($_POST['submit'])){
           } else {
             $price = $get_visit_row['visit_tele_price'];
           }
+
 
           /*get doctor email*/
           $sql44 = "select * from doctor_profile where doctor_id ='".$doctor_id."'";
@@ -215,10 +219,11 @@ if(isset($_POST['submit'])){
             $referr_id = $refertatore_id;
           }
 
+
+          $discounted_price = '';
           if ($visit_iteration > 0){
             $booking_parent_id = $booking_ids_array[$i];
 
-            $discounted_price = ' ';
             if ($discounted_value[$visit_iteration-1]){
               $discounted_price = $price*$discounted_value[$visit_iteration-1]/100;
             }
@@ -227,6 +232,18 @@ if(isset($_POST['submit'])){
           }else{
             $sql_booking = "insert into bookings (patient_id, doctor_id, refertatore_id, price, km_price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book, gmap_coordinates, latitude, longitude) values('".$patient_id."', '".$doctor_id."', '".$referr_id."', '".$price."', '".$km_price."', '".$admin_note."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."','".$gmap_address."', '".$latitude."', '".$longtitude."')";
           }
+
+
+          array_push($items_array[$patient_visit], array(
+              "exam_name" => $visit_name,
+              "exam_price" => $price,
+              "discount_price" => $discounted_price,
+              "doctor_name" => $doctor_main_name,
+              "doctor_email" => $doctor_email,
+              "refer_name" => $refertatore_name,
+              "refer_email" => $refertatore_email,
+          ));
+
           $result_booking = mysqli_query($conn, $sql_booking);
 
           if ($result_booking == 1) {
@@ -250,147 +267,249 @@ if(isset($_POST['submit'])){
 
         }
 
-//        $booking_done = 2;
-//        if ($booking_done == 1) {
+        $visit_iteration++;
+      }
+
+
+     /*
+       if ($pat_visits_array[count($pat_visits_array) - 1]){
+          print_r($items_array);
+
+
+          $send_emails_array = array("info@mobidoc.it");
+
+          $contact_full_n = $caller_fname.' '.$caller_lname;
+          $contact_fname = $caller_fname;
+          include ("../contact_pdf.php");
+          // Attachment file
+          $pdf_file1 = "assets/generate_pdf/".strtolower($contact_fname).'.pdf';
+
+         // include ("../executor_pdf.php");
+        // Attachment file
+//          $pdf_file2 = "assets/generate_pdf/".strtolower($doctor_fname).'.pdf';
 //
-//          //email to doctor
-//          $to2 = $doctor_email; //doctor email
-//          $subject2 = 'Mobidoc Prestazione Prenotata';
-//          $from = 'mobidoc_update@mobidoc.it';
-//          $rply_email = 'noreplay@mobidoc.it';
+//          $pdf_files = array($pdf_file1, $pdf_file2);
 //
-//          // To send HTML mail, the Content-type header must be set
-//          $headers2  = 'MIME-Version: 1.0' . "\r\n";
-//          $headers2 .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+          $subject = 'Nuova Prenotazione!';
+        // Sender
+         $from = 'mobidoc_update@mobidoc.it';
+         $rply_email = 'noreplay@mobidoc.it';
+
+         // Header for sender info
+          $headers .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
+
+          // Boundary
+          $semi_rand = md5(time());
+          $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+
+          // Headers for attachment
+          $headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\"";
+
+          // Compose a simple HTML email message
+          $htmlContent = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Nuova Prenotazione!</h4><div class="text-block">'.$paziente_main_name.' Ha prenotato una visita da '.$doctor_main_name.'. <br><br><strong>Contact Info</strong>:
+                   <br><strong>Name</strong>: '.$contact_name.'<br><strong>Phone</strong>: '.$contact_phone.'<br><br><strong>Patient Info</strong><br><strong>Name</strong>: '.$patient_name.'<br><strong>Fiscal Code</strong>: '.$patient_fiscal.'<br><strong>Date of Birth</strong>: '.$patient_dob.'<br><strong>Address</strong>: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href='.$patient_gmap_addr.'>'.$patient_address.'</a><br><br><strong>Visits/Exams</strong><br>';
+
+          foreach($items_array as $key => $item_array) {
+            $visit_amount = $item_array['exam_price'].'</strong>';
+            if ($key > 0){
+              $disounted_amount = $item_array['exam_price']/2;
+              $visit_amount = $disounted_amount.' </strong>(With 50% discount)';
+            }
+            $htmlContent .="
+      ". $item_array['exam_name'].'-: <strong>€'.$visit_amount.'<br>'."
+     ";
+          }
+          $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Data e Ora</strong>:da confermare<br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+
+          echo '<br>';
+          print_r($htmlContent);
+
+
+//          // Multipart boundary
+//          $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
+//              "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n";
 //
-//          // Create email headers
-//          $headers2 .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
+//          // Preparing attachment
 //
-//          // Compose a simple HTML email message
-//          $message2 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Messaggio automatico di conferma prenotazione</h4><div class="text-block">Le comunichiamo che le è stata assegnata una prenotazione:<br><br>Prestazione prenotata:  '.$visit_name.'<br><br>Nome Paziente: '.$paziente_main_name.'<br>Codice Fiscale: '.$fiscal.'<br><br>Data di nascita: '.$date_of_birth.'<br>Indirizzo: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href="'.$gmap_addr.'">'.$address.'</a><br><br>Clicca il seguente link per connetterti alla tua dashboard e visualizzare e/o modificare i dettagli della prenotazione: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href=\'https://mobidoc.it/professionisti/account.php\'>https://mobidoc.it/professionisti/account.php</a></div> <br></div></body></html>';
+//          if(!empty($pdf_files)){
+//            for($px=0;$px<count($pdf_files);$px++){
+//              if(is_file($pdf_files[$px])){
+//                $file_name = basename($pdf_files[$px]);
+//                $file_size = filesize($pdf_files[$px]);
 //
-//          mail($to2, $subject2, $message2, $headers2);
-//
-//          $start_dt = '';
-//          $end_dt = '';
-//          $patient_date =  '';
-//          $patient_time =  '';
-//          $calender_link = 'javascript:;';
-//
-//          if (!empty($patient_apt_date)){
-//            $booking_date = strtr($patient_apt_date, '/', '-');
-//            /*booking start time*/
-//            $start_date =  date('Ymd', strtotime($booking_date));
-//            $start_time =  date('His', strtotime($booking_date));
-//            /*booking end time*/
-//            $selectedate = $booking_date;
-//            $enddate = strtotime("+15 minutes", strtotime($selectedate));
-//            $booking_end_date =  date('Ymd', $enddate);
-//            $booking_end_time =  date('His', $enddate);
-//
-//            $start_dt = $start_date.'T'.$start_time;
-//            $end_dt = $booking_end_date.'T'.$booking_end_time;
-//
-//            /*just date format change for date and time*/
-//            $patient_date =  date('d-m-Y', strtotime($booking_date));
-//            $patient_time =  date('H:i', strtotime($booking_date));
-//
-//            $calender_link = 'https://calendar.google.com/calendar/u/0/r/eventedit?action=TEMPLATE&text=Mobidoc Visit&dates='.$start_dt.'/'.$end_dt.'&ctz=Europe/Rome';
+//                $message .= "--{$mime_boundary}\n";
+//                $fp =    @fopen($pdf_files[$px], "rb");
+//                $data =  @fread($fp, $file_size);
+//                @fclose($fp);
+//                $data = chunk_split(base64_encode($data));
+//                $message .= "Content-Type: application/octet-stream; name=\"".$file_name."\"\n" .
+//                    "Content-Description: ".$file_name."\n" .
+//                    "Content-Disposition: attachment;\n" . " filename=\"".$file_name."\"; size=".$file_size.";\n" .
+//                    "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+//              }
+//            }
 //          }
 //
-//          //email to admin
-//          $to = 'info@mobidoc.it';
-//          $subject = 'Nuova Prenotazione!';
-//          $from = 'mobidoc_update@mobidoc.it';
-//          $rply_email = 'noreplay@mobidoc.it';
+//          $message .= "--{$mime_boundary}--";
+//          $returnpath = "-f" . $from;
 //
-//          // To send HTML mail, the Content-type header must be set
-//          $headers  = 'MIME-Version: 1.0' . "\r\n";
-//          $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 //
-//          // Create email headers
-//          $headers .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
+//          foreach($send_emails_array as $send_emails_key => $send_email) {
 //
-//          // Compose a simple HTML email message
-//          $message = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Messaggio di riepilogo prenotazione telefonica</h4><div class="text-block">Prestazione prenotata:  '.$visit_name.'<br>Esecutore: ';
+//            // Recipient
+//            //$to = $send_email;
+//
+//            // Send email
+//            @mail($send_email, $subject, $message, $headers, $returnpath);
+//
+////            if ($send_emails_key == 2){
+////              for($pd=0;$pd < count($pdf_files);$pd++){
+////                unlink($pdf_files[$pd]);
+////              }
+////            }
+//          }
+
+        }
+     */
+
+     // $booking_done = 2;
+      //if ($booking_done == 1) {
+
+//        //email to doctor
+//        $to2 = $doctor_email; //doctor email
+//        $subject2 = 'Mobidoc Prestazione Prenotata';
+//        $from = 'mobidoc_update@mobidoc.it';
+//        $rply_email = 'noreplay@mobidoc.it';
+//
+//        // To send HTML mail, the Content-type header must be set
+//        $headers2  = 'MIME-Version: 1.0' . "\r\n";
+//        $headers2 .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+//
+//        // Create email headers
+//        $headers2 .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
+//
+//        // Compose a simple HTML email message
+//        $message2 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Messaggio automatico di conferma prenotazione</h4><div class="text-block">Le comunichiamo che le è stata assegnata una prenotazione:<br><br>Prestazione prenotata:  '.$visit_name.'<br><br>Nome Paziente: '.$paziente_main_name.'<br>Codice Fiscale: '.$fiscal.'<br><br>Data di nascita: '.$date_of_birth.'<br>Indirizzo: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href="'.$gmap_addr.'">'.$address.'</a><br><br>Clicca il seguente link per connetterti alla tua dashboard e visualizzare e/o modificare i dettagli della prenotazione: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href=\'https://mobidoc.it/professionisti/account.php\'>https://mobidoc.it/professionisti/account.php</a></div> <br></div></body></html>';
+//
+//        mail($to2, $subject2, $message2, $headers2);
+//
+//        $start_dt = '';
+//        $end_dt = '';
+//        $patient_date =  '';
+//        $patient_time =  '';
+//        $calender_link = 'javascript:;';
+//
+//        if (!empty($patient_apt_date)){
+//          $booking_date = strtr($patient_apt_date, '/', '-');
+//          /*booking start time*/
+//          $start_date =  date('Ymd', strtotime($booking_date));
+//          $start_time =  date('His', strtotime($booking_date));
+//          /*booking end time*/
+//          $selectedate = $booking_date;
+//          $enddate = strtotime("+15 minutes", strtotime($selectedate));
+//          $booking_end_date =  date('Ymd', $enddate);
+//          $booking_end_time =  date('His', $enddate);
+//
+//          $start_dt = $start_date.'T'.$start_time;
+//          $end_dt = $booking_end_date.'T'.$booking_end_time;
+//
+//          /*just date format change for date and time*/
+//          $patient_date =  date('d-m-Y', strtotime($booking_date));
+//          $patient_time =  date('H:i', strtotime($booking_date));
+//
+//          $calender_link = 'https://calendar.google.com/calendar/u/0/r/eventedit?action=TEMPLATE&text=Mobidoc Visit&dates='.$start_dt.'/'.$end_dt.'&ctz=Europe/Rome';
+//        }
+//
+//        //email to admin
+//        $to = 'info@mobidoc.it';
+//        $subject = 'Nuova Prenotazione!';
+//        $from = 'mobidoc_update@mobidoc.it';
+//        $rply_email = 'noreplay@mobidoc.it';
+//
+//        // To send HTML mail, the Content-type header must be set
+//        $headers  = 'MIME-Version: 1.0' . "\r\n";
+//        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+//
+//        // Create email headers
+//        $headers .= 'From: '.$from."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
+//
+//        // Compose a simple HTML email message
+//        $message = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Messaggio di riepilogo prenotazione telefonica</h4><div class="text-block">Prestazione prenotata:  '.$visit_name.'<br>Esecutore: ';
+//        foreach($doc_details_array as $doc_detail) {
+//          $comma_w = '';
+//          if (count($doc_details_array) > 1){
+//            $comma_w = ',';
+//          }
+//          $message .="
+//      " . $doc_detail['fname'].' '.$doc_detail['lname'].$comma_w."
+//     ";
+//        }
+//        $message .= "<br>Refertatore: $refertatore_name<br><br>Nome Paziente: $paziente_main_name<br>Codice Fiscale: $fiscal.<br>Data di nascita: $date_of_birth<br><br>Data: $patient_date<br>Ora: $patient_time<br>Indirizzo: <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>$address</a><br><br>Prezzo: €$price<br>Metodo di pagamento: $payment_mode<br><br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Aggiungi l’evento al tuo calendario google: </a><br><br>Clicca il seguente link per connetterti all’admin dashboard e visualizzare i dettagli completi della prenotazione: <a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/admin/index.php'>https://mobidoc.it/admin/index.php</a></div> <br></div></body></html>";
+//
+//        mail($to, $subject, $message, $headers);
+//
+//        //email to patient
+//        $to3 = $contact_email; //patient email
+//        $subject3 = 'Mobidoc Prestazione Prenotata';
+//        $from3 = 'mobidoc_update@mobidoc.it';
+//
+//        // To send HTML mail, the Content-type header must be set
+//        $headers3  = 'MIME-Version: 1.0' . "\r\n";
+//        $headers3 .= 'Content-Type: text/html; charset=utf-8' . "\r\n";
+//
+//        // Create email headers
+//        $headers3 .= 'From: '.$from3."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
+//
+//
+//        if(!isset($_POST['patients_id'])){
+//          $message3 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header_paziente.jpg");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Grazie per aver scelto Mobidoc!</h4><div class="text-block">Questa è la tua password generata dall amministratore <strong>'.$passwd.'</strong> contro la tua email <strong>'.$contact_email.'</strong>. <br><br>';
+//          $message3 .= "<a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/informativaprivacy.html'>Clicca qui</a> per leggere la nostra informativa sulla privacy.<br> <br>
+// Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+//          mail($to3, $subject3, $message3, $headers3);
+//        }
+//
+//        if (!empty($patient_apt_date)) {
+//          /*Second email to patient*/
+//
+//          $message31 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Gentile '.$paziente_main_name.',</h4><div class="text-block">Le comunichiamo che la prenotazione da lei effettuata è stata confermata:<br><br>Prestazione prenotata: '.$visit_name.'<br>Professionista: ';
 //          foreach($doc_details_array as $doc_detail) {
 //            $comma_w = '';
 //            if (count($doc_details_array) > 1){
 //              $comma_w = ',';
 //            }
-//            $message .="
+//            $message31 .="
 //      " . $doc_detail['fname'].' '.$doc_detail['lname'].$comma_w."
 //     ";
 //          }
-//          $message .= "<br>Refertatore: $refertatore_name<br><br>Nome Paziente: $paziente_main_name<br>Codice Fiscale: $fiscal.<br>Data di nascita: $date_of_birth<br><br>Data: $patient_date<br>Ora: $patient_time<br>Indirizzo: <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>$address</a><br><br>Prezzo: €$price<br>Metodo di pagamento: $payment_mode<br><br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Aggiungi l’evento al tuo calendario google: </a><br><br>Clicca il seguente link per connetterti all’admin dashboard e visualizzare i dettagli completi della prenotazione: <a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/admin/index.php'>https://mobidoc.it/admin/index.php</a></div> <br></div></body></html>";
+//          $message31 .="<br>Indirizzo: <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>$address</a><br>Data: $patient_date<br>Ora: $patient_time<br><br>Può visualizzare la prestazione collegandosi al suo profilo paziente o cliccando il seguente <a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/paziente/account.php'>link</a><br><br>Per qualsiasi aggiornamento non esiti a contattarci rispondendo semplicemente a questa email o contattando il professionista mobidoc.<br><br>Cordialmente,<br>La Direzione.</div> <br></div></body></html>";
 //
-//          mail($to, $subject, $message, $headers);
-//
-//          //email to patient
-//          $to3 = $contact_email; //patient email
-//          $subject3 = 'Mobidoc Prestazione Prenotata';
-//          $from3 = 'mobidoc_update@mobidoc.it';
-//
-//          // To send HTML mail, the Content-type header must be set
-//          $headers3  = 'MIME-Version: 1.0' . "\r\n";
-//          $headers3 .= 'Content-Type: text/html; charset=utf-8' . "\r\n";
-//
-//          // Create email headers
-//          $headers3 .= 'From: '.$from3."\r\n". 'Reply-To: '.$rply_email."\r\n" .   'X-Mailer: PHP/' . phpversion();
-//
-//
-//          if(!isset($_POST['patients_id'])){
-//            $message3 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header_paziente.jpg");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Grazie per aver scelto Mobidoc!</h4><div class="text-block">Questa è la tua password generata dall amministratore <strong>'.$passwd.'</strong> contro la tua email <strong>'.$contact_email.'</strong>. <br><br>';
-//            $message3 .= "<a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/informativaprivacy.html'>Clicca qui</a> per leggere la nostra informativa sulla privacy.<br> <br>
-// Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
-//            mail($to3, $subject3, $message3, $headers3);
-//          }
-//
-//          if (!empty($patient_apt_date)) {
-//            /*Second email to patient*/
-//
-//            $message31 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Gentile '.$paziente_main_name.',</h4><div class="text-block">Le comunichiamo che la prenotazione da lei effettuata è stata confermata:<br><br>Prestazione prenotata: '.$visit_name.'<br>Professionista: ';
-//            foreach($doc_details_array as $doc_detail) {
-//              $comma_w = '';
-//              if (count($doc_details_array) > 1){
-//                $comma_w = ',';
-//              }
-//              $message31 .="
-//      " . $doc_detail['fname'].' '.$doc_detail['lname'].$comma_w."
-//     ";
-//            }
-//            $message31 .="<br>Indirizzo: <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>$address</a><br>Data: $patient_date<br>Ora: $patient_time<br><br>Può visualizzare la prestazione collegandosi al suo profilo paziente o cliccando il seguente <a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/paziente/account.php'>link</a><br><br>Per qualsiasi aggiornamento non esiti a contattarci rispondendo semplicemente a questa email o contattando il professionista mobidoc.<br><br>Cordialmente,<br>La Direzione.</div> <br></div></body></html>";
-//
-//            mail($to3, $subject3, $message31, $headers3);
-//          }
-//
-//          //email to refertatore
-//          $to4 = $refertatore_email;
-//          $subject4 = 'Mobidoc Prestazione Prenotata';
-//          $from4 = 'mobidoc_update@mobidoc.it';
-//          $rply_email4 = 'noreplay@mobidoc.it';
-//
-//          // To send HTML mail, the Content-type header must be set
-//          $headers4  = 'MIME-Version: 1.0' . "\r\n";
-//          $headers4 .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-//
-//          // Create email headers
-//          $headers4 .= 'From: '.$from4."\r\n". 'Reply-To: '.$rply_email4."\r\n" .   'X-Mailer: PHP/' . phpversion();
-//
-//          // Compose a simple HTML email message
-//          $message4 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Messaggio automatico di conferma prenotazione</h4><div class="text-block">Le comunichiamo che le è stata assegnata una prenotazione:<br><br>Prestazione prenotata:  '.$visit_name.'<br><br>Nome Paziente: '.$paziente_main_name.'<br>Codice Fiscale: '.$fiscal.'<br><br>Data di nascita: '.$date_of_birth.'<br>Indirizzo: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href="'.$gmap_addr.'">'.$address.'</a><br><br>Clicca il seguente link per connetterti alla tua dashboard e visualizzare e/o modificare i dettagli della prenotazione: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href=\'https://mobidoc.it/professionisti/account.php\'>https://mobidoc.it/professionisti/account.php</a></div> <br></div></body></html>';
-//
-//          mail($to4, $subject4, $message4, $headers4);
-//
-//          header("location: /paziente/booking-completed.php");
-//
-//        }else{
-//          echo "Unable to insert record1";
-//         exit();
+//          mail($to3, $subject3, $message31, $headers3);
 //        }
+//
+//        //email to refertatore
+//        $to4 = $refertatore_email;
+//        $subject4 = 'Mobidoc Prestazione Prenotata';
+//        $from4 = 'mobidoc_update@mobidoc.it';
+//        $rply_email4 = 'noreplay@mobidoc.it';
+//
+//        // To send HTML mail, the Content-type header must be set
+//        $headers4  = 'MIME-Version: 1.0' . "\r\n";
+//        $headers4 .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+//
+//        // Create email headers
+//        $headers4 .= 'From: '.$from4."\r\n". 'Reply-To: '.$rply_email4."\r\n" .   'X-Mailer: PHP/' . phpversion();
+//
+//        // Compose a simple HTML email message
+//        $message4 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Messaggio automatico di conferma prenotazione</h4><div class="text-block">Le comunichiamo che le è stata assegnata una prenotazione:<br><br>Prestazione prenotata:  '.$visit_name.'<br><br>Nome Paziente: '.$paziente_main_name.'<br>Codice Fiscale: '.$fiscal.'<br><br>Data di nascita: '.$date_of_birth.'<br>Indirizzo: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href="'.$gmap_addr.'">'.$address.'</a><br><br>Clicca il seguente link per connetterti alla tua dashboard e visualizzare e/o modificare i dettagli della prenotazione: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href=\'https://mobidoc.it/professionisti/account.php\'>https://mobidoc.it/professionisti/account.php</a></div> <br></div></body></html>';
+//
+//        mail($to4, $subject4, $message4, $headers4);
+//
+//        header("location: /paziente/booking-completed.php");
 
-        $visit_iteration++;
-      }
+     // }
+
+      header("location: /paziente/booking-completed.php");
     } else {
       header("location: /admin/patient-register.php?err=1");
       echo "Unable to insert record2";
