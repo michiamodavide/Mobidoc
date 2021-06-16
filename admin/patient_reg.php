@@ -536,10 +536,7 @@ if(isset($_POST['submit'])){
 
           @mail($email_to, $subject, $message, $headers, $returnpath);
 
-
         }
-
-
 
         $send_emails_array = array("info@mobidoc.it");
         foreach($send_emails_array as $send_emails_key => $send_email) {
