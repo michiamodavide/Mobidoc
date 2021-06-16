@@ -1062,7 +1062,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
     var room = 1;
 
     function render_html() {
-        $(".input-group-btn .plus").css("display", "none");
         room++;
         var objTo = document.getElementById('new_visit');
         var divtest = document.createElement("div");
@@ -1305,7 +1304,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                     select_visits_arr.push(selected_value);
                 }
             });
-            $(".input-group-btn .plus").css("display", "block");
         }
     });
 
@@ -1363,7 +1361,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
     }
     function remove_visit_fields(rid) {
         $('.new_visit_no'+rid).remove();
-        $(".input-group-btn .plus").css("display", "block");
     }
 
     $(document).on("change",'.dynamic_div .select-visit-new', function(event){
@@ -1423,7 +1420,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
 
                     $.each(select_doctor_arr, function (index) {
                         if ($.inArray(select_doctor_arr[index].doctor_id, get_doctor_arr) !== -1) {
-                            $(".input-group-btn .plus").css("display", "block");
                             return true;
                         } else {
                             alert(select_doctor_arr[index].doctor_name + " is not added for selected Visit/Exam");
@@ -1456,8 +1452,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
             data: {data: fis_val},
             dataType: "json",
             success: function (response) {
-                console.log(response);
-
                 if (response == 'true') {
                     // $(".error.fasical_cd").css("display", "none");
                     $("input#fiscal_code").css("background-color", "#d3fbff");
