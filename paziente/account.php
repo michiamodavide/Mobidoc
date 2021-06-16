@@ -23,6 +23,7 @@
       unset( $_SESSION[ 'book_visits' ] );
       unset( $_SESSION[ 'pat_id' ] );
   }
+
 ?>
 
 <!DOCTYPE html>
@@ -125,9 +126,13 @@
 
         <?php
 
+          $show_self_btn = 0;
           while($rows = mysqli_fetch_array($result)){
            $patient_name = $rows['first_name'].' '.$rows['last_name'];
 
+            if ($rows['contact_as_patient'] == 1){
+                $show_self_btn = 1;
+            }
         ?>
         <div class="booking_card">
             <div class="main_data_container">
@@ -181,10 +186,15 @@
             <div class="text-block-58">Aggiungi nuovo paziente</div>
           </a>
 
+            <?php
+            if ($show_self_btn == 0){
+            ?>
             <a href="patient-profile.php?contact-id=<?php echo $rows3['id']?>" class="list_item diff w-inline-block add_self">
                 <div class="blue_bulet"></div>
                 <div class="text-block-58">Sii paziente</div>
             </a>
+
+            <?php }?>
 
          <a href="/paziente/profile-edit.php" class="list_item diff w-inline-block">
           <div class="blue_bulet"></div>
