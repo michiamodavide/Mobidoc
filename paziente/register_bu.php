@@ -33,26 +33,6 @@
 	.p{
   	text-align-last: center !important;
   }
-	  .w-m{
-		  width:100%;
-		  margin: 0;
-		  padding-left: 0px !important;
-	  }
-	  .tbl-radio{
-		  color:#00285c;		  
-		  width: 70%;
-		  margin: 0 auto  30px auto;
-	  }
-@media screen and (max-width: 767px) {	  
-	  
-	  .tbl-radio {
-    color: #00285c;
-    width: 100%;
-    margin: 0 auto 30px auto;
-    font-size: 12px;
-	}
-	  
-	  }	  
 </style>
 
 </head>
@@ -193,10 +173,10 @@ Il consenso qui espresso potrà essere revocato con le medesime modalità.
                 </span>
               </span>
             </label>
-            <label class="w-checkbox checkbox-field custom" style="padding-left: 0px;">
-             <!-- <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
-              <input type="checkbox" id="checkbox-3" name="checkbox-3" data-name="Checkbox 3" style="opacity:0;position:absolute;z-index:-1">-->
-              <span class="checkbox-label w-form-label w-m">
+            <label class="w-checkbox checkbox-field custom">
+              <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
+              <input type="checkbox" id="checkbox-3" name="checkbox-3" data-name="Checkbox 3" style="opacity:0;position:absolute;z-index:-1">
+              <span class="checkbox-label w-form-label">
                 <span class="legal_consent">
                     Consenso al Trattamento di Dati Personali: Letta e compresa l’informativa privacy, premendo su “Presto il consenso” o “Nego il consenso”, esprimo la mia volontà in merito al trattamento dei miei dati personali per finalità di marketing: invio di comunicazioni di carattere commerciale, informativo e promo-pubblicitario su prodotti, servizi ed attività di Tekamed S.r.l., con modalità automatizzate di contatto o comunicazioni elettroniche mediante l’utilizzo di posta elettronica e messaggi del tipo SMS, IM, MMS, notifiche push; compimento di indagini di mercato e rilevazione del gradimento e della soddisfazione sui servizi resi agli interessati. Comunicazioni informative, commerciali e pubblicitarie che acconsento a ricevere anche tramite posta cartacea o chiamate telefoniche. Questo consenso potrà essere revocato nello stesso modo.
       <?php
@@ -208,39 +188,6 @@ Il consenso qui espresso potrà essere revocato con le medesime modalità.
 		</span>
               </span>
             </label>
-			  <table class="tbl-radio" border="0" cellspacing="0" cellpadding="0">
-  <tbody>
-    <tr>
-      <td>
-		  
-		  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tbody>
-    <tr>
-      <td><input type="radio" id="male" name="gender" value="male">
-</td>
-      <td><label for="male">Presto il consenso</label></td>
-    </tr>
-  </tbody>
-</table>
-		  
-		  
-		  
-		  
-</td>
-      <td>  
-		  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tbody>
-    <tr>
-      <td><input type="radio" id="male" name="gender" value="male">
-</td>
-      <td><label for="male">Nego il consenso</label></td>
-    </tr>
-  </tbody>
-</table></td>
-    </tr>
-  </tbody>
-</table>
-
 	 <?php
      /*
        <div class="text-block-32">Leggi l'<a href="/informativaprivacy.html" target="_blank">informativa privacy completa</a>.</div>
@@ -256,11 +203,6 @@ Il consenso qui espresso potrà essere revocato con le medesime modalità.
 
      */
      ?>
-			  
-			  
-			  
-			  
-			  
            <div class="g-recaptcha brochure__form__captcha" data-sitekey="6LdyDJwaAAAAABFuvH-xSQDxaX0I16shCUMw8jCe" aria-required="true"></div>
            <br>
            <input type="submit" name="submit" value="Invia" id="submit_profile" class="button gradient login_button register w-button submit_profile_btn" style="margin-bottom:30px;">

@@ -441,10 +441,7 @@ include '../connect.php';
         .m-r {
             margin-right: 8px;
         }
-		.date-input{
-			height: 67px;
-			
-		}
+
         @media only screen and (max-width: 767px) {
             .patient_names {
 
@@ -534,7 +531,7 @@ include '../connect.php';
                                             </div>
                                         <?php } ?>
                                         <div class="form_section_heading">Controllo Anagrafica Paziente</div>
-                                        <input type="text" class="inputs w-input m-b-input" autocomplete="off" maxlength="256"
+                                        <input type="text" class="inputs w-input m-b-input" maxlength="256"
                                                name="last_name" data-name="last_name" placeholder="Cognome *"
                                                value="<?php echo $lname ?>" id="last_name">
                                         <div class="patient_names">
@@ -697,9 +694,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="dual_container diff" style="margin: 0px 0 0 10px;">
+                                                <div class="dual_container diff">
                                                     <input type="text"
-                                                           class="datepicker-here inputs w-input appoint_time date-input"
+                                                           class="datepicker-here inputs w-input appoint_time"
                                                            data-language="it" data-date-format="dd-mm-yyyy"
                                                            maxlength="256" autocomplete="off" name="appoint_time[]"
                                                            placeholder="Data e Ora" id="appoint_time">
@@ -1071,9 +1068,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         divtest.setAttribute("class", "new_visit_no"+room);
         var rdiv = 'new_visit_no'+room;
         divtest.innerHTML = '      <div class="dynamic_div">\n' +
-            '  <div class="input-group-btn">\n' +
-        '                                            <button class="btn btn-success minus" type="button" onclick="remove_visit_fields('+ room +');"></button>\n' +
-        '                                        </div>\n' +
             '                                            <div class="duo_flex" style="justify-content: space-around !important;">\n' +
             '                                                <div class="input-style m-r">\n' +
             '                                                    <select data-id="'+room+'" class="select-visit-new" name="vist_name[]">\n' +
@@ -1101,6 +1095,8 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
             '                                                </div>\n' +
             '                                            </div>\n' +
             '\n' +
+            '                                        </div>    <div class="input-group-btn">\n' +
+            '                                            <button class="btn btn-success minus" type="button" onclick="remove_visit_fields('+ room +');"></button>\n' +
             '                                        </div>';
 
         objTo.appendChild(divtest);
@@ -1460,18 +1456,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                     // $(".error.fasical_cd").css("display", "none");
                     $("input#fiscal_code").css("background-color", "#d3fbff");
                     // $("#submit").attr("style", "opacity: inherit;pointer-events: inherit;color: #fff !important;");
-
-                    if ($("body").attr("data-item") == 2){
-                        $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele").prop("readonly", false).val('');
-                    } else {
-                        if ($("#email").val()){
-                        //
-                        }else {
-                            $("#email, #caller_first_name, #caller_last_name, #tele").prop("readonly", false).val('');
-
-                        }
-                    }
-
+                    $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele").prop("readonly", false).val('');
                     $("#dob").css("pointer-events", "inherit").prop("readonly", false);
                     // $("#email").val('');
                     // $("#first_name").val('');
@@ -1499,8 +1484,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                     if (phone_num) {
                         $("#tele").val(phone_num);
                     }
-
-                    $("body").attr("data-item", "2");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -1515,11 +1498,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         if (fis_val.length > 1) {
             checkFisical(fis_val);
         } else {
-            if ($("#email").val()){
-                $("#dob, #gmap_adress").val('');
-            }else {
-               $("#email, #dob, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
-            }
+            $("#email, #last_name, #first_name").val('');
+            $("#dob").val('');
+            $("#caller_first_name").val('');
+            $("#caller_last_name").val('');
+            $("#tele").val('');
+            $("#email, #dob, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
 
         }
     });
@@ -1540,8 +1524,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         } else {
             var search_value = $(this).val();
             var search_type = 1;
-
-            $("body").attr("data-item", "1");
         }
         if (search_value.length >= 1) {
             $.ajax({
@@ -1561,18 +1543,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                         } else {
                             $(".patient_names ol strong").remove();
                             $(".patient_names").removeClass("patient_names_background");
-                            if ($("#email").val()){
-                                $("#first_name, #dob, #address_search, .gmap_adress").val('');
-                            } else {
-                                $("#email, #first_name, #dob, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
-                            }
-
-                            if ($("#fiscal_code").val()){
-                               //
-                            }else {
-                                $("#fiscal_code").val('');
-                            }
-
+                            $("#email, #first_name, #dob, #fiscal_code, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
                             document.getElementById("fiscal_code").readOnly = false;
                             $('.patiend_idd').remove();
                         }
@@ -1611,19 +1582,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
             } else {
                 $(".patient_names ol strong").remove();
                 $(".patient_names").removeClass("patient_names_background");
-
-                if ($("#email").val()){
-                    $("#first_name, #dob, #address_search, .gmap_adress").val('');
-                } else {
-                    $("#email, #first_name, #dob, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
-                }
-
-                if ($("#fiscal_code").val()){
-                    //
-                }else {
-                    $("#fiscal_code").val('');
-                }
-
+                $("#email, #first_name, #dob, #fiscal_code, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
                 document.getElementById("fiscal_code").readOnly = false;
                 $('.patiend_idd').remove();
             }
@@ -1650,7 +1609,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                     $(".patient_names ol strong").remove();
                     $(".patient_names").removeClass("patient_names_background");
                     $("#first_name").val(response[0].fname);
-                    $("#last_name").val(response[0].lname);
                     $("#dob").val(response[0].dob);
                     $("#fiscal_code").val(response[0].fiscale);
                     document.getElementById("fiscal_code").readOnly = true;
@@ -1669,11 +1627,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         });
     });
 
-
-
-    // $("#first_name").focus(function(){
-    //     $("span").css("display", "inline").fadeOut(2000);
-    // });
 </script>
 <script>
     /* script */
