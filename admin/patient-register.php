@@ -1456,11 +1456,13 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
             data: {data: fis_val},
             dataType: "json",
             success: function (response) {
+                console.log(response);
+
                 if (response == 'true') {
                     // $(".error.fasical_cd").css("display", "none");
                     $("input#fiscal_code").css("background-color", "#d3fbff");
                     // $("#submit").attr("style", "opacity: inherit;pointer-events: inherit;color: #fff !important;");
-                    $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele").prop("readonly", false);
+                    $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele").prop("readonly", false).val('');
                     $("#dob").css("pointer-events", "inherit").prop("readonly", false);
                     // $("#email").val('');
                     // $("#first_name").val('');
@@ -1473,24 +1475,18 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                 } else {
                     $('.patiend_idd').remove();
                     $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="' + response.paziente_id + '">');
-                    $("#email, #first_name, #last_name, #tele").prop("readonly", true);
+                    $("#email, #first_name, #last_name, #tele, #caller_first_name, #caller_last_name").prop("readonly", true);
                     $("#dob").css("pointer-events", "none").prop("readonly", true);
                     // $(".error.fasical_cd").css("display", "block");
                     $("input#fiscal_code").css("background-color", "#ffc5c5");
                     // $("#submit").attr("style", "opacity: 0.4;pointer-events: none;color: #fff !important;");
-                    $("#email").val(response.email);
-                    $("#first_name").val(response.first_name);
-                    $("#last_name").val(response.last_name);
-                    $("#dob").val(response.dob);
-                    var call_name = response.caller_name;
-                    var phone_num = response.phone;
-                    if (call_name) {
-                        var ret = call_name.split(" ");
-                        var call_fname = ret[0];
-                        var call_lname = ret[1];
-                        $("#caller_first_name").val(call_fname);
-                        $("#caller_last_name").val(call_lname);
-                    }
+                    $("#first_name").val(response[0].fname);
+                    $("#last_name").val(response[0].lname);
+                    $("#dob").val(response[0].dob);
+                    $("#email").val(response[1].contact_email);
+                    var phone_num = response[1].contact_phone;
+                    $("#caller_first_name").val(response[1].contact_name);
+                    $("#caller_last_name").val(response[1].contact_surname);
                     if (phone_num) {
                         $("#tele").val(phone_num);
                     }
@@ -1508,7 +1504,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         if (fis_val.length > 1) {
             checkFisical(fis_val);
         } else {
-            $("#email").val('');
+            $("#email, #last_name, #first_name").val('');
             $("#dob").val('');
             $("#caller_first_name").val('');
             $("#caller_last_name").val('');
@@ -1600,7 +1596,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                 } else {
                     $('.patiend_idd').remove();
                     $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="' + response[0].paziente_id + '">');
-
+                    $("#caller_first_name, #caller_last_name, #tele, #email").prop("readonly", true);
                     $(".patient_names ol strong").remove();
                     $(".patient_names").removeClass("patient_names_background");
                     $("#first_name").val(response[0].fname);
