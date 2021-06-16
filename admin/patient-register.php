@@ -967,8 +967,8 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
         opacity: 0.6;
     }
 </style>
-<script src="/paziente/date_pic.js?v=3"></script>
-<script src="/paziente/dist/js/i18n/datepicker.en.js?v=3"></script>
+<script src="/paziente/date_pic.js?v=4"></script>
+<script src="/paziente/dist/js/i18n/datepicker.en.js?v=4"></script>
 <script type="application/javascript">
 
     var icp_param = '<?php echo $icp_param?>';
@@ -1138,8 +1138,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
             if (apt_datetime[0]){
                 var select_date = apt_datetime[0].split('-');
                 var year_split = select_date[2].split(' ');
-                var date_string =  year_split[0]+ '-' + select_date[0] + '-' + select_date[1]+' '+year_split[1];
+                var date_string =  year_split[0]+ '-' + select_date[1] + '-' + select_date[0]+' '+year_split[1];
                 var opoint_date = new Date(date_string);
+                // var opoint_date = new Date(date_string);
                 $(".new_visit_no1 .appoint_time").datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
 
             }
@@ -1166,7 +1167,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                     // console.log(discounted_prices);
 
 
-                    var selected_visits_array = [];
+                    //var selected_visits_array = [];
                     $(articles_idds).each(function(index, val) {
                         if (index > 0){
                             render_html();
@@ -1191,7 +1192,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                             }
                             var current_art_id = val;
                             $.each(response, function(index) {
-                                if ($.inArray(response[index].article_id, selected_visits_array)) {
                                     var visit_att = '';
                                     if (response[index].attribute){
                                         var visit_att = ' ('+response[index].attribute+')';
@@ -1211,24 +1211,17 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                                             );
                                     }
 
-                                }
-
                             });
-
 
                             if (apt_datetime[index]){
                                 var select_date = apt_datetime[index].split('-');
                                 var year_split = select_date[2].split(' ');
-                                var date_string =  year_split[0]+ '-' + select_date[0] + '-' + select_date[1]+' '+year_split[1];
+                                var date_string =  year_split[0]+ '-' + select_date[1] + '-' + select_date[0]+' '+year_split[1];
                                 var opoint_date = new Date(date_string);
-
                                 $(".new_visit_no"+room+" .appoint_time").datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
                             }
 
-
                         }
-
-                        selected_visits_array.push(val);
                     });
 
 
