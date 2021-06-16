@@ -367,7 +367,7 @@ include '../connect.php';
 
     ?>
     <style>
-        .patient_names {
+        .patient_names_background {
             background-color: #fff;
             padding: 10px;
             border-radius: 0 0 5px 5px;
@@ -991,7 +991,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
             data: {data:get_medical_speciality, get_vist:1},
             dataType: "json",
             success: function (response) {
-                console.log(response);
                 $.each(response, function(index) {
                     $(".new_visit_no1 .choose_your_area.select1").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
                     var visit_att = '';
@@ -1037,7 +1036,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
             data: {data:visit_type_single, mds_erid:get_mds_id, get_vist:0},
             dataType: "json",
             success: function (response) {
-                console.log(response);
                 $.each(response, function(index) {
                     var puo_refertare = response[index].puo_refertare;
                     if (puo_refertare == 'N'){
@@ -1330,7 +1328,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
             data: {data:get_medical_speciality, get_vist:1},
             dataType: "json",
             success: function (response) {
-                console.log(response);
                 $.each(response, function(index) {
                     // $(".new_visit_no2 .choose_your_area.select1").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
                     if ($.inArray(response[index].article_id, select_visits_arr) != -1 ){
@@ -1545,7 +1542,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                 data: {search_value: search_value, search_type: search_type},
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
                     if (response == 'true') {
                         if (name_attr == 'email') {
                             if ($('.contact_id').length && $('.contact_id').val().length) {
@@ -1555,6 +1551,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                             $(".show_contact_msg").css("display", "none");
                         } else {
                             $(".patient_names ol strong").remove();
+                            $(".patient_names").removeClass("patient_names_background");
                             $("#email, #first_name, #dob, #fiscal_code, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
                             document.getElementById("fiscal_code").readOnly = false;
                             $('.patiend_idd').remove();
@@ -1571,6 +1568,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                             $(".show_contact_msg").css("display", "block");
                         } else {
                             $(".patient_names ol strong").remove();
+                            $(".patient_names").addClass("patient_names_background");
                             $.each(response, function (key, value) {
                                 var date_of_birth = response[key].dob.split('-');
                                 var dob = date_of_birth[1] + '-' + date_of_birth[0] + '-' + date_of_birth[2];
@@ -1604,6 +1602,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                     $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="' + response[0].paziente_id + '">');
 
                     $(".patient_names ol strong").remove();
+                    $(".patient_names").removeClass("patient_names_background");
                     $("#first_name").val(response[0].fname);
                     $("#dob").val(response[0].dob);
                     $("#fiscal_code").val(response[0].fiscale);

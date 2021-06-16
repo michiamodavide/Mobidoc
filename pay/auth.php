@@ -200,11 +200,11 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
 				$contact_full_n = $contact_name;
 				include ("../contact_pdf.php");
 				// Attachment file
-				$pdf_file1 = "../assets/generate_pdf/".strtolower($contact_fname).'.pdf';
+				$pdf_file1 = "../assets/generate_pdf/mobidoc1.pdf";
 
 				include ("../executor_pdf.php");
 				// Attachment file
-				$pdf_file2 = "../assets/generate_pdf/".strtolower($doctor_fname).'.pdf';
+				$pdf_file2 = "../assets/generate_pdf/mobidoc2.pdf";
 
 				$pdf_files = array($pdf_file1, $pdf_file2);
 
