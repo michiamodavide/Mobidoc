@@ -1,6 +1,4 @@
 <?php
-echo 'hello';
-exit();
 session_start();
 unset($_SESSION['book_visits']);
 unset($_SESSION['pat_id']);
