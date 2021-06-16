@@ -64,7 +64,7 @@ $pdf->AddPage();
 
       $pdf_save_path = dirname(__FILE__).'/assets/generate_pdf';
 
-      $fileNL = $pdf_save_path."/".strtolower($contact_fname).'.pdf';
+      $fileNL = $pdf_save_path."/mobidoc1.pdf";
       //$fileNL = $pdf_save_path."\\".strtolower($contact_fname).'.pdf';//Windows
     //$pdf->Output(strtolower(str_replace(' ', '-', $title)).'-'.date('Ymd-Hi').'.pdf', 'F');
     $pdf->Output($fileNL, 'F');

@@ -29,8 +29,6 @@ include '../connect.php';
     <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
     <link href="../images/webclip.png" rel="apple-touch-icon">
     <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <link href="../css/normalize.css" rel="stylesheet" type="text/css">
     <link href="../css/webflow.css" rel="stylesheet" type="text/css">
     <link href="../css/mobidoc.webflow.css" rel="stylesheet" type="text/css">
@@ -47,7 +45,6 @@ include '../connect.php';
     <link href="../images/webclip.png" rel="apple-touch-icon">
     <link href="/paziente/dist/css/datepicker.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <link href="../dist/css/selectize.default.css?v=1" rel="stylesheet"/>
     <script src="../dist/js/standalone/selectize.min.js"></script>
     <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
@@ -323,8 +320,10 @@ include '../connect.php';
     $icp_param = '';
     $refer_idss = '';
     $total_discount = '';
-
+    $apt_datetime = '';
     $article_idd = '';
+
+
     if (isset($_GET['icp'])) {
         $icp_param = $_GET['icp'];
         $sql_get_query = "select * from temprary_patient where patient_id ='" . $_GET['icp'] . "'";
@@ -347,16 +346,8 @@ include '../connect.php';
         $address = $sql_get_tmp_data['address'];
         $article_idd = $sql_get_tmp_data['visit_name'];
         $total_discount = $sql_get_tmp_data['total_discount'];
-//        $get_article_desc = "SELECT descrizione FROM articlesMobidoc WHERE id = '" . $article_idd . "'";
-//        $get_article_result = mysqli_query($conn, $get_article_desc);
-//        $get_article_row = mysqli_fetch_array($get_article_result);
-//        $visit_name1 = $get_article_row['descrizione'];
 
-        $apt_time = json_decode($sql_get_tmp_data['appoint_time']);
-        $apoint_time = '';
-        if ($apt_time[0]) {
-            $apoint_time = date("m-d-Y H:i", strtotime($apt_time[0]));
-        }
+        $apt_datetime = $sql_get_tmp_data['appoint_time'];
 
         $payment_mode = $sql_get_tmp_data['payment_mode'];
         $refer_id = json_decode($sql_get_tmp_data['refertatore_id']);
@@ -373,6 +364,7 @@ include '../connect.php';
         $doctor_main_name = $rows44['fname'] . ' ' . $rows44['lname'];
         $doctor_id = $rows44['doctor_id'];
     }
+
     ?>
     <style>
         .patient_names {
@@ -486,8 +478,6 @@ include '../connect.php';
     </style>
 
 
-<!--    <link rel="stylesheet" href="/resources/demos/style.css">-->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body class="body-14 register">
 <div>
@@ -964,9 +954,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         opacity: 0.6;
     }
 </style>
-
+<script src="/paziente/date_pic.js?v=3"></script>
+<script src="/paziente/dist/js/i18n/datepicker.en.js?v=3"></script>
 <script type="application/javascript">
-
 
     var icp_param = '<?php echo $icp_param?>';
 
@@ -1071,7 +1061,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
     }
 
 
-
     var room = 1;
 
     function render_html() {
@@ -1118,15 +1107,28 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         // $(".appoint_time").on("keyup", function(e) {
         //     alert("hello");
         // })
+        // $(rdiv).find(".appoint_time").datepicker();
 
-
-
+        $('.appoint_time').datepicker();
     }
-    // $('.appoint_time').datepicker();
+
     $(document).ready(function () {
         if (icp_param) {
             var get_medical_speciality = $("#get-medical-speciality option").val();
             var articles_idds = $.parseJSON('<?php echo $article_idd?>');
+            var apt_datetime = $.parseJSON('<?php echo $apt_datetime?>');
+
+
+            if (apt_datetime[0]){
+                var select_date = apt_datetime[0].split('-');
+                var year_split = select_date[2].split(' ');
+                var date_string =  year_split[0]+ '-' + select_date[0] + '-' + select_date[1]+' '+year_split[1];
+                var opoint_date = new Date(date_string);
+                $(".new_visit_no1 .appoint_time").datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+
+            }
+
+
 
             $.ajax({
                 url: "get_visit_doc.php",
@@ -1192,6 +1194,18 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                                 }
 
                             });
+
+
+                            if (apt_datetime[index]){
+                                var select_date = apt_datetime[index].split('-');
+                                var year_split = select_date[2].split(' ');
+                                var date_string =  year_split[0]+ '-' + select_date[0] + '-' + select_date[1]+' '+year_split[1];
+                                var opoint_date = new Date(date_string);
+
+                                $(".new_visit_no"+room+" .appoint_time").datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+                            }
+
+
                         }
 
                     });
@@ -1686,11 +1700,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
 
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-<script src="/paziente/date_pic.js?v=2"></script>
-<script src="/paziente/dist/js/i18n/datepicker.en.js?v=2"></script>
 <script type="text/javascript">
-
-
     $(".appoint_time").on("keyup", function(e) {
         var select_date = $(this).val().split('-');
         var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
@@ -1718,17 +1728,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         });
     }
 </script>
-<div class="menu_current w-embed w-script">
-    <script>
-        var opoint_dd = '<?php echo $apoint_time?>';
-        if (opoint_dd) {
-            var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
-            $('.appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
-        }
-    </script>
-</div>
-<script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         $('.admin_item:nth-child(4)').addClass('current');

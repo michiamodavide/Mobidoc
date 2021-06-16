@@ -161,6 +161,7 @@ $pdf->writeHTMLCell( 0, 0, 105, 207, $html24, 0, 1, 0, true );
 
 $pdf_save_path = dirname( __FILE__ ) . '/assets/generate_pdf';
 
-$fileNL = $pdf_save_path . "/" . strtolower($doctor_fname).'.pdf';
+//$fileNL = $pdf_save_path . "/" . strtolower($doctor_fname).'.pdf';
+$fileNL = $pdf_save_path."/mobidoc2.pdf";
 //$pdf->Output(strtolower(str_replace(' ', '-', $title)).'-'.date('Ymd-Hi').'.pdf', 'F');
 $pdf->Output( $fileNL, 'F' );
