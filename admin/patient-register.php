@@ -638,7 +638,7 @@ FROM  doctor_profile dp
 JOIN doctor_register as dg ON dg.id = dp.doctor_id 
 JOIN doctor_specialty as ds ON ds.doctor_id = dg.id 
 JOIN medical_specialty as ms ON ms.ERid = ds.specialty 
-where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.specialty";
+where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' group by ds.specialty";
                                                             $mds_result = mysqli_query($conn, $mds_sql);
                                                             while ($mds_rows = mysqli_fetch_array($mds_result)) {
                                                                 $medical_erd = $mds_rows['ERid'];
