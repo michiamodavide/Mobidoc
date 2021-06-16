@@ -98,7 +98,10 @@
     <div class="section-31">
      <div class="custom_container profile_account_data grid">
       <div class="my_bookings">
-      <?php        
+      <?php
+
+      $show_self_btn = 0;
+
         include '../connect.php';
         $sql = "select * from paziente_profile where contact_id ='".$rows3['id']."' order by paziente_id desc";
         $result = mysqli_query($conn, $sql);     
@@ -126,7 +129,6 @@
 
         <?php
 
-          $show_self_btn = 0;
           while($rows = mysqli_fetch_array($result)){
            $patient_name = $rows['first_name'].' '.$rows['last_name'];
 

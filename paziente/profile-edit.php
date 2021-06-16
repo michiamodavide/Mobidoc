@@ -14,7 +14,14 @@
 	$cogname = $rows['surname'];
   $email = $rows['email'];
   $phone = $rows['phone'];
-  $check = $rows['privacy_consent'];
+  $marketing_check = $rows['marketing_consent'];
+
+/*
+  $checked_yes = '';
+  if ($marketing_check == 'Y'){
+      $checked_yes = 'checked';
+  }
+*/
 
 ?>
 <!DOCTYPE html>
@@ -74,7 +81,7 @@
       </div>
     </div>
   </div>
-  <section class="section-19">
+  <section class="section-19" style="min-height: inherit;">
     <div class="custom_container update_form">
       
       <div class="update_form_main_container">
@@ -95,65 +102,56 @@
                   <input type="tel" class="inputs w-input" maxlength="256" name="tele" data-name="tele" placeholder="Telefono" id="tele" required="" value="<?PHP echo $phone;?>">
                 </div>
               </div>
-              <input type="text" name="privacy_check" id="privacy_check" value="<?php echo $check;?>" style="display:none;">
-              <script>
-                jQuery(document).ready(function() {
-                    jQuery('#checkbox').change(function() {
-
-                        if ($(this).prop('checked')) {
-                           $('#privacy_check').val('Y');
-                        }
-                        else {
-                          $('#privacy_check').val('N');
-                        }
-                    });
-                });
-              </script>
-
-                <?php 
-                  if($check == 'Y'){ ?>
-
-                    <div class="form_section">
-                      <div class="form_section_heading">Consenso privacy</div>
-                      <label class="w-checkbox checkbox-field-2">
-                        <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked"></div>
-                        <input type="checkbox" id="checkbox" checked name="checkbox" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1" >
-                        <span class="checkbox-label-2 w-form-label">Esprimo il consenso in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di marketing</span>
-                      </label>
-                    </div>
-                    
-                  <?php } else { ?>
-                    <div class="form_section">
-                      <div class="form_section_heading">Consenso privacy</div>
-                      <label class="w-checkbox checkbox-field-2">
-                        <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
-                        <input type="checkbox" id="checkbox" name="checkbox" data-name="Checkbox" style="opacity:0;position:absolute;z-index:-1" required>
-                        <span class="checkbox-label-2 w-form-label">Esprimo il consenso in merito al trattamento e alla comunicazione a terzi dei miei dati personali per finalità di marketing</span>
-                      </label>
-                    </div>
-                  <?php } ?>                 
-
+               <?php
+               /*
+                <div class="form_section">
+                    <div class="form_section_heading">Consenso Marketing</div>
+                    <label class="w-checkbox checkbox-field custom" style="padding-left: 0px;">
+                        <span class="checkbox-label w-form-label w-m">
+                <span class="legal_consent">
+                    Consenso al Trattamento di Dati Personali: Letta e compresa l’informativa privacy, premendo su “Presto il consenso” o “Nego il consenso”, esprimo la mia volontà in merito al trattamento dei miei dati personali per finalità di marketing: invio di comunicazioni di carattere commerciale, informativo e promo-pubblicitario su prodotti, servizi ed attività di Tekamed S.r.l., con modalità automatizzate di contatto o comunicazioni elettroniche mediante l’utilizzo di posta elettronica e messaggi del tipo SMS, IM, MMS, notifiche push; compimento di indagini di mercato e rilevazione del gradimento e della soddisfazione sui servizi resi agli interessati. Comunicazioni informative, commerciali e pubblicitarie che acconsento a ricevere anche tramite posta cartacea o chiamate telefoniche. Questo consenso potrà essere revocato nello stesso modo.
+		</span>
+              </span>
+                    </label>
+                    <table class="tbl-radio" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <input <?=$checked_yes?> type="radio" id="yes" name="marketing_consent" value="Y">
+                                        </td>
+                                        <td><label for="yes">Presto il consenso</label></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="radio" id="no" name="marketing_consent" value="N">
+                                        </td>
+                                        <td><label for="no">Nego il consenso</label></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+               */
+               ?>
+                <div style="text-align: center">
+                    <input type="submit" style="color:#fff !important;" value="Conferma Dati" id="submit" class="button gradient submit w-button">
+                </div>
               </div>
-              
-                <div class="div-block-34">
-                  <div class="div-block-35">
-                  <?php
-                  /*
-                    <div class="profile_image_container">
-                      <div id="dp_2" style="width:100%; height:100%; background: url('<?PHP echo $photo;?>'); background-position:center; background-size:cover;cursor: pointer"></div>
-                    </div>
-                    <div class="text-block-33">Carica un’immagine profilo</div>
-                    <br>
-                    <input type="file" class="upload_image" style="display:none;" name="upload-image" accept="image/*" onchange="readURL(this);">
 
-                  */
-                  ?>
-                  </div>
 
-            </div>
-            <div>
-              <input type="submit" style="color:#fff !important;" value="Conferma Dati" id="submit" class="button gradient submit w-button">
-            </div>
           </form>
         </div>
       </div>

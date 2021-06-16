@@ -445,16 +445,7 @@ include '../connect.php';
 			height: 67px;
 			
 		}
-		.style-date{
-			margin: 10px 0 0 10px; padding-top: 10px; display: block;width: 100%;
-		}
         @media only screen and (max-width: 767px) {
-			.date-input {
-    height: 50px;
-}
-			.style-date{
-			margin: 10px 0 0 0px;
-		}
             .patient_names {
 
                 padding: 5px;
@@ -706,14 +697,13 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                                                         </div>
                                                     </div>
                                                 </div>
-												<div class="style-date">
-												 <input type="text"
-                                                           class="datepicker-here inputs w-input appoint_time date-input dual_container diff"
+                                                <div class="dual_container diff" style="margin: 0px 0 0 10px;">
+                                                    <input type="text"
+                                                           class="datepicker-here inputs w-input appoint_time date-input"
                                                            data-language="it" data-date-format="dd-mm-yyyy"
                                                            maxlength="256" autocomplete="off" name="appoint_time[]"
                                                            placeholder="Data e Ora" id="appoint_time">
-												
-                                               </div>
+                                                </div>
                                             </div>
 
                                         </div>
@@ -983,15 +973,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
     var select_visit1 = $('.new_visit_no1 #select-visit').selectize();
     var visit_select1 = select_visit1[0].selectize;
 
-
-    var room = 1;
-
     function getVisits() {
         var get_medical_speciality = $("#get-medical-speciality option").val();
 
         var items_new = doc_select1.items.slice(0);
         for (var i in items_new) {
-            doc_select1.removeItem(items_new[i]);
+            doc_select.removeItem(items_new[i]);
         }
 
         doc_select1.clearOptions();
@@ -1019,11 +1006,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                 doc_select1.refreshOptions();
                 ref_select1.refreshOptions();
                 visit_select1.refreshOptions();
-
-                var ij;
-                for (ij = 2; ij <= room; ij++) {
-                    $('.new_visit_no'+ij).remove();
-                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
@@ -1080,6 +1062,8 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
     }
 
 
+    var room = 1;
+
     function render_html() {
         room++;
         var objTo = document.getElementById('new_visit');
@@ -1087,6 +1071,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
         divtest.setAttribute("class", "new_visit_no"+room);
         var rdiv = 'new_visit_no'+room;
         divtest.innerHTML = '      <div class="dynamic_div">\n' +
+            '  <div class="input-group-btn">\n' +
+        '                                            <button class="btn btn-success minus" type="button" onclick="remove_visit_fields('+ room +');"></button>\n' +
+        '                                        </div>\n' +
             '                                            <div class="duo_flex" style="justify-content: space-around !important;">\n' +
             '                                                <div class="input-style m-r">\n' +
             '                                                    <select data-id="'+room+'" class="select-visit-new" name="vist_name[]">\n' +
@@ -1114,9 +1101,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
             '                                                </div>\n' +
             '                                            </div>\n' +
             '\n' +
-            '                                        </div><div class="input-group-btn">\n' +
-            '                                                <button class="btn btn-success minus" type="button" onclick="remove_visit_fields('+ room +');"></button>\n' +
-            '                                             </div>';
+            '                                        </div>';
 
         objTo.appendChild(divtest);
 
@@ -1144,6 +1129,8 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
 
             }
 
+
+
             $.ajax({
                 url: "get_visit_doc.php",
                 type: "post",
@@ -1164,9 +1151,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
 
                     var discounted_prices = $.parseJSON('<?php echo $total_discount?>');
                     // console.log(discounted_prices);
-
-
-                    var selected_visits_array = [];
                     $(articles_idds).each(function(index, val) {
                         if (index > 0){
                             render_html();
@@ -1191,26 +1175,23 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                             }
                             var current_art_id = val;
                             $.each(response, function(index) {
-                                if ($.inArray(response[index].article_id, selected_visits_array)) {
-                                    var visit_att = '';
-                                    if (response[index].attribute){
-                                        var visit_att = ' ('+response[index].attribute+')';
-                                    }
-                                    if (current_art_id == response[index].article_id) {
-                                        $(".new_visit_no"+room+" .select-visit-new")
-                                            .append($("<option></option>")
-                                                .attr("value", response[index].article_id)
-                                                .text(response[index].description+visit_att)
-                                                .attr('selected', 'selected')
-                                            );
-                                    }else {
-                                        $(".new_visit_no"+room+" .select-visit-new")
-                                            .append($("<option></option>")
-                                                .attr("value", response[index].article_id)
-                                                .text(response[index].description+visit_att)
-                                            );
-                                    }
-
+                                var visit_att = '';
+                                if (response[index].attribute){
+                                    var visit_att = ' ('+response[index].attribute+')';
+                                }
+                                if (current_art_id == response[index].article_id) {
+                                    $(".new_visit_no"+room+" .select-visit-new")
+                                        .append($("<option></option>")
+                                            .attr("value", response[index].article_id)
+                                            .text(response[index].description+visit_att)
+                                            .attr('selected', 'selected')
+                                        );
+                                }else {
+                                    $(".new_visit_no"+room+" .select-visit-new")
+                                        .append($("<option></option>")
+                                            .attr("value", response[index].article_id)
+                                            .text(response[index].description+visit_att)
+                                        );
                                 }
 
                             });
@@ -1228,7 +1209,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
 
                         }
 
-                        selected_visits_array.push(val);
                     });
 
 
@@ -1328,9 +1308,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                     select_visits_arr.push(selected_value);
                 }
             });
-
-            $(".input-group-btn .plus").css("display", "block")
-
         }
     });
 
