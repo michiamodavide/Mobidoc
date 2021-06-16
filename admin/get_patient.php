@@ -10,7 +10,7 @@ if($conn === false){
 
 if ($_POST['search_type'] == 1){
   $search_lname = $_POST['search_value'];
-  $sql = "select * from paziente_profile where last_name ='".$search_lname."'";
+      $sql = "select * from paziente_profile where last_name LIKE '%".$search_lname."%'";
 }else if ($_POST['search_type'] == 2){
   $search_id = $_POST['paziente_id'];
   $sql = "select * from paziente_profile where paziente_id ='".$search_id."'";

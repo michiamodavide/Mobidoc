@@ -1532,6 +1532,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                 data: {search_value: search_value, search_type: search_type},
                 dataType: "json",
                 success: function (response) {
+                    // console.log(response);
                     if (response == 'true') {
                         if (name_attr == 'email') {
                             if ($('.contact_id').length && $('.contact_id').val().length) {
@@ -1571,6 +1572,20 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' group by ds.special
                     console.log(textStatus, errorThrown);
                 }
             });
+        }else {
+            if (name_attr == 'email') {
+                if ($('.contact_id').length && $('.contact_id').val().length) {
+                    $("#caller_first_name, #caller_last_name, #tele").val('');
+                }
+                $('.contact_id').remove();
+                $(".show_contact_msg").css("display", "none");
+            } else {
+                $(".patient_names ol strong").remove();
+                $(".patient_names").removeClass("patient_names_background");
+                $("#email, #first_name, #dob, #fiscal_code, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
+                document.getElementById("fiscal_code").readOnly = false;
+                $('.patiend_idd').remove();
+            }
         }
     });
 

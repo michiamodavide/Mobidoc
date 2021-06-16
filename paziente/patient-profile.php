@@ -133,6 +133,9 @@ if (isset($_GET['contact-id']) && !empty($_GET['contact-id'])) {
      <?php if ((isset($_GET['pid'])) && (!empty($_GET['pid']))){ ?>
      <input type="hidden" name="patient_id" value="<?php echo $_GET['pid']?>">
      <?php }?>
+        <?php if ((isset($_GET['contact-id'])) && (!empty($_GET['contact-id']))){ ?>
+            <input type="hidden" name="contact_msid" value="1">
+        <?php }?>
      <div>
       <div class="form_section">
        <div class="form_section_heading">Dati anagrafici</div>
@@ -236,7 +239,7 @@ if (isset($_GET['contact-id']) && !empty($_GET['contact-id'])) {
                 type: "post",
                 data: data,
                 success: function (response) {
-                  console.log(response);
+                  // console.log(response);
                   if (response){
                     window.location.href = "/paziente/account.php?pnc="+response;
                   }

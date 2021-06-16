@@ -43,7 +43,12 @@ include '../connect.php';
       $sql = "update paziente_profile set first_name = '" . $first_name . "', last_name = '" . $last_name . "', fiscale = '" . $fiscal . "', dor = '" . $dor . "', dob = '" . $dob . "', email = '" . $email . "', address = '" . $address . "', gmap_address = '" . $gmap_addr . "', latitude = '" . $latitude . "', longitude = '" . $long . "' where  paziente_id='" . $_POST['patient_id'] . "'";
     }
   } else {
-    $sql = "insert into paziente_profile (contact_id, first_name, last_name, dob, fiscale, address, email, dor, gmap_address, latitude, longitude) values('".$contact_id."', '".ucwords($first_name)."', '".ucwords($last_name)."', '".$dob."', '".$fiscal."', '".$address."', '".$email."', '".$dor."', '".$gmap_addr."', '".$latitude."', '".$long."')";
+    $contact_same_patient = 0;
+    if (isset($_POST['contact_msid'])){
+      $contact_same_patient = 1;
+    }
+
+    $sql = "insert into paziente_profile (contact_id, first_name, last_name, dob, fiscale, address, email, dor, gmap_address,contact_as_patient, latitude, longitude) values('".$contact_id."', '".ucwords($first_name)."', '".ucwords($last_name)."', '".$dob."', '".$fiscal."', '".$address."', '".$email."', '".$dor."', '".$gmap_addr."', '".$contact_same_patient."', '".$latitude."', '".$long."')";
     $insert_new_contact = 1;
   }
 
