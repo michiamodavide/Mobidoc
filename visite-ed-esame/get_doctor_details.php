@@ -28,7 +28,7 @@ while($rows = mysqli_fetch_array($result)){
           <h3 class="profile_name"><?php echo $name;?></h3>
           <div class="profile_titilo"><?php echo $titile;?></div>
         </div>
-        <a href="<?php echo $link;?>" target="_blank" class="button stroked qprofile_visit_button w-button">Visit Profile</a>
+        <a href="<?php echo $link;?>" target="_blank" class="button stroked qprofile_visit_button w-button">Vedi Profilo</a>
         <!--<img src="../images/close.svg" width="18" alt="" class="close_button">-->
       </div>
 

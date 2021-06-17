@@ -18,7 +18,9 @@ session_start();
 		$doctor_booking_status = mysqli_real_escape_string($conn, $_POST['doctor_booking_status']);
 		$patient_confirmation = mysqli_real_escape_string($conn, $_POST['patient_confirmation']);
 		$pateint_remove_from_list = mysqli_real_escape_string($conn, $_POST['pateint_remove_from_list']);
-		
+
+        $total_price = $_POST['total_price'];
+
 		date_default_timezone_set("Europe/Rome");
 		$date_of_booking = date("Y/m/d H:i:s");
 
@@ -27,7 +29,6 @@ session_start();
 		    $_SESSION['doctor_id'] = $doc_id;
 		    $_SESSION['contact_id'] = $contact_id;
 			/*$_SESSION['visit_name'] = $visit_name;*/
-           $total_price = $_POST['total_price'];
 			$_SESSION['price'] = $total_price;
 			$_SESSION['message'] = $message;
 			$_SESSION['appoint_time'] = $appoint_time;
@@ -256,7 +257,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                         $htmlContent .=$add_break."<strong>Data e Ora".$date_nmb."</strong>: ".$booking_time_link."<br>";
                     }
 
-                    $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+                    $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
                     // Multipart boundary
                     $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .

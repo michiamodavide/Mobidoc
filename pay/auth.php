@@ -63,7 +63,8 @@ require __DIR__ .'/PayPal-PHP-SDK/autoload.php';
 		$patient_id = $_SESSION['patient_id'];
 		$doctor_id = $_SESSION['doctor_id'];
 		/*$visit_name = $_SESSION['visit_name'];
-        $price = $_SESSION['price'];*/
+		*/
+        $total_price = $_SESSION['price'];
 		$contact_id = $_SESSION['contact_id'];
 		$message = $_SESSION['message'];
 		$appoint_time = $_SESSION['appoint_time'];
@@ -292,7 +293,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
 					$htmlContent .=$add_break."<strong>Data e Ora".$date_nmb."</strong>: ".$booking_time_link."<br>";
 				}
 
-				$htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+				$htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
 				// Multipart boundary
 				$message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
