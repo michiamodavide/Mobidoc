@@ -116,6 +116,10 @@ padding: 13px 30px;
 	 .no_active_btn:hover, .active_btn:hover{
    opacity: .7 !important;
   }
+	 .divblock {
+    
+    display: block;
+}
 /******************************************/	 
   @media screen and (max-width: 767px){
 
@@ -598,8 +602,8 @@ WHERE ms.status='Y' AND ls.doctor_id='".$rows3['doctor_id']."' AND (am.home = 'Y
  <div data-w-id="18c3de8b-b737-4d7d-bc89-c71022690854" class="closer"></div>
  <div data-w-id="815eebd5-c0bb-d447-59df-ebd85e4eeccd" style="transform: translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);opacity: 1;transform-style: preserve-3d;" class="select_doctor_container">
   <div class="text-block-18">SELEZIONA PROFESSIONISTA</div>
-  <div class="div-block-19">
-   <div class="div-block-20" id="load_doctors" style="margin-bottom: 5px;">
+  <div class="div-block-19 divblock">
+   <div class="div-block-20" id="load_doctors" style="margin-bottom: 12px;">
     <div class="professionist_card-2 selecting">
      <div class="professionist_image_container"><img src="https://d3e54v103j8qbb.cloudfront.net/plugins/Image/assets/placeholder.60f9b1840c.svg" alt="" class="professionist_image">
       <div class="selected_tick"><img src="../images/Path-107.svg" width="55" alt="" class="image-4"></div>
