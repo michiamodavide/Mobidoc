@@ -100,6 +100,18 @@ $sql2 = "select * from paziente_profile where paziente_id = '".$pateint_id."'";
 	.p{
   	text-align-last: center !important;
   }
+	  .admin_section_header {
+     position: absolute; 
+    left: 0px; 
+ 
+}
+	  @media only screen and (max-width: 767px) {
+
+		
+	 .admin_main_section.diff {
+   overflow: auto; 
+    
+}}
 </style>
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   <style>
