@@ -105,6 +105,14 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
 		.m-t-30{
 			margin-top:30px;
 		}
+		.text-block-30 {
+    
+    color: red !important;
+    
+}
+		.error_message {
+   			text-align: left;
+			background-color:transparent !important;}
 		/**************************************************************************/
 	@media screen and (max-width: 1600px) {	
 		
@@ -163,6 +171,10 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
 		
 		
         @media screen and (max-width: 767px) {
+			.error_message {
+   			text-align: center;
+			background-color:transparent !important;}
+			
             .admin_main_section .admin_section_header {
                 display: inline-block;
                 left: 90px;
