@@ -341,7 +341,7 @@ include '../connect.php';
         $lname = $sql_get_tmp_data['last_name'];
         $admin_note = $sql_get_tmp_data['admin_note'];
         $medical_speciality = trim($sql_get_tmp_data['mds_id']);
-        $dobb = date("m-d-Y H:i", strtotime($sql_get_tmp_data['dob']));
+        $dobb = date("Y-m-d", strtotime($sql_get_tmp_data['dob']));
 
         $address = $sql_get_tmp_data['address'];
         $article_idd = $sql_get_tmp_data['visit_name'];
@@ -503,7 +503,7 @@ include '../connect.php';
         </div>
     </div>
 </div>
-<div class="admin_main_section">
+<div class="admin_main_section" data-id="1">
     <div data-w-id="671d7027-6f87-1c3f-c474-3b17f4b83b06" class="admin_section_header">
         <h1 class="admin_section_heading">Registro dei pazienti</h1>
         <!-- <div class="div-block-70">
@@ -1031,13 +1031,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
         });
     }
 
-    if (icp_param == '') {
 
-        $(document).on("change",'.new_visit_no1 .select-visit-new', function(event) {
+
+    $(document).on("change",'.new_visit_no1 .select-visit-new', function(event) {
             event.preventDefault();
-            getVisitDoc();
-        });
-    }
+        getVisitDoc();
+    });
     function getVisitDoc() {
         var visit_type_single = $(".new_visit_no1 #select-visit option").val();
         var get_mds_id = $("#get-medical-speciality option").val();
@@ -1078,8 +1077,6 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
             }
         });
     }
-
-
     function render_html() {
         room++;
         var objTo = document.getElementById('new_visit');
@@ -1127,13 +1124,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
         $('.appoint_time').datepicker();
     }
-
     $(document).ready(function () {
         if (icp_param) {
             var get_medical_speciality = $("#get-medical-speciality option").val();
             var articles_idds = $.parseJSON('<?php echo $article_idd?>');
             var apt_datetime = $.parseJSON('<?php echo $apt_datetime?>');
-
+            var refer_idsss = $.parseJSON('<?php echo $refer_idss?>');
 
             if (apt_datetime[0]){
                 var select_date = apt_datetime[0].split('-');
@@ -1260,16 +1256,18 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                     });
 
                     doc_select1.setValue(executor_selected);
+                    if (refer_idsss[0]) {
+                        ref_select1.setValue(refer_idsss[0]);
+                    }
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(textStatus, errorThrown);
                 }
             });
 
-
-
             // console.log(discounted_prices);
-            var refer_idsss = $.parseJSON('<?php echo $refer_idss?>');
+
             $(articles_idds).each(function(index, val) {
                 if (index > 0){
                     var current_nb = parseInt(index)+1;
@@ -1322,8 +1320,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                 }
             });
 
-            $(".input-group-btn .plus").css("display", "block")
+            $(".input-group-btn .plus").css("display", "block");
 
+            $('html, body').animate({scrollTop: $('.admin_main_section').offset().top}, 500);
         }
     });
 
@@ -1527,6 +1526,8 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
     $('#fiscal_code').keyup(function (eev) {
         eev.preventDefault();
+        $(".patient_names ol strong").remove();
+        $(".patient_names").removeClass("patient_names_background");
         var fis_val = $("#fiscal_code").val();
         if (fis_val.length > 1) {
             checkFisical(fis_val);
@@ -1603,6 +1604,10 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                             $("#tele").val(response[0].contact_phone);
                             $(".show_contact_msg").css("display", "block");
                         } else {
+                            if ($(".admin_main_section").attr("data-id") == 2){
+
+                                $("#email, #fiscal_code, #first_name, #dob, #address_search, .gmap_adress, #caller_first_name, #caller_last_name, #tele").val('');
+                            }
                             $(".patient_names ol strong").remove();
                             $(".patient_names").addClass("patient_names_background");
                             $.each(response, function (key, value) {
@@ -1677,6 +1682,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                     $("#caller_first_name").val(response[1].contact_name);
                     $("#caller_last_name").val(response[1].contact_surname);
                     $("#tele").val(response[1].contact_phone);
+
+                 $(".admin_main_section").attr("data-id", "2");
+
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -1686,10 +1694,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
     });
 
 
+    $('#first_name').keyup(function (eev) {
+        eev.preventDefault();
+        $(".patient_names ol strong").remove();
+        $(".patient_names").removeClass("patient_names_background");
+    });
 
-    // $("#first_name").focus(function(){
-    //     $("span").css("display", "inline").fadeOut(2000);
-    // });
 </script>
 <script>
     /* script */
@@ -1785,7 +1795,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
     var dobb = '<?php echo $dobb?>';
     if (dobb) {
-        var date_of_birth = date_of_birth = new Date('<?php echo $dobb?>');
+        var date_of_birth = new Date(dobb);
         $('.date_of_birth').datepicker({
             timepicker: false
         }).data('datepicker').selectDate(new Date(date_of_birth.getFullYear(), date_of_birth.getMonth(), date_of_birth.getDate()));
@@ -1794,6 +1804,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
             timepicker: false
         });
     }
+
 </script>
 <script>
     $(document).ready(function () {
