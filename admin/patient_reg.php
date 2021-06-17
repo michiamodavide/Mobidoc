@@ -643,7 +643,12 @@ if(isset($_POST['submit'])){
     $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
     $date_of_birth = $_POST['dob'];
-    $dob = $date_of_birth;
+    $dob = '';
+    if (!empty($date_of_birth)){
+        $dob = $date_of_birth;
+    }
+
+
     $admin_note = mysqli_real_escape_string($conn, $_POST['admin_note']);
     $select_address = $_POST['address'];
     $address = mysqli_real_escape_string($conn, $select_address);
