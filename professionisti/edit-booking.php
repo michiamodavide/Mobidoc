@@ -245,6 +245,7 @@ else {
                         $doc_spec_result = mysqli_query($conn, $doc_spec_sql);
                         $doc_spec_row = mysqli_fetch_array($doc_spec_result);
 
+
                         $get_report_sql = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
 FROM doctor_profile dp
 JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
@@ -253,6 +254,7 @@ JOIN listini ls ON ds.doctor_id=ls.doctor_id
  WHERE ds.specialty = '".$doc_spec_row['specialty']."' AND ls.article_mobidoc_id='".$_GET['article_id']."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='Y' AND dg.tick = 1";
 
                         $get_report_result = mysqli_query($conn, $get_report_sql);
+                        $get_report_count = mysqli_num_rows($get_report_result);
 
                         while ($doctor_v_rows = mysqli_fetch_array($get_report_result)) {
                         $ref_v_email = $doctor_v_rows['doctor_email'];
@@ -274,12 +276,19 @@ JOIN listini ls ON ds.doctor_id=ls.doctor_id
                     </script>
                     </div>
                   </div>
-                    <?php if ($booking_status < 3){?>
+                    <?php
+
+                    if ($booking_status < 3){?>
                         <p style="text-align: center;color: red;">You can modify referrer once the booking is executed.</p>
+                        <style>.choose_your_area.refertor_select{pointer-events: none;opacity: 0.8;}</style>
+                    <?php }else{
+                    if ($get_report_count < 1){
+                        ?>
+                        <p style="text-align: center;color: red;">No referrer available for the selected visit.</p>
                         <style>.choose_your_area.refertor_select{pointer-events: none;opacity: 0.8;}</style>
                     <?php }else{?>
                         <p>&nbsp;&nbsp;</p>
-                    <?php }?>
+                    <?php }}?>
                 </div>
               </div>
             </div>
@@ -308,10 +317,13 @@ JOIN listini ls ON ds.doctor_id=ls.doctor_id
   });
 
   function addDate(date) {
-    var select_date = date.split('-');
-    var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
+    // var select_date = date.split('-');
+    // var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
+      var select_date = date.split('-');
+      var year_split = select_date[2].split(' ');
+      var date_string =  year_split[0]+ '-' + select_date[1] + '-' + select_date[0]+' '+year_split[1];
 
-    var opoint_date = opoint_date = new Date(date_string);
+      var opoint_date = opoint_date = new Date(date_string);
     setTimeout(function(){
       if (opoint_date == 'Invalid Date') {
         //do not do anyting

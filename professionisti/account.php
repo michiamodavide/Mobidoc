@@ -363,7 +363,8 @@ padding: 13px 30px;
                    <span class="total_amount" style="color:#00285c"><?php echo '€' . $price; ?></span>
                </strike>
                <?php
-               echo '€' . $discounted_price;
+                   echo '€' . $discounted_price;
+
            }else{?>
                <span class="total_amount" style="color:#00285c"><?php echo '€' . $price; ?></span>
            <?php }?>
@@ -449,15 +450,16 @@ padding: 13px 30px;
                    if (empty($rows['total_discount'])) {
                        ?>
                        <a href="#" onClick="confirm_doc_vst(<?php echo $patient_id . ',' . $booking_id; ?>)"
-                          class="button-5 faded diff w-button" style="background-color: #ebeef2;">Conferma
+                          class="button-5 faded diff w-button confrim_btn" style="background-color: #ebeef2;">Conferma
                            prenotazione</a>
 
                        <?php
+
                    }else{
                        ?>
                        <div class="vis_text">Confirmation for this discounted visit is connected to the visit below.</div>
                    <?php }
-              echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' a{pointer-events: none !important;opacity: 0.4 !important;}  .appoint_buttons_container.book_btn_'.$rows['booking_id'].' a:nth-child(6){pointer-events: inherit !important;opacity: inherit !important;}</style>';
+                  echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' a.confrim_btn{pointer-events: inherit !important;opacity: inherit !important;}  .appoint_buttons_container.book_btn_'.$rows['booking_id'].' a.edit-booking-btn{pointer-events: none !important;opacity: 0.4 !important;}</style>';
           }}else{?>
            <a href="tel:<?php echo $doctor_rows['phone']; ?>" class="button-5 faded diff w-button" style="background-color: rgba(0, 0, 0, 0.7); color: white;">Chiama Professionista</a>
            <a href="<?php echo '/il-team/professionista.php?'.$doctor_rows['doctor_id']?>" target="_blank" class="button-5 faded diff w-button" style="background-color: #0ce5b2;">Vedi Profilo Professionista</a>
