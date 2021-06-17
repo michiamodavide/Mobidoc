@@ -76,15 +76,29 @@ unset($_SESSION['pat_id']);
     
 
 		}
-@media screen and (min-width: 767px) {
+		.img-style1{
+			width: 550px;height: 300px;max-width: 463px;
+		}
+		
+@media screen and (min-width: 768px) {
+	
 .extra_card {
 	visibility: hidden;
 	display: block !important;
 }
 }
+.img-style1{
+			width: 100%;height: 300px;max-width: 463px;
+		}		
 .w-inline-block{
  float: inherit !important;
 }
+		
+@media only screen and (max-width: 767px) {
+	.img-style1{
+			width: 100%;height: 300px;max-width: 463px;
+		}
+}		
 </style>
 	<script>
 		function getDoctors( value ) {
@@ -265,8 +279,8 @@ unset($_SESSION['pat_id']);
           <div class="feature diff"> <a href="<?php echo $link1?>" target="_blank">
             <div class="feature_label <?php echo $tm21_class?>"><?php echo substr(wordwrap($visit_name1,20,"<br>\n"), 0, 30);
                 if (strlen($visit_name1) > 30){echo '...';}
-            ?> <img src="images/arrow.png" alt="" > </div>
-            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=3" style="width: 550px;height: 300px;max-width: 463px;" alt=""> </a> </div>
+            ?> <img src="images/arrow.png" alt=""> </div>
+            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=3" class="img-style1" alt=""> </a> </div>
           <?php
           ++$x_num;
         }}

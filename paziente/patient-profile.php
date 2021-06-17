@@ -46,7 +46,7 @@ if (isset($_GET['pid'])) {
   $lat_lang = $rows12['latitude'].','.$rows12['longitude'];
 
 
-  $submit_btn_text = 'Confirm and Save';
+  $submit_btn_text = 'Conferma e Salva';
 }
 
 if (isset($_GET['contact-id']) && !empty($_GET['contact-id'])) {
@@ -118,7 +118,7 @@ if (isset($_GET['contact-id']) && !empty($_GET['contact-id'])) {
   <h1 class="heading-10">Compilare il modulo</h1>
   <div class="cover_section_buttons_container" style="margin-top:30px;">
    <a href="account.php" class="button stroked cover_btns logout w-button back-btn">Indietro</a>
-   <a href="logout.php" class="button stroked cover_btns logout w-button">Logout</a>
+   <a href="logout.php" class="button stroked cover_btns logout w-button">Esci</a>
   </div>
  </div>
 </div>

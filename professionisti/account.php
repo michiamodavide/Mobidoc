@@ -82,7 +82,7 @@ $rows3 = mysqli_fetch_array($result3);
    font-size: 11px;
   }
 	 .status_style, .vis_text{
-		 font-size:11px;
+		 font-size:10px;
 		 line-height: normal;
 		 margin-bottom: 20px;
 	 }
@@ -384,7 +384,7 @@ padding: 13px 30px;
                      $new_status = $booking_status+1;
                      if ($booking_status==1){
                      ?>
-                     <div class="bok_status status_style">Confirm the booking status after contacting the patient.</div>
+                     <div class="bok_status status_style">Conferma lo stato della prenotazione successivamente ad aver contattato il contatto.</div>
                      <?php }else{?>
                          <div class="green-btn"><?=$flag_status_txt[$booking_status]?></div>
                          <?php }

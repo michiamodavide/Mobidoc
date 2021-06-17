@@ -178,7 +178,7 @@ if(!isset($_SESSION['adminlogin']))
                 <a href="create-lp.php" style="text-decoration: none;">
                 <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button">
                     <div class="text-block-78">
-                       Add New Page
+                        Aggiungi Nuova Pagina
                     </div>
                 </div>
                 </a>

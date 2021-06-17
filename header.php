@@ -133,6 +133,24 @@ flex-direction: column-reverse !important;
 }
 
 }
+
+    .login_register .user_doctor_image{
+        float: left;
+    }
+    .patient_name_show{
+        float: right;
+        margin-top: 16px;
+    }
+    @media screen and (max-width: 768px){
+        .patient_name_show{
+            float: right;
+            margin-top: 11px;
+        }
+    }
+
+    .add_hidden_class{
+        overflow: hidden;
+    }
 </style>
 
 <?php
@@ -204,7 +222,7 @@ flex-direction: column-reverse !important;
                                 $add_account_param = '?pcheckout=1';
                             }
 				            ?>
-				        	<a href='/paziente/account.php<?php echo $add_account_param?>' style='text-decoration:none; color:#fff;'><div class='doctor_user_name' style='display:block;'><?php echo $fname;?> <?php echo $lname;?></div></a>
+				        	<a class="patient_name_show" href='/paziente/account.php<?php echo $add_account_param?>' style='text-decoration:none; color:#fff;'><div class='doctor_user_name' style='display:block;'><?php echo $fname;?> <?php echo $lname;?></div></a>
                     
                   <script>
                     $(document).ready(function(){
@@ -289,4 +307,12 @@ flex-direction: column-reverse !important;
         $("i", this).removeClass("fa-caret-up").addClass("fa-caret-down");
       });
     }
+
+    $(".menu-button").on("click", function () {
+      if ($("body").hasClass("add_hidden_class")){
+          $("body").removeClass("add_hidden_class");
+      } else {
+          $("body").addClass("add_hidden_class");
+      }
+    });
   </script>
