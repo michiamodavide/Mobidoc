@@ -1029,6 +1029,8 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                 console.log(textStatus, errorThrown);
             }
         });
+
+        $(".new_visit_no1 .appoint_time").val('');
     }
 
 
@@ -1076,6 +1078,8 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                 console.log(textStatus, errorThrown);
             }
         });
+
+        $(".new_visit_no1 .appoint_time").val('');
     }
     function render_html() {
         room++;
@@ -1477,12 +1481,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                     // $("#submit").attr("style", "opacity: inherit;pointer-events: inherit;color: #fff !important;");
 
                     if ($("body").attr("data-item") == 2){
-                        $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele").prop("readonly", false).val('');
+                        $("#email, #first_name, #last_name, #caller_first_name, #caller_last_name, #tele,#dob").prop("readonly", false).val('');
                     } else {
                         if ($("#email").val()){
                         //
                         }else {
-                            $("#email, #caller_first_name, #caller_last_name, #tele").prop("readonly", false).val('');
+                            $("#email, #caller_first_name, #caller_last_name, #tele,#dob").prop("readonly", false).val('');
 
                         }
                     }
