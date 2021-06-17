@@ -152,7 +152,7 @@ $sql2 = "select * from paziente_profile where paziente_id = '".$pateint_id."'";
              <div class="glance_details_title">Data e Ora</div>
              <div class="glance_details_value">
                <?php
-               if (!empty($opointment_time)){
+               if (!empty($opointment_time) && strtotime($opointment_time) > 0){
                  echo date("d/m/Y H:i", strtotime($opointment_time));;
                }else{
              ?>

@@ -64,6 +64,11 @@ if(!isset($_SESSION['adminlogin']))
 			float:right;
 			margin-top: 7px;
 		}
+		.btn-width{
+			    width: 200px;
+    padding-right: 0px;
+    padding-left: 5px;
+		}
         /*********************************/
 
         @media only screen and (max-width: 767px) {
@@ -176,8 +181,8 @@ if(!isset($_SESSION['adminlogin']))
         <div class="div-block-70">
             <div class="filter">
                 <a href="create-lp.php" style="text-decoration: none;">
-                <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button">
-                    <div class="text-block-78">
+                <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button btn-width">
+                    <div class="text-block-78" style="text-align: center">
                         Aggiungi Nuova Pagina
                     </div>
                 </div>

@@ -110,7 +110,7 @@ if (!isset($_SESSION['adminlogin'])) {
           margin-right: 10px;
           margin-top: 4px;
       }
-
+.width-100{width:65%;}
       @media screen and (max-width: 1536px) {
           .width-1 {
               width: 300px;
@@ -178,6 +178,27 @@ if (!isset($_SESSION['adminlogin'])) {
       }
 
       @media screen and (max-width: 767px) {
+		  .width-100{width:100%;margin-bottom: 10px;}
+		  
+		  .body-14 input[type="checkbox"] {
+   
+    margin-right: 5px;
+    
+}
+		  .height-240{
+			  height:240px !important;
+		  }
+		  .d-block{
+			  display:block;
+		  }
+		  .font-s {
+    
+    font-size: 16px;
+    
+}
+		  
+		  
+		  
           .admin_main_section .admin_section_header {
               display: inline-block;
               left: 90px;
@@ -311,7 +332,7 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
               <div class="regi_doctor_image"><img src="<?PHP echo $photo_link ?>" alt="" class="image-24"></div>
               <div class="div-block-65">
                 <div id="w-node-cf99e8f702f8-80dd982b" class="regi_name_block">
-                  <div class="text-block-68"><?PHP echo ucwords($name) . " " . ucwords($cogname); ?></div>
+                  <div class="text-block-68 font-s"><?PHP echo ucwords($name) . " " . ucwords($cogname); ?></div>
                     <?PHP if ($tick) { ?>
                       <div class="approved_tick"><img src="../images/Path-210.svg" width="13" alt="" class="image-26">
                       </div>
@@ -451,7 +472,7 @@ WHERE dr.remove=0 ORDER BY dp.doctor_id DESC";
                             ?>
                           <div class="form_section">
                             <div class="visit_selector_grid grid-c">
-                              <div class="slectors">
+                              <div class="slectors height-240">
                                 <div class="visits_selector_container">
                                   <!--start-->
                                     <?php
@@ -514,7 +535,7 @@ WHERE ms.status='Y' AND (am.home = 'Y' OR am.tele = 'Y') group by am.id";
                                   <!--end-->
                                 </div>
                               </div>
-                              <div class="selecteds doc_visit<?php echo $doct_id ?>" id="visits">
+                              <div class="selecteds doc_visit<?php echo $doct_id ?> height-240" id="visits">
                                 <!--start-->
                                   <?php
                                   // include '../connect.php';
@@ -544,8 +565,8 @@ WHERE ms.status='Y' AND ls.doctor_id='" . $doct_id . "' AND (am.home = 'Y' OR am
                                           }
                                           ?>
 
-                                        <div class="visit_subitem selected">
-                                          <div style=' width:65%;'>
+                                        <div class="visit_subitem selected d-block">
+                                          <div class="width-100">
                                             <input type='checkbox' style='display:none;' checked class='text-block-44'
                                                    value='<?php echo $article_id1; ?>'
                                                    name='<?php echo $service_name; ?>'>

@@ -282,7 +282,7 @@ where bg.booking_id='".$rows['booking_id']."'";
                   <div class="titlo">Data e Ora:</div>
                   <div class="doctor_name">
                     <?php
-                    if (!empty($opoint_time)){
+                    if (!empty($opoint_time) && strtotime($opoint_time) > 0){
                       echo date("d/m/Y H:i", strtotime($opoint_time));;
                     }
                     ?>

@@ -307,11 +307,13 @@ where bk.booking_id ='".$booking_id."'";
   $book_visit_attribute = $get_book_result['attributo'];
   $refertatore_id = $get_book_result['refertatore_id'];
 
-  if ($get_book_result['apoint_time']){
-    $apoint_time = date("m-d-Y H:i", strtotime($get_book_result['apoint_time']));
-  }else{
-    $apoint_time = $get_book_result['apoint_time'];
+
+  $opoint_time = $get_book_result['apoint_time'];
+  $apoint_time = '';
+  if (!empty($opoint_time) && strtotime($opoint_time) > 0){
+      $apoint_time = $get_book_result['apoint_time'];
   }
+
 
   /*get doctor data*/
   $sql_doc = "select dp.doctor_id, dp.fname, dp.lname, ds.specialty
@@ -769,8 +771,11 @@ where dg.tick='1' AND ds.specialty='".$doctor_speciality."' AND ls.article_mobid
 
       var opoint_dd = '<?php echo $apoint_time?>';
       if (opoint_dd){
-          console.log(opoint_dd);
-          var opoint_date = opoint_date = new Date('<?php echo $apoint_time?>');
+          var select_date = opoint_dd.split('-');
+          var year_split = select_date[2].split(' ');
+          var date_string =  select_date[0]+ '-' + select_date[1] + '-' + year_split[0]+' '+year_split[1];
+
+          var opoint_date = opoint_date = new Date(date_string);
           $('#appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
 
       }

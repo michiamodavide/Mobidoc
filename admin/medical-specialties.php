@@ -268,7 +268,7 @@ if (!isset($_SESSION['adminlogin'])) {
 			float:right;
 		}
 		.width78{
-			width:78%;
+			width:75%;
 		}
 		.scroll-div{
 		    height: 550px;
