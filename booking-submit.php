@@ -10,6 +10,7 @@ session_start();
 		$patient_id = mysqli_real_escape_string($conn, $_POST['patient_id']);
 		$contact_id = mysqli_real_escape_string($conn, $_POST['contact_id']);
 		$message = $_POST['message'];
+        $appoint_time = $_POST['appoint_time'];
 		$payment_mode = mysqli_real_escape_string($conn, $_POST['payment_mode']);
         $doc_id = mysqli_real_escape_string($conn, $_POST['doctor_id']);
 		$payment_status = 0;
@@ -26,9 +27,10 @@ session_start();
 		    $_SESSION['doctor_id'] = $doc_id;
 		    $_SESSION['contact_id'] = $contact_id;
 			/*$_SESSION['visit_name'] = $visit_name;*/
-           $total_price = mysqli_real_escape_string($conn, $_POST['total_price']);
+           $total_price = $_POST['total_price'];
 			$_SESSION['price'] = $total_price;
 			$_SESSION['message'] = $message;
+			$_SESSION['appoint_time'] = $appoint_time;
 			$_SESSION['payment_mode'] = $payment_mode;
 			$_SESSION['booking_status'] = $booking_status;
 			$_SESSION['doctor_booking_status'] = $doctor_booking_status;
@@ -62,8 +64,10 @@ session_start();
                 $booking_parent_id = '';
                 $items_array = array();
                 $email_sent = 0;
+
                 foreach($unique_cookie_array as $key => $cookie_book_visit) {
                  if (!empty($cookie_book_visit['book_patient_id'])){
+
                      $doctor_id = $cookie_book_visit['book_doctor'];
                      $visit_name = $cookie_book_visit['Booking_name'];
                      $article_id = $cookie_book_visit['article_id'];
@@ -88,11 +92,16 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                      ));
 
 
+                     $apt_date = '';
+                     if ($appoint_time[$ii-1]){
+                         $apt_date = date("Y/m/d H:i:s", strtotime($appoint_time[$ii-1]));
+                     }
+
                       if ($ii > 1){
                          $discounted_price = $price/2;
-                         $sql = "insert into bookings (patient_id, booking_discount_id, doctor_id, price, total_discount, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, gmap_coordinates, latitude, longitude ) values('".$patient_id."','".$booking_parent_id."', '".$doctor_id."', '".$price."', '".$discounted_price."', '".$message."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$gmap_address."', '".$latitude."', '".$longitude."')";
+                         $sql = "insert into bookings (patient_id, booking_discount_id, doctor_id, price, total_discount, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, gmap_coordinates, latitude, longitude ) values('".$patient_id."','".$booking_parent_id."', '".$doctor_id."', '".$price."', '".$discounted_price."', '".$message[$ii-1]."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$apt_date."', '".$gmap_address."', '".$latitude."', '".$longitude."')";
                      }else{
-                         $sql = "insert into bookings (patient_id, doctor_id, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, gmap_coordinates, latitude, longitude ) values('".$patient_id."', '".$doctor_id."', '".$price."', '".$message."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$gmap_address."', '".$latitude."', '".$longitude."')";
+                         $sql = "insert into bookings (patient_id, doctor_id, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, gmap_coordinates, latitude, longitude ) values('".$patient_id."', '".$doctor_id."', '".$price."', '".$message[$ii-1]."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$apt_date."', '".$gmap_address."', '".$latitude."', '".$longitude."')";
                      }
 
                      $result = mysqli_query($conn, $sql);
@@ -117,6 +126,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                          echo "Unable to insert record in booking table";
                          exit();
                      }
+
 
                      $ii++;
                  }
@@ -197,10 +207,56 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                         }
                         $htmlContent .="
       ". $item_array['exam_name'].'-: <strong>€'.$visit_amount.'<br>'."
-     ";
+";
                     }
-                    $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Data e Ora</strong>:da confermare<br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
+                    $apt_count = count($appoint_time);
+                    foreach($appoint_time as $apt_key => $apt) {
+
+                        $booking_time_link = 'da confermare';
+
+                        if (!empty($apt)) {
+                            $booking_date = strtr($apt, '/', '-');
+                            /*booking start time*/
+                            $start_date = date('Ymd', strtotime($booking_date));
+                            $start_time = date('His', strtotime($booking_date));
+                            /*booking end time*/
+                            $selectedate = $booking_date;
+                            $enddate = strtotime("+30 minutes", strtotime($selectedate));
+                            $booking_end_date = date('Ymd', $enddate);
+                            $booking_end_time = date('His', $enddate);
+
+                            $start_dt = $start_date . 'T' . $start_time;
+                            $end_dt = $booking_end_date . 'T' . $booking_end_time;
+
+                            /*just date format change for date and time*/
+                            $patient_date = date('d-m-Y', strtotime($booking_date));
+                            $patient_time = date('H:i', strtotime($booking_date));
+
+                            $calender_link = 'https://calendar.google.com/calendar/u/0/r/eventedit?action=TEMPLATE&text=Mobidoc Visit&dates='.$start_dt.'/'.$end_dt.'&ctz=Europe/Rome';
+
+                            $outlook_calender_date = date('Y-m-d', strtotime($booking_date)).'T'.date('H:i:s', strtotime($booking_date));
+                            $outlook_calender_link = 'https://outlook.live.com/calendar/0/deeplink/compose?startdt='.$outlook_calender_date.'&subject=Mobidoc%20Visit';
+
+
+                            $booking_time_link = "<a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a>";
+
+                        }
+
+
+                        $date_nmb = '';
+                        if ($apt_count > 1){
+                            $date_nmb = $apt_key+1;
+                        }
+
+                        $add_break = '';
+                           if ($apt_key < 1){
+                              $add_break = '<br>';
+                           }
+                        $htmlContent .=$add_break."<strong>Data e Ora".$date_nmb."</strong>: ".$booking_time_link."<br>";
+                    }
+
+                    $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
                     // Multipart boundary
                     $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
@@ -262,8 +318,10 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                         }
                     }
 
-                    /*
 
+
+                    /*
+                        old emails
                     //email to admin
                     $to = 'info@mobidoc.it'; //admin email
                     $subject = 'Nuova Prenotazione!';
