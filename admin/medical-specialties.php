@@ -502,7 +502,7 @@ if (!isset($_SESSION['adminlogin'])) {
                                        name="medical_speciality" data-id="<?=$mds_idd?>" value="<?=$mds_status?>">
                                 <label for="medical_speciality" class="width78"><?=$rows['name']?> </label>
                                 <p class="gen_errr" style="display: none">Some Error.</p>
-                                <a href="javascript:;" erid-id="<?=$rows['ERid']?>" class="button v_visits w-button flot-r">View Visits</a>
+                                <a href="javascript:;" erid-id="<?=$rows['ERid']?>" class="button v_visits w-button flot-r">Vedi Prestazioni</a>
                             </div>
 
                             <?php
@@ -611,7 +611,7 @@ if (!isset($_SESSION['adminlogin'])) {
                 <form class="visit_form" action="medical-specialties.php" name="email-form" method="post">
 <div class="div-block-88">
                     <input type="hidden" name="erid" class="form_erid">
-                    <input type="text" class="inputs w-input" maxlength="256" name="visit_name" placeholder="Visit/Exam Name" required="">
+                    <input type="text" class="inputs w-input" maxlength="256" name="visit_name" placeholder="Nome Visita/Esame" required="">
                     <input type="text" class="inputs w-input" maxlength="256" name="attribute" placeholder="Attributo">
 	
 	
@@ -648,7 +648,7 @@ if (!isset($_SESSION['adminlogin'])) {
             </div>
             <div class="div-block-21 diff">
                 <a style="display: inline-block;margin-left: 0px;" href="#" class="button next close w-button">Cancella</a>
-                <a href="#" class="button-3 next add_visit w-button" style="width: auto;">Add New Visit/Exam</a>
+                <a href="#" class="button-3 next add_visit w-button" style="width: auto;">Aggiungi Prestazione</a>
             </div>
         </div>
 

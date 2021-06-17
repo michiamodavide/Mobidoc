@@ -62,6 +62,6 @@ if ($result_count > 0) {
 
 }else{
 ?>
-    <p id="no_refer_text" style="text-align: center;color: red;">No referrer available for the selected visit.</p>
+    <p id="no_refer_text" style="text-align: center;color: red;">Non ci sono refertatori disponibili per la prestazione selezionata</p>
     <style>#ext_not{display: none;}</style>
 <?php }?>

@@ -258,9 +258,9 @@ height:0px;
 	  
 	  
 	  <div class="label-wrap">
-    <label class="label-style" for="search_visit">Enter your city to view the visits available in your area</label>
+    <label class="label-style" for="search_visit">Inserisci il tuo comune per vedere le prestazioni disponibili nella tua area</label>
     
-    <input class="input-style" name="search_visit" id="search_visit" list="search_visits" placeholder="Search here">
+    <input class="input-style" name="search_visit" id="search_visit" list="search_visits" placeholder="Cerca">
 	  
 	 </div>
 	  

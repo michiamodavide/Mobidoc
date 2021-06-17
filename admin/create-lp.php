@@ -6,7 +6,7 @@ if (!isset($_SESSION['adminlogin'])) {
 include '../connect.php';
 
 $show_bar = 1;
-$medical_sname = 'Create New LP';
+$medical_sname = 'Crea nuovo LP';
 $up_img_name = 'Immagine LP';
 $page_description = '';
 $medi_name = '';
@@ -26,7 +26,7 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
 <html data-wf-page="5dfbca93dac992df80dd982b" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
     <meta charset="utf-8">
-    <title>Landing Page</title>
+    <title>Pagine di destinazione</title>
     <meta content="admin" property="og:title">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="Webflow" name="generator">
@@ -318,7 +318,7 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
                         if ($show_bar == 1){
                         ?>
                         <select class="medical_speciality select-style" name="medical_speciality" id="medical_speciality">
-                            <option value="">Chose Medical Speciality</option>
+                            <option value="">Seleziona la specialità medica</option>
                             <?php
                             include '../connect.php';
 
@@ -386,7 +386,7 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
 						<div class="div-1">
 						
 						
-							<textarea placeholder="Page Description" maxlength="10000" id="page_des" name="page_des" class="text_area_profile page_des w-input"><?=$page_description?></textarea>
+							<textarea placeholder="Descrizione Pagina" maxlength="10000" id="page_des" name="page_des" class="text_area_profile page_des w-input"><?=$page_description?></textarea>
 						</div>
 
                         <div class="div-3">

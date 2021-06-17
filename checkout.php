@@ -123,7 +123,9 @@ $today = $year . '-' . $month . '-' . $day;
 			
 			margin: 20px 0;
 		}
-		
+		.p-button{
+			padding:15px 18px !important;
+		}
 		
 		@media only screen and (max-width:767px) {
 
@@ -155,6 +157,11 @@ $today = $year . '-' . $month . '-' . $day;
 		.button-3.next {
     margin-bottom: 20px;
 }
+			.m-b-20{
+				margin-bottom:30px;
+			}
+			.price-1 {
+				font-size: 32px;}
 		
 		}
     </style>
@@ -181,7 +188,7 @@ prestazione dallo stesso professionista.
         <br>
         <div class="div-block-25" style="margin-top: 20px">
             <a href="javascript:;" class="button-3 next odd diff w-button w-240">Procedi al Checkout</a>
-            <a href="/visite-ed-esami.php?morev=1" class="button-3 next diff w-button w-240">Aggiungi altre prestazioni</a>
+            <a href="/visite-ed-esami.php?morev=1" class="button-3 next diff w-button w-240 p-button">Aggiungi altre prestazioni</a>
         </div>
     </div>
 </div>
@@ -465,7 +472,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                     <?php
                     if ($ii > 2){
                         ?>
-                        <div class="price-1">Total Price: <strong>€<?php
+                        <div class="price-1">Prezzo totale: <strong>€<?php
                                 if (strpos($total_price,'.') !== false) {
                                     echo $total_price;
                                 }else {
@@ -478,7 +485,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                     <br>
                     <a data-w-id="c52ba0f4-d38b-9687-46ce-e745bbba5e78" href="#"
                        class="button gradient submit booking w-button">Conferma prenotazione</a>
-                    <a href="javascript:;" class="button more_visits w-button">Aggiungi altre prestazioni</a>
+                    <a href="javascript:;" class="button more_visits w-button m-b-20">Aggiungi altre prestazioni</a>
                 </div>
 
             </div>

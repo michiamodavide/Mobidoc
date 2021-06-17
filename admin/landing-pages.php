@@ -8,7 +8,7 @@ if(!isset($_SESSION['adminlogin']))
 <html data-wf-page="5dfbca93dac9929422dd9875" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
     <meta charset="utf-8">
-    <title>Landing Pages</title>
+    <title>Pagine di destinazione</title>
     <meta content="Booking" property="og:title">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="Webflow" name="generator">
@@ -172,7 +172,7 @@ if(!isset($_SESSION['adminlogin']))
 </div>
 <div class="admin_main_section">
     <div data-w-id="671d7027-6f87-1c3f-c474-3b17f4b83b06" style="opacity:1" class="admin_section_header">
-        <h1 class="admin_section_heading">Landing Pages</h1>
+        <h1 class="admin_section_heading">Pagine di destinazione</h1>
         <div class="div-block-70">
             <div class="filter">
                 <a href="create-lp.php" style="text-decoration: none;">

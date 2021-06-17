@@ -218,7 +218,7 @@ else {
                          maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora" id="appoint_time" required>
                   <?php
                   if ($booking_status > 2){?>
-                      <p style="text-align: center;color: red;">Booking date can not be changed after execution.</p>
+                      <p style="text-align: center;color: red;">La data di prenotazione non può essere cambiata a prestazione avvenuta</p>
                       <style>.appoint_time{pointer-events: none;opacity: 0.8;}</style>
                   <?php }else{?>
                   <p>&nbsp;&nbsp;</p>
@@ -279,12 +279,12 @@ JOIN listini ls ON ds.doctor_id=ls.doctor_id
                     <?php
 
                     if ($booking_status < 3){?>
-                        <p style="text-align: center;color: red;">You can modify referrer once the booking is executed.</p>
+                        <p style="text-align: center;color: red;">Puoi modificare il refertatore una volta che la prenotazione  è confermata</p>
                         <style>.choose_your_area.refertor_select{pointer-events: none;opacity: 0.8;}</style>
                     <?php }else{
                     if ($get_report_count < 1){
                         ?>
-                        <p style="text-align: center;color: red;">No referrer available for the selected visit.</p>
+                        <p style="text-align: center;color: red;">Cambia la password usando il link qui presente</p>
                         <style>.choose_your_area.refertor_select{pointer-events: none;opacity: 0.8;}</style>
                     <?php }else{?>
                         <p>&nbsp;&nbsp;</p>
