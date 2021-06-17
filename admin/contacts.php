@@ -8,7 +8,7 @@
 <html data-wf-page="5dfbca93dac9929422dd9875" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
 <meta charset="utf-8">
-<title>Contacts</title>
+<title>Contatti</title>
 <meta content="Booking" property="og:title">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <meta content="Webflow" name="generator">
@@ -176,7 +176,7 @@
 </div>
 <div class="admin_main_section">
   <div data-w-id="671d7027-6f87-1c3f-c474-3b17f4b83b06" style="opacity:1" class="admin_section_header">
-    <h1 class="admin_section_heading">Contacts</h1>
+    <h1 class="admin_section_heading">Contatti</h1>
     <div class="div-block-70">
       <div class="scroll_indicator">
         <div data-w-id="98c7cd18-996f-4b08-777e-ae54e6517910" data-animation-type="lottie" data-src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5df9f0f25ccbf3bb4c727941_lottieflow-scrolling-01-1-00285C-easey.json" data-loop="0" data-direction="1" data-autoplay="0" data-is-ix2-target="1" data-renderer="svg" data-default-duration="2.76" data-duration="0" class="lottie-animation-3"></div>
@@ -185,7 +185,7 @@
             <a href="add-contact.php" style="text-decoration: none;color: black">
             <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button">
                 <div class="text-block-78">
-                   Add New Contact
+                    Aggiungi Nuovo Contatto
                 </div>
             </div>
             </a>

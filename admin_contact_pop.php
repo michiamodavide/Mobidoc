@@ -54,7 +54,7 @@
                                 <br>
                                 <a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel">
                                     <img src="/images/phone.svg" width="11" alt="" class="image-2">
-                                    <div class="text-block-2">OR Call Us</div>
+                                    <div class="text-block-2">Oppure chiamaci</div>
                                 </a>
                                 <?php }?>
                             </div>

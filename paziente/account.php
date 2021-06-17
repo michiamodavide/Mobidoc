@@ -60,9 +60,20 @@
 /*****************************************/	  
 @media screen and (max-width: 991px){	  
 .body-8 a.list_item.diff {
-    width: 282px;
+    width: 100%;
    margin: 10px auto 0 auto;
-}		  
+}		
+	.dis-block{
+		display:block !important;
+	}
+	.w-btn{
+		width:100%;
+		margin-top: 15px;
+	}
+	.w-btn100{
+		width:100%;
+		
+	}
 	  }
 	  
 </style>
@@ -112,7 +123,7 @@
 
         <div class="no_booking_prompt" style="display:flex;">
           <h2 class="heading-19">Al momento non hai pazienti da visualizzare.</h2>
-          <div class="div-block-57"><a href="patient-profile.php" class="button gradient w-button">Aggiungi nuovo paziente</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
+          <div class="div-block-57 dis-block"><a href="patient-profile.php" class="button gradient w-button w-btn100">Aggiungi nuovo paziente</a><a href="tel:3357798844" class="button w-button w-btn">Chiamaci</a></div>
         </div>
 
       <?php } else {?>
