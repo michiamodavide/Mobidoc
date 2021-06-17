@@ -387,41 +387,24 @@ include '../connect.php';
             margin-right: 20px;
             width: 60px;
         }
-		.m-t-minus{
-			margin-top:-34px !important;
-		}
 
         .plus {
-             background-color: #00285c;
+            background: url("../images/plus.png") center center no-repeat;
+            background-size: contain;
             display: block;
-            height: 34px;
-            width: 90px;
+            height: 24px;
+            width: 24px;
             margin: 0 auto;
-			color: #fff;
-			border-radius: 30px;
-			float: left;
-			margin-top: -30px;
         }
-		.plus i
-		{
-			margin-right:5px;
-		}
+
         .minus {
-             background-color: #f8dbdb;
+            background: url("../images/minus.png") center center no-repeat;
+            background-size: contain;
             display: block;
-            height: 34px;
-            width: 90px;
+            height: 24px;
+            width: 24px;
             margin: 0 auto;
-			color: #000;
-			border-radius: 30px;
-			margin-top: 40px;
-				
-        }.minus i
-		{
-			margin-right:5px;}
-		.dynamic_div{
-		padding: 30px 0 0px 0;
-			}
+        }
 
         .m-b-input {
             margin-bottom: 0px;
@@ -462,26 +445,10 @@ include '../connect.php';
 			height: 67px;
 			
 		}
-		/*.m-b-25{*/
-				/*margin-bottom: 0px !important;*/
-			/*}*/
 		.style-date{
 			margin: 10px 0 0 10px; padding-top: 10px; display: block;width: 100%;
 		}
         @media only screen and (max-width: 767px) {
-			.m-b-25{
-				margin-bottom: 25px !important;
-			}
-			.plus {
-           margin-bottom: 10px;
-			margin-top: 0px;
-        }
-			.minus {
-  
-    margin-left: 100px;
-}
-			
-			
 			.date-input {
     height: 50px;
 }
@@ -741,7 +708,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                                                 </div>
 												<div class="style-date">
 												 <input type="text"
-                                                           class="datepicker-here inputs w-input appoint_time date-input dual_container diff m-b-25"
+                                                           class="datepicker-here inputs w-input appoint_time date-input dual_container diff"
                                                            data-language="it" data-date-format="dd-mm-yyyy"
                                                            maxlength="256" autocomplete="off" name="appoint_time[]"
                                                            placeholder="Data e Ora" id="appoint_time">
@@ -757,11 +724,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
 
                                         <div class="input-group-btn">
-                                            <button class="btn btn-success plus" style="display: none" type="button" onclick="addNewVisit();"><i class="fa fa-plus"></i> Add</button>
+                                            <button class="btn btn-success plus" style="display: none" type="button" onclick="addNewVisit();"></button>
                                         </div>
                                     </div>
-									<div style="clear: both;"></div>
-							
                                     <div class="form_section">
                                         <div class="form_section_heading">Indennità Km</div>
                                         <div class="dual_container diff">
@@ -1151,12 +1116,10 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
             '                                            </div>\n' +
             '\n' +
             '                                        </div><div class="input-group-btn">\n' +
-            '                                                <button class="btn btn-success minus"  type="button" onclick="remove_visit_fields('+ room +');"><i class="fa fa-trash"></i> Delete</button>\n' +
+            '                                                <button class="btn btn-success minus" type="button" onclick="remove_visit_fields('+ room +');"></button>\n' +
             '                                             </div>';
 
         objTo.appendChild(divtest);
-		
-		$(".input-group-btn .plus").addClass("m-t-minus");
 
         // $(".appoint_time").on("keyup", function(e) {
         //     alert("hello");

@@ -172,16 +172,16 @@ $today = $year . '-' . $month . '-' . $day;
     <div style="opacity:1;-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
          class="slectpay_container">
         <div class="text-block-18 paypay_heading">
-            <span class="heading1">Wait!</span> <br><br>
+            <span class="heading1">ASPETTA!</span> <br><br>
             <span class="heading2">
-                     YOU CAN GET 50% OFF ON YOUR NEXT<br>
-VISITS FROM THE SAME PROFESSIONIST.
+                     Puoi ottenere uno sconto del 50% se prenoti un'altra <br>
+prestazione dallo stesso professionista.
                      </span>
         </div>
         <br>
         <div class="div-block-25" style="margin-top: 20px">
-            <a href="javascript:;" class="button-3 next odd diff w-button w-240">Proceed with Checkout</a>
-            <a href="/visite-ed-esami.php?morev=1" class="button-3 next diff w-button w-240">Add more visits</a>
+            <a href="javascript:;" class="button-3 next odd diff w-button w-240">Procedi al Checkout</a>
+            <a href="/visite-ed-esami.php?morev=1" class="button-3 next diff w-button w-240">Aggiungi altre prestazioni</a>
         </div>
     </div>
 </div>
@@ -303,7 +303,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                             <div><?php echo $rows132['email']; ?></div>
                                         </div>
                                         <div class="data">
-                                            <div>Prezzo</div>
+                                            <div>Prezzo:</div>
                                         </div>
                                         <div class="value">
                                             <?php
@@ -325,7 +325,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                         </div>
 
                                         <div id="w-node-f52807649448-ff1af31d" class="data">
-                                            <div>Appointment Time:</div>
+                                            <div>Data e Ora:</div>
                                         </div>
                                         <div id="w-node-f5280764944b-ff1af31d" class="value">
                                             <input type="text"
@@ -478,7 +478,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                     <br>
                     <a data-w-id="c52ba0f4-d38b-9687-46ce-e745bbba5e78" href="#"
                        class="button gradient submit booking w-button">Conferma prenotazione</a>
-                    <a href="javascript:;" class="button more_visits w-button">Add More Visits</a>
+                    <a href="javascript:;" class="button more_visits w-button">Aggiungi altre prestazioni</a>
                 </div>
 
             </div>
@@ -506,7 +506,6 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
         src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
 <script>
     $(document).ready(function () {
-
         $(document).on('click touchstart', '.select_button', function(){
             var redirector = $(this).attr('data-link');
             $('#submit_redirector').attr("href", redirector);
@@ -569,6 +568,21 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
         };
         xmlhttp2.open("GET", "changeDoctor.php?article_id=" + cr_article_id+'&book_name='+cr_visit_name, true);
         xmlhttp2.send();
+    });
+
+    $(".appoint_time").on("keyup", function(e) {
+        var select_date = $(this).val().split('-');
+        var date_string = select_date[1] + '-' + select_date[0] + '-' + select_date[2];
+
+        var opoint_date = opoint_date = new Date(date_string);
+        setTimeout(function () {
+            if (opoint_date == 'Invalid Date') {
+                //do not do anyting
+            } else {
+                $('.appoint_time').datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+            }
+        }, 500);
+
     });
 </script>
 <?php include("google_analytic.php") ?>
