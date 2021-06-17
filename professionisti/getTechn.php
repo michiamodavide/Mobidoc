@@ -63,9 +63,5 @@ if ($result_count > 0) {
 }else{
 ?>
     <p id="no_refer_text" style="text-align: center;color: red;">No referrer available for the selected visit.</p>
-    <style>
-        #ext_not{
-          display: none;
-        }
-    </style>
+    <style>#ext_not{display: none;}</style>
 <?php }?>

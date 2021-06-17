@@ -13,6 +13,7 @@
 	$total_price = $price;
 	echo $total_price;
 
+
 	require __DIR__ .'/PayPal-PHP-SDK/autoload.php';
 
 	//Api

@@ -87,9 +87,9 @@ $today = $year . '-' . $month . '-' . $day;
         }(window, document);</script>
     <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
     <link href="images/webclip.png" rel="apple-touch-icon">
+    <link href="/paziente/dist/css/datepicker.css" rel="stylesheet" type="text/css">
     <link href="css/new-styles.css?v=3" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="https://kit.fontawesome.com/3f12b8b553.js" crossorigin="anonymous"></script>
     <style>
         ::-webkit-scrollbar {
@@ -159,9 +159,11 @@ $today = $year . '-' . $month . '-' . $day;
 		}
     </style>
     <style>
-        textarea {
-            resize: none;
-        }
+       @media screen and (min-width: 992px){
+           .appoint_time{
+               margin-bottom: 10px !important;
+           }
+       }
     </style>
 </head>
 <body>
@@ -195,6 +197,7 @@ include 'header.php'; ?>
 <div class="section-30">
     <div class="custom_container checkout">
         <div class="checkout_grid2">
+            <form id="checkout_form" name="checkout" action="booking-submit.php" method="post">
 
             <div class="check_step1">
             <?php
@@ -320,6 +323,17 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                                 <div class="text-block-54">€<?php echo $visit_price; ?></div>
                                                 <?php }?>
                                         </div>
+
+                                        <div id="w-node-f52807649448-ff1af31d" class="data">
+                                            <div>Appointment Time:</div>
+                                        </div>
+                                        <div id="w-node-f5280764944b-ff1af31d" class="value">
+                                            <input type="text"
+                                                   class="datepicker-here inputs w-input appoint_time date-input dual_container diff"
+                                                   data-language="it" data-date-format="dd-mm-yyyy"
+                                                   maxlength="256" autocomplete="off" name="appoint_time[]"
+                                                   placeholder="Data e Ora" id="appoint_time">
+                                        </div>
                                         <div id="w-node-f52807649448-ff1af31d" class="data">
                                             <div>Messaggio:</div>
                                             <br>
@@ -329,14 +343,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                             </div>
                                         </div>
                                         <div id="w-node-f5280764944b-ff1af31d" class="value">
-                                <textarea maxlength="5000" id="field-2" name="field-2"
-                                          class="textarea w-input text_msg"></textarea>
-                                            <script>
-                                                $('#field-2').keyup(function(){
-                                                    this_text = $(this).val();
-                                                    $('#message').attr("value",this_text);
-                                                });
-                                            </script>
+                                <textarea maxlength="5000" id="field-2" name="message[]" class="textarea w-input"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -364,37 +371,9 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
             //mysqli_close($conn);
             ?>
             </div>
-            <div class="check_step2">
-                <div class="div-block-49">
-					 <?php
-                    if ($ii > 2){
-                        ?>
-                        <div class="price-1">Total Price: <strong>€<?php
-                            if (strpos($total_price,'.') !== false) {
-                                echo $total_price;
-                            }else {
-                                echo $total_price.'.00';
-                            }
-                            ?>
-							</strong>
-                        </div>
-                    <?php }?>
-					<br>
-                    <a data-w-id="c52ba0f4-d38b-9687-46ce-e745bbba5e78" href="#"
-                       class="button gradient submit booking w-button">Conferma prenotazione</a>
-                    <a href="javascript:;" class="button more_visits w-button">Add More Visits</a>
-
-
-             
-                   
-                </div>
-
-            </div>
-
 
             <div class="form">
                 <div class="w-form">
-                    <form id="checkout_form" name="checkout" action="booking-submit.php" method="post">
                         <div class="input_fields" style="display:none;">
 
                             <input type="text" class="w-input" maxlength="256" name="patient_id"
@@ -409,8 +388,8 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                    id="price" value="<?php echo $total_price; ?>">
                             <input type="text" class="w-input" maxlength="256" name="article_id"
                                    placeholder="article_id" id="article_id" value="<?php echo $article_id; ?>">
-                            <input type="text" class="w-input" maxlength="256" name="message" placeholder="Message"
-                                   id="message">
+<!--                            <input type="text" class="w-input" maxlength="256" name="message" placeholder="Message"-->
+<!--                                   id="message">-->
                             <input type="text" class="w-input" maxlength="256" name="payment_mode"
                                    placeholder="Payment Mode" id="payment_mode" value="">
                             <input type="text" class="w-input" maxlength="256" name="booking_status"
@@ -425,7 +404,6 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                    data-name="date_of_booking" placeholder="Date of Booking" id="date_of_booking"
                                    value="<?php echo $today; ?>">
                         </div>
-
                         <div data-w-id="0b7e3b0c-13c6-61bf-4622-8858fe41e086" style="opacity:0;display:none;"
                              class="select_payment_method">
                             <div data-w-id="815cc03f-3eba-e168-af08-dba23d269218" class="closer"><input type="email"
@@ -478,8 +456,31 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                 </div>
                             </div>
                         </div>
-                    </form>
+
                 </div>
+            </div>
+            </form>
+            <div class="check_step2">
+                <div class="div-block-49">
+                    <?php
+                    if ($ii > 2){
+                        ?>
+                        <div class="price-1">Total Price: <strong>€<?php
+                                if (strpos($total_price,'.') !== false) {
+                                    echo $total_price;
+                                }else {
+                                    echo $total_price.'.00';
+                                }
+                                ?>
+                            </strong>
+                        </div>
+                    <?php }?>
+                    <br>
+                    <a data-w-id="c52ba0f4-d38b-9687-46ce-e745bbba5e78" href="#"
+                       class="button gradient submit booking w-button">Conferma prenotazione</a>
+                    <a href="javascript:;" class="button more_visits w-button">Add More Visits</a>
+                </div>
+
             </div>
         </div>
     </div>
@@ -495,8 +496,8 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
     </div>
 </div>
 <?php include 'footer.php'; ?>
-<script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="/paziente/date_pic.js?v=4"></script>
+<script src="/paziente/dist/js/i18n/datepicker.en.js?v=4"></script>
 <script src="js/webflow2.js" type="text/javascript"></script>
 <!-- [if lte IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
