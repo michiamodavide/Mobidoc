@@ -614,7 +614,7 @@ if(isset($_POST['submit'])){
 
 
 
-      header("location: /paziente/booking-completed.php");
+      header("location: /paziente/booking-completed.php?admin=1");
     } else {
       header("location: /admin/patient-register.php?err=1");
       echo "Unable to insert record2";
