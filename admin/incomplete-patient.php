@@ -53,6 +53,14 @@ if(!isset($_SESSION['adminlogin']))
 	margin-top:240px;}
 
 @media screen and (max-width: 767px) {
+	.email-font{font-size: 14px;}
+	.font-heading {
+       font-size: 18px;
+    line-height: 22px;
+}
+	
+	
+	
 .admin_main_section .admin_section_header {
 	display: inline-block;
 	left: 90px;
@@ -152,7 +160,7 @@ if(!isset($_SESSION['adminlogin']))
         <div class="regi_doctor_image"><img src="/images/Group-556.jpg" alt="" class="image-24"></div>
         <div class="div-block-65">
           <div id="w-node-cf99e8f702f8-80dd982b" class="regi_name_block">
-            <div class="text-block-68"><?PHP echo ucwords($fname)." ".ucwords($lname); ?></div>
+            <div class="text-block-68 font-heading"><?PHP echo ucwords($fname)." ".ucwords($lname); ?></div>
               <div class="status_btn">Salvato</div>
           </div>
           <div class="div-block-66">
@@ -165,7 +173,7 @@ if(!isset($_SESSION['adminlogin']))
           </div>
           <div class="div-block-66">
             <div class="regi_data">Email</div>
-            <div class="regi_value email-text"><?PHP echo $email; ?></div>
+            <div class="regi_value email-text email-font"><?PHP echo $email; ?></div>
           </div>
           <div class="div-block-67">
             <div class="regi_data">Data Registrazione</div>

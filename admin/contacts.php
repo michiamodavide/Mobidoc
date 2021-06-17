@@ -60,9 +60,23 @@
     float: left;
     margin-top: 4px;
 }
+	.width-btn{
+		width: 236px;
+	}
 /*********************************/	 
 
 @media only screen and (max-width: 767px) {
+	
+	.glance_details_value {
+    font-size: 12px;
+  
+}
+	
+.font-78 {
+    text-align: center;
+    font-size: 12px;
+	}
+    
 .body-13 .admin_side_panel {
 
     top: 0.01%;
@@ -183,8 +197,8 @@
       </div>
         <div class="filter">
             <a href="add-contact.php" style="text-decoration: none;color: black">
-            <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button">
-                <div class="text-block-78">
+            <div data-w-id="7320a79a-376d-b137-3fb6-1394bd9614d5" class="filter_button width-btn">
+                <div class="text-block-78 font-78">
                     Aggiungi Nuovo Contatto
                 </div>
             </div>

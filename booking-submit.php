@@ -103,7 +103,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
                          $sql = "insert into bookings (patient_id, booking_discount_id, doctor_id, price, total_discount, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, gmap_coordinates, latitude, longitude ) values('".$patient_id."','".$booking_parent_id."', '".$doctor_id."', '".$price."', '".$discounted_price."', '".$message[$ii-1]."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$apt_date."', '".$gmap_address."', '".$latitude."', '".$longitude."')";
                      }else{
                          $sql = "insert into bookings (patient_id, doctor_id, price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, gmap_coordinates, latitude, longitude ) values('".$patient_id."', '".$doctor_id."', '".$price."', '".$message[$ii-1]."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$apt_date."', '".$gmap_address."', '".$latitude."', '".$longitude."')";
-                     }
+                      }
 
                      $result = mysqli_query($conn, $sql);
 

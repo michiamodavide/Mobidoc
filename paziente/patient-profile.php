@@ -109,6 +109,20 @@ if (isset($_GET['contact-id']) && !empty($_GET['contact-id'])) {
    background-color: hsla(0, 0%, 100%, 0.15) !important;
    border-color: hsla(0, 0%, 100%, 0.15) !important;
   }
+	 
+	@media (min-width: 362px) and (max-width: 375px) { 
+	 .button.stroked.cover_btns {
+    padding: 12px 20px;
+}
+	 }
+	@media (min-width: 320px) and (max-width: 360px) {
+		.button.stroked.cover_btns {
+    padding: 12px 15px;
+}
+} 
+	 
+	 
+	 
  </style>
 </head>
 <body>

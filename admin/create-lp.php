@@ -257,7 +257,6 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
 
                         include '../connect.php';
 
-
                         $medi_id = mysqli_real_escape_string($conn, $_POST['medical_speciality']);
                         $page_des = mysqli_real_escape_string($conn, $_POST['page_des']);
                         $mds_name = mysqli_real_escape_string($conn, $_POST['mds_name']);
@@ -366,6 +365,9 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
                                                 $('.text-block-33').html("Immagine LP");
                                             }
                                         });
+
+                                        $('.description_msg').removeClass("error_show");
+                                        $('.description_msg').css("display", "none");
                                     });
                                 });
 
@@ -394,7 +396,10 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
 
                         <div class="error_container">
                             <div class="error_message medical_speciality_msg" style="display: none">
-                                <div class="text-block-30">Please Chose any Medical Speciality.</div>
+                                <div class="text-block-30">Si prega di scegliere qualsiasi specialità medica.</div>
+                            </div>
+                            <div class="error_message description_msg" style="display: none">
+                                <div class="text-block-30">Si prega di aggiungere un'immagine o una descrizione.</div>
                             </div>
                         </div>
 							</div>
@@ -428,7 +433,29 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
             }
 
         });
+
+        $('#submit_profile').click(function(){
+            var get_page_dec = $("#page_des").val();
+            var get_lp_img = $(".upload_image").val();
+            if (get_page_dec || get_lp_img) {
+                return true;
+            }else {
+                $('.description_msg').addClass("error_show").css("display", "inline");
+                return false;
+
+            }
+        });
     }
+
+        $("#page_des").keyup(function(){
+        $('.description_msg').removeClass("error_show");
+        $('.description_msg').css("display", "none");
+      });
+
+    $(".medical_speciality").on("click", function () {
+        $('.medical_speciality_msg').removeClass("error_show");
+        $('.medical_speciality_msg').css("display", "none");
+    });
 
     $(".regi_doctor_card").on("click", function () {
        $(".visit_err").css("display", "none")
@@ -437,6 +464,8 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
     $(document).ready(function(){
         $('.admin_item:nth-child(7)').addClass('current');
     });
+
+
 
 </script>
 <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript"

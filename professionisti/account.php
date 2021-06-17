@@ -530,7 +530,7 @@ padding: 13px 30px;
            <div class="text-block-63">Data e Ora</div>
            <div class="text-block-64">
           <?php
-          if (!empty($opoint_time)){
+          if (!empty($opoint_time) && strtotime($opoint_time) > 0){
            echo date("d/m/Y H:i", strtotime($opoint_time));;
           }
            ?>
