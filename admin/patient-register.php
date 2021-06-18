@@ -1537,10 +1537,17 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                     //   $("#caller_last_name").val('');
                     // $("#tele").val('');
                     $('.patiend_idd').remove();
+
+                    if ($('.contact_id').length && $('.contact_id').val().length) {
+                        $("#caller_first_name, #caller_last_name, #tele").val('');
+                    }
+                    $('.contact_id').remove();
                 } else {
                     $('.patiend_idd').remove();
                     $("#email-form").append('<input class="patiend_idd" type="hidden" name="patients_id" value="' + response.paziente_id + '">');
                     $("#email, #first_name, #last_name, #tele, #caller_first_name, #caller_last_name").prop("readonly", true);
+                    $('.contact_id').remove();
+                    $("#email-form").append('<input type="hidden" class="contact_id" name="contact_id" value="' + response[0].contact_id + '">');
                     $("#dob").css("pointer-events", "none").prop("readonly", true);
                     // $(".error.fasical_cd").css("display", "block");
                     $("input#fiscal_code").css("background-color", "#ffc5c5");
@@ -1610,11 +1617,11 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                 success: function (response) {
                     // console.log(response);
                     if (response == 'true') {
+                        if ($('.contact_id').length && $('.contact_id').val().length) {
+                            $("#caller_first_name, #caller_last_name, #tele").val('');
+                        }
+                        $('.contact_id').remove();
                         if (name_attr == 'email') {
-                            if ($('.contact_id').length && $('.contact_id').val().length) {
-                                $("#caller_first_name, #caller_last_name, #tele").val('');
-                            }
-                            $('.contact_id').remove();
                             $(".show_contact_msg").css("display", "none");
                         } else {
                             $(".patient_names ol strong").remove();
@@ -1637,9 +1644,10 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
                     } else {
 
+                        $('.contact_id').remove();
+                        $("#email-form").append('<input type="hidden" class="contact_id" name="contact_id" value="' + response[0].contact_id + '">');
                         if (name_attr == 'email') {
-                            $('.contact_id').remove();
-                            $("#email-form").append('<input type="hidden" class="contact_id" name="contact_id" value="' + response[0].contact_id + '">');
+
                             $("#caller_first_name").val(response[0].contact_name);
                             $("#caller_last_name").val(response[0].contact_surname);
                             $("#tele").val(response[0].contact_phone);

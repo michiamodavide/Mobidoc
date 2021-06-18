@@ -35,7 +35,7 @@ $pdf->setImageScale( PDF_IMAGE_SCALE_RATIO );
 // add a page
 $pdf->AddPage();
 $pdf->setImageScale("2.1");
-$pdf->WriteHTML( file_get_contents( "emails_html/pdf2/page1.php" ) );
+$pdf->WriteHTML( file_get_contents( $pdf_file_path."emails_html/pdf2/page1.php" ) );
 $html1 = '<br>
 <p>'.$contact_fname.'</p>';
 $pdf->writeHTMLCell( 0, 0, 75, 14, $html1, 0, 1, 0, true );
@@ -97,7 +97,7 @@ $pdf->AddPage();
 // set image scale factor
 $pdf->setImageScale( "1.65" );
 // add a page
-$pdf->WriteHTML( file_get_contents( "emails_html/pdf2/page2.php" ) );
+$pdf->WriteHTML( file_get_contents( $pdf_file_path."emails_html/pdf2/page2.php" ) );
 $html9 = '<br>
 <p></p>';
 $pdf->writeHTMLCell( 0, 0, 35, 33, $html9, 0, 1, 0, true );
@@ -164,4 +164,4 @@ $pdf_save_path = dirname( __FILE__ ) . '/assets/generate_pdf';
 //$fileNL = $pdf_save_path . "/" . strtolower($doctor_fname).'.pdf';
 $fileNL = $pdf_save_path."/mobidoc2.pdf";
 //$pdf->Output(strtolower(str_replace(' ', '-', $title)).'-'.date('Ymd-Hi').'.pdf', 'F');
-$pdf->Output( $fileNL, 'F' );
+$pdf->Output($fileNL, 'F');

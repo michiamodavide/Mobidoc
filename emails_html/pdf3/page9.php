@@ -216,9 +216,9 @@ ul.low-abc2 li:before {
   <table  align="center" class="list-div" border="0" cellspacing="0" cellpadding="0">
   <tbody>
     <tr>
-      <td><img style="padding-top:5px;" src="emails_html/pdf3/round-1.jpg" alt=""/>&nbsp;– Presto il consenso</td>
-      <td><img style="margin-top:5px;" src="emails_html/pdf3/round-2.jpg" alt=""/>&nbsp;– Nego il consenso</td>
-      
+      <td><img style="padding-top:5px;" src="/emails_html/pdf3/round-1.jpg" alt=""/>&nbsp;– Presto il consenso</td>
+      <td><img style="margin-top:5px;" src="/emails_html/pdf3/round-2.jpg?v=1" alt=""/>&nbsp;– Nego il consenso</td>
+
     </tr>
   </tbody>
 </table>
