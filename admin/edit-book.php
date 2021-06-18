@@ -2,11 +2,12 @@
 include '../connect.php';
 if(isset($_POST['submit'])){
 
-    $patient_email = $_POST['email'];
+
+    $contact_email = $_POST['contact_email'];
     $dob = mysqli_real_escape_string($conn, $_POST['dob']);
     $dob=strtotime($dob);
     $dob = date('Y/m/d', $dob);
-    $tel = mysqli_real_escape_string($conn, $_POST['tele']);
+    $tel = mysqli_real_escape_string($conn, $_POST['contact_tele']);
     $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
 
@@ -43,6 +44,7 @@ if(isset($_POST['submit'])){
       $booking_res = mysqli_fetch_array($result_booking);
 
       $price = $booking_res['price'];
+      $discounted_price = $booking_res['total_discount'];
       $payment_mode = $booking_res['payment_mode'];
       $opointment_time = $booking_res['apoint_time'];
 
@@ -67,15 +69,12 @@ if(isset($_POST['submit'])){
         /*get patient date*/
         $fiscal = $ref_v_res22['fiscale'];
         $date_of_birth = date("d-m-Y", strtotime($ref_v_res22['dob']));
-        $address = $ref_v_res22['via'];
+        $address = $ref_v_res22['address'];
         $gmap_addr = $ref_v_res22['gmap_address'];
 
 
-        $start_dt = '';
-        $end_dt = '';
-        $patient_date =  '';
-        $patient_time =  '';
-        $calender_link = 'javascript:;';
+        $date_text = 'da confermare';
+        $add_calender = '';
 
         if (!empty($patient_apt_date)) {
           $booking_date = strtr($patient_apt_date, '/', '-');
@@ -95,14 +94,26 @@ if(isset($_POST['submit'])){
           $patient_date = date('d-m-Y', strtotime($booking_date));
           $patient_time = date('H:i', strtotime($booking_date));
 
+
+          $date_text = $patient_date.' '.$patient_time;
+
           $calender_link = 'https://calendar.google.com/calendar/u/0/r/eventedit?action=TEMPLATE&text=Mobidoc Visit&dates='.$start_dt.'/'.$end_dt.'&ctz=Europe/Rome';
+
+          $outlook_calender_date = date('Y-m-d', strtotime($booking_date)).'T'.date('H:i:s', strtotime($booking_date));
+          $outlook_calender_link = 'https://outlook.live.com/calendar/0/deeplink/compose?startdt='.$outlook_calender_date.'&subject=Mobidoc%20Visit';
+
+          $add_calender = "<br><br>Aggiungi l’evento al tuo: <a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a>";
 
         }
 
+        $dist_price = '';
+        if (!empty($discounted_price)){
+          $dist_price = '<br>Prezzo scontato: €'.$discounted_price;
+        }
 
+      /*
         if (empty($opointment_time)){
-          //email to patient
-          $to3 = $patient_email;
+          $to3 = $contact_email;
           $subject3 = 'Modifica esame';
           $from3 = 'mobidoc_update@mobidoc.it';
           $rply_email3 = 'noreplay@mobidoc.it';
@@ -120,13 +131,14 @@ if(isset($_POST['submit'])){
 
           mail($to3, $subject3, $message31, $headers3);
         }
+      */
 
 
         /*get old ref*/
         $old_ref = $_POST['old_ref_id'];
         if ($old_ref == $refertatore_id){
           /*email to patient*/
-          $to = $patient_email;
+          $to = $contact_email;
           $subject = 'Modifica esame';
           $from = 'mobidoc_update@mobidoc.it';
           $rply_email = 'noreplay@mobidoc.it';
@@ -194,10 +206,11 @@ if(isset($_POST['submit'])){
 
 
           /*email to admin*/
-          $to2 = 'info@mobidoc.it';
+          //$to2 = 'info@mobidoc.it';
+          $to2 = 'jimmymike347@gmail.com';
           // Compose a simple HTML email message
           $message2 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Messaggio di aggiornamento prestazione:</h4><div class="text-block">Prestazione prenotata:  ' . $visit_name . '<br>Esecutore: ' . $doctor_main_name . '';
-          $message2 .= "<br>Refertatore: $refer_name1<br><br>Nome Paziente: $paziente_main_name<br>Codice Fiscale: $fiscal<br>Data di nascita: $date_of_birth<br><br>Data: $patient_date<br>Ora: $patient_time<br>Indirizzo: <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>$address</a><br><br>Prezzo: €$price<br>Metodo di pagamento: $payment_mode<br><br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Aggiungi l’evento al tuo calendario google: </a><br><br>Clicca il seguente link per connetterti all’admin dashboard e visualizzare i dettagli completi della prenotazione: <a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/admin/index.php'>https://mobidoc.it/admin/index.php</a></div> <br></div></body></html>";
+          $message2 .= "<br>Refertatore: $refer_name1<br><br>Nome Paziente: $paziente_main_name<br>Codice Fiscale: $fiscal<br>Data di nascita: $date_of_birth<br><br>Data e Ora: $date_text<br>Indirizzo: <a target='_blank' style='color: blue; text-decoration: underline' href='$gmap_addr'>$address</a><br><br>Prezzo: €$price$dist_price<br>Metodo di pagamento: $payment_mode$add_calender <br><br>Clicca il seguente link per connetterti all’admin dashboard e visualizzare i dettagli completi della prenotazione: <a target='_blank' style='color: blue; text-decoration: underline' href='https://mobidoc.it/admin/index.php'>https://mobidoc.it/admin/index.php</a></div> <br></div></body></html>";
 
           mail($to2, $subject, $message2, $headers);
 

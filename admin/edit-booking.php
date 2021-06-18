@@ -389,17 +389,12 @@ where dp.doctor_id ='".$get_book_result['doctor_id']."'";
           <div class="form_section">
            <div class="form_section_heading">Informazioni Paziente</div>
            <div class="dual_container diff">
-            <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off" readonly>
-            <input type="email" class="inputs w-input" maxlength="256" name="email" data-name="email" placeholder="Email *" value="<?php echo $email?>" id="email" readonly>
+               <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome" value="<?php echo $lname?>" id="last_name" readonly>
+               <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome" value="<?php echo $fname?>" id="first_name" readonly>
            </div>
               <div class="dual_container diff">
-                  <input type="text" class="inputs w-input" maxlength="256" name="first_name" data-name="first_name" placeholder="Nome *" value="<?php echo $fname.' '.$lname?>" id="first_name" readonly>
-                 <?php
-                /*
-                 <input type="text" class="inputs w-input" maxlength="256" name="last_name" data-name="last_name" placeholder="Cognome *" value="<?php echo $lname?>" id="last_name" required>
-                <input type="text" class="datepicker-here inputs w-input date_of_birth" data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="dob" placeholder="Data di Nascita *" id="dob" style="margin-bottom: 25px" readonly>
-                */
-                 ?>
+
+                  <input type="text" class="inputs w-input" maxlength="256" name="fiscal_code" data-name="fiscal_code" placeholder="Codice Fiscale *" id="fiscal_code" value="<?php echo $fisc_code?>" autocomplete="off" readonly>
                   <input type="text" class="inputs w-input" maxlength="256" autocomplete="off" name="dob" value="<?=$dobb?>" placeholder="Data di Nascita *" id="dob" readonly>
 
               </div>
