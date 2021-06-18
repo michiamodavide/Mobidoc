@@ -42,7 +42,7 @@ if($conn === false){
 
 
        /*get booked visits*/
-       $sql_book = "select bs.article_id, ms.descrizione, ms.attributo, bk.doctor_id, bk.patient_id, bk.price, bk.total_discount, bk.km_price, bk.apoint_time
+       $sql_book = "select bs.article_id, ms.descrizione, ms.attributo, bk.doctor_id, bk.patient_id, bk.price, bk.total_discount, bk.km_price, bk.apoint_time, bk.payment_mode 
 from bookings bk
 join booked_service bs on bs.booking_id=bk.booking_id
 join articlesMobidoc ms on ms.id=bs.article_id
@@ -53,7 +53,7 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
        $doc_id = 0;
        $patient_id = 0;
        $kilo_meter_price = 0;
-
+       $payment_mode = '';
        $items_array = array();
        $patient_apt_date = array();
        while ($sql_book_row = mysqli_fetch_array($sql_book_result)){
@@ -71,6 +71,7 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
            if (!empty($sql_book_row['km_price'])){
                $kilo_meter_price = $sql_book_row['km_price'];
            }
+           $payment_mode = $sql_book_row['payment_mode'];
        }
 
 
@@ -120,7 +121,7 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
        $pdf_files = array($pdf_file1, $pdf_file2, $pdf_file3);
 
 
-       $send_emails_array = array($contact_email, $doctor_email, "jimmymike347@gmail.com"); //info@mobidoc.it
+       $send_emails_array = array($contact_email, $doctor_email, "info@mobidoc.it");
 
        $subject = 'Nuova Prenotazione!';
 // Sender
@@ -156,7 +157,7 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
 
            $attribute = '';
            if (!empty($item_array['exam_attribute'])){
-               $attribute = '('.$item_array['exam_attribute'].')';
+               $attribute = ' ('.$item_array['exam_attribute'].')';
            }
 
            $total_price += $current_ex_price;
