@@ -215,19 +215,19 @@ if(isset($_POST['submit'])){
             $referr_id = $refertatore_id;
           }
 
-
           $discounted_price = '';
           if ($visit_iteration > 0){
             $booking_parent_id = $booking_ids_array[$i];
-
             if ($discounted_value[$visit_iteration-1]){
-              $discounted_price = $price*$discounted_value[$visit_iteration-1]/100;
+              $get_discount_price  = $price*$discounted_value[$visit_iteration-1]/100;
+              $discounted_price = $price-$get_discount_price;
             }
 
            $sql_booking = "insert into bookings (patient_id, booking_discount_id, doctor_id, refertatore_id, price, total_discount, km_price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book, gmap_coordinates, latitude, longitude) values('".$patient_id."','".$booking_parent_id."', '".$doctor_id."', '".$referr_id."', '".$price."', '".$discounted_price."',  '".$km_price."','".$admin_note."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."','".$gmap_address."', '".$latitude."', '".$longtitude."')";
           }else{
             $sql_booking = "insert into bookings (patient_id, doctor_id, refertatore_id, price, km_price, message, payment_mode, booking_status, doctor_booking_status, patient_confirmation, pateint_remove_from_list, date_of_booking, apoint_time, admin_book, gmap_coordinates, latitude, longitude) values('".$patient_id."', '".$doctor_id."', '".$referr_id."', '".$price."', '".$km_price."', '".$admin_note."', '".$payment_mode."', '".$booking_status."', '".$doctor_booking_status."', '".$patient_confirmation."', '".$pateint_remove_from_list."', '".$date_of_booking."', '".$appoint_time."', '".$admin_book."','".$gmap_address."', '".$latitude."', '".$longtitude."')";
           }
+
 
           $result_booking = mysqli_query($conn, $sql_booking);
 
@@ -271,7 +271,6 @@ if(isset($_POST['submit'])){
       $p_last_name = $last_name;
 
       $doctor_fname = '';
-
 
 
      // $booking_done = 2;
