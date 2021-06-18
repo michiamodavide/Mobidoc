@@ -35,30 +35,30 @@
     // add a page
     $pdf->AddPage();
 
-     $pdf->WriteHTML(file_get_contents("emails_html/page1.php"));
+     $pdf->WriteHTML(file_get_contents($pdf_file_path."emails_html/page1.php"));
    // set image scale factor
      $pdf->setImageScale("1.65");
    // add a page
-      $pdf->WriteHTML(file_get_contents("emails_html/page2.php"));
+      $pdf->WriteHTML(file_get_contents($pdf_file_path."emails_html/page2.php"));
     // set image scale factor
     $pdf->setImageScale("1.6");
-      $pdf->WriteHTML(file_get_contents("emails_html/page3.php"));
+      $pdf->WriteHTML(file_get_contents($pdf_file_path."emails_html/page3.php"));
     // set image scale factor
    $pdf->setImageScale("1.4");
     // add a page
 
-      $pdf->WriteHTML(file_get_contents("emails_html/page4.php"));
+      $pdf->WriteHTML(file_get_contents($pdf_file_path."emails_html/page4.php"));
    // set margins
   $pdf->SetMargins(PDF_MARGIN_LEFT, "30px", PDF_MARGIN_RIGHT);
      $pdf->setImageScale("1.6");
     // add a page
 
-$pdf->WriteHTML(file_get_contents("emails_html/page5.php"));
+$pdf->WriteHTML(file_get_contents($pdf_file_path."emails_html/page5.php"));
 $html2 = '<br><p>'.$contact_full_n.'</p>';
 $pdf->writeHTMLCell(0, 0, 100, 70, $html2, 0, 1, 0, true);
 // add a page
 $pdf->AddPage();
-      $pdf->WriteHTML(file_get_contents("emails_html/page6.php"));
+      $pdf->WriteHTML(file_get_contents($pdf_file_path."emails_html/page6.php"));
 
 
 

@@ -205,6 +205,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
 
 				$send_emails_array = array($contact_email, $doctor_email, "info@mobidoc.it");
 
+				$pdf_file_path = '../';
 				$contact_full_n = $contact_name;
 				include ("../contact_pdf.php");
 				// Attachment file
