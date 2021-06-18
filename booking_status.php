@@ -92,7 +92,7 @@ where bk.booking_id = '".$booking_id."'";
         $pdf_files = array();
 
 
-        $send_emails_array = array($contact_email, "jimmymike347@gmail.com"); //info@mobidoc.it
+        $send_emails_array = array($contact_email, "info@mobidoc.it"); //
 
         $subject = 'Nuova Prenotazione!';
 // Sender
@@ -141,7 +141,6 @@ where bk.booking_id = '".$booking_id."'";
         $apt_count = count($patient_apt_date);
         foreach($patient_apt_date as $apt_key => $apt) {
             $booking_time_link = 'da confermare';
-
             if (!empty($apt) && strtotime($apt) > 0) {
                 $booking_date = strtr($apt, '/', '-');
                 /*booking start time*/
@@ -166,7 +165,7 @@ where bk.booking_id = '".$booking_id."'";
                 $outlook_calender_link = 'https://outlook.live.com/calendar/0/deeplink/compose?startdt='.$outlook_calender_date.'&subject=Mobidoc%20Visit';
 
 
-                $booking_time_link = "<a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a>";
+                $booking_time_link = $patient_date.' '.$patient_time."<br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a>";
 
             }
 
