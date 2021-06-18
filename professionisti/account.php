@@ -461,7 +461,7 @@ padding: 13px 30px;
 
                    }else{
                        ?>
-                       <div class="vis_text">Confirmation for this discounted visit is connected to the visit below.</div>
+                       <div class="vis_text" style="text-align: center">La conferma per questa visita scontata è collegata alla visita sottostante.</div>
                    <?php }
                   echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' a.confrim_btn{pointer-events: inherit !important;opacity: inherit !important;}  .appoint_buttons_container.book_btn_'.$rows['booking_id'].' a.edit-booking-btn{pointer-events: none !important;opacity: 0.4 !important;}</style>';
           }}else{?>
