@@ -787,6 +787,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                                                             <option value="Contanti">Contanti</option>
                                                             <option value="Bancomat">Bancomat</option>
                                                             <option value="Bonifico Bancario">Bonifico Bancario</option>
+                                                            <option value="online">Carta di Credito</option>
                                                         </select>
                                                         <script>
                                                             $('#cash-option').selectize();
