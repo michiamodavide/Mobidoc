@@ -72,8 +72,11 @@ $apiContext = new ApiContext(
 	
 
 	//Redirect URLs
-	$redirectUrls->setReturnUrl('https://www.mobidoc.it/pay/auth.php?approved=true')
-		->setCancelUrl('https://www.mobidoc.it/pay/auth.php?approved=false');
+	$redirectUrls->setReturnUrl('http://w4.mobidoc.it/pay/auth.php?approved=true')
+		->setCancelUrl('http://w4.mobidoc.it/pay/auth.php?approved=false');
+
+//$redirectUrls->setReturnUrl('https://www.mobidoc.it/pay/auth.php?approved=true')
+//	->setCancelUrl('https://www.mobidoc.it/pay/auth.php?approved=false');
 
 	//Payment
 	$payment->setIntent('authorize')
