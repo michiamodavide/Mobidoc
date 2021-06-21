@@ -19,15 +19,14 @@
 	//Api
 $apiContext = new ApiContext(
 	new OAuthTokenCredential(
-		'AXSLyRwfdDRhUw2WRRjf_pjrghe1WNFDGaVdi2gLu3L35tFpop6gSToqYnTTqPyK-kxP__P5FwvsNAPc',     // ClientID
-		'EMO0MWKFEwDsFUQkR5jduOWdEhqjfOyuhrajCfQJM8wTKf2vPAaq0Mqv78GOfzjiBv4y_dHIQjqbfo1r'      // ClientSecret
+		'AWpX5sJTYwSVuoRXOBvzSfhsZFosZ5isFsDQ-qi46o-Q-fcrzVgOQLPHMC9CYdJo6_K4seUZji8uYKux',     // ClientID
+		'EOfdxk2Tlkxu9J_e6FjYLk9fraj18mkkdPo_kJtFll43XqJ4_asq2-P2Ra6mybSAfDKYrZ5kxRJKwE8G'      // ClientSecret
 	)
 );
 
 	$apiContext->setConfig(
 		array(
-			//'mode' => 'live',
-			'mode' => 'sandbox',
+			'mode' => 'live',
 			'http.ConnectionTimeOut' => 30,
 			'log.LogEnabled' => false,
 			'log.FileName' => '',
