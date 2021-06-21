@@ -26,7 +26,8 @@ $apiContext = new ApiContext(
 
 	$apiContext->setConfig(
 		array(
-			'mode' => 'live',
+			//'mode' => 'live',
+			'mode' => 'sandbox',
 			'http.ConnectionTimeOut' => 30,
 			'log.LogEnabled' => false,
 			'log.FileName' => '',
