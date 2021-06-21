@@ -323,7 +323,7 @@ if(isset($_POST['submit'])){
              $pdf_files = array($pdf_file1, $pdf_file2, $pdf_file3);
 
 
-             $send_emails_array = array($contact_email, $doctor_email, "jimmymike347@gmail.com"); //info@mobidoc.it
+             $send_emails_array = array($contact_email, $doctor_email, "info@mobidoc.it");
 
              $subject = 'Nuova Prenotazione!';
              // Sender
