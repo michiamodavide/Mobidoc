@@ -73,8 +73,8 @@ $apiContext = new ApiContext(
 		->setDescription('Membeship');
 
 	//Redirect URLs
-	$redirectUrls->setReturnUrl('https://www.mobidoc.it/pay/auth_tele.php?approved=true&booking_id='.$booking_ids_array[0])
-		->setCancelUrl('https://www.mobidoc.it/pay/auth_tele.php?approved=false');
+	$redirectUrls->setReturnUrl('http://w4.mobidoc.it/pay/auth_tele.php?approved=true&booking_id='.$booking_ids_array[0])
+		->setCancelUrl('http://w4.mobidoc.it/pay/auth_tele.php?approved=false');
 
 	//Payment
 	$payment->setIntent('authorize')
