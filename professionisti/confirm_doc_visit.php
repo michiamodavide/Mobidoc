@@ -39,7 +39,6 @@ if($conn === false){
      }
 
 
-
        /*get booked visits*/
        $sql_book = "select bs.article_id, ms.descrizione, ms.attributo, bk.doctor_id, bk.patient_id, bk.price, bk.total_discount, bk.km_price, bk.apoint_time, bk.payment_mode 
 from bookings bk
@@ -120,7 +119,7 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
        $pdf_files = array($pdf_file1, $pdf_file2, $pdf_file3);
 
 
-       $send_emails_array = array($contact_email, $doctor_email, "jimmymike347@gmail.com"); //info@mobidoc.it
+       $send_emails_array = array($contact_email, $doctor_email, "info@mobidoc.it");
 
        $subject = 'Nuova Prenotazione!';
 // Sender
