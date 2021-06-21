@@ -91,8 +91,6 @@ $apiContext = new ApiContext(
 		//$_SESSION['auth'] = $auth_id;
 
 
-echo $payment;
-exit();
 		//echo $redirectUrl;
 
 		/*
