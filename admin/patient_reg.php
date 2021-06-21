@@ -433,7 +433,7 @@ if(isset($_POST['submit'])){
 
 
              $paypal_link = '';
-             if ($payment_mode == "online"){
+             if ($_POST['payment_mode'] == "online"){
                  include ("../pay/redirect_tele.php");
                  $paypal_link = " | <a target='_blank' style='color: blue; text-decoration: underline' href='$redirectUrl'>Clicca qui per pagare</a>";
              }
