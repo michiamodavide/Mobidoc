@@ -6,10 +6,6 @@
 	use PayPal\Rest\ApiContext;
 	use PayPal\Auth\OAuthTokenCredential;
 
-
-	  $total_price = '10';
-	  $booking_ids_array = array('2');
-
 	require __DIR__ .'/PayPal-PHP-SDK/autoload.php';
 
 	//Api

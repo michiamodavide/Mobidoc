@@ -624,10 +624,10 @@ WHERE ms.status='Y' AND ls.doctor_id='" . $doct_id . "' AND (am.home = 'Y' OR am
                           }
                           ?>
                         <div class="glance_details_title" style="font-size: 14px;margin-left: 15px;">
-                          <input type="checkbox" <?php echo $is_check ?> class="puo_refertare lable2" id="puo_refertare"
+                          <input type="checkbox" <?php echo $is_check ?> class="puo_refertare lable2" id="puo_refertare<?php echo $doct_id ?>"
                                  name="puo_refertare" data-id="<?php echo $doct_id ?>"
                                  value="<?php echo $puo_refertare ?>">
-                          <label for="puo_refertare">Puo Refertare </label>
+                          <label for="puo_refertare<?php echo $doct_id ?>">Puo Refertare </label>
                           <p class="gen_errr" style="display: none">Database Error</p>
                         </div>
                         <br>
