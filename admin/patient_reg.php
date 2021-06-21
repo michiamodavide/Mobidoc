@@ -323,7 +323,7 @@ if(isset($_POST['submit'])){
              $pdf_files = array($pdf_file1, $pdf_file2, $pdf_file3);
 
 
-             $send_emails_array = array($contact_email, $doctor_email, "info@mobidoc.it"); //info@mobidoc.it
+             $send_emails_array = array($contact_email, $doctor_email, "jimmymike347@gmail.com"); //info@mobidoc.it
 
              $subject = 'Nuova Prenotazione!';
              // Sender
@@ -439,9 +439,9 @@ if(isset($_POST['submit'])){
              }
 
 
-             $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Indennità Km: </strong>€".$km_price." <br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode."<br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+             $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Indennità Km: </strong>€".$km_price." <br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Metodo di Pagamento: </strong>".$payment_mode."<br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
-             $htmlContent1 .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Indennità Km: </strong>€".$km_price." <br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode.$paypal_link."<br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+             $htmlContent1 .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Indennità Km: </strong>€".$km_price." <br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Metodo di Pagamento: </strong>".$payment_mode.$paypal_link."<br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
 
              // Multipart boundary
@@ -458,12 +458,17 @@ if(isset($_POST['submit'])){
                          $file_name = basename($pdf_files[$px]);
                          $file_size = filesize($pdf_files[$px]);
 
-                         $message = $message1 .= "--{$mime_boundary}\n";
+                         $message .= "--{$mime_boundary}\n";
+                         $message1 .= "--{$mime_boundary}\n";
                          $fp =    @fopen($pdf_files[$px], "rb");
                          $data =  @fread($fp, $file_size);
                          @fclose($fp);
                          $data = chunk_split(base64_encode($data));
-                         $message = $message1 .= "Content-Type: application/octet-stream; name=\"".$file_name."\"\n" .
+                         $message .= "Content-Type: application/octet-stream; name=\"".$file_name."\"\n" .
+                             "Content-Description: ".$file_name."\n" .
+                             "Content-Disposition: attachment;\n" . " filename=\"".$file_name."\"; size=".$file_size.";\n" .
+                             "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+                         $message1 .= "Content-Type: application/octet-stream; name=\"".$file_name."\"\n" .
                              "Content-Description: ".$file_name."\n" .
                              "Content-Disposition: attachment;\n" . " filename=\"".$file_name."\"; size=".$file_size.";\n" .
                              "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
@@ -471,9 +476,9 @@ if(isset($_POST['submit'])){
                  }
              }
 
-             $message = $message1 .= "--{$mime_boundary}--";
+             $message .= "--{$mime_boundary}--";
+             $message1 .= "--{$mime_boundary}--";
              $returnpath = "-f" . $from;
-
 
              foreach($send_emails_array as $send_emails_key => $send_email) {
                  // Send email
