@@ -144,7 +144,11 @@ if(isset($_POST['submit'])){
       date_default_timezone_set("Europe/Rome");
       $date_of_booking = date("Y/m/d H:i:s");
 
-      $payment_mode = mysqli_real_escape_string($conn, $_POST['payment_mode']);
+        $payment_mode = $_POST['payment_mode'];
+        if ($_POST['payment_mode'] == 'online'){
+          $payment_mode = 'Carta di Credito';
+      }
+
       $km_price = $_POST['km_price'];
       $booking_status = 1;
       $doctor_booking_status = 0;
@@ -263,7 +267,6 @@ if(isset($_POST['submit'])){
         $visit_iteration++;
       }
 
-
      if ($booking_done == 1){
 
          $contact_name = $contact_full_n = $caller_fname.' '.$caller_lname;
@@ -364,7 +367,7 @@ if(isset($_POST['submit'])){
              }
 
              // Compose a simple HTML email message
-             $htmlContent = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Nuova Prenotazione!</h4><div class="text-block">'.$paziente_main_name.' Ha prenotato una visita da '.$doctor_main_name.'. <br><br><strong>Contact Info</strong>:
+             $htmlContent = $htmlContent1 = '<!DOCTYPE html><html data-wf-page="5dcd852d5095d024f8ea51ae" data-wf-site="5dcd852d5095d04927ea51ad"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Webflow" name="generator"><style>.header{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;height:180px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background-image:url("https://www.mobidoc.it/images/mailer_header.png");background-position:50% 50%, 50% 0%;background-size:100%,cover;background-repeat:no-repeat,repeat}.text_container{width:80%;min-height:150px;margin-top:70px;margin-right:auto;margin-left:auto}.button{margin:20px 20px 20px 0px;padding:16px 34px;border-radius:50px;background-color:#00285c}.text-block{margin-top:10px;font-size:16px}.text-block.italic{margin-top:28px;font-style:italic;font-weight:300}.body{font-family:Poppins,sans-serif;color:#00285c}.heading{margin-bottom:23px}.name{width:auto}a{text-decoration:none;color:#fff}</style> <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script> <script type="text/javascript">WebFont.load({google:{families:["Poppins:300,regular,italic,600"]}});</script> <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script> </head><body class="body"><div class="header"></div><div class="text_container"><h4 class="heading">Nuova Prenotazione!</h4><div class="text-block">'.$paziente_main_name.' Ha prenotato una visita da '.$doctor_main_name.'. <br><br><strong>Contact Info</strong>:
                    <br><strong>Name</strong>: '.$contact_name.'<br><strong>Phone</strong>: '.$contact_phone.'<br><br><strong>Patient Info</strong><br><strong>Name</strong>: '.$patient_name.'<br><strong>Fiscal Code</strong>: '.$patient_fiscal.'<br><strong>Date of Birth</strong>: '.$patient_dob.'<br><strong>Address</strong>: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href='.$patient_gmap_addr.'>'.$patient_address.'</a><br><br><strong>Visits/Exams</strong><br>';
 
              $total_price = $km_price;
@@ -377,7 +380,7 @@ if(isset($_POST['submit'])){
                      $visit_amount = $disounted_amount.' </strong>(With '.$discounted_value[$key-1].'% discount)';
                  }
                  $total_price += $current_ex_price;
-                 $htmlContent .="
+                 $htmlContent = $htmlContent1 .="
       ". $item_array['exam_name'].'-: <strong>€'.$visit_amount.'<br>'."
 ";
              }
@@ -425,16 +428,29 @@ if(isset($_POST['submit'])){
                  if ($apt_key < 1){
                      $add_break = '<br>';
                  }
-                 $htmlContent .=$add_break."<strong>Data e Ora".$date_nmb."</strong>: ".$booking_time_link."<br>";
+                 $htmlContent = $htmlContent1 .=$add_break."<strong>Data e Ora".$date_nmb."</strong>: ".$booking_time_link."<br>";
              }
 
 
-             $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Indennità Km: </strong>€".$km_price." <br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+             $paypal_link = '';
+             if ($payment_mode == "online"){
+                 include ("../pay/redirect_tele.php");
+                 $paypal_link = " | <a target='_blank' style='color: blue; text-decoration: underline' href='$redirectUrl'>Clicca qui per pagare</a>";
+             }
+
+
+             $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Indennità Km: </strong>€".$km_price." <br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode."<br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+
+             $htmlContent1 .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Indennità Km: </strong>€".$km_price." <br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode.$paypal_link."<br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+
 
              // Multipart boundary
              $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
                  "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n";
 
+             // Multipart boundary
+             $message1 = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
+                 "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent1 . "\n\n";
 
              if(!empty($pdf_files)){
                  for($px=0;$px<count($pdf_files);$px++){
@@ -442,12 +458,12 @@ if(isset($_POST['submit'])){
                          $file_name = basename($pdf_files[$px]);
                          $file_size = filesize($pdf_files[$px]);
 
-                         $message .= "--{$mime_boundary}\n";
+                         $message = $message1 .= "--{$mime_boundary}\n";
                          $fp =    @fopen($pdf_files[$px], "rb");
                          $data =  @fread($fp, $file_size);
                          @fclose($fp);
                          $data = chunk_split(base64_encode($data));
-                         $message .= "Content-Type: application/octet-stream; name=\"".$file_name."\"\n" .
+                         $message = $message1 .= "Content-Type: application/octet-stream; name=\"".$file_name."\"\n" .
                              "Content-Description: ".$file_name."\n" .
                              "Content-Disposition: attachment;\n" . " filename=\"".$file_name."\"; size=".$file_size.";\n" .
                              "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
@@ -455,13 +471,19 @@ if(isset($_POST['submit'])){
                  }
              }
 
-             $message .= "--{$mime_boundary}--";
+             $message = $message1 .= "--{$mime_boundary}--";
              $returnpath = "-f" . $from;
 
 
              foreach($send_emails_array as $send_emails_key => $send_email) {
                  // Send email
-                 @mail($send_email, $subject, $message, $headers, $returnpath);
+
+                 if ($send_emails_key == 0){
+                     $email_message = $message1;
+                 }else{
+                     $email_message = $message;
+                 }
+                 @mail($send_email, $subject, $email_message, $headers, $returnpath);
 
                  if ($send_emails_key == 2){
                      for($pd=0;$pd < count($pdf_files);$pd++){
