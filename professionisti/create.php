@@ -59,7 +59,7 @@
 			echo "Record inserted1";
 		else{
 			echo "Unable to insert record1";
-			mysqli_close($conn);
+			exit();
 		}
 
 		$i=0;
@@ -74,8 +74,8 @@
 				$c5 = substr($c2, $c3+1, 2);
 				$c6 = substr($c2, $c3+6, 5);
 				$sql2 = "insert into doctor_cap (doctor_id, comune, province, cap) values('".$doctor_id."', '".$c4."', '".$c5."', '".$c6."')";
-				$result = mysqli_query($conn, $sql2);
-				if($result==1)
+				$result123 = mysqli_query($conn, $sql2);
+				if($result123==1)
 					echo "Record inserted2";
 				else
 					echo "Unable to insert record2";
@@ -115,11 +115,14 @@
     }
 	*/
 
-
     $sql3 = "update doctor_register set tick = 1 where id = '".$doctor_id."' ";
-		$result = mysqli_query($conn, $sql3);
-
-		mysqli_close($conn);
+		$result12 = mysqli_query($conn, $sql3);
+		if ($result12 == 1){
+			//not do anything
+		}else{
+			echo 'record not updated in doctor register table';
+			exit();
+		}
 	}
 
 	//header("location: application-sucessful.php");
@@ -144,4 +147,6 @@
 	echo "<script>window.location = 'application-sucessful.php'</script>";
 
 	header("Location: account.php");
+
+mysqli_close($conn);
 ?>

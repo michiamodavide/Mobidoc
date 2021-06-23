@@ -57,6 +57,26 @@
 	.p{
   	text-align-last: center !important;
   }
+	  .top_section2 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 28px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: center;
+    -ms-flex-pack: justify;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+	  .button-width {
+   
+		  width: 220px !important;}
 /*****************************************/	  
 @media screen and (max-width: 991px){	  
 .body-8 a.list_item.diff {
@@ -74,6 +94,21 @@
 		width:100%;
 		
 	}
+	.top_section2 {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
 	  }
 	  
 </style>
@@ -122,7 +157,7 @@
       ?>
 
         <div class="no_booking_prompt" style="display:flex;">
-          <h2 class="heading-19">Al momento non hai pazienti da visualizzare.</h2>
+          <h2 class="heading-19">'Per iniziare, aggiungi un nuovo paziente. Se sei tu il paziente, clicca sul pulsante 'Sono io il paziente'.</h2>
           <div class="div-block-57 dis-block"><a href="patient-profile.php" class="button gradient w-button w-btn100">Aggiungi nuovo paziente</a><a href="tel:3357798844" class="button w-button w-btn">Chiamaci</a></div>
         </div>
 
@@ -130,9 +165,7 @@
 
          <div>
           <h2 class="heading-18">I tuoi pazienti</h2>
-          <script>
-            $(document).ready(function(){
-              $('.see_details').click(function(){
+          <script.
                 $(this).parent().parent().siblings('.main_-details_container').children('.details_continer_grid').toggleClass('open');
               });
             });
@@ -149,10 +182,10 @@
         ?>
         <div class="booking_card">
             <div class="main_data_container">
-              <div class="top_section">
-                <div class="doctor_profile_image">
+              <div class="top_section2">
+               <!-- <div class="doctor_profile_image">
                   <div style="background:red; width:100%; height:100%; background:url(/images/Group-556.jpg) no-repeat center center / cover;"></div>
-                </div>
+                </div>-->
                 <div class="booking_main_data">
                   <div class="booking_name"><?=$patient_name?></div>
 
@@ -177,9 +210,9 @@
                  <br>
                 </div>
                 <div class="booking_card_buttons">
-                  <a href="patient-account.php?pid=<?=$rows['paziente_id']?>" class="button gradient see_details w-button">Prenotazioni</a>
+                  <a href="patient-account.php?pid=<?=$rows['paziente_id']?>" class="button gradient see_details w-button button-width">Prenotazioni</a>
                   <br>
-                 <a href="patient-profile.php?pid=<?=$rows['paziente_id']?>" class="button gradient see_details w-button">Modifica</a>
+                 <a href="patient-profile.php?pid=<?=$rows['paziente_id']?>" class="button gradient see_details w-button button-width">Modifica Paziente</a>
 
                 </div>
               </div>
@@ -204,7 +237,7 @@
             ?>
             <a href="patient-profile.php?contact-id=<?php echo $rows3['id']?>" class="list_item diff w-inline-block add_self">
                 <div class="blue_bulet"></div>
-                <div class="text-block-58">Sii paziente</div>
+                <div class="text-block-58">Sono io il Paziente</div>
             </a>
 
             <?php }?>
@@ -217,14 +250,14 @@
             <div class="blue_bulet"></div>
             <div class="text-block-58">Chiama Servizio Clienti</div>
           </a>
-          <a href="../team-mobidoc.php" class="list_item diff w-inline-block">
+          <!--<a href="../team-mobidoc.php" class="list_item diff w-inline-block">
             <div class="blue_bulet"></div>
             <div class="text-block-58">Chi Siamo</div>
-          </a>
-          <a href="../comuni-serviti.php" class="list_item diff w-inline-block">
+          </a>-->
+         <!-- <a href="../comuni-serviti.php" class="list_item diff w-inline-block">
             <div class="blue_bulet"></div>
             <div class="text-block-58">Copertura Servizi</div>
-          </a>
+          </a>-->
         </div>
       </div>
 

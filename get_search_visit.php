@@ -49,9 +49,9 @@ while($rows = mysqli_fetch_array($result)){
                 <!-- New HTML-Code --->
                 <div class="feature diff">
                     <a class="pic2" href="<?php echo $link;?>" target="_blank">
-                        <div class="feature_label <?php echo $tm2_class?>"><?php echo substr(wordwrap($visit_name,20,"<br>\n"), 0, 30);
+                        <div class="feature_label font-1 <?php echo $tm2_class?>"><?php echo substr(wordwrap($visit_name,20,"<br>\n"), 0, 30);
                             if (strlen($visit_name) > 30){echo '...';}?>
-                            <img src="images/arrow.png" alt="" >
+                            <img src="images/arrow2.png?v=2" alt="" >
                         </div>
                         <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=8" alt="">
                     </a>

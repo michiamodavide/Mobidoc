@@ -166,6 +166,19 @@ $today = $year . '-' . $month . '-' . $day;
 		}
     </style>
     <style>
+		
+		@media (min-width: 1200px) and (max-width: 1450px) {
+		.price-1 {
+    font-size: 30px;
+    
+			}}
+		@media (min-width: 768px) and (max-width: 1025px) {
+		.price-1 {
+    font-size: 18px;
+    
+			}}
+		
+		
        @media screen and (min-width: 992px){
            .appoint_time{
                margin-bottom: 10px !important;
@@ -346,7 +359,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                             <br>
                                             <div style="font-weight:300; font-size:12px; width:70%; margin-top:-15px;">
                                                 Specificare
-                                                eventuali preferenze di giorno e data
+                                                eventuali altre preferenze di giorno e data o altre informazioni
                                             </div>
                                         </div>
                                         <div id="w-node-f5280764944b-ff1af31d" class="value">
@@ -355,7 +368,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-block-51">* Una volta confermata la prenotazione, verrai&#x27; contattato
+                            <div class="text-block-51">* Una volta confermata la prenotazione, verrai contattato
                                 dal tuo
                                 professionista.
                             </div>
