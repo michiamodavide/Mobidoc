@@ -10,7 +10,7 @@ include '../connect.php';
 <html data-wf-page="5dfbca93dac992df80dd982b" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
     <meta charset="utf-8">
-    <title>Registro dei pazienti</title>
+    <title>Prenotazione Telefonica</title>
     <meta content="admin" property="og:title">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="Webflow" name="generator">
@@ -345,7 +345,11 @@ include '../connect.php';
 
         $address = $sql_get_tmp_data['address'];
         $article_idd = $sql_get_tmp_data['visit_name'];
-        $total_discount = $sql_get_tmp_data['total_discount'];
+
+        if (!empty($total_discount)){
+            $total_discount = $sql_get_tmp_data['total_discount'];
+        }
+
 
         $apt_datetime = $sql_get_tmp_data['appoint_time'];
 
@@ -395,12 +399,14 @@ include '../connect.php';
              background-color: #00285c;
             display: block;
             height: 34px;
-            width: 90px;
+            width: auto;
             margin: 0 auto;
 			color: #fff;
 			border-radius: 30px;
 			float: left;
 			margin-top: -30px;
+            padding-left: 11px;
+            padding-right: 13px;
         }
 		.plus i
 		{
@@ -410,11 +416,13 @@ include '../connect.php';
              background-color: #f8dbdb;
             display: block;
             height: 34px;
-            width: 90px;
+            width: auto;
             margin: 0 auto;
 			color: #000;
 			border-radius: 30px;
 			margin-top: 40px;
+            padding-left: 11px;
+            padding-right: 13px;
 				
         }.minus i
 		{
@@ -478,7 +486,7 @@ include '../connect.php';
         }
 			.minus {
   
-    margin-left: 100px;
+    margin-left: 120px;
 }
 			
 			
@@ -538,7 +546,7 @@ include '../connect.php';
 </div>
 <div class="admin_main_section" data-id="1">
     <div data-w-id="671d7027-6f87-1c3f-c474-3b17f4b83b06" class="admin_section_header">
-        <h1 class="admin_section_heading">Registro dei pazienti</h1>
+        <h1 class="admin_section_heading">Prenotazione Telefonica</h1>
         <!-- <div class="div-block-70">
           <div class="scroll_indicator">
             <div data-w-id="98c7cd18-996f-4b08-777e-ae54e6517910" data-animation-type="lottie" data-src="https://uploads-ssl.webflow.com/5d8cfd454ebd737ac1a48727/5df9f0f25ccbf3bb4c727941_lottieflow-scrolling-01-1-00285C-easey.json" data-loop="0" data-direction="1" data-autoplay="0" data-is-ix2-target="1" data-renderer="svg" data-default-duration="2.76" data-duration="0" class="lottie-animation-3"></div>
@@ -660,10 +668,10 @@ include '../connect.php';
                                                     <div class="input_element" style="background:#d3fbff;"><img
                                                                 src="../images/search.svg" width="28" alt="">
                                                         <select id="get-medical-speciality"
-                                                                placeholder="Select Medical Speciality *"
+                                                                placeholder="Seleziona Specialità Medica della Prestazione *"
                                                                 name="mds_name" onchange="getVisits()">
 
-                                                            <option value="">Select Medical Speciality</option>
+                                                            <option value="">Seleziona Specialità Medica della Prestazione</option>
                                                             <?php
                                                             include '../connect.php';
                                                             $mds_sql = "SELECT DISTINCT ms.ERid, ms.name 
@@ -743,7 +751,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 												 <input type="text"
                                                            class="datepicker-here inputs w-input appoint_time date-input dual_container diff m-b-25"
                                                            data-language="it" data-date-format="dd-mm-yyyy"
-                                                           maxlength="256" autocomplete="off" name="appoint_time[]"
+                                                           maxlength="256" autocomplete="off" name="appoint_time"
                                                            placeholder="Data e Ora" id="appoint_time">
 												
                                                </div>
@@ -757,7 +765,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
 
                                         <div class="input-group-btn">
-                                            <button class="btn btn-success plus" style="display: none" type="button" onclick="addNewVisit();"><i class="fa fa-plus"></i> Add</button>
+                                            <button class="btn btn-success plus" style="display: none" type="button" onclick="addNewVisit();"><i class="fa fa-plus"></i> Aggiungi</button>
                                         </div>
                                     </div>
 									<div style="clear: both;"></div>
@@ -765,8 +773,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                                     <div class="form_section">
                                         <div class="form_section_heading">Indennità Km</div>
                                         <div class="dual_container diff">
-                                            <input type="number" class="inputs w-input" autocomplete="off"
-                                                   name="km_price" placeholder="Indennità Km">
+                                            <input type="number" id="km_price" class="inputs w-input" min="1" autocomplete="off"
+                                                   name="km_price" placeholder="Km Extra">
+                                            <h4 class="km_total_price"></h4>
                                         </div>
                                     </div>
                                     <div class="form_section">
@@ -1066,7 +1075,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
             }
         });
 
-        $(".new_visit_no1 .appoint_time").val('');
+        // $(".new_visit_no1 .appoint_time").val('');
     }
 
 
@@ -1144,15 +1153,11 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
             '                                                </div>\n' +
             '\n' +
             '                                                <div style="width: 100%;">\n' +
-            '                                                    <input type="text" class="datepicker-here appoint_time input-style2" data-language="it"\n' +
-            '                                                           data-date-format="dd-mm-yyyy" maxlength="256"\n' +
-            '                                                           autocomplete="off" name="appoint_time[]"\n' +
-            '                                                           placeholder="Data e Ora" id="appoint_time">\n' +
             '                                                </div>\n' +
             '                                            </div>\n' +
             '\n' +
             '                                        </div><div class="input-group-btn">\n' +
-            '                                                <button class="btn btn-success minus"  type="button" onclick="remove_visit_fields('+ room +');"><i class="fa fa-trash"></i> Delete</button>\n' +
+            '                                                <button class="btn btn-success minus"  type="button" onclick="remove_visit_fields('+ room +');"><i class="fa fa-trash"></i> Cancella</button>\n' +
             '                                             </div>';
 
         objTo.appendChild(divtest);
@@ -1170,17 +1175,15 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
         if (icp_param) {
             var get_medical_speciality = $("#get-medical-speciality option").val();
             var articles_idds = $.parseJSON('<?php echo $article_idd?>');
-            var apt_datetime = $.parseJSON('<?php echo $apt_datetime?>');
+            var apt_datetime = '<?php echo $apt_datetime?>';
             var refer_idsss = $.parseJSON('<?php echo $refer_idss?>');
 
-            if (apt_datetime[0]){
-                var select_date = apt_datetime[0].split('-');
+            if (apt_datetime){
+                var select_date = apt_datetime.split('-');
                 var year_split = select_date[2].split(' ');
                 var date_string =  year_split[0]+ '-' + select_date[1] + '-' + select_date[0]+' '+year_split[1];
                 var opoint_date = new Date(date_string);
-                // var opoint_date = new Date(date_string);
-                $(".new_visit_no1 .appoint_time").datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
-
+                $(".appoint_time ").datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
             }
 
             $.ajax({
@@ -1201,11 +1204,12 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                     visit_select1.setValue(articles_idds[0]);
 
 
-                    var discounted_prices = $.parseJSON('<?php echo $total_discount?>');
-                    // console.log(discounted_prices);
+                    discounted_prices = '';
+                    var tt_discount = '<?php echo $total_discount?>';
+                   if (tt_discount){
+                       var discounted_prices = $.parseJSON(tt_discount);
+                   }
 
-
-                    //var selected_visits_array = [];
                     $(articles_idds).each(function(index, val) {
                         if (index > 0){
                             render_html();
@@ -1251,13 +1255,13 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
                             });
 
-                            if (apt_datetime[index]){
-                                var select_date = apt_datetime[index].split('-');
-                                var year_split = select_date[2].split(' ');
-                                var date_string =  year_split[0]+ '-' + select_date[1] + '-' + select_date[0]+' '+year_split[1];
-                                var opoint_date = new Date(date_string);
-                                $(".new_visit_no"+room+" .appoint_time").datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
-                            }
+                            // if (apt_datetime[index]){
+                            //     var select_date = apt_datetime[index].split('-');
+                            //     var year_split = select_date[2].split(' ');
+                            //     var date_string =  year_split[0]+ '-' + select_date[1] + '-' + select_date[0]+' '+year_split[1];
+                            //     var opoint_date = new Date(date_string);
+                            //     $(".new_visit_no"+room+" .appoint_time").datepicker().data('datepicker').selectDate(new Date(opoint_date.getFullYear(), opoint_date.getMonth(), opoint_date.getDate(), opoint_date.getHours(), opoint_date.getMinutes()));
+                            // }
 
                         }
                     });
@@ -1494,7 +1498,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                         if ($.inArray(select_doctor_arr[index].doctor_id, get_doctor_arr) !== -1) {
                             return true;
                         } else {
-                            alert(select_doctor_arr[index].doctor_name + " is not added for selected Visit/Exam");
+                            alert("Attenzione, "+select_doctor_arr[index].doctor_name +" non eroga questa prestazione. Cambia professionista o scegli un'altra prestazione.");
                             // $(".new_visit_no2 .choose_your_area.select2").attr("style", "pointer-events: none; opacity: 0.6;");
                             $('.new_visit_no' + booking_number + ' .select-visit-new option:eq(0)').attr('selected', 'selected');
                             $('.new_visit_no' + booking_number + ' .select-refertatore-new option').each(function () {
@@ -1763,7 +1767,19 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
      $("input").on("click", function () {
          $(".show_contact_msg").css("display", "none")
-     })
+     });
+
+
+    $("#km_price").on('keyup mouseup', function () {
+        var km_total_price = $(this).val();
+        if (km_total_price < 1){
+            $('.km_total_price').html('');
+        }else{
+            $('.km_total_price').html(km_total_price+' Euro');
+
+        }
+    }).trigger('mouseup');
+
 </script>
 <script>
     /* script */
@@ -1900,6 +1916,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
     .error_show {
         display: block;
+    }
+    #get-medical-speciality-selectized{
+        width: 310px !important;
     }
 </style>
 <script src="../js/admin/webflow.js" type="text/javascript"></script>
