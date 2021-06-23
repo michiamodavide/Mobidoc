@@ -7,7 +7,7 @@ if (!isset($_SESSION['adminlogin'])) {
 <html data-wf-page="5dfbca93dac992df80dd982b" data-wf-site="5d8cfd454ebd737ac1a48727">
 <head>
     <meta charset="utf-8">
-    <title>Specialità medica</title>
+    <title>Specialità e Prestazioni</title>
     <meta content="admin" property="og:title">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="Webflow" name="generator">
@@ -450,7 +450,7 @@ if (!isset($_SESSION['adminlogin'])) {
 </div>
 <div class="admin_main_section">
     <div data-w-id="671d7027-6f87-1c3f-c474-3b17f4b83b06" class="admin_section_header">
-        <h1 class="admin_section_heading">Specialità medica</h1>
+        <h1 class="admin_section_heading">Specialità e Prestazioni</h1>
         <div class="div-block-70">
             <div class="scroll_indicator">
                 <div data-w-id="98c7cd18-996f-4b08-777e-ae54e6517910" data-animation-type="lottie"

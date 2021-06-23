@@ -165,8 +165,9 @@ if(isset($_POST['submit'])){
       foreach ($pat_visits_array as $visit_key => $patient_visit) {
 
         $appoint_time = '';
-        if ($patient_apt_date[$visit_iteration]){
-          $appoint_time = date("Y/m/d H:i:s", strtotime($patient_apt_date[$visit_iteration]));
+        //$patient_apt_date[$visit_iteration]
+        if ($patient_apt_date){
+          $appoint_time = date("Y/m/d H:i:s", strtotime($patient_apt_date));
         }
 
         $refertatore_id = $ref_id[$visit_iteration];
@@ -382,13 +383,17 @@ if(isset($_POST['submit'])){
 ";
              }
 
+           /*
              $apt_count = count($patient_apt_date);
              foreach($patient_apt_date as $apt_key => $apt) {
 
+             }
+           */
+
                  $booking_time_link = 'da confermare';
 
-                 if (!empty($apt)) {
-                     $booking_date = strtr($apt, '/', '-');
+                 if (!empty($patient_apt_date)) {
+                     $booking_date = strtr($patient_apt_date, '/', '-');
                      /*booking start time*/
                      $start_date = date('Ymd', strtotime($booking_date));
                      $start_time = date('His', strtotime($booking_date));
@@ -416,6 +421,7 @@ if(isset($_POST['submit'])){
                  }
 
 
+                /*
                  $date_nmb = '';
                  if ($apt_count > 1){
                      $date_nmb = $apt_key+1;
@@ -425,8 +431,9 @@ if(isset($_POST['submit'])){
                  if ($apt_key < 1){
                      $add_break = '<br>';
                  }
-                 $htmlContent = $htmlContent1 .=$add_break."<strong>Data e Ora".$date_nmb."</strong>: ".$booking_time_link."<br>";
-             }
+                */
+                 $htmlContent = $htmlContent1 .="<br><strong>Data e Ora</strong>: ".$booking_time_link."<br>";
+
 
 
              $paypal_link = '';
@@ -439,7 +446,6 @@ if(isset($_POST['submit'])){
              $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Indennità Km: </strong>€".$km_price." <br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Metodo di Pagamento: </strong>".$payment_mode."<br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
              $htmlContent1 .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Indennità Km: </strong>€".$km_price." <br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Metodo di Pagamento: </strong>".$payment_mode.$paypal_link."<br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
-
 
              // Multipart boundary
              $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
@@ -722,7 +728,7 @@ if(isset($_POST['submit'])){
         $visit_name = json_encode($vis_name);
     }
 
-    $appoint_time = json_encode($_POST['appoint_time']);
+    $appoint_time = $_POST['appoint_time'];
     $referr_id = json_encode($_POST['refertatore_id']);
 
 

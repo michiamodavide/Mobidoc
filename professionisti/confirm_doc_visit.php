@@ -53,7 +53,7 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
        $kilo_meter_price = 0;
        $payment_mode = '';
        $items_array = array();
-       $patient_apt_date = array();
+       $patient_apt_date = '';
        while ($sql_book_row = mysqli_fetch_array($sql_book_result)){
            array_push($items_array, array(
                "exam_name" => $sql_book_row['descrizione'],
@@ -62,8 +62,7 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
                "exam_discount_price" => $sql_book_row['total_discount'],
            ));
 
-           array_push($patient_apt_date, $sql_book_row['apoint_time']);
-
+           $patient_apt_date = $sql_book_row['apoint_time'];
            $doc_id = $sql_book_row['doctor_id'];
            $patient_id = $sql_book_row['patient_id'];
            if (!empty($sql_book_row['km_price'])){
@@ -166,12 +165,16 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
        }
 
 
+       /*
        $apt_count = count($patient_apt_date);
        foreach($patient_apt_date as $apt_key => $apt) {
+
+       }
+       */
            $booking_time_link = 'da confermare';
 
-           if (!empty($apt) && strtotime($apt) > 0) {
-               $booking_date = strtr($apt, '/', '-');
+           if (!empty($patient_apt_date) && strtotime($patient_apt_date) > 0) {
+               $booking_date = strtr($patient_apt_date, '/', '-');
                /*booking start time*/
                $start_date = date('Ymd', strtotime($booking_date));
                $start_time = date('His', strtotime($booking_date));
@@ -199,6 +202,7 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
            }
 
 
+         /*
            $date_nmb = '';
            if ($apt_count > 1){
                $date_nmb = $apt_key+1;
@@ -208,8 +212,9 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
            if ($apt_key < 1){
                $add_break = '<br>';
            }
-           $htmlContent = $htmlContent1 .=$add_break."<strong>Data e Ora".$date_nmb."</strong>: ".$booking_time_link."<br>";
-       }
+         */
+           $htmlContent = $htmlContent1 .="<br><strong>Data e Ora</strong>: ".$booking_time_link."<br>";
+
 
        $paypal_link = '';
        if ($payment_mode == "Carta di Credito"){
