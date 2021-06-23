@@ -79,7 +79,9 @@ unset($_SESSION['pat_id']);
 		.img-style1{
 			width: 550px;height: 300px;max-width: 463px;
 		}
-		
+		.br-hide{
+			display:block;
+		}
 @media screen and (min-width: 768px) {
 	
 .extra_card {
@@ -97,6 +99,9 @@ unset($_SESSION['pat_id']);
 @media only screen and (max-width: 767px) {
 	.img-style1{
 			width: 100%;height: 300px;max-width: 463px;
+		}
+	.br-hide{
+			display:none;
 		}
 }		
 </style>
@@ -163,7 +168,7 @@ unset($_SESSION['pat_id']);
    /*	<h1 class="heading">Visite mediche a casa tua.</h1>*/
    ?>
         <h1 class="heading">Visite mediche ed esami a casa tua.</h1>
-        <a href="javascript:;" class="button stroked card w-button btn-width m-r domici-btn">A Domicilio</a>
+        <a href="javascript:;" class="button stroked card w-button btn-width m-r domici-btn">Scopri come funziona</a>
           <?php
           /*
               <a href="/poliambulatorio-online.php" class="button stroked card w-button btn-width bg-color">Online</a>
@@ -239,6 +244,45 @@ unset($_SESSION['pat_id']);
   </div>
       </section>
     </div>
+	<div id="n-section4">
+      <section class="section-2 sec4-style">
+    <div class="custom_container">
+          <div class="content_grid-2">
+        <h2 class="heading-2">Come funziona Mobidoc?</h2>
+      <?php
+      /*
+        <p class="paragraph">Mobidoc è un punto di riferimento per chiunque abbia bisogno di assistenza sanitaria e voglia un servizio attento e dedicato, compatibile con i propri impegni, senza doversi sottoporre ad interminabili attese ed inutili spostamenti.</p>
+      */
+      ?>
+      </div>
+          <div class="feature_container">
+        <div class="feature diff">
+              <div class="number">01</div>
+              <img src="images/icon-1.png" alt="">
+              <div class="feature_label">Seleziona la visita o l'esame</div>
+            </div>
+        <div class="dottedline"></div>
+        <div class="feature diff">
+              <div class="number">02</div>
+              <img src="images/icon-2.png" alt="">
+              <div class="feature_label">Scegli il Professionista<span class="hide"><br>
+                </span> e accordati su data e orario</div>
+            </div>
+        <div class="dottedline"></div>
+        <div class="feature diff" id="feature_dif3">
+              <div class="number">03</div>
+              <img src="images/icon-3.png" alt="">
+              <div class="feature_label">Paghi in tutta sicurezza<span class="hide"><br>
+                </span> a prestazione avvenuta</div>
+            </div>
+      </div>
+          <a href="/visite-ed-esami.php" class="w-inline-block"> <a href="/visite-ed-esami.php" class="button w-inline-block">
+      <div class="text-block-2">Prenota Online</div>
+      </a> </a> <!--<a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel"> <img src="images/phone.svg" width="15" alt="" class="image-2">
+      <div class="text-block-2">Chiamaci</div>
+      </a>--> </div>
+  </section>
+    </div>
 <div id="n-section2">
       <section class="section-2" style="padding-top: 50px;padding-bottom: 0px;background-color: #F3F4F9;">
     <div class="custom_container">
@@ -276,11 +320,20 @@ unset($_SESSION['pat_id']);
         if (strlen($visit_name1) < 20)
           $tm21_class = 'm-t-14';
       ?>
-          <div class="feature diff"> <a href="<?php echo $link1?>" target="_blank">
-            <div class="feature_label <?php echo $tm21_class?>"><?php echo substr(wordwrap($visit_name1,20,"<br>\n"), 0, 30);
-                if (strlen($visit_name1) > 30){echo '...';}
-            ?> <img src="images/arrow.png" alt=""> </div>
-            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=3" class="img-style1" alt=""> </a> </div>
+          <div class="feature diff">
+			  
+			  
+			  
+			  
+			  <a href="<?php echo $link1?>" target="_blank">
+            <div class="feature_label <?php echo $tm21_class?>"><?php echo substr(wordwrap($visit_name1,35,"<br class='br-hide'> \n"), 0, 60);
+                if (strlen($visit_name1) > 60){echo '...';}
+            ?> <img src="images/arrow2.png" alt=""> </div>
+            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=3" class="img-style1" alt=""> </a> 
+		
+		
+		
+		</div>
           <?php
           ++$x_num;
         }}
@@ -289,51 +342,14 @@ unset($_SESSION['pat_id']);
         </div>
   </section>
     </div>
-<div id="n-section3">
+
+
+	<div id="n-section3">
       <div class="cta_section">
     <div class="text-block-3">Non trovi il tipo di visita di cui hai bisogno?</div>
     <a href="tel:3357798844" class="w-inline-block" style="float: inherit"> <a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel"> <img src="images/phone.svg" width="15" alt="" class="image-2">
         <div class="text-block-2">Chiamaci</div>
         </a> </a> </div>
-    </div>
-<div id="n-section4">
-      <section class="section-2 sec4-style">
-    <div class="custom_container">
-          <div class="content_grid-2">
-        <h2 class="heading-2">Come funziona Mobidoc?</h2>
-      <?php
-      /*
-        <p class="paragraph">Mobidoc è un punto di riferimento per chiunque abbia bisogno di assistenza sanitaria e voglia un servizio attento e dedicato, compatibile con i propri impegni, senza doversi sottoporre ad interminabili attese ed inutili spostamenti.</p>
-      */
-      ?>
-      </div>
-          <div class="feature_container">
-        <div class="feature diff">
-              <div class="number">01</div>
-              <img src="images/icon-1.png" alt="">
-              <div class="feature_label">Seleziona la visita o l'esame</div>
-            </div>
-        <div class="dottedline"></div>
-        <div class="feature diff">
-              <div class="number">02</div>
-              <img src="images/icon-2.png" alt="">
-              <div class="feature_label">Scegli il Professionista<span class="hide"><br>
-                </span> e accordati su data e orario</div>
-            </div>
-        <div class="dottedline"></div>
-        <div class="feature diff" id="feature_dif3">
-              <div class="number">03</div>
-              <img src="images/icon-3.png" alt="">
-              <div class="feature_label">Paghi in tutta sicurezza<span class="hide"><br>
-                </span> a prestazione avvenuta</div>
-            </div>
-      </div>
-          <a href="/visite-ed-esami.php" class="w-inline-block"> <a href="/visite-ed-esami.php" class="button w-inline-block m-r-20">
-      <div class="text-block-2">Prenota Online</div>
-      </a> </a> <a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel"> <img src="images/phone.svg" width="15" alt="" class="image-2">
-      <div class="text-block-2">Chiamaci</div>
-      </a> </div>
-  </section>
     </div>
 <!---------New Content Ends---------->
 <section id="section-3-grid" data-w-id="92431e2b-82c4-bfde-c60b-c27892faf8bb" class="section-3">
@@ -460,7 +476,8 @@ unset($_SESSION['pat_id']);
            <iframe src="https://snazzymaps.com/embed/279561" width="100%" height="100%" style="border:none;"></iframe>
           </div>
         </div>
-    <a href="comuni-serviti.php" class="button gradient w-button">Scopri Lista Comuni</a><a href="#masthead" class="button _2nd w-button">Ricerca Visita o Esame</a> </div>
+    <a href="comuni-serviti.php" class="button gradient w-button">Prenota Online</a>
+		  <!--<a href="#masthead" class="button _2nd w-button">Ricerca Visita o Esame</a>--> </div>
     </div>
 <section class="section-4">
       <div class="custom_container card verti">
@@ -598,7 +615,7 @@ unset($_SESSION['pat_id']);
 
    $(".domici-btn").click(function (event) {
      event.preventDefault();
-     $('html, body').animate({scrollTop: $('#n-section2').offset().top}, 1500);
+     $('html, body').animate({scrollTop: $('.sec4-style').offset().top}, 1500);
    });
 		</script>
 <?php include ("google_analytic.php")?>

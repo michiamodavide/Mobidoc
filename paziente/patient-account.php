@@ -70,7 +70,9 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
 .back-btn:hover{
  background-color: hsla(0, 0%, 100%, 0.15) !important;
 }
-	  
+	  .m-r-0{
+		  margin-right:0px !important;
+	  }
 /**********************************************************/	  
 .button.gradient.see_details {
 
@@ -85,12 +87,28 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
 .body-8 .patient_name {
     margin-top: 45px;
     
-}	  
+}	
+	  
+	 
+	 @media (min-width: 768px) and (max-width: 992px) {.p-20{
+		    padding: 20px;
+
+	}
+	  
+	  .nav_list {
+    display: flex;
+	  
+		 }	  }
+	  
 @media screen and (max-width: 991px){	  
 .body-8 a.list_item.diff {
     width: 282px;
    margin: 10px auto 0 auto;
-}		  
+}		
+	
+	
+	
+	
 	  }	  
 </style>
 <script>
@@ -129,7 +147,7 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
       <div class="my_bookings">
         <div class="no_booking_prompt" style="display:none;">
           <h2 class="heading-19">Al momento non hai nessuna prenotazione da visualizzare.</h2>
-          <div class="div-block-57"><a href="../visite-ed-esami.php<?=$visit_page_param?>" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
+          <div class="div-block-57"><a href="../visite-ed-esami.php<?=$visit_page_param?>" class="button gradient w-button">Prenota Prestazione</a><!--<a href="tel:3357798844" class="button w-button">Chiamaci</a>--></div>
         </div>
 
 
@@ -147,9 +165,9 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
       ?>
 
 
-        <div class="no_booking_prompt" style="display:flex;">
+        <div class="no_booking_prompt p-20" style="display:flex;">
           <h2 class="heading-19">Al momento non hai nessuna prenotazione da visualizzare.</h2>
-          <div class="div-block-57"><a href="../visite-ed-esami.php<?=$visit_page_param?>" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
+          <div class="div-block-57 flex-dir"><a href="../visite-ed-esami.php<?=$visit_page_param?>" class="button gradient w-button m-r-0">Prenota Prestazione</a><!--<a href="tel:3357798844" class="button w-button btn-w-t-m">Chiamaci</a>--></div>
         </div>
 
       <?php } else {
@@ -165,7 +183,7 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
          ?>
        <div class="no_booking_prompt" style="display:flex;">
         <h2 class="heading-19">Al momento non hai nessuna prenotazione da visualizzare.</h2>
-        <div class="div-block-57"><a href="../visite-ed-esami.php<?=$visit_page_param?>" class="button gradient w-button">Visite ed Esami</a><a href="tel:3357798844" class="button w-button">Chiamaci</a></div>
+        <div class="div-block-57"><a href="../visite-ed-esami.php<?=$visit_page_param?>" class="button gradient w-button">Prenota Prestazione</a><!--<a href="tel:3357798844" class="button w-button">Chiamaci</a>--></div>
        </div>
         <?php }else{?>
 
@@ -293,7 +311,7 @@ where bg.booking_id='".$rows['booking_id']."'";
                 <?php if($rows['payment_status'] == 0){ ?>
                   <a href="#" class="button gradient see_details w-button">Vedi Dettagli Visita</a>
                 <?php } ?>
-                  <a href="<?php echo '/il-team/professionista.php?'.$doctor_id?>" target="_blank" class="button view_profile w-button">Profilo Professionisti</a>
+                  <!--<a href="<?php //echo '/il-team/professionista.php?'.$doctor_id?>" target="_blank" class="button view_profile w-button">Profilo Professionisti</a>-->
                     <?php
                     if (strtolower($payment_mode) == 'online'){
                     ?>
@@ -412,14 +430,14 @@ where bg.booking_id='".$rows['booking_id']."'";
             <div class="text-block-58">Chiama Servizio Clienti</div>
           </a>
 
-          <a href="../team-mobidoc.php" class="list_item diff w-inline-block">
+          <!--<a href="../team-mobidoc.php" class="list_item diff w-inline-block">
             <div class="blue_bulet"></div>
             <div class="text-block-58">Chi Siamo</div>
-          </a>
-          <a href="../comuni-serviti.php" class="list_item diff w-inline-block">
+          </a>-->
+         <!-- <a href="../comuni-serviti.php" class="list_item diff w-inline-block">
             <div class="blue_bulet"></div>
             <div class="text-block-58">Copertura Servizi</div>
-          </a>
+          </a>-->
         </div>
       </div>
 

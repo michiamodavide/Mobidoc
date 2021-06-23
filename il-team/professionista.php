@@ -116,7 +116,7 @@ WHERE ds.doctor_id='".$doctor_id."' AND ls.doctor_id='".$doctor_id."' AND am.hom
         </div>
       </div>
       <div class="area_di_competenza">
-        <div class="grid_item_headin">Aree di Competenza</div>
+        <div class="grid_item_headin">Prestazioni</div>
         <div class="areas">
           <div class="area">
             <div class="div-block-43"></div>

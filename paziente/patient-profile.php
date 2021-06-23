@@ -109,7 +109,11 @@ if (isset($_GET['contact-id']) && !empty($_GET['contact-id'])) {
    background-color: hsla(0, 0%, 100%, 0.15) !important;
    border-color: hsla(0, 0%, 100%, 0.15) !important;
   }
-	 
+	 .top-m{
+		 margin-top:0px;}
+	 @media only screen and (max-width: 767px) {
+	 .top-m{
+		 margin-top:30px;}}
 	@media (min-width: 362px) and (max-width: 375px) { 
 	 .button.stroked.cover_btns {
     padding: 12px 20px;
@@ -130,7 +134,7 @@ if (isset($_GET['contact-id']) && !empty($_GET['contact-id'])) {
 <div class="masthead upform">
  <div class="masthead_container up_form" style="margin-bottom:50px;">
   <h1 class="heading-10">Compilare il modulo</h1>
-  <div class="cover_section_buttons_container" style="margin-top:30px;">
+  <div class="cover_section_buttons_container top-m">
    <a href="account.php" class="button stroked cover_btns logout w-button back-btn">Indietro</a>
    <a href="logout.php" class="button stroked cover_btns logout w-button">Esci</a>
   </div>

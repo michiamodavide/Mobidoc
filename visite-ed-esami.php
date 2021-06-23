@@ -72,20 +72,22 @@ height:0px;
 	
 /******************************************************/	
 	.label-wrap{
-		margin:30px 0 60px 0;
+		margin:50px 0 30px 0;
 	}	
 	.label-style{
-		display:inline;
+		display:block;
 		font-size: 20px;
+		margin-top: 25px;
 		
 	}
 	.input-style{
 		background-color: #d1faff;
 		padding: 20px;
 		border: none;
-		margin-left: 15px;
+		margin-top: 20px;
+		margin-left: 0px;
 		border-radius: 7px;
-		width: 500px;
+		width: 750px;
 	}
 	.mt-90{
 		margin-top:30px;
@@ -96,8 +98,12 @@ height:0px;
 	.visit_page .service_text_underline {;
     line-height: 32px;
 }
-	
-	
+	.font-1{
+		font-size:20px !important;
+	}
+	.section-7-h {
+    min-height: auto;
+		}
 	
 		@media screen and (max-width: 780px){
 .visit_page input.input-style {
@@ -106,7 +112,16 @@ height:0px;
     margin-top: 20px;
     width: 91%;
 }	
-		
+			.label-style {
+    display: block;
+    font-size: 17px;
+    margin-top: 11px;
+    line-height: 26px;
+}
+	#n-section-2nd .service_container {
+   
+    padding-top: 50px; 
+}	
 	}
 	
 </style>
@@ -172,11 +187,11 @@ height:0px;
           */
           ?>
           <br>
-          <a href="tel:3357798844" class="button stroked m_b servc w-button">Chiamaci</a></div>
+          <a href="tel:3357798844" class="button stroked m_b servc w-button">Prenota Online</a></div>
       </div>
     </div>
   </div>
-  <div class="section-7">
+  <div class="section-7 section-7-h">
     <div class="custom_container diff">
       <div class="content_grid">
         <h2 class="heading-2 diff">Mobidoc Ospedale a domicilio</h2>
@@ -216,7 +231,7 @@ height:0px;
         // }
       </script> 
     </div>
-    <div id="n-section4">
+    <!--<div id="n-section4">
       <section class="section-2 sec4-style">
         <div class="custom_container">
           <div class="content_grid-2">
@@ -250,7 +265,7 @@ height:0px;
           <div class="text-block-2">Chiamaci</div>
           </a> </div>
       </section>
-    </div>
+    </div>-->
     <?php
     if ( empty( $last_selected_doctor_id ) ) {
       ?>
@@ -258,9 +273,10 @@ height:0px;
 	  
 	  
 	  <div class="label-wrap">
+		  <input class="input-style" name="search_visit" id="search_visit" list="search_visits" placeholder="Cerca">
     <label class="label-style" for="search_visit">Inserisci il tuo comune per vedere le prestazioni disponibili nella tua area</label>
     
-    <input class="input-style" name="search_visit" id="search_visit" list="search_visits" placeholder="Cerca">
+    
 	  
 	 </div>
 	  
@@ -355,8 +371,8 @@ height:0px;
         <div id="w-node-9ebfabc602d8-851af311" class="service_maine_card"> 
           <!-- New HTML-Code --->
           <div class="feature diff"> <a class="pic2" href="<?php echo $link;?>" target="_blank">
-            <div class="feature_label <?php echo $tm2_class?>"><?php echo substr(wordwrap($visit_name,20,"<br>\n"), 0, 30);
-                if (strlen($visit_name) > 30){echo '...';}?> <img src="images/arrow.png" alt="" > </div>
+            <div class="feature_label font-1 <?php echo $tm2_class?>"><?php echo substr(wordwrap($visit_name,20,"<br>\n"), 0, 30);
+                if (strlen($visit_name) > 30){echo '...';}?> <img src="images/arrow2.png?v=3" alt="" > </div>
             <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=8" alt=""> </a> </div>
           <!-- New HTML-Code ---> 
           
