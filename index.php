@@ -80,8 +80,26 @@ unset($_SESSION['pat_id']);
 			width: 550px;height: 300px;max-width: 463px;
 		}
 		.br-hide{
-			display:block;
+			display:none;
 		}
+		
+		@media (min-width: 1600px) and (max-width: 2500px) {
+		
+		#n-section2 .feature_label {
+  
+    width: 30% !important;
+   
+    
+			}}
+@media (min-width: 1200px) and (max-width: 1599px) {
+		
+		#n-section2 .feature_label {
+  
+    width: 28% !important;
+   
+    
+			}}		
+		
 @media screen and (min-width: 768px) {
 	
 .extra_card {
