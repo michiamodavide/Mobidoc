@@ -127,8 +127,8 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
 
 
 					$apt_date = '';
-					if ($appoint_time[$ii-1]){
-						$apt_date = date("Y/m/d H:i:s", strtotime($appoint_time[$ii-1]));
+					if ($appoint_time){
+						$apt_date = date("Y/m/d H:i:s", strtotime($appoint_time));
 					}
 
 					if ($ii > 1){
@@ -248,13 +248,11 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
 ";
 				}
 
-				$apt_count = count($appoint_time);
-				foreach($appoint_time as $apt_key => $apt) {
 
 					$booking_time_link = 'da confermare';
 
-					if (!empty($apt)) {
-						$booking_date = strtr($apt, '/', '-');
+					if (!empty($appoint_time)) {
+						$booking_date = strtr($appoint_time, '/', '-');
 						/*booking start time*/
 						$start_date = date('Ymd', strtotime($booking_date));
 						$start_time = date('His', strtotime($booking_date));
@@ -281,18 +279,8 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
 
 					}
 
+					$htmlContent .="<br><strong>Data e Ora</strong>: ".$booking_time_link."<br>";
 
-					$date_nmb = '';
-					if ($apt_count > 1){
-						$date_nmb = $apt_key+1;
-					}
-
-					$add_break = '';
-					if ($apt_key < 1){
-						$add_break = '<br>';
-					}
-					$htmlContent .=$add_break."<strong>Data e Ora".$date_nmb."</strong>: ".$booking_time_link."<br>";
-				}
 
 				$htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><strong>Phone</strong>: ".$doctor_phone."<br><br><strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 

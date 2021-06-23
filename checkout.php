@@ -344,6 +344,9 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                                 <?php }?>
                                         </div>
 
+                        <?php
+                        if ($ii == 1){
+                            ?>
                                         <div id="w-node-f52807649448-ff1af31d" class="data">
                                             <div>Data e Ora:</div>
                                         </div>
@@ -351,9 +354,11 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                             <input type="text"
                                                    class="datepicker-here inputs w-input appoint_time date-input dual_container diff"
                                                    data-language="it" data-date-format="dd-mm-yyyy"
-                                                   maxlength="256" autocomplete="off" name="appoint_time[]"
+                                                   maxlength="256" autocomplete="off" name="appoint_time"
                                                    placeholder="Data e Ora" id="appoint_time">
                                         </div>
+                            <?php }?>
+
                                         <div id="w-node-f52807649448-ff1af31d" class="data">
                                             <div>Messaggio:</div>
                                             <br>
@@ -498,7 +503,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                     <br>
                     <a data-w-id="c52ba0f4-d38b-9687-46ce-e745bbba5e78" href="#"
                        class="button gradient submit booking w-button">Conferma prenotazione</a>
-                    <a href="javascript:;" class="button more_visits w-button m-b-20">Aggiungi altre prestazioni</a>
+                    <a href="/visite-ed-esami.php?morev=1" class="button more_visits w-button m-b-20">Aggiungi altre prestazioni</a>
                 </div>
 
             </div>
@@ -573,9 +578,9 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
         $(".select_payment_method_new").attr("style", "opacity:0;display:none;")
     });
 
-    $(".more_visits").on("click", function () {
-        $(".select_payment_method_new").attr("style", "opacity:1;display:flex;")
-    });
+    // $(".more_visits").on("click", function () {
+    //     $(".select_payment_method_new").attr("style", "opacity:1;display:flex;")
+    // });
 
     $(".modify").on("click", function () {
         var cr_article_id = $(this).attr("data-article");
