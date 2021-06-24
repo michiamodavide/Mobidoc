@@ -2,6 +2,7 @@ professionisti/cv/
 professionisti/photo
 paziente/photo
 assets/generate_pdf
+assets/visit_images
 *.idea
 .idea/*
 .DS_Store
