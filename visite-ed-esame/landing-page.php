@@ -14,7 +14,7 @@ if (isset($_GET['mds_id']) && !empty($_GET['mds_id'])){
     //$icon = "/".$rows['alt_image'];
     $page_img = 'empty.jpg';
     if ($rows['image']){
-        $page_img = "/assets/visit_images/".$rows['image'];
+        $page_img = $rows['image'];
     }
     $body_copy = $rows['body_text'];
     $mds_id = $rows['specialty_id'];
