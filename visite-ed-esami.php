@@ -187,7 +187,7 @@ height:0px;
           */
           ?>
           <br>
-          <a href="tel:3357798844" class="button stroked m_b servc w-button">Prenota Online</a></div>
+          <a href="javascript:;" class="button stroked m_b servc w-button go_to_search">Prenota Online</a></div>
       </div>
     </div>
   </div>
@@ -629,6 +629,11 @@ height:0px;
     if (doc_ids){
         $('html, body').animate({scrollTop: $('.booking_visits').offset().top}, 1000);
     }
+
+    $(".go_to_search").click(function (event) {
+        event.preventDefault();
+        $('html, body').animate({scrollTop: $('.label-wrap').offset().top}, 1000);
+    });
 </script>
   <style>
 .slect_visit_first{              

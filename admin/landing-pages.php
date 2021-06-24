@@ -211,7 +211,7 @@ if(!isset($_SESSION['adminlogin']))
                 }
                 ?>
                 <div style="-webkit-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-moz-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-ms-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);opacity:0" class="bookingcard">
-                    <div class="booking_patent_image" style=" background-image: url('/assets/visit_images/<?PHP echo $visit_pic; ?>?v=2'); overflow:hidden; position:relative;"></div>
+                    <div class="booking_patent_image" style=" background-image: url('/assets/visit_images/<?PHP echo $visit_pic; ?>?v=4'); overflow:hidden; position:relative;"></div>
                     <div class="booking_details">
                         <div class="top">
                             <h1 class="heading-24"><?PHP echo substr($visit_name, 0, 30);

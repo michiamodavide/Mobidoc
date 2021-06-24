@@ -163,7 +163,7 @@ $erid_id = $get_mds_row['ERid'];
     //     }, 100);
     // }
 </script>
-<section class="masthead visit_page_header" style="background-image: linear-gradient(177deg, rgba(12, 217, 237, 0.7), rgba(0, 40, 92, 0.6)), url('/assets/visit_images/<?=$page_img?>?v=3')">
+<section class="masthead visit_page_header" style="background-image: linear-gradient(177deg, rgba(12, 217, 237, 0.7), rgba(0, 40, 92, 0.6)), url('/assets/visit_images/<?=$page_img?>?v=4')">
     <div class="masthead_container">
         <div class="column">
            <?php
@@ -193,7 +193,7 @@ $erid_id = $get_mds_row['ERid'];
                 <a href="tel:3357798844" class="button visite_cta w-button">Chiamaci</a>
             </div>
         </div>
-        <div><img src="/assets/visit_images/<?=$page_img?>?v=4" alt="" class="image-5"></div>
+        <div><img src="/assets/visit_images/<?=$page_img?>?v=5" alt="" class="image-5"></div>
     </div>
 </div>
 <div class="section-14" style="min-height:auto;">
