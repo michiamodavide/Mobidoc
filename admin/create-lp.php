@@ -277,7 +277,8 @@ if (isset($_GET['mdsid']) && !empty($_GET['mdsid'])){
                         if($_FILES["upload-image"]["error"] == 0 && !empty($_FILES["upload-image"]["name"])) {
                             $target_file = $_FILES["upload-image"]["name"];
                             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                            $save_img_name = "mds".$medi_id.'.'.$imageFileType;
+                            $save_img_name = 'empty.jpg';
+                            //$save_img_name = "mds".$medi_id.'.'.$imageFileType;
                             $upload_img_path = "../assets/visit_images/".$save_img_name;
                             move_uploaded_file($_FILES["upload-image"]["tmp_name"],$upload_img_path);
                             $lp_img = $save_img_name;
