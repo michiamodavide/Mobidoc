@@ -301,6 +301,13 @@ unset($_SESSION['pat_id']);
       </a>--> </div>
   </section>
     </div>
+	<div id="n-section3">
+      <div class="cta_section">
+    <div class="text-block-3">Non trovi il tipo di visita di cui hai bisogno?</div>
+    <a href="tel:3357798844" class="w-inline-block" style="float: inherit"> <a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel"> <img src="images/phone.svg" width="15" alt="" class="image-2">
+        <div class="text-block-2">Chiamaci</div>
+        </a> </a> </div>
+    </div>
 <div id="n-section2">
       <section class="section-2" style="padding-top: 50px;padding-bottom: 0px;background-color: #F3F4F9;">
     <div class="custom_container">
@@ -347,7 +354,7 @@ unset($_SESSION['pat_id']);
             <div class="feature_label <?php echo $tm21_class?>"><?php echo substr(wordwrap($visit_name1,35,"<br class='br-hide'> \n"), 0, 60);
                 if (strlen($visit_name1) > 60){echo '...';}
             ?> <img src="images/arrow2.png" alt=""> </div>
-            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=3" class="img-style1" alt=""> </a> 
+            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=4" class="img-style1" alt=""> </a>
 		
 		
 		
@@ -362,13 +369,7 @@ unset($_SESSION['pat_id']);
     </div>
 
 
-	<div id="n-section3">
-      <div class="cta_section">
-    <div class="text-block-3">Non trovi il tipo di visita di cui hai bisogno?</div>
-    <a href="tel:3357798844" class="w-inline-block" style="float: inherit"> <a href="tel:3357798844" class="button gradient large diff w-inline-block home-tel"> <img src="images/phone.svg" width="15" alt="" class="image-2">
-        <div class="text-block-2">Chiamaci</div>
-        </a> </a> </div>
-    </div>
+	
 <!---------New Content Ends---------->
 <section id="section-3-grid" data-w-id="92431e2b-82c4-bfde-c60b-c27892faf8bb" class="section-3">
       <div class="custom_container">
@@ -494,7 +495,7 @@ unset($_SESSION['pat_id']);
            <iframe src="https://snazzymaps.com/embed/279561" width="100%" height="100%" style="border:none;"></iframe>
           </div>
         </div>
-    <a href="comuni-serviti.php" class="button gradient w-button">Prenota Online</a>
+    <a href="/visite-ed-esami.php" class="button gradient w-button">Prenota Online</a>
 		  <!--<a href="#masthead" class="button _2nd w-button">Ricerca Visita o Esame</a>--> </div>
     </div>
 <section class="section-4">

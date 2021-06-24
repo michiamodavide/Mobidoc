@@ -229,7 +229,7 @@
         <div class="nav_list">
           <a href="patient-profile.php" class="list_item diff w-inline-block">
             <div class="blue_bulet"></div>
-            <div class="text-block-58">Aggiungi nuovo paziente</div>
+            <div class="text-block-58">Aggiungi Paziente</div>
           </a>
 
             <?php
@@ -244,7 +244,7 @@
 
          <a href="/paziente/profile-edit.php" class="list_item diff w-inline-block">
           <div class="blue_bulet"></div>
-          <div class="text-block-58">Modifica Dettagli Personali</div>
+          <div class="text-block-58">Modifica Profilo</div>
          </a>
           <a href="tel:3357798844" class="list_item diff w-inline-block">
             <div class="blue_bulet"></div>

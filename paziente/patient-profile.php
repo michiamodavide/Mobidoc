@@ -222,63 +222,71 @@ if (isset($_GET['contact-id']) && !empty($_GET['contact-id'])) {
 
   $('#submit').click(function(){
 
-    if (patient_id_param){
-      var data = $(".patient_formm").serialize();
-      $.ajax({
-        url: "patient_profile_c.php",
-        type: "post",
-        data: data,
-        success: function (response) {
-          // console.log(response);
-          if (response == 'done'){
-            window.location.href = "/paziente/account.php";
-          }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.log(textStatus, errorThrown);
-        }
-      });
-    } else {
-
-      var fis_val = $("#fiscal_code").val();
-      if (fis_val.length > 1) {
-        $.ajax({
-          url: "check_fiscal.php",
-          type: "post",
-          data: {data:fis_val},
-          dataType: "json",
-          success: function (response) {
-            // console.log(response);
-            if (response == 'true'){
-              $("input#fiscal_code").css("background-color", "#d3fbff");
+      var get_address = $("#address_search").val();
+      if (get_address){
+          if (patient_id_param){
               var data = $(".patient_formm").serialize();
               $.ajax({
-                url: "patient_profile_c.php",
-                type: "post",
-                data: data,
-                success: function (response) {
-                  // console.log(response);
-                  if (response){
-                    window.location.href = "/paziente/account.php?pnc="+response;
+                  url: "patient_profile_c.php",
+                  type: "post",
+                  data: data,
+                  success: function (response) {
+                      // console.log(response);
+                      if (response == 'done'){
+                          window.location.href = "/paziente/account.php";
+                      }
+                  },
+                  error: function(jqXHR, textStatus, errorThrown) {
+                      console.log(textStatus, errorThrown);
                   }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                  console.log(textStatus, errorThrown);
-                }
               });
-            } else {
-              $(".vselect_doctor").attr("style", "display: flex;opacity: 1;");
-              $("input#fiscal_code").css("background-color", "#ffc5c5");
-              return false;
-            }
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
+          } else {
+
+              var fis_val = $("#fiscal_code").val();
+              if (fis_val.length > 1) {
+                  $.ajax({
+                      url: "check_fiscal.php",
+                      type: "post",
+                      data: {data:fis_val},
+                      dataType: "json",
+                      success: function (response) {
+                          // console.log(response);
+                          if (response == 'true'){
+                              $("input#fiscal_code").css("background-color", "#d3fbff");
+                              var data = $(".patient_formm").serialize();
+                              $.ajax({
+                                  url: "patient_profile_c.php",
+                                  type: "post",
+                                  data: data,
+                                  success: function (response) {
+                                      // console.log(response);
+                                      if (response){
+                                          window.location.href = "/paziente/account.php?pnc="+response;
+                                      }
+                                  },
+                                  error: function(jqXHR, textStatus, errorThrown) {
+                                      console.log(textStatus, errorThrown);
+                                  }
+                              });
+                          } else {
+                              $(".vselect_doctor").attr("style", "display: flex;opacity: 1;");
+                              $("input#fiscal_code").css("background-color", "#ffc5c5");
+                              return false;
+                          }
+                      },
+                      error: function(jqXHR, textStatus, errorThrown) {
+                          console.log(textStatus, errorThrown);
+                      }
+                  });
+              }
+
           }
-        });
+          return true;
+      } else {
+          alert("Si prega di aggiungere l'indirizzo");
+          return false;
       }
 
-    }
   });
 
   $(".odd.w-button").on("click", function () {

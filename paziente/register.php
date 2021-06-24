@@ -213,7 +213,7 @@ Il consenso qui espresso potrà essere revocato con le medesime modalità.
                 </span>
               </span>
                     </label>
-                    <label class="w-checkbox checkbox-field custom" style="padding-left: 0px;">
+                    <label class="w-checkbox checkbox-field custom" style="padding-left: 0px">
                         <span class="checkbox-label w-form-label w-m">
                 <span class="legal_consent">
                     Consenso al Trattamento di Dati Personali: Letta e compresa l’informativa privacy, premendo su “Presto il consenso” o “Nego il consenso”, esprimo la mia volontà in merito al trattamento dei miei dati personali per finalità di marketing: invio di comunicazioni di carattere commerciale, informativo e promo-pubblicitario su prodotti, servizi ed attività di Tekamed S.r.l., con modalità automatizzate di contatto o comunicazioni elettroniche mediante l’utilizzo di posta elettronica e messaggi del tipo SMS, IM, MMS, notifiche push; compimento di indagini di mercato e rilevazione del gradimento e della soddisfazione sui servizi resi agli interessati. Comunicazioni informative, commerciali e pubblicitarie che acconsento a ricevere anche tramite posta cartacea o chiamate telefoniche. Questo consenso potrà essere revocato nello stesso modo.

@@ -36,8 +36,7 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Sun Oct 20 2019 06:38:26 GMT+0000 (UTC)  -->
-<html data-wf-page="5daa262de3e3f009c21af325" data-wf-site="5d8cfd454ebd737ac1a48727">
-<head>
+<html data-wf-page="5daa262de3e3f009c21af325" data-wf-site="5d8cfd454ebd737ac1a48727"><head>
   <meta charset="utf-8">
   <title>profile</title>
   <meta content="profile" property="og:title">
@@ -88,7 +87,8 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
     margin-top: 45px;
     
 }	
-	  
+	  .section-height {
+		  min-height: 57vh !important;}
 	 
 	 @media (min-width: 768px) and (max-width: 992px) {.p-20{
 		    padding: 20px;
@@ -142,7 +142,7 @@ if (isset($_SESSION['book_visits']) && !empty($_SESSION['book_visits'])){
     </div>
   </div>
 
-    <div class="section-31">
+    <div class="section-31 section-height">
      <div class="custom_container profile_account_data grid">
       <div class="my_bookings">
         <div class="no_booking_prompt" style="display:none;">
@@ -421,9 +421,12 @@ where bg.booking_id='".$rows['booking_id']."'";
           </a>
          */
          ?>
+			
+			
+			
          <a href="/visite-ed-esami.php<?=$visit_page_param?>" class="list_item diff w-inline-block">
           <div class="blue_bulet"></div>
-          <div class="text-block-58">Visite ed Esami</div>
+          <div class="text-block-58">Prenota Prestazione</div>
          </a>
           <a href="tel:3357798844" class="list_item diff w-inline-block">
             <div class="blue_bulet"></div>
