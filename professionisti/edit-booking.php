@@ -219,7 +219,10 @@ else {
                   <?php
                   if ($booking_status > 2){?>
                       <p style="text-align: center;color: red;">La data di prenotazione non può essere cambiata a prestazione avvenuta</p>
-                      <style>.appoint_time{pointer-events: none;opacity: 0.8;}</style>
+                      <style>.appoint_time{pointer-events: none;opacity: 0.8;}@media screen and (max-width: 780px){  .appoint_time{margin-bottom: 10px}}</style>
+                  <?php }else if(!empty($booking_res['booking_discount_id'])){?>
+                      <p style="text-align: center;color: red;">La data non può essere modificata per la prenotazione scontata</p>
+                      <style>.appoint_time{pointer-events: none;opacity: 0.8;}@media screen and (max-width: 780px){  .appoint_time{margin-bottom: 10px}}</style>
                   <?php }else{?>
                   <p>&nbsp;&nbsp;</p>
                   <?php }?>

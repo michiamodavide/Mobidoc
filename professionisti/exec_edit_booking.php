@@ -14,6 +14,7 @@ if(isset($_POST['submit']))
         $visit_attribute = ' <strong>('.$_POST['exam_attribute'].')</strong>';
     }
 
+    $old_ref = $_POST['old_ref_id'];
   $refertatore_id = '0';
   if (!empty($ref_id)) {
     $refertatore_id = $ref_id;
@@ -35,7 +36,11 @@ if(isset($_POST['submit']))
 
   /*update booking data*/
   $appt_time = date("Y/m/d H:i:s", strtotime($appoint_time));
-  $sql = "UPDATE `bookings` SET `refertatore_id` = '$refertatore_id', `apoint_time` = '$appt_time' WHERE `booking_id` = $booking_id;";
+    if ($old_ref == $ref_id){
+        $sql = "UPDATE `bookings` SET `apoint_time` = '$appt_time' WHERE `booking_id` = $booking_id or `booking_discount_id` = $booking_id;";
+    }else{
+        $sql = "UPDATE `bookings` SET `refertatore_id` = '$refertatore_id' WHERE `booking_id` = $booking_id;";
+    }
   $result = mysqli_query($conn, $sql);
 
   if($result==1) {
@@ -125,7 +130,6 @@ if(isset($_POST['submit']))
 
 
       /*get old ref*/
-    $old_ref = $_POST['old_ref_id'];
     /*emails commented bequase this email will not be use*/
 //      if ($old_ref == $ref_id){
 //          if (!empty($opointment_time)) {

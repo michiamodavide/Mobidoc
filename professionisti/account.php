@@ -377,7 +377,7 @@ padding: 13px 30px;
 
              <div>
                  <?php
-                 if ($cur_doctor == 1 && $rows['admin_book'] != 1 && !empty($booking_status)){
+                 if ($cur_doctor == 1 && $rows['admin_book'] != 1 && !empty($booking_status && empty($rows['booking_discount_id']))){
                  $flag_status_txt = '0';
                  $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
 

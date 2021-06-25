@@ -23,6 +23,7 @@ if(isset($_POST['submit'])){
       $paziente_main_name = $first_name.' '.$last_name;
 
       $doctor_id = mysqli_real_escape_string($conn, $_POST['doc_id']);
+      $old_ref = $_POST['old_ref_id'];
       $refertatore_id = mysqli_real_escape_string($conn, $_POST['refertatore_id']);
       $visit_name = mysqli_real_escape_string($conn, $_POST['vist_name']);
 
@@ -50,7 +51,11 @@ if(isset($_POST['submit'])){
       $opointment_time = $booking_res['apoint_time'];
 
       /*update booking data*/
-      $sql12 = "UPDATE `bookings` SET `doctor_id` = '$doctor_id',`refertatore_id` = '$referr_id', `apoint_time` = '$doc_apt_time' WHERE `booking_id` = $booking_idd;";
+   if ($old_ref == $refertatore_id){
+   $sql12 = "UPDATE `bookings` SET `apoint_time` = '$doc_apt_time' WHERE `booking_id` = $booking_idd or `booking_discount_id` = $booking_idd;";
+   }else{
+   $sql12 = "UPDATE `bookings` SET `doctor_id` = '$doctor_id',`refertatore_id` = '$referr_id' WHERE `booking_id` = $booking_idd;";
+   }
       $result12 = mysqli_query($conn, $sql12);
 
       /*get doctor data*/
@@ -103,7 +108,8 @@ if(isset($_POST['submit'])){
           $outlook_calender_date = date('Y-m-d', strtotime($booking_date)).'T'.date('H:i:s', strtotime($booking_date));
           $outlook_calender_link = 'https://outlook.live.com/calendar/0/deeplink/compose?startdt='.$outlook_calender_date.'&subject=Mobidoc%20Visit';
 
-          $add_calender = "<br><br>Aggiungi l’evento al tuo: <a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a>";
+          $icalender = '/ics_calendar.php?booking_id='.$booking_idd;
+          $add_calender = "<br><br>Aggiungi l’evento al tuo: <a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$icalender'>iCal</a>";
 
         }
 
@@ -136,7 +142,6 @@ if(isset($_POST['submit'])){
 
 
         /*get old ref*/
-        $old_ref = $_POST['old_ref_id'];
         if ($old_ref == $refertatore_id){
           /*email to patient*/
           $to = $contact_email;

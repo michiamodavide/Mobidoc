@@ -8,9 +8,10 @@ if($conn === false){
     die("ERROR database");
 }
 
-$sql = "update bookings set booking_status = ".$booking_flag." where booking_id='".$booking_id."'";
+$sql = "update bookings set booking_status = ".$booking_flag." where booking_id='".$booking_id."' or booking_discount_id='".$booking_id."'";
 $result = mysqli_query($conn, $sql);
 
+$result = 1;
 if ($result == 1) {
 
     if ($booking_flag == 2){
@@ -20,7 +21,7 @@ if ($result == 1) {
 from bookings bk
 join booked_service bs on bs.booking_id=bk.booking_id
 join articlesMobidoc ms on ms.id=bs.article_id
-where bk.booking_id = '".$booking_id."'";
+where bk.booking_id = '".$booking_id."' or bk.booking_discount_id = '".$booking_id."'";
 
         $sql_book_result = mysqli_query($conn, $sql_book);
 
@@ -28,7 +29,8 @@ where bk.booking_id = '".$booking_id."'";
         $patient_id = 0;
         $payment_mode = '';
         $items_array = array();
-        $patient_apt_date = array();
+        $patient_apt_date = '';
+        $km_price = 0;
         while ($sql_book_row = mysqli_fetch_array($sql_book_result)){
             array_push($items_array, array(
                 "exam_name" => $sql_book_row['descrizione'],
@@ -37,11 +39,12 @@ where bk.booking_id = '".$booking_id."'";
                 "exam_discount_price" => $sql_book_row['total_discount'],
             ));
 
-            array_push($patient_apt_date, $sql_book_row['apoint_time']);
+            $patient_apt_date = $sql_book_row['apoint_time'];
 
             $doc_id = $sql_book_row['doctor_id'];
             $patient_id = $sql_book_row['patient_id'];
             $payment_mode = $sql_book_row['payment_mode'];
+            $km_price = $sql_book_row['km_price'];
         }
 
         /*get patient data*/
@@ -115,7 +118,7 @@ where bk.booking_id = '".$booking_id."'";
                    <br><strong>Name</strong>: '.$contact_name.'<br><strong>Phone</strong>: '.$contact_phone.'<br><br><strong>Patient Info</strong><br><strong>Name</strong>: '.$patient_name.'<br><strong>Fiscal Code</strong>: '.$patient_fiscal.'<br><strong>Date of Birth</strong>: '.$patient_dob.'<br><strong>Address</strong>: <a target=\'_blank\' style=\'color: blue; text-decoration: underline\' href='.$patient_gmap_addr.'>'.$patient_address.'</a><br><br><strong>Visits/Exams</strong><br>';
 
 
-        $visit_price = 0;
+        $total_price = $km_price;
         foreach($items_array as $key => $item_array) {
             $current_ex_price = $item_array['exam_price'];
             $visit_amount = $item_array['exam_price'].'</strong>';
@@ -132,17 +135,20 @@ where bk.booking_id = '".$booking_id."'";
                 $attribute = ' ('.$item_array['exam_attribute'].')';
             }
 
-            $visit_price = $current_ex_price;
+            $total_price += $current_ex_price;
             $htmlContent .="
       ". $item_array['exam_name'].$attribute.'-: <strong>€'.$visit_amount.'<br>'."
 ";
         }
 
+       /*
         $apt_count = count($patient_apt_date);
         foreach($patient_apt_date as $apt_key => $apt) {
+        }
+       */
             $booking_time_link = 'da confermare';
-            if (!empty($apt) && strtotime($apt) > 0) {
-                $booking_date = strtr($apt, '/', '-');
+            if (!empty($patient_apt_date) && strtotime($patient_apt_date) > 0) {
+                $booking_date = strtr($patient_apt_date, '/', '-');
                 /*booking start time*/
                 $start_date = date('Ymd', strtotime($booking_date));
                 $start_time = date('His', strtotime($booking_date));
@@ -165,11 +171,11 @@ where bk.booking_id = '".$booking_id."'";
                 $outlook_calender_link = 'https://outlook.live.com/calendar/0/deeplink/compose?startdt='.$outlook_calender_date.'&subject=Mobidoc%20Visit';
 
 
-                $booking_time_link = $patient_date.' '.$patient_time."<br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a>";
+                $icalender = '/ics_calendar.php?booking_id='.$booking_id;
+                $booking_time_link = $patient_date.' '.$patient_time."<br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$icalender'>iCal</a>";
 
-            }
 
-
+         /*
             $date_nmb = '';
             if ($apt_count > 1){
                 $date_nmb = $apt_key+1;
@@ -179,12 +185,18 @@ where bk.booking_id = '".$booking_id."'";
             if ($apt_key < 1){
                 $add_break = '<br>';
             }
-            $htmlContent .=$add_break."<strong>Data e Ora".$date_nmb."</strong>: ".$booking_time_link."<br>";
+         */
+            $htmlContent .="<br><strong>Data e Ora</strong>: ".$booking_time_link."<br>";
         }
 
+             $km_text = '';
+            if (!empty($km_price)){
+                $km_text = "<strong>Indennità Km: </strong>€".$km_price." <br><br>";
+            }
 
-        $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br><strong>Prezzo: </strong>€".$visit_price." <br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
-// Multipart boundary
+        $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br>".$km_text."<strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
+
+        // Multipart boundary
         $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
             "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n";
 

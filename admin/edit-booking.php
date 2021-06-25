@@ -294,7 +294,7 @@ include '../connect.php';
   <?php
 
   $booking_id = $_GET['id'];
-  $sql_book = "select bs.article_id, am.descrizione, am.attributo, bk.apoint_time, bk.refertatore_id, bk.doctor_id, bk.patient_id
+  $sql_book = "select bs.article_id, am.descrizione, am.attributo, bk.apoint_time, bk.refertatore_id, bk.doctor_id, bk.patient_id, bk.booking_discount_id, bk.booking_status
 from bookings bk
 JOIN booked_service bs on bs.booking_id=bk.booking_id
 JOIN articlesMobidoc am on bs.article_id=am.id
@@ -306,6 +306,8 @@ where bk.booking_id ='".$booking_id."'";
   $book_visit_name = $get_book_result['descrizione'];
   $book_visit_attribute = $get_book_result['attributo'];
   $refertatore_id = $get_book_result['refertatore_id'];
+  $booking_discount_id = $get_book_result['booking_discount_id'];
+  $booking_status = $get_book_result['booking_status'];
 
 
   $opoint_time = $get_book_result['apoint_time'];
@@ -494,7 +496,10 @@ where dg.tick='1' AND ds.specialty='".$doctor_speciality."' AND ls.article_mobid
                 <?php if ($get_rows_count < 1){?>
                 <p style="text-align: center;color: red;">No referrer available for the selected visit.</p>
                     <style>.choose_your_area.select3{pointer-events: none;opacity: 0.8;}</style>
-           <?php }?>
+           <?php }else if ($booking_status < 3){?>
+                <p style="text-align: center;color: red;">Puoi modificare il refertatore una volta che la prenotazione  è confermata</p>
+                <style>.choose_your_area.select3{pointer-events: none;opacity: 0.8;}</style>
+                <?php }?>
             </div>
            </div>
           </div>
@@ -502,7 +507,22 @@ where dg.tick='1' AND ds.specialty='".$doctor_speciality."' AND ls.article_mobid
            <div class="form_section_heading">Data e Ora</div>
            <div class="dual_container diff">
             <input type="text" class="datepicker-here inputs w-input"  data-language="it" data-date-format="dd-mm-yyyy" maxlength="256" autocomplete="off" name="appoint_time" placeholder="Data e Ora" id="appoint_time">
+
+               <?php
+               if ($booking_status > 2){?>
+                   <br>
+               <p class="apt_date_error" style="text-align: center;color: red;">La data di prenotazione non può essere cambiata a prestazione avvenuta</p>
+               <style>#appoint_time{pointer-events: none;opacity: 0.8;}.apt_date_error{margin-top: -20px}
+                   @media screen and (max-width: 780px){.apt_date_error{margin-top: -32px}  }</style>
+               <?php
+               }else if(!empty($booking_discount_id)){?>
+              <br>
+               <p class="apt_date_error" style="text-align: center;color: red;">La data non può essere modificata per la prenotazione scontata</p>
+               <style>#appoint_time{pointer-events: none;opacity: 0.8;}.apt_date_error{margin-top: -20px}
+               @media screen and (max-width: 780px){.apt_date_error{margin-top: -32px}  }</style>
+               <?php }?>
            </div>
+
           </div>
           <div class="submit_form_btn">
            <input type="submit" name="submit" style="color:#fff !important;" value="Invia" id="submit" class="button gradient submit w-button">
