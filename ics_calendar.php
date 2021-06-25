@@ -45,12 +45,13 @@ UID:' . md5($event['title']) . '
 DTSTAMP:' . time() . '
 LOCATION:' . addslashes($event['address']) . '
 DESCRIPTION:' . addslashes($event['description']) . '
-URL;VALUE=URI: http://w4.mobidoc.it/
 SUMMARY:' . addslashes($event['title']) . '
 DTSTART:' . dateToCal($event['datestart']) . '
 END:VEVENT
 END:VCALENDAR';
 
+    print_r($ical);
+    exit();
 
 //set correct content-type-header
     if($event['id']){
