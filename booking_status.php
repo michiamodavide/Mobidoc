@@ -8,8 +8,8 @@ if($conn === false){
     die("ERROR database");
 }
 
-//$sql = "update bookings set booking_status = ".$booking_flag." where booking_id='".$booking_id."' or booking_discount_id='".$booking_id."'";
-//$result = mysqli_query($conn, $sql);
+$sql = "update bookings set booking_status = ".$booking_flag." where booking_id='".$booking_id."' or booking_discount_id='".$booking_id."'";
+$result = mysqli_query($conn, $sql);
 
 $result = 1;
 if ($result == 1) {
@@ -197,8 +197,6 @@ where bk.booking_id = '".$booking_id."' or bk.booking_discount_id = '".$booking_
 
         $htmlContent .="<br><strong>Doctor Info<br>Name</strong>: ".$doctor_main_name."<br><strong>Email</strong>: ".$doctor_email."<br><br>".$km_text."<strong>Prezzo totale: </strong>€".$total_price." <br><strong>Payment Method: </strong>".$payment_mode." <br><br>Questa email è stata generata da un sistema automatico, si prega di non rispondere.<br><br> Cordiali Saluti,<br> La Direzione Mobidoc</div> <br></div></body></html>";
 
-            echo $htmlContent;
-            exit();
         // Multipart boundary
         $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
             "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n";

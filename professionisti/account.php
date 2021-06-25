@@ -181,14 +181,14 @@ padding: 13px 30px;
    function complete_visit(value, value2, value3, value4) {
      var a = "complete_visit.php?pid=" + value + "&b=" + value2 + "&d=" + value3 + "&p=" + value4;
      window.location.href = a;
-     /*var xmlhttp2 = new XMLHttpRequest();
+     var xmlhttp2 = new XMLHttpRequest();
      xmlhttp2.onreadystatechange = function() {
        if (this.readyState == 4 && this.status == 200) {
          setTimeout(function(){ location.reload(); }, 500);
        }
      };
      xmlhttp2.open("GET", "complete_visit.php?pid=" + value + "&b=" +value2+ "&d=" +value3+ "&p=" +value4, true);
-     xmlhttp2.send();*/
+     xmlhttp2.send();
    }
 
    function complete_visit_cash(value, value2) {
@@ -450,6 +450,9 @@ padding: 13px 30px;
            <?php if ($rows['doctor_booking_status'] == 0) {
                if ($booking_status < 3){
                 echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' .exam-share-btn, .appoint_buttons_container.book_btn_'.$rows['booking_id'].' .visit_complete{pointer-events: none !important;opacity: 0.4 !important;}</style>';
+               }
+               if (!empty($rows['booking_discount_id'])){
+                   echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' .visit_complete{pointer-events: none !important;opacity: 0.4 !important;}</style>';
                }
                ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
