@@ -35,6 +35,7 @@ if (isset($_GET['booking_id']) && !empty($_GET['booking_id'])){
     }
 
     //DTEND:' . dateToCal(date($event['dateend'], strtotime("+30 minutes"))) . '
+    //DTSTAMP:' . time() . '
 // Build the ics file
     $ical = 'BEGIN:VCALENDAR
 VERSION:2.0
@@ -42,7 +43,6 @@ PRODID:-//hacksw/handcal//NONSGML v1.0//EN
 CALSCALE:GREGORIAN
 BEGIN:VEVENT
 UID:' . md5($event['title']) . '
-DTSTAMP:' . time() . '
 LOCATION:' . addslashes($event['address']) . '
 DESCRIPTION:' . addslashes($event['description']) . '
 SUMMARY:' . addslashes($event['title']) . '
@@ -50,8 +50,11 @@ DTSTART:' . dateToCal($event['datestart']) . '
 END:VEVENT
 END:VCALENDAR';
 
-    print_r($ical);
-    exit();
+
+    if (isset($_GET['fl']) && !empty($_GET['fl'])){
+        print_r($ical);
+        exit();
+    }
 
 //set correct content-type-header
     if($event['id']){
