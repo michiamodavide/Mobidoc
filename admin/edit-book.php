@@ -147,6 +147,9 @@ if(isset($_POST['submit'])){
       */
 
 
+      if ($old_ref == '0'){
+        $old_ref = '';
+      }
         /*get old ref*/
         if ($old_ref == $refertatore_id){
           /*email to patient*/
@@ -176,7 +179,6 @@ if(isset($_POST['submit'])){
           mail($to1, $subject, $message1, $headers);
 
         }else {
-
           /*get old data*/
           $ref_v_sql24 = "select * from doctor_profile where doctor_id ='" . $old_ref . "'";
           $ref_v_result24 = mysqli_query($conn, $ref_v_sql24);
