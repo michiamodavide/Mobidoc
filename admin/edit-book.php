@@ -51,13 +51,18 @@ if(isset($_POST['submit'])){
       $opointment_time = $booking_res['apoint_time'];
 
       /*update booking data*/
-   if ($old_ref == $refertatore_id){
-   $sql12 = "UPDATE `bookings` SET `apoint_time` = '$doc_apt_time' WHERE `booking_id` = $booking_idd or `booking_discount_id` = $booking_idd;";
-   }else{
-   $sql12 = "UPDATE `bookings` SET `doctor_id` = '$doctor_id',`refertatore_id` = '$referr_id' WHERE `booking_id` = $booking_idd;";
-   }
 
-      $result12 = mysqli_query($conn, $sql12);
+    $sql12 = "UPDATE `bookings` SET `doctor_id` = '$doctor_id',`refertatore_id` = '$referr_id' WHERE `booking_id` = $booking_idd";
+    $result12 = mysqli_query($conn, $sql12);
+
+    $sql1234 = "UPDATE `bookings` SET `apoint_time` = '$doc_apt_time' WHERE `booking_id` = $booking_idd or `booking_discount_id` = $booking_idd;";
+    $result1234 = mysqli_query($conn, $sql1234);
+    if ($result1234 == 1){
+        //not mention anythig
+    }else{
+        echo 'Time not updated';
+        exit();
+    }
 
       /*get doctor data*/
       $sql44 = "select * from doctor_profile where doctor_id ='".$doctor_id."'";
