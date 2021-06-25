@@ -1,9 +1,12 @@
 <?php
 
-if (isset($_GET['booking_id']) && !empty($_GET['booking_id'])){
+if (isset($_GET['icalid']) && !empty($_GET['icalid'])){
+
+    $get_cal_id = explode("-",Base64_decode($_GET['icalid']));
+    $book_id = $get_cal_id[1];
 
     include ("connect.php");
-    $sql_book = "select booking_id, apoint_time, patient_id from bookings where booking_id='".$_GET['booking_id']."'";
+    $sql_book = "select booking_id, apoint_time, patient_id from bookings where booking_id='".$book_id."'";
     $sql_book_result = mysqli_query($conn, $sql_book);
     $sql_book_row = mysqli_fetch_array($sql_book_result);
 
@@ -49,12 +52,6 @@ SUMMARY:' . addslashes($event['title']) . '
 DTSTART:' . dateToCal($event['datestart']) . '
 END:VEVENT
 END:VCALENDAR';
-
-
-    if (isset($_GET['fl']) && !empty($_GET['fl'])){
-        print_r($ical);
-        exit();
-    }
 
 //set correct content-type-header
     if($event['id']){

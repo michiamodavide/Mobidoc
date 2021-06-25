@@ -109,7 +109,8 @@ if(isset($_POST['submit']))
         $outlook_calender_date = date('Y-m-d', strtotime($booking_date)).'T'.date('H:i:s', strtotime($booking_date));
         $outlook_calender_link = 'https://outlook.live.com/calendar/0/deeplink/compose?startdt='.$outlook_calender_date.'&subject=Mobidoc%20Visit';
 
-        $icalender = $_SERVER['SERVER_NAME'].'/ics_calendar.php?booking_id='.$booking_id;
+        $icalendar_id = Base64_encode(strtotime("now").'-'.$booking_id);
+        $icalender = $_SERVER['SERVER_NAME'].'/ics_calendar.php?icalid='.$icalendar_id;
         $booking_time_link = $patient_date.' '.$patient_time."<br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$icalender'>iCal</a>";
 
     }
