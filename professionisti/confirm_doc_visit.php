@@ -197,7 +197,8 @@ where bk.patient_id = '".$q."' and bk.booking_id = '".$c."' or bk.patient_id = '
                $outlook_calender_link = 'https://outlook.live.com/calendar/0/deeplink/compose?startdt='.$outlook_calender_date.'&subject=Mobidoc%20Visit';
 
 
-               $icalender = $_SERVER['SERVER_NAME'].'/ics_calendar.php?booking_id='.$c;
+               $icalendar_id = Base64_encode(strtotime("now").'-'.$c);
+               $icalender = $_SERVER['SERVER_NAME'].'/ics_calendar.php?icalid='.$icalendar_id;
                $booking_time_link = $patient_date.' '.$patient_time."<br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$icalender'>iCal</a>";
 
            }
