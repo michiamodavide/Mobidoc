@@ -379,6 +379,7 @@
           $doctor_id = $rows['doctor_id'];
           $booking_id = 'booking-details.php?id='.$rows['booking_id'];
           $booking_status = $rows['booking_status'];  
+          $booking_discount_id = $rows['booking_discount_id'];
           $admin_booking = $rows['admin_book'];
           $admin_book_status = $rows['admin_payment_status'];
           $sql2 = "select * from paziente_profile where paziente_id = '".$pateint_id."'";
@@ -421,6 +422,7 @@
               $flag_status_txt = '';
               $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
               echo '<div class="bok_status style-1">'.$flag_status_txt[$booking_status].'</div>';
+              if (empty($booking_discount_id)){
               if ($booking_status == 2 || $booking_status == 3 || $booking_status == 4){
                   $new_status = $booking_status+1;
               ?>
@@ -428,7 +430,7 @@
                   <div class="flag_status"><?=$flag_status_txt[$booking_status+1]?></div>
               </a>
 
-              <?php }}?>
+              <?php }}}?>
 
 			  
 			  </div>
