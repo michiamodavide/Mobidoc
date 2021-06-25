@@ -36,12 +36,17 @@ if(isset($_POST['submit']))
 
   /*update booking data*/
   $appt_time = date("Y/m/d H:i:s", strtotime($appoint_time));
-    if ($old_ref == $ref_id){
-        $sql = "UPDATE `bookings` SET `apoint_time` = '$appt_time' WHERE `booking_id` = $booking_id or `booking_discount_id` = $booking_id;";
-    }else{
-        $sql = "UPDATE `bookings` SET `refertatore_id` = '$refertatore_id' WHERE `booking_id` = $booking_id;";
-    }
+    $sql = "UPDATE `bookings` SET `refertatore_id` = '$refertatore_id' WHERE `booking_id` = $booking_id;";
   $result = mysqli_query($conn, $sql);
+
+    $sql_new = "UPDATE `bookings` SET `apoint_time` = '$appt_time' WHERE `booking_id` = $booking_id or `booking_discount_id` = $booking_id;";
+    $result_new = mysqli_query($conn, $sql_new);
+    if ($result_new == 1){
+        //not mention anythig
+    }else{
+        echo 'Time not updated';
+        exit();
+    }
 
   if($result==1) {
 

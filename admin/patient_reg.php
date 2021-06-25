@@ -219,7 +219,11 @@ if(isset($_POST['submit'])){
           if (count($doc_ids_array) == 1)
             $admin_book = 2;
 
+          $referr_id = '0';
+          if (!empty($refertatore_id)) {
             $referr_id = $refertatore_id;
+          }
+
 
           $discounted_price = '';
           if ($visit_iteration > 0){

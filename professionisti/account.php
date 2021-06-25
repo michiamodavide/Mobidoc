@@ -377,10 +377,10 @@ padding: 13px 30px;
 
              <div>
                  <?php
-                 if ($cur_doctor == 1 && $rows['admin_book'] != 1 && !empty($booking_status && empty($rows['booking_discount_id']))){
                  $flag_status_txt = '0';
                  $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
 
+                 if ($cur_doctor == 1 && $rows['admin_book'] != 1 && !empty($booking_status && empty($rows['booking_discount_id']))){
                      $new_status = $booking_status+1;
                      if ($booking_status==1){
                      ?>
@@ -394,7 +394,13 @@ padding: 13px 30px;
                          <a href="/booking_status.php?bkg_id=<?php echo $booking_id?>&booking_flag=<?php echo $new_status?>" class="ping-bg button-5 faded diff w-button ">
                              <?=$flag_status_txt[$booking_status+1]?>
                          </a>
-                 <?php }}?>
+                 <?php }}
+                 if (!empty($rows['booking_discount_id'])){
+                     if ($booking_status > 1){
+                 ?>
+
+                     <div class="green-btn"><?=$flag_status_txt[$booking_status]?></div>
+                     <?php }}?>
              </div>
            </div>
           </div>
