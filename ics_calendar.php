@@ -18,7 +18,7 @@ if (isset($_GET['booking_id']) && !empty($_GET['booking_id'])){
         'title' => 'Mobidoc Visit',
         'description' => '',
         'datestart' => $sql_book_row['apoint_time'],
-        //'dateend' => $sql_book_row['apoint_time'],
+        'dateend' => $sql_book_row['apoint_time'],
         'address' => $patient_row['address']
     );
 
@@ -47,6 +47,7 @@ LOCATION:' . addslashes($event['address']) . '
 DESCRIPTION:' . addslashes($event['description']) . '
 SUMMARY:' . addslashes($event['title']) . '
 DTSTART:' . dateToCal($event['datestart']) . '
+DTEND:' . dateToCal($event['dateend']) . '
 END:VEVENT
 END:VCALENDAR';
 
