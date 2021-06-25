@@ -56,6 +56,7 @@ if(isset($_POST['submit'])){
    }else{
    $sql12 = "UPDATE `bookings` SET `doctor_id` = '$doctor_id',`refertatore_id` = '$referr_id' WHERE `booking_id` = $booking_idd;";
    }
+
       $result12 = mysqli_query($conn, $sql12);
 
       /*get doctor data*/
