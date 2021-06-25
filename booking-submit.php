@@ -247,7 +247,7 @@ WHERE lis.article_mobidoc_id='".$article_id."' AND lis.doctor_id='".$doctor_id."
 
 
 
-                            $icalender = '/ics_calendar.php?booking_id='.$booking_parent_id;
+                            $icalender = $_SERVER['SERVER_NAME'].'/ics_calendar.php?booking_id='.$booking_parent_id;
                             $booking_time_link = $patient_date.' '.$patient_time."<br><a target='_blank' style='color: blue; text-decoration: underline' href='$calender_link'>Calendario Google</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$outlook_calender_link'>Calendario Outlook</a> | <a target='_blank' style='color: blue; text-decoration: underline' href='$icalender'>iCal</a>";
 
                         }
