@@ -95,7 +95,7 @@ where bk.booking_id = '".$booking_id."' or bk.booking_discount_id = '".$booking_
         $pdf_files = array();
 
 
-        $send_emails_array = array($contact_email, "info@mobidoc.it"); //
+        $send_emails_array = array($contact_email, $doctor_email, "info@mobidoc.it"); //
 
         $subject = 'Nuova Prenotazione!';
 // Sender
@@ -228,13 +228,12 @@ where bk.booking_id = '".$booking_id."' or bk.booking_discount_id = '".$booking_
             // Send email
             @mail($send_email, $subject, $message, $headers, $returnpath);
 
-           /*
+
             if ($send_emails_key == 2){
                 for($pd=0;$pd < count($pdf_files);$pd++){
                     unlink($pdf_files[$pd]);
                 }
             }
-           */
 
         }
 
