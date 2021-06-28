@@ -423,7 +423,8 @@
               $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
               echo '<div class="bok_status style-1">'.$flag_status_txt[$booking_status].'</div>';
               if (empty($booking_discount_id)){
-              if ($booking_status == 2 || $booking_status == 3 || $booking_status == 4){
+              //if ($booking_status == 2 || $booking_status == 3 || $booking_status == 4){
+              if ($booking_status < 5 ){
                   $new_status = $booking_status+1;
               ?>
                   <a class="active_anchor" href="/booking_status.php?bkg_id=<?php echo $bbb_id?>&booking_flag=<?php echo $new_status?>&admin=1">
