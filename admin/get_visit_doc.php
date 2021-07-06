@@ -21,7 +21,7 @@ JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
 JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '" . $select_option . "'=ams.specialtyMobidoc
-WHERE dg.tick='1' AND ds.specialty='".$select_option."' AND dp.active='Y' AND dp.puo_refertare='N' AND am.home='Y' OR am.tele='Y' group by am.id";
+WHERE dg.tick='1' AND ds.specialty='".$select_option."' AND dp.active='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
 
   $visits_result = mysqli_query($conn, $get_visit_sql);
 
@@ -37,7 +37,7 @@ WHERE dg.tick='1' AND ds.specialty='".$select_option."' AND dp.active='Y' AND dp
 }else{
 
     $mds_erid = $_POST['mds_erid'];
-    $doctor_sql = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title, dp.puo_refertare
+    $doctor_sql = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title, dp.puo_refertare, dp.visible
 FROM doctor_profile dp
 JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
 JOIN doctor_register dg ON ds.doctor_id=dg.id
@@ -50,7 +50,8 @@ JOIN listini ls ON ds.doctor_id=ls.doctor_id
           "doctor_id" => $doc_rows['doctor_id'],
           "fname" => $doc_rows['fname'],
           "lname" => $doc_rows['lname'],
-          "puo_refertare" => $doc_rows['puo_refertare']
+          "puo_refertare" => $doc_rows['puo_refertare'],
+          "visible" => $doc_rows['visible']
       ));
   }
 }

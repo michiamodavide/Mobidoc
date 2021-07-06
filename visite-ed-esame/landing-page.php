@@ -203,8 +203,7 @@ $erid_id = $get_mds_row['ERid'];
 
             <?php
 
-            if (isset($_SESSION['doctor_email'])) {
-                $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
+            $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
 FROM doctor_profile dp
 JOIN doctor_register as dg ON dp.doctor_id = dg.id
 JOIN listini as ls ON dp.doctor_id = ls.doctor_id
@@ -214,17 +213,6 @@ JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '" . $erid_id . "'=ams.specialtyMobidoc
 WHERE dg.tick='1' AND ds.specialty='".$erid_id."' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
 
-            }else{
-                $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
-FROM doctor_profile dp
-JOIN doctor_register as dg ON dp.doctor_id = dg.id
-JOIN listini as ls ON dp.doctor_id = ls.doctor_id
-JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
-JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
-JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
-JOIN medical_specialty as ms ON '" . $erid_id . "'=ams.specialtyMobidoc
-WHERE dg.tick='1' AND ds.specialty='".$erid_id."' AND dp.puo_refertare='N' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
-            }
 
             $result2 = mysqli_query($conn, $sql2);
 
@@ -276,20 +264,12 @@ WHERE dg.tick='1' AND ds.specialty='".$erid_id."' AND dp.puo_refertare='N' AND d
 
                     <?php
 
-                    if (isset($_SESSION['doctor_email'])) {
-                        $sql22 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
+                  $sql22 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
 FROM doctor_profile dp
 JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
 JOIN doctor_register dg ON ds.doctor_id=dg.id
  WHERE ds.specialty = '".$erid_id."' AND dg.tick = 1 AND dp.`active`='Y' AND dp.`visible`='Y'";
-                    }else{
-                      $sql22 = "SELECT DISTINCT dp.doctor_id, dp.email, dp.fname, dp.lname, dp.photo, dp.title
-FROM doctor_profile dp
-JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
-JOIN doctor_register dg ON ds.doctor_id=dg.id
- WHERE ds.specialty = '".$erid_id."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='N' AND dg.tick = 1";
 
-                    }
                     $result22 = mysqli_query($conn, $sql22);
 
 

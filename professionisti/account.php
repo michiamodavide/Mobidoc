@@ -258,14 +258,7 @@ padding: 13px 30px;
      <?php
      include '../connect.php';
 
-     if ($rows3['puo_refertare'] == 'Y'){
-       $cur_doctor = 0;
-       $sql = "select * from bookings where refertatore_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
-     }else{
-       $cur_doctor = 1;
-      $sql = "select * from bookings where doctor_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
-     }
-
+     $sql = "select * from bookings where refertatore_id ='" . $rows3['doctor_id'] . "' or doctor_id ='" . $rows3['doctor_id'] . "' order by booking_id desc";
      $result = mysqli_query($conn, $sql);
      $count = mysqli_num_rows($result);
      if ($count < 1) {
@@ -287,6 +280,12 @@ padding: 13px 30px;
          $opoint_time = $rows['apoint_time'];
          $booking_status = $rows['booking_status'];
            $payment_mode = $rows['payment_mode'];
+           $prof_id = $rows['doctor_id'];
+
+           $is_booking = 0;
+           if ($prof_id == $rows3['doctor_id']){
+               $is_booking = 1;
+           }
 
          if ($payment_status == 0) {
            $payment_status = "Authorized, Not Captured";
@@ -329,7 +328,7 @@ padding: 13px 30px;
          $current_doc_name = $doctor_rows['fname'].' '.$doctor_rows['lname'];
 
          //reporter data
-         $refreter_name = '';
+           $current_ref_name = '';
          if ($refertatore_id){
            $ref_sql = "select * from doctor_profile where doctor_id ='" . $refertatore_id . "'";
            $ref_sql_result = mysqli_query($conn, $ref_sql);
@@ -380,7 +379,7 @@ padding: 13px 30px;
                  $flag_status_txt = '0';
                  $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
 
-                 if ($cur_doctor == 1 && $rows['admin_book'] != 1 && !empty($booking_status && empty($rows['booking_discount_id']))){
+                 if ($is_booking == 1 && $rows['admin_book'] != 1 && !empty($booking_status && empty($rows['booking_discount_id']))){
                      $new_status = $booking_status+1;
                      if ($booking_status==1){
                      ?>
@@ -418,18 +417,19 @@ padding: 13px 30px;
           </div>
 
           <div class="paziente_data_block">
-           <div class="text-block-63">Professionista</div>
+
 
            <?php
-           if ($cur_doctor == 1) {
+           if ($is_booking == 1) {
              ?>
-
-            <div class="text-block-62"><?php echo $current_doc_name; ?></div>
+               <div class="text-block-63">Refertatore</div>
+            <div class="text-block-62"><?php echo $current_ref_name; ?></div>
              <?php
            }else {
 
              ?>
-            <div class="text-block-62"><?php echo $current_ref_name; ?></div>
+               <div class="text-block-63">Professionista</div>
+            <div class="text-block-62"><?php echo $current_doc_name; ?></div>
              <?php
            }
              ?>
@@ -446,7 +446,7 @@ padding: 13px 30px;
           <a href="tel:<?php echo $contact_data_row['phone']; ?>" class="button-5 w-button">Chiama contatto</a>
           <a href="#" class="button-5 faded diff w-button view_details_button">Vedi Dettagli Visita</a>
 
-          <?php  if ($rows3['puo_refertare'] != 'Y'){?>
+          <?php  if ($is_booking==1){?>
            <?php if ($rows['doctor_booking_status'] == 0) {
                if ($booking_status < 3){
                 echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' .exam-share-btn, .appoint_buttons_container.book_btn_'.$rows['booking_id'].' .visit_complete{pointer-events: none !important;opacity: 0.4 !important;}</style>';

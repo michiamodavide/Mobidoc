@@ -63,8 +63,7 @@ while($rows = mysqli_fetch_array($result)){
                 <div class="text-block-7"><span class="service_text_underline"><?php echo $visit_name;?></span></div>
                 <div class="type_of-service_grid">
                     <?php
-                    if (isset($_SESSION['doctor_email'])) {
-                        $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
+                    $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
 FROM doctor_profile dp
 JOIN doctor_register as dg ON dp.doctor_id = dg.id
 JOIN doctor_cap as dc ON dp.doctor_id = dc.doctor_id
@@ -74,19 +73,6 @@ JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '" . $mds_erid . "'=ams.specialtyMobidoc
 WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid."' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
-
-                    }else{
-                        $sql2 = "SELECT DISTINCT dp.doctor_id, am.id As article_id, descrizione, am.home, am.tele, am.attributo
-FROM doctor_profile dp
-JOIN doctor_register as dg ON dp.doctor_id = dg.id
-JOIN doctor_cap as dc ON dp.doctor_id = dc.doctor_id
-JOIN listini as ls ON dp.doctor_id = ls.doctor_id
-JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
-JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
-JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
-JOIN medical_specialty as ms ON '" . $mds_erid . "'=ams.specialtyMobidoc
-WHERE dg.tick='1' AND dc.comune='".$search_city."' AND ds.specialty='".$mds_erid."' AND dp.puo_refertare='N' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
-                    }
 
                     $result2 = mysqli_query($conn, $sql2);
                     $rows2_count = mysqli_num_rows($result2);

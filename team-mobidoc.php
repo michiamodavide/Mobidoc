@@ -188,13 +188,10 @@ opacity:1;
       <div class="w-layout-grid professionist_grid">
 	<?php
 		include 'connect.php';
- if (isset($_SESSION['doctor_email'])) {
-   $sql = "select * from doctor_profile where active = 'Y' order by doctor_id desc";
- }else{
-   $sql = "select dp.doctor_id, dp.photo, dp.fname, dp.lname, dp.title from doctor_profile dp
+    $sql = "select dp.doctor_id, dp.photo, dp.fname, dp.lname, dp.title from doctor_profile dp
 join doctor_register dg ON dg.id=dp.doctor_id
-where puo_refertare='N' AND active = 'Y' AND visible = 'Y' AND dg.tick='1' order by doctor_id desc";
- }
+where active = 'Y' AND visible = 'Y' AND dg.tick='1' order by doctor_id desc";
+
 		$result = mysqli_query($conn, $sql);
 		while($rows = mysqli_fetch_array($result)){
 			$doctor_id = $rows['doctor_id'];

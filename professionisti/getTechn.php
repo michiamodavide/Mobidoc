@@ -19,17 +19,13 @@ FROM doctor_profile dp
 JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
 JOIN doctor_register dg ON ds.doctor_id=dg.id
 JOIN listini ls ON ds.doctor_id=ls.doctor_id
- WHERE ds.specialty = '".$doc_spec_row['specialty']."' AND ls.article_mobidoc_id='".$article_id."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='Y' AND dg.tick = 1";
+ WHERE ds.specialty = '".$doc_spec_row['specialty']."' AND ls.article_mobidoc_id='".$article_id."' AND dp.`active`='Y' AND dp.`puo_refertare`='Y' AND dg.tick = 1";
 
 $result = mysqli_query($conn, $sql);
 $result_count = mysqli_num_rows($result);
 
 if ($result_count > 0) {
     while ($rows2 = mysqli_fetch_array($result)) {
-//  $doctor_id = $rows2['doctor_id'];
-//  $sql2 = "select * from doctor_profile where doctor_id ='".$doctor_id."' AND puo_refertare ='Y' ";
-//  $result2 = mysqli_query($conn, $sql2);
-//  $rows2 = mysqli_fetch_array($result2);
         $profile_image = "/professionisti/" . $rows2['photo'];
         $name = $rows2['fname'] . " " . $rows2['lname'];
         $titile = ucwords($rows2['title']);
