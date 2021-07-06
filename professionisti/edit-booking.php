@@ -237,7 +237,7 @@ else {
                           $booking_apt_time = date("d-m-Y H:i", strtotime($booking_res['apoint_time']));;
                       }
 
-                      $ref_v_sql21 = "select * from doctor_profile where doctor_id ='" . $booking_res['refertatore_id'] . "' AND puo_refertare ='Y' AND active ='Y' AND visible ='Y'";
+                      $ref_v_sql21 = "select * from doctor_profile where doctor_id ='" . $booking_res['refertatore_id'] . "' AND puo_refertare ='Y' AND active ='Y'";
                       $ref_v_result21 = mysqli_query($conn, $ref_v_sql21);
                       $ref_v_res21 = mysqli_fetch_array($ref_v_result21);
                       ?>
@@ -254,14 +254,14 @@ FROM doctor_profile dp
 JOIN doctor_specialty ds ON dp.doctor_id=ds.doctor_id
 JOIN doctor_register dg ON ds.doctor_id=dg.id
 JOIN listini ls ON ds.doctor_id=ls.doctor_id
- WHERE ds.specialty = '".$doc_spec_row['specialty']."' AND ls.article_mobidoc_id='".$_GET['article_id']."' AND dp.`active`='Y' AND dp.`visible`='Y' AND dp.`puo_refertare`='Y' AND dg.tick = 1";
+ WHERE ds.specialty = '".$doc_spec_row['specialty']."' AND ls.article_mobidoc_id='".$_GET['article_id']."' AND dp.`active`='Y' AND dp.`puo_refertare`='Y' AND dg.tick = 1";
 
                         $get_report_result = mysqli_query($conn, $get_report_sql);
                         $get_report_count = mysqli_num_rows($get_report_result);
 
                         while ($doctor_v_rows = mysqli_fetch_array($get_report_result)) {
-                        $ref_v_email = $doctor_v_rows['doctor_email'];
-                        if ($doctor_v_rows['doctor_id'] != $booking_res['refertatore_id']) {
+                        $ref_v_email = $doctor_v_rows['email'];
+                            if ($ref_v_email !== $_SESSION['doctor_email']) {
                           ?>
                         <option
                           value="<?PHP echo $doctor_v_rows['doctor_id']; ?>"><?PHP echo $doctor_v_rows['fname'] . ' ' . $doctor_v_rows['lname']; ?></option>

@@ -1285,14 +1285,14 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                 success: function (response) {
                     $.each(response, function (index) {
                         var puo_refertare = response[index].puo_refertare;
-                        var prof_visible = response[index].visible;
-                        if (prof_visible == 'Y'){
+                            if (puo_refertare == 'N') {
                                 $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
                                 doc_select1.addOption({
                                     value: response[index].doctor_id,
                                     text: response[index].fname + ' ' + response[index].lname
                                 });
-                        } else if (puo_refertare == 'Y' && prof_visible == 'N') {
+
+                            } else if (puo_refertare == 'Y') {
                                 $(".new_visit_no1 .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
                                 ref_select1.addOption({
                                     value: response[index].doctor_id,
@@ -1316,10 +1316,9 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
             // console.log(discounted_prices);
 
             $(articles_idds).each(function(index, val) {
-                var loop_iteration = index;
-
-                if (loop_iteration > 0){
+                if (index > 0){
                     var current_nb = parseInt(index)+1;
+
                     $.ajax({
                         url: "get_visit_doc.php",
                         type: "post",
@@ -1328,9 +1327,8 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                         success: function (response) {
                             $.each(response, function (index) {
                                 var puo_refertare = response[index].puo_refertare;
-                                var prof_visible = response[index].visible;
-                                if (puo_refertare == 'Y' && prof_visible == 'N') {
-                                    if (refer_idsss[loop_iteration] == response[index].doctor_id){
+                                if (puo_refertare == 'Y') {
+                                    if (refer_idsss[index] == response[index].doctor_id){
                                         $(".new_visit_no"+current_nb+" .select-refertatore-new")
                                             .append($("<option></option>")
                                                 .attr("value", response[index].doctor_id)
@@ -1487,8 +1485,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
 
                     $.each(response, function (index) {
                         var puo_refertare = response[index].puo_refertare;
-                        var prof_visible = response[index].visible;
-                        if (puo_refertare == 'Y' && prof_visible == 'N') {
+                        if (puo_refertare == 'Y') {
                             // $(".new_visit_no2 .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
                             $(".new_visit_no" + booking_number + " .select-refertatore-new")
                                 .append($("<option></option>")

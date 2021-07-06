@@ -176,55 +176,6 @@
 		<div class="professionist_header">
 			<h2 class="heading-2">I PROFESSIONISTI MOBIDOC</h2>
 
-			<div class="search_doctor search-bg">
-				<div class="form-block w-form">
-					<form id="Search_form" name="email-form" action="javascript:;" method="get" class="form">
-						<input type="text" class="text-field team w-input text-white" autocomplete="off" maxlength="256" name="name-2" data-name="Name 2" placeholder="Cerca il professionista" id="name-2" required="">
-						<input type="submit" value="Search" data-wait="Search" class="submit-button serch-icon"></form>
-				</div>
-			</div>
-
-		</div>
-		<div class="w-layout-grid professionist_grid">
-			<?php
-				include 'connect.php';
-				if (isset($_SESSION['doctor_email'])) {
-					$sql = "select * from doctor_profile where active = 'Y' order by doctor_id desc";
-				}else{
-					$sql = "select dp.doctor_id, dp.photo, dp.fname, dp.lname, dp.title from doctor_profile dp
-join doctor_register dg ON dg.id=dp.doctor_id
-where puo_refertare='N' AND active = 'Y' AND visible = 'Y' AND dg.tick='1' order by doctor_id desc";
-				}
-				$result = mysqli_query($conn, $sql);
-				while($rows = mysqli_fetch_array($result)){
-					$doctor_id = $rows['doctor_id'];
-					$doctor_id_link = "/il-team/professionista.php?".$rows['doctor_id'];
-					$photo = "professionisti/".$rows['photo'];
-					$fname = $rows['fname'];
-					$lname = $rows['lname'];
-					$title = $rows['title'];
-					?>
-					<div class="professionist_card main_team">
-						<div class="professionist_image_container"><img src="<?php echo $photo;?>" alt="" class="professionist_image"></div>
-						<div class="preofessionist_name"><?php echo $fname. " ". $lname;?></div>
-						<div class="professionist_title"><?php echo $title;?></div>
-						<div class="button_container diff">
-							<a href="<?php echo $doctor_id_link; ?>" target="_blank" class="button gradient vide_profilo w-button">Esplora profilo</a>
-							<!--<a href="#" data-name="" onClick="get_visit_Doctors(this.getAttribute('data-name'))" class="button small w-button">Quick View</a>-->
-						</div>
-					</div>
-					<?php
-				}
-				mysqli_close($conn);
-			?>
-		</div>
-	</div>
-</section>
-
-<div data-w-id="fbb53901-a497-8fed-9aad-252e4a9dc7e3" style="opacity:0;display:none" class="dcotor_quick_profile">
-	<div data-w-id="6b5cd1c4-19f2-7ebc-d792-12356d83a781" class="closer"></div>
-	<div data-w-id="cecbf796-8901-fc1d-47b3-b536e08353d8" style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="quick_profile_container" id="doctor_details">
-
 		<div class="profile_header">
 			<div class="qprofile_image">
 				<img src="images/img50003193.jpg" alt="" class="image-6">

@@ -308,6 +308,7 @@ where bk.booking_id ='".$booking_id."'";
   $refertatore_id = $get_book_result['refertatore_id'];
   $booking_discount_id = $get_book_result['booking_discount_id'];
   $booking_status = $get_book_result['booking_status'];
+  $docc_id = $get_book_result['doctor_id'];
 
 
   $opoint_time = $get_book_result['apoint_time'];
@@ -321,13 +322,14 @@ where bk.booking_id ='".$booking_id."'";
   $sql_doc = "select dp.doctor_id, dp.fname, dp.lname, ds.specialty
 from doctor_profile dp
 join doctor_specialty ds on ds.doctor_id=dp.doctor_id
-where dp.doctor_id ='".$get_book_result['doctor_id']."'";
+where dp.doctor_id ='".$docc_id."'";
   $sql_get_doc = mysqli_query($conn, $sql_doc);
   $sql_get_doc_data = mysqli_fetch_array($sql_get_doc);
   $doctor_id = $sql_get_doc_data['doctor_id'];
   $doc_name = $sql_get_doc_data['fname'].' '.$sql_get_doc_data['lname'];
   $doctor_speciality = $sql_get_doc_data['specialty'];
 
+  $ref_id = '';
   if (isset($refertatore_id)) {
     /*get refertatore data*/
     $sql_ref = "select * from doctor_profile where doctor_id ='" . $refertatore_id . "'";
@@ -480,8 +482,9 @@ JOIN listini ls ON ls.doctor_id = ds.doctor_id
 where dg.tick='1' AND ds.specialty='".$doctor_speciality."' AND ls.article_mobidoc_id='".$book_article_id."' AND dp.puo_refertare='Y' AND dp.active='Y'";
                  $get_ref_result = mysqli_query($conn, $get_ref_sql);
                  $get_rows_count = mysqli_num_rows($get_ref_result);
+
                  while ($get_ref_row = mysqli_fetch_array($get_ref_result)) {
-                     if ($get_ref_row['doctor_id'] != $ref_id){
+                     if ($get_ref_row['doctor_id'] != $docc_id){
                  ?>
                      <option value="<?php echo $get_ref_row['doctor_id'] ?>"><?php echo $get_ref_row['fname'].' '.$get_ref_row['lname'] ?></option>
                    <?php }}?>
