@@ -21,7 +21,7 @@ JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
 JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '" . $select_option . "'=ams.specialtyMobidoc
-WHERE dg.tick='1' AND ds.specialty='".$select_option."' AND dp.active='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
+WHERE dg.tick='1' AND ds.specialty='".$select_option."' AND dp.active='Y' AND (am.home='Y' OR am.tele='Y') group by am.id";
 
   $visits_result = mysqli_query($conn, $get_visit_sql);
 
