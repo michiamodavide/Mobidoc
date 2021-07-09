@@ -8,9 +8,19 @@ if($conn === false){
     die("ERROR database");
 }
 
-$sql = "update bookings set booking_status = ".$booking_flag." where booking_id='".$booking_id."' or booking_discount_id='".$booking_id."'";
-$result = mysqli_query($conn, $sql);
+$is_admin = 0;
+if (isset($_GET['admin']) && $_GET['admin'] == 1){
+    $is_admin = 1;
+}
 
+
+if ($is_admin == 1 && $booking_flag==4){
+    $sql = "update bookings set booking_status = ".$booking_flag." where booking_id='".$booking_id."'";
+}else{
+    $sql = "update bookings set booking_status = ".$booking_flag." where booking_id='".$booking_id."' or booking_discount_id='".$booking_id."'";
+}
+
+$result = mysqli_query($conn, $sql);
 if ($result == 1) {
 
     if ($booking_flag == 2){
@@ -239,7 +249,7 @@ where bk.booking_id = '".$booking_id."' or bk.booking_discount_id = '".$booking_
     }
 
 
-    if (isset($_GET['admin']) && $_GET['admin'] == 1){
+    if ($is_admin == 1){
         header("Location: /admin/booking.php");
     }else{
         header("Location: /professionisti/account.php");
