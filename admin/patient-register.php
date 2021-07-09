@@ -1106,7 +1106,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                 $.each(response, function(index) {
                     var puo_refertare = response[index].puo_refertare;
                     var prof_visible = response[index].visible;
-                    if (prof_visible == 'Y'){
+                    if (puo_refertare == 'N' || puo_refertare == 'Y' && prof_visible == 'Y') {
                         $(".new_visit_no1 .appoint_time").attr("style", "pointer-events: inherit; opacity: inherit");
                         $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
                         doc_select1.addOption({value: response[index].doctor_id, text: response[index].fname+' '+response[index].lname});
@@ -1286,7 +1286,7 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                     $.each(response, function (index) {
                         var puo_refertare = response[index].puo_refertare;
                         var prof_visible = response[index].visible;
-                        if (prof_visible == 'Y'){
+                        if (puo_refertare == 'N' || puo_refertare == 'Y' && prof_visible == 'Y') {
                                 $(".new_visit_no1 .choose_your_area.select2").attr("style", "pointer-events: inherit; opacity: inherit; margin: 10px;");
                                 doc_select1.addOption({
                                     value: response[index].doctor_id,
@@ -1477,17 +1477,17 @@ where dg.tick='1' AND dp.puo_refertare='N' AND dp.active='Y' AND ms.status='Y' g
                 dataType: "json",
                 success: function (response) {
                     // console.log(response);
+                    var puo_refertare = response[index].puo_refertare;
+                    var prof_visible = response[index].visible;
                     var get_doctor_arr = [];
                     $.each(response, function (index) {
-                        var puo_refertare = response[index].puo_refertare;
-                        if (puo_refertare == 'N') {
+                        if (puo_refertare == 'N' || puo_refertare == 'Y' && prof_visible == 'Y') {
                             get_doctor_arr.push(response[index].doctor_id);
                         }
                     });
 
                     $.each(response, function (index) {
-                        var puo_refertare = response[index].puo_refertare;
-                        var prof_visible = response[index].visible;
+
                         if (puo_refertare == 'Y' && prof_visible == 'N') {
                             // $(".new_visit_no2 .choose_your_area.select3").attr("style", "pointer-events: inherit; opacity: inherit;");
                             $(".new_visit_no" + booking_number + " .select-refertatore-new")
