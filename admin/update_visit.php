@@ -53,14 +53,14 @@ JOIN articlesMobidoc_specialty as ams ON am.id = ams.id WHERE ams.specialtyMobid
 
                 </p>
                 <div class="glance_details_title" style="font-size: 14px;margin-left: 15px;">
-                    <input type="checkbox" <?php echo $home_check ?> class="home_visit lable2" id="home_visit"
+                    <input type="checkbox" <?php echo $home_check ?> class="home_visit lable2" id="home_visit<?=$article_id?>"
                            name="home_visit" article_id="<?=$article_id?>" value="<?=$home_status?>">
-                    <label for="home_visit">Home</label>
+                    <label for="home_visit<?=$article_id?>">Home</label>
                 </div>
                 <div class="glance_details_title" style="font-size: 14px;margin-left: 15px;">
-                    <input type="checkbox" <?php echo $tele_check ?> class="tele_visit lable2" id="tele_visit"
+                    <input type="checkbox" <?php echo $tele_check ?> class="tele_visit lable2" id="tele_visit<?=$article_id?>"
                            name="tele_visit" article_id="<?=$article_id?>" value="<?=$tele_status?>">
-                    <label for="tele_visit">Tele</label>
+                    <label for="tele_visit<?=$article_id?>">Tele</label>
                 </div>
                 <?php
             }
