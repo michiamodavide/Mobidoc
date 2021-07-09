@@ -389,7 +389,7 @@ height:0px;
                     JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
                     JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
                     JOIN medical_specialty as ms ON ds.specialty=ams.specialtyMobidoc
-                    WHERE dg.tick='1' AND dp.doctor_id='" . $last_selected_doctor_id . "' AND ds.specialty='" . $mds_erid . "' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
+                    WHERE dg.tick='1' AND dp.doctor_id='" . $last_selected_doctor_id . "' AND ds.specialty='" . $mds_erid . "' AND dp.active='Y' AND dp.visible='Y' AND (am.home='Y' OR am.tele='Y') group by am.id";
 
             $result2 = mysqli_query( $conn, $sql2 );
             $rows2_count = mysqli_num_rows( $result2 );

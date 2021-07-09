@@ -211,7 +211,7 @@ JOIN doctor_specialty as ds ON dp.doctor_id = ds.doctor_id
 JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
 JOIN articlesMobidoc_specialty as ams ON am.id = ams.id
 JOIN medical_specialty as ms ON '" . $erid_id . "'=ams.specialtyMobidoc
-WHERE dg.tick='1' AND ds.specialty='".$erid_id."' AND dp.active='Y' AND dp.visible='Y' AND am.home='Y' OR am.tele='Y' group by am.id";
+WHERE dg.tick='1' AND ds.specialty='".$erid_id."' AND dp.active='Y' AND dp.visible='Y' AND (am.home='Y' OR am.tele='Y') group by am.id";
 
 
             $result2 = mysqli_query($conn, $sql2);

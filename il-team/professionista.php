@@ -89,11 +89,12 @@ header("location: validate.php");
         <div class="visite_container">
           <?php
 			$sql = "SELECT DISTINCT am.id As article_id, descrizione, am.home, am.tele, am.attributo
-FROM doctor_specialty ds 
+FROM doctor_specialty ds
 JOIN articlesMobidoc_specialty as ams ON ds.specialty = ams.specialtyMobidoc
 JOIN  listini as ls ON ams.id = ls.article_mobidoc_id
 JOIN articlesMobidoc as am ON am.id = ls.article_mobidoc_id
-WHERE ds.doctor_id='".$doctor_id."' AND ls.doctor_id='".$doctor_id."' AND am.home='Y' OR am.tele='Y'";
+WHERE ds.doctor_id='".$doctor_id."' AND ls.doctor_id='".$doctor_id."' AND (am.home='Y' OR am.tele='Y')";
+
 			$result = mysqli_query($conn, $sql);
 			while($rows = mysqli_fetch_array($result)){
 			$visit_name = $rows['descrizione'];

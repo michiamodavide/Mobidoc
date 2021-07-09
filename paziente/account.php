@@ -165,11 +165,13 @@
 
          <div>
           <h2 class="heading-18">I tuoi pazienti</h2>
-          <script.
-                $(this).parent().parent().siblings('.main_-details_container').children('.details_continer_grid').toggleClass('open');
-              });
-            });
-          </script>
+             <script>
+                 $(document).ready(function(){
+                     $('.see_details').click(function(){
+                         $(this).parent().parent().siblings('.main_-details_container').children('.details_continer_grid').toggleClass('open');
+                     });
+                 });
+             </script>
 
         <?php
 
