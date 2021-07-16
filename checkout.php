@@ -349,13 +349,17 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                             ?>
                                         <div id="w-node-f52807649448-ff1af31d" class="data">
                                             <div>Data e Ora:</div>
+                                            <br>
+                                            <div style="font-weight:300; font-size:12px; width:70%; margin-top:-15px;">
+                                                Proponi data e ora per il tuo appuntamento. La tua richiesta sarà confermata dal Professionista
+                                            </div>
                                         </div>
                                         <div id="w-node-f5280764944b-ff1af31d" class="value">
                                             <input type="text"
                                                    class="datepicker-here inputs w-input appoint_time date-input dual_container diff"
                                                    data-language="it" data-date-format="dd-mm-yyyy"
                                                    maxlength="256" autocomplete="off" name="appoint_time"
-                                                   placeholder="Data e Ora" id="appoint_time">
+                                                   placeholder="Data e Ora" id="appoint_time" required>
                                         </div>
                             <?php }?>
 
@@ -429,7 +433,7 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                    data-name="date_of_booking" placeholder="Date of Booking" id="date_of_booking"
                                    value="<?php echo $today; ?>">
                         </div>
-                        <div data-w-id="0b7e3b0c-13c6-61bf-4622-8858fe41e086" style="opacity:0;display:none;"
+                        <div style="opacity:0;display:none;"
                              class="select_payment_method">
                             <div data-w-id="815cc03f-3eba-e168-af08-dba23d269218" class="closer"><input type="email"
                                                                                                         class="w-input"
@@ -439,8 +443,8 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                                                                                         placeholder="email"
                                                                                                         id="email">
                             </div>
-                            <div data-w-id="f2fb9200-3f41-4cc9-a9ce-2395f5b0dabd"
-                                 style="opacity:0;-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+                            <div
+                                 style="opacity:1;-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);margin-top: -100px"
                                  class="slectpay_container">
                                 <div class="text-block-18 paypay_heading">
                                     <span class="heading1">AUTORIZZA IL PAGAMENTO</span> <br><br>
@@ -463,7 +467,10 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                                         <div class="pay_name">Contanti</div>
                                     </div>
 
-
+                                    <div class="pay_method_item bank">
+                                        <img src="images/bank-transfer.png?v=1" alt="" class="pay_icon">
+                                        <div class="pay_name">BONIFICO BANCARIO</div>
+                                    </div>
                                     <div class="pay_method_item online"><img src="images/paypal_icon.svg?v=2" alt=""
                                                                              class="pay_icon">
                                         <div class="pay_name">PayPal o Carta di Credito</div>
@@ -551,7 +558,10 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
                 $('#payment_mode').attr("value", "Contanti");
             } else if (class_name.indexOf("online") > 0) {
                 $('#payment_mode').attr("value", "Online");
+            }else if (class_name.indexOf("bank") > 0) {
+                $('#payment_mode').attr("value", "Bank");
             }
+
         });
 
         $('#booking_submit').click(function () {
@@ -578,9 +588,21 @@ WHERE lis.article_mobidoc_id='".$cr_article_id."' AND lis.doctor_id='".$cr_docto
         $(".select_payment_method_new").attr("style", "opacity:0;display:none;")
     });
 
-    // $(".more_visits").on("click", function () {
-    //     $(".select_payment_method_new").attr("style", "opacity:1;display:flex;")
-    // });
+    $(".booking.w-button").on("click", function () {
+        var get_date = $("#appoint_time").val();
+        if (get_date){
+            $(".select_payment_method").attr("style", "opacity:1;display:flex;");
+        } else {
+            alert("L'inserimento di una proposta di data e ora è necessaria.");
+        }
+
+    });
+
+
+    $(".select_payment_method .div-block-25 .next.odd").on("click", function () {
+        $(".select_payment_method").attr("style", "opacity:0;display:none;");
+
+    });
 
     $(".modify").on("click", function () {
         var cr_article_id = $(this).attr("data-article");

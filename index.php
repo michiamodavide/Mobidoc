@@ -82,7 +82,24 @@ unset($_SESSION['pat_id']);
 		.br-hide{
 			display:none;
 		}
-		
+		/****************************************/
+				.bg-overlay{
+				background-color: rgba(255,255,255,0.2);
+				top:0;
+				right: 0;
+				left: 0;
+				bottom: 0;z-index: 99;
+			}
+			.img-style1 {
+    width: 100%;
+    height: 300px;
+    max-width: 463px;
+				z-index: -999;
+				opacity: 0.2;
+}#n-section2 .feature_label {
+    z-index: 99;
+}
+		/****************************************/
 		@media (min-width: 1600px) and (max-width: 2500px) {
 		
 		#n-section2 .feature_label {
@@ -345,16 +362,32 @@ unset($_SESSION['pat_id']);
         if (strlen($visit_name1) < 20)
           $tm21_class = 'm-t-14';
       ?>
+		<style>
+	
+		</style>
+		
+		
+		
           <div class="feature diff">
 			  
 			  
 			  
 			  
 			  <a href="<?php echo $link1?>" target="_blank">
+				  
+				  
             <div class="feature_label <?php echo $tm21_class?>"><?php echo substr(wordwrap($visit_name1,35,"<br class='br-hide'> \n"), 0, 60);
                 if (strlen($visit_name1) > 60){echo '...';}
             ?> <img src="images/arrow2.png" alt=""> </div>
-            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=4" class="img-style1" alt=""> </a>
+				  
+				  <div class="bg-overlay">
+            <img src="/assets/visit_images/<?php echo strtolower($image1)?>?v=4" class="img-style1" alt=""> 
+			  
+			  </div>
+			  
+			  
+			  
+			  </a>
 		
 		
 		

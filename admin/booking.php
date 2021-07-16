@@ -60,6 +60,15 @@
     float: left;
     margin-top: 4px;
 }
+	.change_booking_status{
+		    border: 1px solid rgba(12, 229, 178, 0.41);
+    margin-left: 15px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 0 15px 0 15px;
+    background-color: transparent;
+}
+	.change_booking_status:hover, .change_booking_status:focus{border: 1px solid rgba(12, 229, 178, 0.41);}	
 /*********************************/	 
 	.wrap{
 		
@@ -85,6 +94,7 @@
 		padding: 13px 30px;
 		border-radius: 30px;
 		color: #00285c;
+        background-color: #e6e8eb;
 	}
 	.m-0-auto{
 		margin: inherit;
@@ -99,6 +109,15 @@
 	}
 	
 @media only screen and (max-width: 767px) {
+	.change_booking_status {
+    border: 1px solid rgba(12, 229, 178, 0.41);
+    margin-left: 15px;
+    height: 38px;
+    border-radius: 10px;
+    padding: 0 8px 0 16px;
+    background-color: transparent;
+    font-size: 11px;
+}
 .body-13 .admin_side_panel {
 
     top: 0.01%;
@@ -400,7 +419,7 @@
           $rows3 = mysqli_fetch_array($result3);
           $doctor_name = $rows3['fname']." ".$rows3['lname'];
         ?>
-      <div style="-webkit-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-moz-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-ms-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);opacity:0" class="bookingcard <?php echo $bbb_id?>">
+      <div style="-webkit-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-moz-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);-ms-transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);transform:translate3d(0, 30%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(5DEG) skew(0, 0);opacity:0" class="bookingcard <?php echo $bbb_id?> discount-bookingcard_<?php echo $booking_discount_id?>">
         <div class="booking_patent_image m-0-auto" style=" background-image: url('<?PHP echo $patient_pic; ?>'); overflow:hidden; position:relative;">
           <?php if($booking_status == 5 && !isset($admin_booking) || isset($admin_booking) && $admin_book_status == 1){?>
           <div class="selected_tick selected_true"> <img src="../images/Path-107.svg" width="55" alt="" class="image-4"> </div>
@@ -418,49 +437,53 @@
             <h1 class="heading-24"><?PHP echo $patient_name; ?></h1>
 
               <?php
-              if ($booking_status){
-              $flag_status_txt = '';
-              $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
-              echo '<div class="bok_status style-1">'.$flag_status_txt[$booking_status].'</div>';
-              //if ($booking_status == 2 || $booking_status == 3 || $booking_status == 4){
-              if ($booking_status < 5 ){
-                  if (empty($booking_discount_id) || !empty($booking_discount_id) && $booking_status == 3){
-                  $new_status = $booking_status+1;
+              if ($booking_status) {
+                  $flag_status_txt = '';
+                  $flag_status_txt = array('', 'Email Inviata', 'Confermato', 'Eseguito', 'Refertato', 'Pagato');
+                  echo '<div class="bok_status style-1">' . $flag_status_txt[$booking_status] . '</div>';
+
+             if (empty($rows['total_discount'])){
               ?>
-                  <a class="active_anchor" href="/booking_status.php?bkg_id=<?php echo $bbb_id?>&booking_flag=<?php echo $new_status?>&admin=1">
-                  <div class="flag_status"><?=$flag_status_txt[$booking_status+1]?></div>
-              </a>
 
-              <?php }}}?>
+                  <select name="change_booking_status" class="change_booking_status select-style" booking-id="<?=$bbb_id?>">
+                      <option value="">Seleziona Stato</option>
+                      <?php
+                      foreach ($flag_status_txt as $key => $flag_status) {
+                          if ($key > 0){
+                              ?>
+                              <option value="<?=$key?>" status-name="<?=$flag_status?>"><?=$flag_status?></option>
+                          <?php }}?>
+                  </select>
+                  <?php } }?>
 
-			  
 			  </div>
 			  
 			    <div class="wrap2">
-            
 
-              <?php
-              $flag_status_txt = '';
-              $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
 
-              echo '<div class="bok_status style-1">'.$flag_status_txt[$booking_status].'</div>';
-              if ($booking_status == 2 || $booking_status == 3 || $booking_status == 4){
-                  $new_status = $booking_status+1;
-              ?>
-                  <a class="active_anchor" href="/booking_status.php?bkg_id=<?php echo $bbb_id?>&booking_flag=<?php echo $new_status?>&admin=1">
-                  <div class="flag_status"><?=$flag_status_txt[$booking_status+1]?></div>
-              </a>
-					
+                    <?php
+                    if ($booking_status) {
+                        $flag_status_txt = '';
+                        $flag_status_txt = array('', 'Email Inviata', 'Confermato', 'Eseguito', 'Refertato', 'Pagato');
+                        echo '<div class="bok_status style-1">' . $flag_status_txt[$booking_status] . '</div>';
+                        ?>
 
-              <?php }?>
-			  
-			  
-			  
-			  
+                        <select name="change_booking_status" class="change_booking_status" booking-id="<?=$bbb_id?>">
+                            <option value="">Seleziona Stato</option>
+                            <?php
+                            foreach ($flag_status_txt as $key => $flag_status) {
+                                if ($key > 0){
+                                    ?>
+                                    <option value="<?=$key?>" status-name="<?=$flag_status?>"><?=$flag_status?></option>
+                                <?php }}?>
+                        </select>
+                    <?php }?>
+
+
 			  </div>
 			  <h1 class="heading-24 hide-w"><?PHP echo $patient_name; ?></h1>
             <div class="div">
-                <?php if ($booking_status < 5){?>
+                <?php if ($booking_status < 5 && empty($rows['total_discount'])){?>
                     <a href="/admin/edit-booking.php?id=<?php echo $bbb_id;?>" class="open_booking w-button bg-color">Modifica</a>
                 <?php }?>
                 <a href="<?php echo $booking_id;?>" class="open_booking w-button">Vedi dettagli</a> </div>
@@ -572,6 +595,65 @@
      });
 
  });
+
+
+    $('.admin_pyment_confirm').click(function() {
+        var payment_status = $(this).val();
+        var booking_id = $(this).attr("data-id");
+        console.log(payment_status);
+        if (payment_status == 0){
+            var payment_status = 1;
+            $(this).val(payment_status);
+        } else {
+            var payment_status = 0;
+            $(this).val(payment_status);
+        }
+        $.ajax({
+            url: "admin_payment_status.php",
+            type: "post",
+            data: {booking_id: booking_id, payment_status: payment_status},
+            success: function (response) {
+                // console.log(response);
+                if (response == 'true'){
+                    if (payment_status == 1){
+                        $(".bookingcard."+booking_id+" .selected_tick.selected_true").css("opacity", "1");
+                        $(this).prop('checked', true);
+                    } else {
+                        $(".bookingcard."+booking_id+" .selected_tick.selected_true").css("opacity", "0")
+                        $(this).prop('checked', false);
+                    }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+
+    });
+
+    $( ".change_booking_status").change(function() {
+        var get_current_value = $(this).val();
+        var get_current_name = $('option:selected', this).attr('status-name');
+        var get_booking_id = $(this).attr('booking-id');
+        if (get_current_value) {
+            $.ajax({
+                url: "/booking_status.php",
+                type: "POST",
+                data: {bkg_id: get_booking_id, booking_flag: get_current_value, admin:1},
+                success: function (response) {
+                    console.log(response);
+                    if (response == 'true'){
+                        $(".bookingcard."+get_booking_id+" .bok_status, .discount-bookingcard_"+get_booking_id+" .bok_status").text(get_current_name);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        }
+
+    });
+
 
  // $(".active_anchor").on("click", function () {
  //     var check_status = $(this).attr("data-status");
