@@ -1,6 +1,6 @@
 <?php
-$booking_id = $_GET['bkg_id'];
-$booking_flag = $_GET['booking_flag'];
+$booking_id = $_REQUEST['bkg_id'];
+$booking_flag = $_REQUEST['booking_flag'];
 
 include 'connect.php';
 
@@ -9,7 +9,7 @@ if($conn === false){
 }
 
 $is_admin = 0;
-if (isset($_GET['admin']) && $_GET['admin'] == 1){
+if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 1){
     $is_admin = 1;
 }
 
@@ -26,7 +26,7 @@ if ($result == 1) {
     if ($booking_flag == 2){
 
         /*get booked visits*/
-        $sql_book = "select bs.article_id, ms.descrizione, ms.attributo, bk.doctor_id, bk.patient_id, bk.price, bk.total_discount, bk.km_price, bk.apoint_time, bk.payment_mode 
+        $sql_book = "select bs.article_id, ms.descrizione, ms.attributo, bk.doctor_id, bk.patient_id, bk.price, bk.total_discount, bk.km_price, bk.apoint_time, bk.payment_mode
 from bookings bk
 join booked_service bs on bs.booking_id=bk.booking_id
 join articlesMobidoc ms on ms.id=bs.article_id
@@ -248,9 +248,9 @@ where bk.booking_id = '".$booking_id."' or bk.booking_discount_id = '".$booking_
 
     }
 
-
     if ($is_admin == 1){
-        header("Location: /admin/booking.php");
+        //header("Location: /admin/booking.php");
+        echo "true";
     }else{
         header("Location: /professionisti/account.php");
     }

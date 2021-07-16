@@ -38,6 +38,10 @@
 		$rows = mysqli_fetch_array($result);
 		$profile_img = $rows['photo'];
 
+        $marketing_consent = 'N';
+        if (isset($_POST['marketing_consent']) && $_POST['marketing_consent'] == 'Y') {
+            $marketing_consent = 'Y';
+        }
 		
 		if($_FILES["upload-image"]["error"] != 0) {
 			$photo = $profile_img;
@@ -51,7 +55,7 @@
 		date_default_timezone_set("Europe/Rome");
 		$dor = date("Y/m/d H:i:s");
 		
-		$sql = "update doctor_profile set fname='$fname', lname='$lname', dob='$dob', photo='$photo', fiscale='$fiscal', vat_number='$vat', description='$profile_description', phone='$tel', street_name='$street_name', street_no='$street_no', comune='$comune', province='$province', cap='$cap', dor='$dor', lastDatePrivacyConsent='$dor' where email = '$email'";
+		$sql = "update doctor_profile set fname='$fname', lname='$lname', dob='$dob', photo='$photo', fiscale='$fiscal', vat_number='$vat', description='$profile_description', phone='$tel', street_name='$street_name', street_no='$street_no', comune='$comune', province='$province', cap='$cap', dor='$dor', lastDatePrivacyConsent='$dor', marketing_consent='$marketing_consent', lastDateMarketingConsent='$dor' where email = '$email'";
 		
 		move_uploaded_file($_FILES["upload-image"]["tmp_name"], $photo);
 	

@@ -17,7 +17,7 @@ else {
   <meta content="Webflow" name="generator">
   <link href="../css/normalize.css" rel="stylesheet" type="text/css">
   <link href="../css/webflow.css" rel="stylesheet" type="text/css">
-  <link href="../css/mobidoc.webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/mobidoc.webflow.css?v=1" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Poppins:100,100italic,200,300,300italic,regular,500,600,700,800,900","PT Serif Caption:regular"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -40,6 +40,7 @@ else {
 	.p{
   	text-align-last: center !important;
   }
+.tbl-radio{color: #00285c;width: 60%;margin: 0 auto 3px auto;text-align: left;}
 </style>
 <script>
 function readURL(input) {
@@ -56,7 +57,7 @@ function readURL(input) {
  <?php include ("../cam_visit.php")?>
 </head>
 
-<body class="edit_profile">
+<body class="edit_profile edt_profile">
   <?php include '../header-prof.php';?>
   <div class="master_head detaild">
     <div class="custom_container detailed">
@@ -85,6 +86,17 @@ function readURL(input) {
 		$vat_number = $rows['vat_number'];
 		$title = $rows['title'];
 		$profile_description = $rows['description'];
+
+		$is_marketing_consent = $rows['marketing_consent'];
+
+		$check_minus = '';
+		$check_plus = '';
+		if ($is_marketing_consent == 'N')
+            $check_minus = 'checked';
+
+        $check_plus = '';
+        if ($is_marketing_consent == 'Y')
+            $check_plus = 'checked';
 	/*
 		$education = $rows['education'];
 		$experience = $rows['experience'];
@@ -364,6 +376,48 @@ WHERE ms.status='Y' AND ls.doctor_id='".$doctor_id."' AND (am.home = 'Y' OR am.t
                     </span>
                     </label>
                 </div>
+
+                <div class="check_box_container" style="margin-top:30px;">
+                    <label class="w-checkbox checkbox-field" style="padding-left: 0px;">
+                 <span class="prff w-form-label w-m">
+                      <span class="text-span-4">
+                       Consenso al Trattamento di Dati Personali: Letta e compresa l’informativa privacy, premendo su “Presto il consenso” o “Nego il consenso”, esprimo la mia volontà in merito al trattamento dei miei dati personali per finalità di marketing: invio di comunicazioni di carattere commerciale, informativo e promo-pubblicitario su prodotti, servizi ed attività di Tekamed S.r.l., con modalità automatizzate di contatto o comunicazioni elettroniche mediante l’utilizzo di posta elettronica e messaggi del tipo SMS, IM, MMS, notifiche push; compimento di indagini di mercato e rilevazione del gradimento e della soddisfazione sui servizi resi agli interessati. Comunicazioni informative, commerciali e pubblicitarie che acconsento a ricevere anche tramite posta cartacea o chiamate telefoniche. Questo consenso potrà essere revocato nello stesso modo.
+                      </span>
+                    </span>
+                    </label>
+
+                </div>
+                <table class="tbl-radio" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <input <?=$check_plus?> type="radio" id="yes" name="marketing_consent" value="Y">
+                                    </td>
+                                    <td><label for="yes">Presto il consenso</label></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <input <?=$check_minus?> type="radio" id="no" name="marketing_consent" value="N">
+                                    </td>
+                                    <td><label for="no">Nego il consenso</label></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
               </div>
               
 

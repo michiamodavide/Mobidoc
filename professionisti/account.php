@@ -89,11 +89,12 @@ $rows3 = mysqli_fetch_array($result3);
 	 .green-btn{
 		 
    border: 1px solid #ddd;
-padding: 13px 30px;
+padding: 13px 15px;
     border-radius: 50px;
 		 margin-bottom: 15px;
 		     font-family: Poppins, sans-serif;
     font-size: 11px;
+         width: 175px;
 	 }
 	 
 	 
@@ -377,7 +378,7 @@ padding: 13px 30px;
              <div>
                  <?php
                  $flag_status_txt = '0';
-                 $flag_status_txt = array('','Email Inviata','Confermato','Eseguito','Refertato','Pagato');
+                 $flag_status_txt = array('','Email Inviata','Conferma Prenotazione','Eseguito','Refertato','Pagato');
 
                  if ($is_booking == 1 && $rows['admin_book'] != 1 && !empty($booking_status && empty($rows['booking_discount_id']))){
                      $new_status = $booking_status+1;
@@ -451,14 +452,16 @@ padding: 13px 30px;
                if ($booking_status < 3){
                 echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' .exam-share-btn, .appoint_buttons_container.book_btn_'.$rows['booking_id'].' .visit_complete{pointer-events: none !important;opacity: 0.4 !important;}</style>';
                }
-               if (!empty($rows['booking_discount_id'])){
-                   echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' .visit_complete{pointer-events: none !important;opacity: 0.4 !important;}</style>';
-               }
+               if (empty($rows['booking_discount_id'])){
+
                ?>
             <a data-w-id="5287ebc5-906c-b8a2-9414-a7b9a3835c86" href="#" class="button-5 visit_complete w-button">Visita Completata</a>
             <a href="javascript:;" visit-name="<?php echo $visit_name;?>" visit_attribute="<?php echo $visit_attribute?>" article-id="<?php echo $article_id; ?>" data-id="<?php echo $booking_id?>" curr-doc-nam="<?php echo $current_doc_name?>" curr-doc-id="<?php echo $doctor_id?>" class="button-5 faded diff w-button exam-share-btn" style="background-color: #0ce5b2;">Condividi esame</a>
             <a href="/professionisti/edit-booking.php?bookid=<?php echo $booking_id?>&article_id=<?=$article_id?>&visit_name=<?=$visit_name?>&attribute=<?php echo $visit_attribute?>" class="button-5 faded diff w-button edit-booking-btn" style="background-color: #f8dbdb;;">Modifica</a>
-           <?php } ?>
+           <?php }else{
+                   echo '<style>.appoint_buttons_container.book_btn_'.$rows['booking_id'].' .visit_complete{pointer-events: none !important;opacity: 0.4 !important;}</style>';
+
+               } } ?>
         <?php if ($rows['admin_book'] == 1){
                    if (empty($rows['total_discount'])) {
                        ?>

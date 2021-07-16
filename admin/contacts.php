@@ -249,7 +249,7 @@
               <div class="glance_details">
                   <div class="glance_details_title" style="font-size: 14px">
                       <input type="checkbox" <?php echo $is_check?> class="privacy_consent lable2" id="privacy_consent" name="privacy_consent" value="<?=$privacy_consent?>" data-id="<?=$contact_id?>">
-                      <label for="privacy_consent">Privacy Consent</label>
+                      <label for="privacy_consent">Consenso Privacy</label>
                   </div>
                   <br>
               </div>
@@ -264,7 +264,7 @@
               <div class="glance_details">
                   <div class="glance_details_title" style="font-size: 14px">
                       <input type="checkbox" <?php echo $is_check1?> class="marketing_consent lable2" id="marketing_consent" name="marketing_consent" value="<?=$marketing_consent?>" data-id="<?=$contact_id?>">
-                      <label for="marketing_consent">Marketing Consent</label>
+                      <label for="marketing_consent">Marketing Consenso</label>
                   </div>
                   <br>
               </div>
